@@ -5,7 +5,7 @@ I share my scripts over here so that it can be a guide or maybe to get you new i
 <br />
 # MyDomoticz-Hardware:
 1x Raspi Pi 3 + RFXtrx433E for Domoticz<br /> 
-1x Raspi Pi 3 for logging data like gas and electricity, backups<br />
+1x Raspi Pi 3 for running Pi-Hole and do some logging data like gas and electricity as well as storing backups<br />
 Both are stacked with a PIco hv3.0A Stack Plus<br />
 <br />
 3x Foscam FI9803P<br />
