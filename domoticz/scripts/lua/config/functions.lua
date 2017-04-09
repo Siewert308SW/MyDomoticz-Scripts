@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 7-4-2017
+	@ updated	: 9-4-2017
 	@ All global functions needed
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -292,6 +292,7 @@ if timer_body0 ~= nil then	print('- '..timer_body0..'')	end
 if timer_body1 ~= nil then	print('- '..timer_body1..'')	end
 if timer_body2 ~= nil then	print('- '..timer_body2..'')	end	
 if timer_body3 ~= nil then	print('- '..timer_body3..'')	end
+if timer_body4 ~= nil then	print('- '..timer_body4..'')	end
 							print(' ')
 							print (IsEventArray())							
 							print '============================================================='
