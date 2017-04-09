@@ -3,6 +3,18 @@ Here you'll find my Domoticz scripts which keep my household up and running.<br 
 I am not a coder so those script could be made cleaner but as long as they work I'll be happy with it.<br />
 I share my scripts over here so that it can be a guide or maybe to get you new inspiration.<br />
 <br />
+# MyDomoticz-Hardware:
+1x Raspi Pi 3 + RFXtrx433E for Domoticz<br /> 
+1x Raspi Pi 3 for logging data like gas and electricity, backups<br />
+Both are stacked with a PIco hv3.0A Stack Plus<br />
+<br />
+3x Foscam FI9803P<br />
+2x Youless Elec/Gas<br />
+4x KD101 smoke detectors<br />
+And a lot of KaKu/Coco devices<br />
+<br />
+Both my setups are running its /rootfs from a unpowered USB HDD<br />
+<br />
 # MyDomoticz-Scripts:
 You'll notice that most of all my event scripts have a REPEAT / INTERVAL commandArray.<br />
 As my current home automation system is based on KaKu/CoCo 433Mhz modules.<br />
