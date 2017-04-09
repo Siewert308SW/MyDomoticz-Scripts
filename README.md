@@ -21,7 +21,7 @@ As my current home automation system is based on KaKu/CoCo 433Mhz modules.<br />
 Which are a one way system and there for not giving any feedback to Domoticz if the device is really ON or OFF<br />
 By using a REPEAT / INTERVAL commandArray i try to overrule the possibility of a missed signal.<br />
 It aint ideal but for now it suites me and works fine until i can/will switch to Zwave.<br />
-
+<br />
 You will also notice i don't use the coventional Lua scripting way.<br />
 Meaning that normally all your event and timer scripts are situated in one folder (/lua) under Domoticz.<br />
 Which is then checked by Domoticz and triggered if needed.<br />
