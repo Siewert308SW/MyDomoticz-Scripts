@@ -51,3 +51,6 @@ Which contains my Lua, Bash, Python and other scripts.<br />
 Some of those are my own and others found or used from other users.<br />
 My script repository can be in handy for you to do some inspiration or guide.<br />
 But you can't use them one on one as my hardware setup is different from yours.<br />
+<br />
+# MyDomoticz-Screenshots:
+![alt text](screenshots/motd.png "motd")
