@@ -4,7 +4,7 @@
 	@ worker.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 6-4-2017
+	@ updated	: 10-4-2017
 	@ All handlers which should/could trigger a event
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -17,7 +17,10 @@ function IsWorker()
 -- **********************************************************
 --
 
-	if devicechanged[trigger.someonehome] or otherdevices[trigger.visitors]	or devicechanged[trigger.someonehome_standby] or devicechanged[trigger.nobody_home]	
+	if devicechanged[trigger.someonehome]
+		or otherdevices[trigger.visitors]
+		or devicechanged[trigger.someonehome_standby] 
+		or devicechanged[trigger.nobody_home]	
 	then
 		dofile(lua.events.."someone_home.lua")	
 		dofile(lua.events.."lights_livingroom.lua")
@@ -35,11 +38,13 @@ function IsWorker()
 	if devicechanged[trigger.phone_1]
 		or devicechanged[trigger.phone_2]
 		or devicechanged[trigger.phone_3]
+		or devicechanged[trigger.phone_4]		
 		or devicechanged[trigger.phone_switch]		
 	then
 		dofile(lua.events.."switch_phones.lua")
 		dofile(lua.events.."someone_leaving.lua")
-		dofile(lua.events.."activity_security_alarm.lua")		
+		dofile(lua.events.."activity_security_alarm.lua")
+		dofile(lua.events.."activity_visitors.lua")		
 	end
 	
 --
@@ -190,19 +195,6 @@ function IsWorker()
 	then
 		dofile(lua.events.."someone_arriving.lua")		
 	end
-
---
--- **********************************************************
--- Dummy Device Activity
--- **********************************************************
---		
-
-	if devicechanged[trigger.dummy1] or devicechanged[trigger.dummy2] or devicechanged[trigger.dummy3]
-	then
-		dofile(lua.events.."dummy.lua")	
-		dofile(lua.events.."activity_fire_alarm.lua")			
-	end
-
 
 --
 -- **********************************************************
