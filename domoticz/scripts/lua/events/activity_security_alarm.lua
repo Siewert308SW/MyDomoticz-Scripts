@@ -4,7 +4,7 @@
 	@ activity_security_alarm.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 6-4-2017
+	@ updated	: 10-4-2017
 	@ Security script
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -22,6 +22,7 @@
 	local phone_1 						= 'Jerina GSM'
 	local phone_2 						= 'Siewert GSM'
 	local phone_3 						= 'Natalya GSM'	
+	local phone_4 						= 'Oma GSM'
 	
 -- Door/Window Sensors	
 	local frontdoor						= 'Voor Deur'			
@@ -59,7 +60,8 @@
     if otherdevices[phone_1] == 'On' then p1=1 else p1=0 end
 	if otherdevices[phone_2] == 'On' then p2=1 else p2=0 end
 	if otherdevices[phone_3] == 'On' then p3=1 else p3=0 end
-	   phones_home=(p1 + p2 + p3)
+	if otherdevices[phone_4] == 'On' then p4=1 else p4=0 end	
+	   phones_home=(p1 + p2 + p3 + p4)
 
 	phones_var = tonumber(uservariables[security_activation_phones])	
 	phones_var = phones_home
@@ -97,7 +99,7 @@ end
 --
 
 if (globalvariables["Security"] == 'Armed Away' and timedifference(otherdevices_lastupdate[frontdoor]) < timeout_motion_disarm
-	and (devicechanged[phone_switch] == 'On' or devicechanged[phone_1] == 'On' or devicechanged[phone_2] == 'On' or devicechanged[phone_3] == 'On' or devicechanged[laptop_switch] == 'On')) 
+	and (devicechanged[phone_switch] == 'On' or devicechanged[phone_1] == 'On' or devicechanged[phone_2] == 'On' or devicechanged[phone_3] == 'On' or devicechanged[phone_4] == 'On' or devicechanged[laptop_switch] == 'On')) 
 then
     commandArray['Domoticz Security Panel'] = 'Disarm'
 	if uservariables[security_activation_type] ~= 0 then commandArray["Variable:" .. security_activation_type .. ""]= '0' end
@@ -107,7 +109,7 @@ then
 -- **********************************************************
 
 elseif (globalvariables["Security"] == 'Armed Away' and timedifference(otherdevices_lastupdate[backdoor]) < timeout_motion_disarm
-	and (devicechanged[phone_switch] == 'On' or devicechanged[phone_1] == 'On' or devicechanged[phone_2] == 'On' or devicechanged[phone_3] == 'On' or devicechanged[laptop_switch] == 'On')) 
+	and (devicechanged[phone_switch] == 'On' or devicechanged[phone_1] == 'On' or devicechanged[phone_2] == 'On' or devicechanged[phone_3] == 'On' or devicechanged[phone_4] == 'On' or devicechanged[laptop_switch] == 'On')) 
 then
     commandArray['Domoticz Security Panel'] = 'Disarm'
 	if uservariables[security_activation_type] ~= 0 then commandArray["Variable:" .. security_activation_type .. ""]= '0' end
@@ -117,7 +119,7 @@ then
 -- **********************************************************
 
 elseif (globalvariables["Security"] == 'Armed Home' and timedifference(otherdevices_lastupdate[frontdoor]) < timeout_motion_disarm	
-	and (devicechanged[phone_switch] == 'On' or devicechanged[phone_1] == 'On' or devicechanged[phone_2] == 'On' or devicechanged[phone_3] == 'On' or devicechanged[laptop_switch] == 'On')) 
+	and (devicechanged[phone_switch] == 'On' or devicechanged[phone_1] == 'On' or devicechanged[phone_2] == 'On' or devicechanged[phone_3] == 'On' or devicechanged[phone_4] == 'On' or devicechanged[laptop_switch] == 'On')) 
 then
     commandArray['Domoticz Security Panel'] = 'Disarm'
 	if uservariables[security_activation_type] ~= 0 then commandArray["Variable:" .. security_activation_type .. ""]= '0' end
@@ -127,7 +129,7 @@ then
 -- **********************************************************
 
 elseif (globalvariables["Security"] == 'Armed Home' and timedifference(otherdevices_lastupdate[backdoor]) < timeout_motion_disarm	
-	and (devicechanged[phone_switch] == 'On' or devicechanged[phone_1] == 'On' or devicechanged[phone_2] == 'On' or devicechanged[phone_3] == 'On' or devicechanged[laptop_switch] == 'On')) 
+	and (devicechanged[phone_switch] == 'On' or devicechanged[phone_1] == 'On' or devicechanged[phone_2] == 'On' or devicechanged[phone_3] == 'On' or devicechanged[phone_4] == 'On' or devicechanged[laptop_switch] == 'On')) 
 then
     commandArray['Domoticz Security Panel'] = 'Disarm'
 	if uservariables[security_activation_type] ~= 0 then commandArray["Variable:" .. security_activation_type .. ""]= '0' end
@@ -217,5 +219,3 @@ if devicechanged[sirene_loop] == 'On' and uservariables[security_activation_type
 	--commandArray["Group:" ..sirene_scene.. ""]='On'	
 end	
 --]]
-
--- Script not finished yet

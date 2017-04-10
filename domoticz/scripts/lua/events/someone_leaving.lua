@@ -4,7 +4,7 @@
 	@ someone_leaving.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 5-4-2017
+	@ updated	: 10-4-2017
 	@ Script to switch Garden Lights when OFF and someone is leaving the house
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -156,6 +156,15 @@ then
 end
 
 if  devicechanged[phone_3] == 'Off'
+	and otherdevices[shed_lights]   ~= 'Off'
+	and otherdevices[leaving_standby]   == 'On'
+then	
+		commandArray[leaving_standby]='Off AFTER 30'		
+		commandArray["Group:" ..garden_lights_leave_scene.. ""]='Off AFTER 15 REPEAT 3 INTERVAL 10'	
+		event_body = '.............................................................'		
+end
+
+if  devicechanged[phone_4] == 'Off'
 	and otherdevices[shed_lights]   ~= 'Off'
 	and otherdevices[leaving_standby]   == 'On'
 then	

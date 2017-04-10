@@ -4,7 +4,7 @@
 	@ triggers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 5-4-2017
+	@ updated	: 10-4-2017
 	@ All devices which can trigger a event in a scene
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -22,6 +22,7 @@
 		phone_1 						= 'Jerina GSM',
 		phone_2 						= 'Siewert GSM',
 		phone_3 						= 'Natalya GSM',
+		phone_4 						= 'Oma GSM',		
 		phone_switch 			        = 'Telefoons',
 
 	-- Portable Devices	

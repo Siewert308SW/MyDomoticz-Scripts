@@ -4,7 +4,7 @@
 	@ someone_home.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 5-4-2017
+	@ updated	: 10-4-2017
 	@ Script for switching SomeOneHome ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -144,19 +144,23 @@
 	ping_phone1="192.168.178.0" -- Siewert GSM
 	ping_phone2="192.168.178.0" -- Jerina GSM
 	ping_phone3="192.168.178.0" -- Natalya GSM	
+	ping_phone4="192.168.178.0" -- Oma GSM
 		ping_phone_1=os.execute('sudo ping -q -c1 -W 1 '..ping_phone1..'')
 		if not ping_phone_1 and otherdevices['Iemand Thuis'] == 'On' then
-		ping_phone_2=os.execute('sudo ping -q -c1 -W 1 '..ping_phone2..'')		
-		if not ping_phone_2 and otherdevices['Iemand Thuis'] == 'On' then
-		ping_phone_3=os.execute('sudo ping -q -c1 -W 1 '..ping_phone3..'')		
-		if not ping_phone_3 and otherdevices['Iemand Thuis'] == 'On' then
-		timer_body = 'All phones are offline and no motion detected for over '..timeout_someone_away..' seconds'
-		timer_body0 = 'Assuming everyone went away'		
-		timer_body1 = 'Deactivating your home now!'
-		commandArray['Iemand Thuis']='Off'
-		commandArray['Iemand Thuis - Standby']='Off AFTER 30'
-		commandArray['Niemand Thuis']='On AFTER 60'		
-		end			
-		end			
-		end		
+			ping_phone_2=os.execute('sudo ping -q -c1 -W 1 '..ping_phone2..'')		
+			if not ping_phone_2 and otherdevices['Iemand Thuis'] == 'On' then
+				ping_phone_3=os.execute('sudo ping -q -c1 -W 1 '..ping_phone3..'')		
+				if not ping_phone_3 and otherdevices['Iemand Thuis'] == 'On' then
+					ping_phone_4=os.execute('sudo ping -q -c1 -W 1 '..ping_phone4..'')		
+					if not ping_phone_4 and otherdevices['Iemand Thuis'] == 'On' then		
+					timer_body = 'All phones are offline and no motion detected for over '..timeout_someone_away..' seconds'
+					timer_body0 = 'Assuming everyone went away'		
+					timer_body1 = 'Deactivating your home now!'
+					commandArray['Iemand Thuis']='Off'
+					commandArray['Iemand Thuis - Standby']='Off AFTER 30'
+					commandArray['Niemand Thuis']='On AFTER 60'		
+					end			
+				end			
+			end
+		end	
 	end
