@@ -4,7 +4,7 @@
 	@ activity_heating.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 9-4-2017
+	@ updated	: 10-4-2017
 	@ Script to switch ON/OFF heating when someone @ home or not
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -24,7 +24,7 @@
 	local nest_setpoint_idx				= 77
 	local setpoint_low					= 17
 	local setpoint_high					= 21
-	local max_nest_trigger_temp			= 20.5	
+	local setpoint_max_trigger_temp		= 20.5	
 	
 -- Outside Temp Various
 	local outside_temp					= 'Temp + Humidity + Baro'
@@ -56,19 +56,18 @@
 	if otherdevices[someonehome] == 'On'
 		and otherdevices[pico_power] == 'On' 
 		and setpoint_current_temp == setpoint_low
-		and sNestTemp < max_nest_trigger_temp
+		and sNestTemp < setpoint_max_trigger_temp
 		and sOutsideTemp <= outside_temp_max		
 		and timebetween("08:30:00","18:00:00")
 		and weekend == 1
 		and uservariables[security_activation_type] == 0		
 	then
-		timer_body = 'Heating turned ON...'
+		timer_body = 'Somebody home, Heating turned ON...'
 		timer_body0 = 'Current Room Temp: '..sNestTemp..''		
 		timer_body1 = 'Current Setpoint: '..setpoint_current_temp..''
 		timer_body2 = 'New Setpoint: '..setpoint_high..''
 		timer_body3 = 'Current Outside Temp: '..sOutsideTemp..''		
-		commandArray["OpenURL"]="http://"..domoticz.ip..":"..domoticz.port.."/json.htm?type=command&param=udevice&idx="..nest_setpoint_idx.."&nvalue=0&svalue="..setpoint_high..""		
-	
+		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_high)	
 	end
 	
 --
@@ -80,19 +79,18 @@
 	if otherdevices[someonehome] == 'On'
 		and otherdevices[pico_power] == 'On' 
 		and setpoint_current_temp == setpoint_low
-		and sNestTemp < max_nest_trigger_temp
+		and sNestTemp < setpoint_max_trigger_temp
 		and sOutsideTemp <= outside_temp_max		
 		and timebetween("08:00:00","18:00:00")
 		and weekend == 0
 		and uservariables[security_activation_type] == 0		
 	then
-		timer_body = 'Heating turned ON...'
+		timer_body = 'Somebody home, Heating turned ON...'
 		timer_body0 = 'Current Room Temp: '..sNestTemp..''		
 		timer_body1 = 'Current Setpoint: '..setpoint_current_temp..''
 		timer_body2 = 'New Setpoint: '..setpoint_high..''
 		timer_body3 = 'Current Outside Temp: '..sOutsideTemp..''		
-		commandArray["OpenURL"]="http://"..domoticz.ip..":"..domoticz.port.."/json.htm?type=command&param=udevice&idx="..nest_setpoint_idx.."&nvalue=0&svalue="..setpoint_high..""		
-	
+		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_high)
 	end	
 
 --
@@ -109,12 +107,12 @@
 		and timebetween("18:00:01","22:30:00")	
 		and uservariables[security_activation_type] == 0		
 	then
-		timer_body = 'Heating turned ON...'
+		timer_body = 'Somebody home, Heating turned ON...'
 		timer_body0 = 'Current Room Temp: '..sNestTemp..''		
 		timer_body1 = 'Current Setpoint: '..setpoint_current_temp..''
 		timer_body2 = 'New Setpoint: '..setpoint_high..''
 		timer_body3 = 'Current Outside Temp: '..sOutsideTemp..''		
-		commandArray["OpenURL"]="http://"..domoticz.ip..":"..domoticz.port.."/json.htm?type=command&param=udevice&idx="..nest_setpoint_idx.."&nvalue=0&svalue="..setpoint_high..""		
+		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_high)	
 	end
 	
 --
@@ -135,7 +133,7 @@
 		timer_body2 = 'Current Setpoint: '..setpoint_current_temp..''
 		timer_body3 = 'New Setpoint: '..setpoint_low..''
 		timer_body4 = 'Current Outside Temp: '..sOutsideTemp..''		
-		commandArray["OpenURL"]="http://"..domoticz.ip..":"..domoticz.port.."/json.htm?type=command&param=udevice&idx="..nest_setpoint_idx.."&nvalue=0&svalue="..setpoint_low..""		
+		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_low)		
 	end		
 	
 --
@@ -151,13 +149,12 @@
 		and timebetween("22:30:01","00:00:00")
 		and weekend == 0		
 	then
-		timer_body = 'Someone still at home @ nighttime'
-		timer_body0 = 'Heating turned OFF'
-		timer_body1 = 'Current Room Temp: '..sNestTemp..''		
-		timer_body2 = 'Current Setpoint: '..setpoint_current_temp..''
-		timer_body3 = 'New Setpoint: '..setpoint_low..''
-		timer_body4 = 'Current Outside Temp: '..sOutsideTemp..''		
-		commandArray["OpenURL"]="http://"..domoticz.ip..":"..domoticz.port.."/json.htm?type=command&param=udevice&idx="..nest_setpoint_idx.."&nvalue=0&svalue="..setpoint_low..""		
+		timer_body = 'Heating turned OFF as per midweek evening schedule'
+		timer_body0 = 'Current Room Temp: '..sNestTemp..''		
+		timer_body1 = 'Current Setpoint: '..setpoint_current_temp..''
+		timer_body2 = 'New Setpoint: '..setpoint_low..''
+		timer_body3 = 'Current Outside Temp: '..sOutsideTemp..''		
+		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_low)		
 	end	
 	
 	if otherdevices[someonehome] == 'On'
@@ -167,13 +164,12 @@
 		and timebetween("23:30:00","00:00:00")
 		and weekend == 1		
 	then
-		timer_body = 'Someone still at home @ nighttime'
-		timer_body0 = 'Heating turned OFF'
-		timer_body1 = 'Current Room Temp: '..sNestTemp..''		
-		timer_body2 = 'Current Setpoint: '..setpoint_current_temp..''
-		timer_body3 = 'New Setpoint: '..setpoint_low..''
-		timer_body4 = 'Current Outside Temp: '..sOutsideTemp..''		
-		commandArray["OpenURL"]="http://"..domoticz.ip..":"..domoticz.port.."/json.htm?type=command&param=udevice&idx="..nest_setpoint_idx.."&nvalue=0&svalue="..setpoint_low..""		
+		timer_body = 'Heating turned OFF as per weekend evening schedule'
+		timer_body0 = 'Current Room Temp: '..sNestTemp..''		
+		timer_body1 = 'Current Setpoint: '..setpoint_current_temp..''
+		timer_body2 = 'New Setpoint: '..setpoint_low..''
+		timer_body3 = 'Current Outside Temp: '..sOutsideTemp..''		
+		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_low)		
 	end		
 
 --
@@ -187,11 +183,19 @@
 		and setpoint_current_temp ~= setpoint_low
 		and uservariables[security_activation_type] == 0
 	then
-		timer_body = 'Nobody at home or everyone is sleeping'
-		timer_body0 = 'Heating turned OFF'
-		timer_body1 = 'Current Room Temp: '..sNestTemp..''		
-		timer_body2 = 'Current Setpoint: '..setpoint_current_temp..''
-		timer_body3 = 'New Setpoint: '..setpoint_low..''
-		timer_body4 = 'Current Outside Temp: '..sOutsideTemp..''		
-		commandArray["OpenURL"]="http://"..domoticz.ip..":"..domoticz.port.."/json.htm?type=command&param=udevice&idx="..nest_setpoint_idx.."&nvalue=0&svalue="..setpoint_low..""		
+	
+	if timebetween("05:00:00","22:00:00") then
+		timer_body = 'Everybody went away, Heating turned OFF'
+	elseif timebetween("22:00:01","00:00:00") then
+		timer_body = 'Everybody went to bed, Heating turned OFF'
+	elseif timebetween("00:00:01","05:00:00") then
+		timer_body = 'Everybody went to bed, Heating turned OFF'		
+	else
+		timer_body = 'Nobody at home anymore, Heating turned OFF'	
+	end
+		timer_body0 = 'Current Room Temp: '..sNestTemp..''		
+		timer_body1 = 'Current Setpoint: '..setpoint_current_temp..''
+		timer_body2 = 'New Setpoint: '..setpoint_low..''
+		timer_body3 = 'Current Outside Temp: '..sOutsideTemp..''		
+		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_low)		
 	end
