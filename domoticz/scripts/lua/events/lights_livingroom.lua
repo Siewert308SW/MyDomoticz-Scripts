@@ -4,7 +4,7 @@
 	@ lights_livingroom.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 9-4-2017
+	@ updated	: 10-4-2017
 	@ Script to switch various livingroom light scenes and Standby Killer events ON/OFF
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -30,6 +30,7 @@
 	local killer_scene_on				= 'Standby Killers ON'	
 	local killer_scene_off_mediaON		= 'Standby Killers OFF - Media ON'	
 	local killer_scene_off_mediaOFF		= 'Standby Killers OFF - Media OFF'	
+	local visitors_stage				= 'Woonkamer_Visite'	
 	
 -- Various Switches
 	local someonehome					= 'Iemand Thuis'
@@ -152,6 +153,9 @@ lightswitch_condition	= (otherdevices[television] == 'Off' and otherdevices[visi
 		and uservariables[security_activation_type] == 0 		
 	then	
 		commandArray["Group:" ..stage_2.. ""]='On'
+		if otherdevices[twilight2] == 'Off' then	
+		commandArray[""..twilight2..""]='On AFTER 7'		
+		end		
 		event_body = '.............................................................'	
 	end
 	
@@ -173,14 +177,60 @@ lightswitch_condition	= (otherdevices[television] == 'Off' and otherdevices[visi
 		commandArray[""..twilight2..""]='On AFTER 7'		
 		end			
 		event_body = '.............................................................'
-	end	
+	end
+
+	if devicechanged[isdark_living_room_trigger2]   == 'On'
+		and otherdevices[isdark_living_room_trigger1]   == 'On'
+		and otherdevices[someonehome]   == 'On'
+		and otherdevices[pico_power] == 'On'		
+		and otherdevices[shower_standby]   == 'Off'		
+		and otherdevices[livingroom_wall_lights]  == 'Off'
+		and otherdevices[visitors]   == 'On'		
+		and otherdevices[isdark_sunset]   == 'On' 
+		and otherdevices[isdark_standby]   == 'Off'
+		and otherdevices[iskerst] == 'Off'		
+		and otherdevices[television] == 'On'
+		and uservariables[security_activation_type] == 0 		
+	then	
+		commandArray["Group:" ..stage_2.. ""]='On'
+		if otherdevices[twilight2] == 'Off' then	
+		commandArray[""..twilight2..""]='On AFTER 7'		
+		end			
+		event_body = '.............................................................'
+	end
 	
-------------
+	if devicechanged[isdark_living_room_trigger2]   == 'On'
+		and otherdevices[isdark_living_room_trigger1]   == 'On'
+		and otherdevices[someonehome]   == 'On'
+		and otherdevices[pico_power] == 'On'		
+		and otherdevices[shower_standby]   == 'Off'		
+		and otherdevices[livingroom_wall_lights]  == 'Off'
+		and otherdevices[visitors]   == 'On'		
+		and otherdevices[isdark_sunset]   == 'On' 
+		and otherdevices[isdark_standby]   == 'Off'
+		and otherdevices[iskerst] == 'Off'		
+		and otherdevices[television] == 'Off'
+		and uservariables[security_activation_type] == 0 		
+	then	
+		commandArray["Group:" ..visitors_stage.. ""]='On'
+		if otherdevices[twilight2] == 'Off' then	
+		commandArray[""..twilight2..""]='On AFTER 7'		
+		end			
+		event_body = '.............................................................'
+	end		
+	
+--
+-- **********************************************************
+-- Livingroom lights ON/OFF when SunSet trigger ON which acts as standby to prevent light On to early
+-- **********************************************************
+--
 
 	if devicechanged[isdark_sunset]   == 'On'
 		and otherdevices[isdark_living_room_trigger1]   == 'On'
 		and otherdevices[isdark_living_room_trigger2]   == 'On' 		
 		and otherdevices[someonehome]   == 'On'	
+		and otherdevices[television] == 'Off'
+		and otherdevices[visitors]   == 'Off'		
 		and otherdevices[pico_power] == 'On'		
 		and otherdevices[shower_standby]   == 'Off'		
 		and otherdevices[livingroom_wall_lights]  == 'Off'
@@ -191,6 +241,65 @@ lightswitch_condition	= (otherdevices[television] == 'Off' and otherdevices[visi
 		commandArray["Group:" ..stage_2.. ""]='On'
 		event_body = '.............................................................'	
 	end
+	
+	if devicechanged[isdark_sunset]   == 'On'
+		and otherdevices[isdark_living_room_trigger1]   == 'On'
+		and otherdevices[isdark_living_room_trigger2]   == 'On' 		
+		and otherdevices[someonehome]   == 'On'	
+		and otherdevices[television] == 'On'
+		and otherdevices[visitors]   == 'Off'		
+		and otherdevices[pico_power] == 'On'		
+		and otherdevices[shower_standby]   == 'Off'		
+		and otherdevices[livingroom_wall_lights]  == 'Off'
+		and otherdevices[isdark_standby]   == 'Off'
+		and otherdevices[iskerst] == 'Off'
+		and uservariables[security_activation_type] == 0		
+	then
+		commandArray["Group:" ..stage_5_tv.. ""]='On'
+		if otherdevices[twilight2] == 'Off' then	
+		commandArray[""..twilight2..""]='On AFTER 7'		
+		end		
+	end
+	
+	if devicechanged[isdark_sunset]   == 'On'
+		and otherdevices[isdark_living_room_trigger1]   == 'On'
+		and otherdevices[isdark_living_room_trigger2]   == 'On' 		
+		and otherdevices[someonehome]   == 'On'	
+		and otherdevices[television] == 'On'
+		and otherdevices[visitors]   == 'On'		
+		and otherdevices[pico_power] == 'On'		
+		and otherdevices[shower_standby]   == 'Off'		
+		and otherdevices[livingroom_wall_lights]  == 'Off'
+		and otherdevices[isdark_standby]   == 'Off'
+		and otherdevices[iskerst] == 'Off'
+		and uservariables[security_activation_type] == 0		
+	then
+		commandArray["Group:" ..stage_2.. ""]='On'
+		if otherdevices[twilight2] == 'Off' then	
+		commandArray[""..twilight2..""]='On AFTER 7'		
+		end			
+		event_body = '.............................................................'	
+	end	
+
+	if devicechanged[isdark_sunset]   == 'On'
+		and otherdevices[isdark_living_room_trigger1]   == 'On'
+		and otherdevices[isdark_living_room_trigger2]   == 'On' 		
+		and otherdevices[someonehome]   == 'On'	
+		and otherdevices[television] == 'Off'
+		and otherdevices[visitors]   == 'On'		
+		and otherdevices[pico_power] == 'On'		
+		and otherdevices[shower_standby]   == 'Off'		
+		and otherdevices[livingroom_wall_lights]  == 'Off'
+		and otherdevices[isdark_standby]   == 'Off'
+		and otherdevices[iskerst] == 'Off'
+		and uservariables[security_activation_type] == 0		
+	then
+		commandArray["Group:" ..visitors_stage.. ""]='On'
+		if otherdevices[twilight2] == 'Off' then	
+		commandArray[""..twilight2..""]='On AFTER 7'		
+		end			
+		event_body = '.............................................................'	
+	end	
 	
 --
 -- **********************************************************
@@ -264,7 +373,7 @@ lightswitch_condition	= (otherdevices[television] == 'Off' and otherdevices[visi
 	
 --
 -- **********************************************************
--- Livingroom TV Light Scene
+-- Livingroom TV Light Scene 
 -- **********************************************************
 --	
 
@@ -286,6 +395,24 @@ lightswitch_condition	= (otherdevices[television] == 'Off' and otherdevices[visi
 		end		
 	end
 	
+	if devicechanged[television] == 'On'
+		and otherdevices[pico_power] == 'On'		
+		and otherdevices[shower_standby]   == 'Off'
+		and otherdevices[iskerst] == 'Off'
+		and otherdevices[livingroom_wall_lights] ~= 'Off' 
+		and otherdevices[isdark_living_room_trigger2] == 'On'
+		and otherdevices[someonehome]   == 'On'		
+		and otherdevices[livingroom_vase_light]  == 'On'
+		and otherdevices[visitors]   == 'On'
+		and uservariables[security_activation_type] == 0		
+	then
+		event_body = '.............................................................'	
+		commandArray["Group:" ..stage_2.. ""]='On'
+		if otherdevices[twilight2] == 'On' then	
+		commandArray[""..twilight2..""]='Off AFTER 7'		
+		end		
+	end	
+	
 	if devicechanged[television] == 'Off'
 		and otherdevices[pico_power] == 'On'		
 		and otherdevices[shower_standby]   == 'Off'
@@ -303,17 +430,59 @@ lightswitch_condition	= (otherdevices[television] == 'Off' and otherdevices[visi
 		if otherdevices[twilight2] == 'On' then	
 		commandArray[""..twilight2..""]='Off AFTER 7'		
 		end		
-	end	
+	end
 	
-	if devicechanged[visitors] == 'On'
+	if devicechanged[television] == 'Off'
 		and otherdevices[pico_power] == 'On'		
 		and otherdevices[shower_standby]   == 'Off'
 		and otherdevices[iskerst] == 'Off'
 		and otherdevices[livingroom_wall_lights] == 'Off' 
 		and otherdevices[isdark_living_room_trigger2] == 'On'
-		and otherdevices[someonehome]   == 'On'	
+		and otherdevices[someonehome]   == 'On'		
 		and otherdevices[livingroom_vase_light]  == 'On'
-		and timebetween("15:00:00","23:30:00")	
+		and otherdevices[visitors]   == 'On'	
+		and uservariables[security_activation_type] == 0		
+	then
+		event_body = '.............................................................'
+		commandArray["Group:" ..visitors_stage.. ""]='On'
+		if otherdevices[twilight2] == 'On' then	
+		commandArray[""..twilight2..""]='Off AFTER 7'		
+		end		
+	end	
+
+--
+-- **********************************************************
+-- Livingroom Visitors Light Scene visitors_stage
+-- **********************************************************
+--		
+	
+	if devicechanged[visitors] == 'On'
+		and otherdevices[pico_power] == 'On'		
+		and otherdevices[shower_standby]   == 'Off'
+		and otherdevices[iskerst] == 'Off'
+		and otherdevices[isdark_living_room_trigger2] == 'On'
+		and otherdevices[someonehome]   == 'On'	
+		and otherdevices[television]   == 'Off'		
+		and otherdevices[livingroom_vase_light]  == 'On'
+		and timebetween("15:00:00","23:00:00")	
+		and uservariables[security_activation_type] == 0		
+	then
+		event_body = '.............................................................'
+		commandArray["Group:" ..visitors_stage.. ""]='On'
+		if otherdevices[twilight2] == 'On' then	
+		commandArray[""..twilight2..""]='Off AFTER 7'		
+		end		
+	end	
+
+	if devicechanged[visitors] == 'On'
+		and otherdevices[pico_power] == 'On'		
+		and otherdevices[shower_standby]   == 'Off'
+		and otherdevices[iskerst] == 'Off'
+		and otherdevices[isdark_living_room_trigger2] == 'On'
+		and otherdevices[someonehome]   == 'On'	
+		and otherdevices[television]   == 'On'		
+		and otherdevices[livingroom_vase_light]  == 'On'
+		and timebetween("15:00:00","23:00:00")	
 		and uservariables[security_activation_type] == 0		
 	then
 		event_body = '.............................................................'
@@ -321,26 +490,42 @@ lightswitch_condition	= (otherdevices[television] == 'Off' and otherdevices[visi
 		if otherdevices[twilight2] == 'On' then	
 		commandArray[""..twilight2..""]='Off AFTER 7'		
 		end		
-	end			
+	end		
+	
+	
+	if devicechanged[visitors] == 'Off'
+		and otherdevices[pico_power] == 'On'		
+		and otherdevices[shower_standby]   == 'Off'
+		and otherdevices[iskerst] == 'Off'
+		and otherdevices[isdark_living_room_trigger2] == 'On'
+		and otherdevices[someonehome]   == 'On'	
+		and otherdevices[television]   == 'Off'		
+		and otherdevices[livingroom_vase_light]  == 'On'
+		and uservariables[security_activation_type] == 0		
+	then
+		event_body = '.............................................................'
+		commandArray["Group:" ..stage_2.. ""]='On'
+		if otherdevices[twilight2] == 'On' then	
+		commandArray[""..twilight2..""]='Off AFTER 7'		
+		end		
+	end	
 
 	if devicechanged[visitors] == 'Off'
 		and otherdevices[pico_power] == 'On'		
 		and otherdevices[shower_standby]   == 'Off'
 		and otherdevices[iskerst] == 'Off'
-		and otherdevices[livingroom_wall_lights] ~= 'Off' 
 		and otherdevices[isdark_living_room_trigger2] == 'On'
 		and otherdevices[someonehome]   == 'On'	
 		and otherdevices[television]   == 'On'		
-		and otherdevices[livingroom_vase_light]  == 'On'
-		and timebetween("15:00:00","23:30:00")	
+		and otherdevices[livingroom_vase_light]  == 'On'	
 		and uservariables[security_activation_type] == 0		
 	then
-		event_body = '.............................................................'	
+		event_body = '.............................................................'
 		commandArray["Group:" ..stage_5_tv.. ""]='On'	
 		if otherdevices[twilight2] == 'Off' then	
 		commandArray[""..twilight2..""]='On AFTER 7'		
 		end		
-	end
+	end		
 	
 --
 -- **********************************************************
