@@ -49,7 +49,7 @@
 
 --
 -- **********************************************************
--- Turn heating ON when SomeOneHome and is weekend @daytime
+-- Turn heating ON when SomeOneHome and is weekend
 -- **********************************************************
 --
 
@@ -58,7 +58,7 @@
 		and setpoint_current_temp == setpoint_low
 		and sNestTemp < setpoint_max_trigger_temp
 		and sOutsideTemp <= outside_temp_max		
-		and timebetween("08:30:00","18:00:00")
+		and timebetween("09:00:00","22:00:00")
 		and weekend == 1
 		and uservariables[security_activation_type] == 0		
 	then
@@ -72,7 +72,7 @@
 	
 --
 -- **********************************************************
--- Turn heating ON when SomeOneHome and IsNot weekend @daytime
+-- Turn heating ON when SomeOneHome and IsNot weekend
 -- **********************************************************
 --
 	
@@ -81,7 +81,7 @@
 		and setpoint_current_temp == setpoint_low
 		and sNestTemp < setpoint_max_trigger_temp
 		and sOutsideTemp <= outside_temp_max		
-		and timebetween("08:00:00","18:00:00")
+		and timebetween("08:00:00","22:00:00")
 		and weekend == 0
 		and uservariables[security_activation_type] == 0		
 	then
@@ -91,28 +91,6 @@
 		timer_body2 = 'New Setpoint: '..setpoint_high..''
 		timer_body3 = 'Current Outside Temp: '..sOutsideTemp..''		
 		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_high)
-	end	
-
---
--- **********************************************************
--- Turn heating ON when SomeOneHome @nightime
--- **********************************************************
---
-	
-	if otherdevices[someonehome] == 'On'
-		and otherdevices[pico_power] == 'On' 
-		and setpoint_current_temp == setpoint_low
-		and sNestTemp <= setpoint_high
-		and sOutsideTemp <= outside_temp_max		
-		and timebetween("18:00:01","22:30:00")	
-		and uservariables[security_activation_type] == 0		
-	then
-		timer_body = 'Somebody home, Heating turned ON...'
-		timer_body0 = 'Current Room Temp: '..sNestTemp..''		
-		timer_body1 = 'Current Setpoint: '..setpoint_current_temp..''
-		timer_body2 = 'New Setpoint: '..setpoint_high..''
-		timer_body3 = 'Current Outside Temp: '..sOutsideTemp..''		
-		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_high)	
 	end
 	
 --
@@ -122,10 +100,13 @@
 --
 	
 	if otherdevices[someonehome] == 'On'
-		and otherdevices[pico_power] == 'On'
+		and otherdevices[pico_power] == 'On' 
 		and setpoint_current_temp == setpoint_high
-		and uservariables[security_activation_type] == 0 
-		and sOutsideTemp > outside_temp_max		
+		and sNestTemp >= setpoint_max_trigger_temp
+		and sOutsideTemp >= outside_temp_max		
+		and timebetween("08:00:00","22:30:00")
+		and weekend == 0
+		and uservariables[security_activation_type] == 0		
 	then
 		timer_body = 'Outside reached trigger point'
 		timer_body0 = 'Heating turned OFF'
@@ -136,6 +117,24 @@
 		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_low)		
 	end		
 	
+	if otherdevices[someonehome] == 'On'
+		and otherdevices[pico_power] == 'On' 
+		and setpoint_current_temp == setpoint_high
+		and sNestTemp >= setpoint_max_trigger_temp
+		and sOutsideTemp >= outside_temp_max		
+		and timebetween("08:00:00","22:30:00")
+		and weekend == 1
+		and uservariables[security_activation_type] == 0		
+	then
+		timer_body = 'Outside reached trigger point'
+		timer_body0 = 'Heating turned OFF'
+		timer_body1 = 'Current Room Temp: '..sNestTemp..''		
+		timer_body2 = 'Current Setpoint: '..setpoint_current_temp..''
+		timer_body3 = 'New Setpoint: '..setpoint_low..''
+		timer_body4 = 'Current Outside Temp: '..sOutsideTemp..''		
+		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_low)		
+	end
+	
 --
 -- **********************************************************
 -- Turn heating OFF when SomeOneHome at specific time trigger
@@ -143,11 +142,13 @@
 --
 	
 	if otherdevices[someonehome] == 'On'
-		and otherdevices[pico_power] == 'On'
+		and otherdevices[pico_power] == 'On' 
+		and otherdevices[visitors] == 'Off'		
 		and setpoint_current_temp == setpoint_high
-		and uservariables[security_activation_type] == 0 
-		and timebetween("22:30:01","00:00:00")
-		and weekend == 0		
+		and sNestTemp >= setpoint_max_trigger_temp	
+		and timebetween("22:31:00","23:45:00")
+		and weekend == 0
+		and uservariables[security_activation_type] == 0	
 	then
 		timer_body = 'Heating turned OFF as per midweek evening schedule'
 		timer_body0 = 'Current Room Temp: '..sNestTemp..''		
@@ -159,10 +160,12 @@
 	
 	if otherdevices[someonehome] == 'On'
 		and otherdevices[pico_power] == 'On'
+		and otherdevices[visitors] == 'Off'		
 		and setpoint_current_temp == setpoint_high
-		and uservariables[security_activation_type] == 0 
-		and timebetween("23:30:00","00:00:00")
-		and weekend == 1		
+		and sNestTemp >= setpoint_max_trigger_temp	
+		and timebetween("23:31:00","23:45:00")
+		and weekend == 1
+		and uservariables[security_activation_type] == 0		
 	then
 		timer_body = 'Heating turned OFF as per weekend evening schedule'
 		timer_body0 = 'Current Room Temp: '..sNestTemp..''		
