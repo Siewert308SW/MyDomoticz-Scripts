@@ -4,7 +4,7 @@
 	@ activity_fire_alarm.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 7-4-2017
+	@ updated	: 10-4-2017
 	@ Smoke detector script
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -15,7 +15,6 @@
 	local nobody_home					= 'Niemand Thuis'
 	local phone_switch					= 'Telefoons'
 	local laptop_switch					= 'Laptops'
-	local dummy1						= 'Dummy 1'
 	
 -- Sirens
 	local sirene_topfloor				= 'Rookmelder - Overloop'
@@ -30,6 +29,7 @@
 	local sirene_loop					= 'Rookmelder - Loop'
 	local isdark_living_room_trigger1	= 'IsDonker_Woonkamer_1'
 	local stage_2_killer				= 'Woonkamer_Stage_2_killers'
+	local pico_power    				= 'PIco RPi Powered'
 	
 -- Security Variables
 	local security_activation_type		= 'alarm_ActivationType'
@@ -63,7 +63,10 @@ if sirene and otherdevices[sirene_loop] == 'Off' and uservariables[security_acti
 		else
 			mail('Rookmelder thuis afgegaan', ''..alarm..' heeft rook gedetecteerd!!!', 'user1@gmail.com')		
 		end
-	commandArray["Group:" ..sirene_light_scene.. ""]='On'			
+		
+	if otherdevices[pico_power]   == 'On' then		
+	commandArray["Group:" ..sirene_light_scene.. ""]='On'
+	end	
 	event_body0 = 'Evacuate NOW!!!!!'	
 	event_body = '.............................................................'
 end
