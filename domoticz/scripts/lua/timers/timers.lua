@@ -4,7 +4,7 @@
 	@ timers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 10-4-2017
+	@ updated	: 12-4-2017
 	@ Script for switching ON/OFF various sensors and switches when no activity
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -15,34 +15,33 @@
 	local max_idle_current = 90
 
 -- Various timers	
-	  timeon     					= 59 
+	  timeon     						= 59 
 
-	  timeon_doors 					= 299
-	  
-	  timeon_toilet_light  			= 179
-	  
-	  timeon_doorbell  				= 119
-	  
-	  timeon_leaving_standby  		= 299 
-	  
-	  timeon_arriving_standby  		= 119
-	  
-	  timeon_walktrue_standby_short = 29
-	  timeon_walktrue_standby_long  = 119   
-	  
-	  timeon_natalya_away_on		= 7199 
-	  timeon_natalya_away_off		= 29
+	  timeon_doors 						= 299
 
-	  timeon_shower_light			= 4499 
+	  timeon_toilet_light  				= 179
+	  
+	  timeon_doorbell  					= 119
+	  
+	  timeon_leaving_standby  			= 299 
+	  
+	  timeon_arriving_standby  			= 119
+	  
+	  timeon_arriving_garden_standby	= 119   
+	  
+	  timeon_natalya_away_on			= 7199 
+	  timeon_natalya_away_off			= 29
+
+	  timeon_shower_light				= 4499 
 	 
-	  timeon_scullery_light			= 599
+	  timeon_scullery_light				= 599
 
-	  timeon_topfloor_light			= 599  
+	  timeon_topfloor_light				= 599  
 	  
-	  timeon_dinnertable_light		= 1199   
+	  timeon_dinnertable_light			= 1199   
 	  
-	  presence   					= (otherdevices['Laptops'] == 'On' or otherdevices['Media'] == 'On' or otherdevices['Visite'] == 'On')
-	
+	  presence   						= (otherdevices['Laptops'] == 'On' or otherdevices['Media'] == 'On' or otherdevices['Visite'] == 'On')
+
 --
 -- **********************************************************
 -- Doors
@@ -109,7 +108,7 @@
 			commandArray['Bijkeuken Lamp']='Off REPEAT 2 INTERVAL 10'
 			timer_body = 'Bijkeuken Lamp ON for more then '..timeon_scullery_light..' seconds...'			
 		end			
-	
+		
 --
 -- **********************************************************
 -- Shower light
@@ -162,15 +161,15 @@
 --
 
 -- Deurbel - Standby
-    if otherdevices['Deurbel - Standby'] == 'On' 
-	and otherdevices['Voor Deur'] == 'Closed'
-	and otherdevices['Kamer Deur'] == 'Closed'	
-	and timedifference(otherdevices_lastupdate['Deurbel - Standby']) > timeon_doorbell	
-	and timedifference(otherdevices_lastupdate['Voor Deur']) > timeon_doorbell
-	and timedifference(otherdevices_lastupdate['Kamer Deur']) > timeon_doorbell	
-	then		
-		commandArray['Deurbel - Standby']='Off'
-	end
+		if otherdevices['Deurbel - Standby'] == 'On' 
+			and otherdevices['Voor Deur'] == 'Closed'
+			and otherdevices['Kamer Deur'] == 'Closed'	
+			and timedifference(otherdevices_lastupdate['Deurbel - Standby']) > timeon_doorbell	
+			and timedifference(otherdevices_lastupdate['Voor Deur']) > timeon_doorbell
+			and timedifference(otherdevices_lastupdate['Kamer Deur']) > timeon_doorbell	
+		then		
+			commandArray['Deurbel - Standby']='Off'
+		end
 
 -- Vertrek - Standby	
 		if otherdevices['Vertrek - Standby'] == 'On' 
@@ -203,20 +202,20 @@
 		commandArray['Aankomst - Standby']='Off'	
 		end
 		
--- Doorloop - Standby
-		if otherdevices['Doorloop - Standby'] == 'On'
+-- Aankomst Tuin - Standby
+		if otherdevices['Aankomst Tuin - Standby'] == 'On'
 			and otherdevices['Kamer Deur'] == 'Closed' 
 			and otherdevices['Voor Deur'] == 'Closed'
 			and otherdevices['Kelder Deur'] == 'Closed' 		
 			and otherdevices['Trap Motion Boven'] == 'Off'
 			and otherdevices['Trap Motion Beneden'] == 'Off'		
-			and timedifference(otherdevices_lastupdate['Kamer Deur']) > timeon_walktrue_standby_short 
-			and timedifference(otherdevices_lastupdate['Voor Deur']) > timeon_walktrue_standby_long
-			and timedifference(otherdevices_lastupdate['Kelder Deur']) > timeon_walktrue_standby_short
-			and timedifference(otherdevices_lastupdate['W.C Motion']) > timeon_walktrue_standby_short		
-			and timedifference(otherdevices_lastupdate['Trap Motion Boven']) > timeon_walktrue_standby_short
-			and timedifference(otherdevices_lastupdate['Trap Motion Beneden']) > timeon_walktrue_standby_short 	
+			and timedifference(otherdevices_lastupdate['Kamer Deur']) > timeon_arriving_garden_standby 
+			and timedifference(otherdevices_lastupdate['Voor Deur']) > timeon_arriving_garden_standby
+			and timedifference(otherdevices_lastupdate['Kelder Deur']) > timeon_arriving_garden_standby
+			and timedifference(otherdevices_lastupdate['W.C Motion']) > timeon_arriving_garden_standby		
+			and timedifference(otherdevices_lastupdate['Trap Motion Boven']) > timeon_arriving_garden_standby
+			and timedifference(otherdevices_lastupdate['Trap Motion Beneden']) > timeon_arriving_garden_standby 	
 			and uservariables[security_activation_type] == 0		
 		then		
-		commandArray['Doorloop - Standby']='Off'			
+		commandArray['Aankomst Tuin - Standby']='Off'			
 		end

@@ -4,7 +4,7 @@
 	@ someone_leaving.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 10-4-2017
+	@ updated	: 12-4-2017
 	@ Script to switch Garden Lights when OFF and someone is leaving the house
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -23,7 +23,6 @@
 	local isdark_standby				= 'IsDonker - Standby'
 	local leaving_standby				= 'Vertrek - Standby'
 	local arriving_standby				= 'Aankomst - Standby'
-	local walktrue_standby				= 'Doorloop - Standby'
 	local isdark_sunset					= 'Sunrise/Sunset'
 	local isdark_garden_lights_trigger 	= 'IsDonker_Tuin_Verlichting'
 	local pico_power    				= 'PIco RPi Powered'	
@@ -54,7 +53,6 @@
 
 if devicechanged[frontdoor] == 'Open' and otherdevices[backdoor] == 'Closed'
 	and otherdevices[arriving_standby]   == 'Off'
-	and otherdevices[walktrue_standby]   == 'Off'
 	and otherdevices[leaving_standby]   == 'Off'		
 	and otherdevices[someonehome]   == 'On'	
 	and otherdevices[shed_lights]   == 'Off'
@@ -80,7 +78,6 @@ end
 
 if devicechanged[backdoor] == 'Open' and otherdevices[frontdoor] == 'Closed'
 	and otherdevices[arriving_standby]   == 'Off'
-	and otherdevices[walktrue_standby]   == 'Off'
 	and otherdevices[leaving_standby]   == 'Off'		
 	and otherdevices[someonehome]   == 'On'	
 	and otherdevices[shed_lights]   == 'Off'
@@ -103,7 +100,6 @@ end
 
 if devicechanged[sliding_door] == 'Open' and otherdevices[frontdoor] == 'Closed' and otherdevices[backdoor] == 'Closed'
 	and otherdevices[arriving_standby]   == 'Off'
-	and otherdevices[walktrue_standby]   == 'Off'
 	and otherdevices[leaving_standby]   == 'Off'		
 	and otherdevices[someonehome]   == 'On'	
 	and otherdevices[shed_lights]   == 'Off'
