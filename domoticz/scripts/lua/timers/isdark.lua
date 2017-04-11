@@ -4,7 +4,7 @@
 	@ isdark.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 7-4-2017
+	@ updated	: 12-4-2017
 	@ Time script to switch ON/OFF dusk sensor if signal is missed, taking in count WeatherUnderground Solar indication
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -33,7 +33,7 @@
 			timeon_xmas_lights 				= 180	
 			timeon_dinnertable_light 		= 180	
 			timeon_livingroom_lights1 		= 300
-			timeon_livingroom_lights2 		= 1500
+			timeon_livingroom_lights2 		= 900
 			timeon_garden_lights 			= 300
 			timeon_lights_timeout 			= 120
 
