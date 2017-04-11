@@ -4,7 +4,7 @@
 	@ activity_heating.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 10-4-2017
+	@ updated	: 12-4-2017
 	@ Script to switch ON/OFF heating when someone @ home or not
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -144,7 +144,7 @@
 	if otherdevices[someonehome] == 'On'
 		and otherdevices[pico_power] == 'On' 
 		and otherdevices[visitors] == 'Off'		
-		and setpoint_current_temp == setpoint_high
+		and setpoint_current_temp ~= setpoint_low
 		and sNestTemp >= setpoint_max_trigger_temp	
 		and timebetween("22:31:00","23:45:00")
 		and weekend == 0
@@ -161,7 +161,7 @@
 	if otherdevices[someonehome] == 'On'
 		and otherdevices[pico_power] == 'On'
 		and otherdevices[visitors] == 'Off'		
-		and setpoint_current_temp == setpoint_high
+		and setpoint_current_temp ~= setpoint_low
 		and sNestTemp >= setpoint_max_trigger_temp	
 		and timebetween("23:31:00","23:45:00")
 		and weekend == 1
