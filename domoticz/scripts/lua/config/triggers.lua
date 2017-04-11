@@ -4,7 +4,7 @@
 	@ triggers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 10-4-2017
+	@ updated	: 12-4-2017
 	@ All devices which can trigger a event in a scene
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -25,6 +25,9 @@
 		phone_4 						= 'Oma GSM',		
 		phone_switch 			        = 'Telefoons',
 
+	-- Cars
+		car_1							= 'Peugeot308SW',
+		
 	-- Portable Devices	
 		laptop_1 						= 'Jerina Laptop',	
 		laptop_2 						= 'Siewert Laptop',	
@@ -64,6 +67,7 @@
 		nest_away						= 'Nest - Away',			
 		leaving_standby					= 'Vertrek - Standby',	
 		arriving_standby				= 'Aankomst - Standby',
+		arriving_garden_standby			= 'Aankomst Tuin - Standby',		
 		shower_standby					= 'Douche - Standby',
 		walktrue_standby				= 'Doorloop - Standby',
 		--pico_power    					= 'PIco RPi Powered',

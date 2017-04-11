@@ -4,7 +4,7 @@
 	@ worker.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 10-4-2017
+	@ updated	: 12-4-2017
 	@ All handlers which should/could trigger a event
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -191,7 +191,7 @@ function IsWorker()
 -- **********************************************************
 --		
 	
-	if devicechanged[trigger.arriving_standby]
+	if devicechanged[trigger.arriving_standby] or devicechanged[trigger.arriving_garden_standby] or devicechanged[trigger.car_1]
 	then
 		dofile(lua.events.."someone_arriving.lua")		
 	end

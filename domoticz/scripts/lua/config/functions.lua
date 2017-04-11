@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 9-4-2017
+	@ updated	: 12-4-2017
 	@ All global functions needed
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -183,7 +183,10 @@ function IsEventTrigger()
 						msg = '"'..deviceName..'" toggled ON'						
 						
 					elseif string.find(deviceName, "Iemand Thuis") then
-						msg = 'Somebody just got home, say hi!'						
+						msg = 'Somebody just got home, say hi!'
+
+					elseif string.find(deviceName, "Peugeot308SW") then
+						msg = 'Your "'..deviceName..'" just arrived at the driveway'						
 						
 					else
 					msg = '"'..deviceName..'" switched ON'
