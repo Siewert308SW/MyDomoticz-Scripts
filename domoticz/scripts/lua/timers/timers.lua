@@ -4,7 +4,7 @@
 	@ timers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 12-4-2017
+	@ updated	: 16-4-2017
 	@ Script for switching ON/OFF various sensors and switches when no activity
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -38,7 +38,7 @@
 
 	  timeon_topfloor_light				= 599  
 	  
-	  timeon_dinnertable_light			= 1199   
+	  timeon_dinnertable_light			= 900   
 	  
 	  presence   						= (otherdevices['Laptops'] == 'On' or otherdevices['Media'] == 'On' or otherdevices['Visite'] == 'On')
 
@@ -108,7 +108,21 @@
 			commandArray['Bijkeuken Lamp']='Off REPEAT 2 INTERVAL 10'
 			timer_body = 'Bijkeuken Lamp ON for more then '..timeon_scullery_light..' seconds...'			
 		end			
-		
+
+--
+-- **********************************************************
+-- Dinnertable light
+-- **********************************************************
+--
+
+	if otherdevices['Woonkamer Eettafel Lamp'] ~= 'Off' and otherdevices['Motion Eettafel'] == 'Off' and otherdevices['Motion Eettafel 2'] == 'Off'
+	and timedifference(otherdevices_lastupdate['Motion Eettafel']) > timeon_dinnertable_light and timedifference(otherdevices_lastupdate['Woonkamer Eettafel Verlichting Knop']) > timeon_dinnertable_light	
+	then	
+		commandArray['Woonkamer Eettafel Lamp']='Off'
+		timer_body = 'No motion detected for more then '..timeon_dinnertable_light..' seconds'
+		timer_body0 = 'Assuming nobody is sitting at the dinnertable...'			
+	end		
+	
 --
 -- **********************************************************
 -- Shower light

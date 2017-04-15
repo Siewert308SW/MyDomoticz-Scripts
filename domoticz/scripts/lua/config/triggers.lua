@@ -4,7 +4,7 @@
 	@ triggers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 12-4-2017
+	@ updated	: 16-4-2017
 	@ All devices which can trigger a event in a scene
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -56,7 +56,8 @@
 		motion_upstairs 				= 'Trap Motion Boven',
 		motion_downstairs 				= 'Trap Motion Beneden',
 		motion_toilet					= 'W.C Motion',
-		motion_dinnertable				= 'Motion Eettafel',		
+		motion_dinnertable				= 'Motion Eettafel',
+		motion_dinnertable2    			= 'Motion Eettafel 2',		
 		motion_living					= 'Woonkamer Motion',
 		
 	-- SomeOneHome Triggers
