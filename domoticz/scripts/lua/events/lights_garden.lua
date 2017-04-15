@@ -4,7 +4,7 @@
 	@ lights_garden.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 5-4-2017
+	@ updated	: 16-4-2017
 	@ Script to switch garden light ON/OFF when IsDark taking in count IsWeekend or IsNotWeekend
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -24,7 +24,7 @@
 -- Variables																-- Light Switches
 	local isdark_garden_lights_variable	= 'IsDonker_Tuin_Verlichting_Standby'	local back_garden_lights			= 'Tuin Schuur Verlichting'
 	local garden_lights_verify			= 'Tuin_Verlichting_Verify'				local front_door_light				= 'Tuin Voordeur Verlichting'
-	local pico_power_state    			= 'IsPIco_Power_Outage_State'			local border_lights					= 'Tuin Border Verlichting'																local garden_light_switch			= 'Tuin Verlichting Knop'
+	local pico_power_state    			= 'IsPIco_Power_Outage_State'			local border_lights					= 'Tuin Border Verlichting'				local garden_light_switch			= 'Tuin Verlichting Knop'
 	local security_activation_type		= 'alarm_ActivationType'
 	
 -- Scenes
@@ -105,28 +105,6 @@
 		--event_body = '.............................................................'		
 	end		
 
---
--- **********************************************************
--- Garden light OFF when some one at home at the weekend and no visitors
--- **********************************************************
---
---[[
-	if (time.hour == 23) and (time.min == 59)
-		and otherdevices[isdark_garden_lights_trigger] == 'On'
-		and otherdevices[back_garden_lights] ~= 'Off'
-		and uservariables[isdark_garden_lights_variable] == 1
-		and weekend == 1		
-		and otherdevices[someonehome] =='On'
-		and otherdevices[visitors] =='Off'		
-		and uservariables[garden_lights_verify]   == 0
-		and otherdevices[pico_power] == 'On'
-		and uservariables[security_activation_type] == 0		
-	then	
-		commandArray["Group:" ..garden_lights_scene.. ""]='Off REPEAT 3 INTERVAL 20'	
-		commandArray["Variable:" .. garden_lights_verify .. ""]= '1'
-		--event_body = '.............................................................'		
-	end
---]]
 --
 -- **********************************************************
 -- Garden light OFF when nobody is home and IsWeekend
