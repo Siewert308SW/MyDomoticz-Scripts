@@ -4,7 +4,7 @@
 	@ activity_visitors.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 10-4-2017
+	@ updated	: 16-4-2017
 	@ Script for switching ""visitors dummy switch for some special light scenes/events
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -16,7 +16,8 @@
 --Various
 	local visitors						= 'Visite'
 	local pico_power    				= 'PIco RPi Powered'
-	local timeout 						= 120
+	local timeout 						= 299
+	local someonehome					= 'Iemand Thuis'
 	
 -- Door/Window Sensors
 	local frontdoor						= 'Voor Deur'
@@ -30,8 +31,10 @@
 -- **********************************************************
 --
 	if devicechanged[phone_4] == 'On' 
+		and otherdevices[someonehome] == 'On'	
 		and otherdevices[visitors] == 'Off'
-		and timedifference(otherdevices_lastupdate[frontdoor]) < timeout
+	    and otherdevices[pico_power]   == 'On'	
+		and timedifference(otherdevices_lastupdate[frontdoor]) < timeout		
 	then	
 		commandArray[visitors]='On'
 		event_body = '.............................................................'		
