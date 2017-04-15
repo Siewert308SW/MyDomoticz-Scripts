@@ -4,7 +4,7 @@
 	@ someone_home.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 5-4-2017
+	@ updated	: 16-4-2017
 	@ Script for switching SomeOneHome ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -14,7 +14,8 @@
 	local laptop_switch 				= 'Laptops'					local someonehome					= 'Iemand Thuis'
 	local television 					= 'Televisie'				local someonehome_standby			= 'Iemand Thuis - Standby'
 	local phone_switch 					= 'Telefoons'				local nobody_home					= 'Niemand Thuis'
-	local media_switch 					= 'Media'					local nest_away						= 'Nest - Away'
+	local media_switch 					= 'Media'					local visitors						= 'Visite'
+																	local nest_away						= 'Nest - Away'
 																	local sirene_loop					= 'Rookmelder - Loop'
 																	local security_activation_type		= 'alarm_ActivationType'
 -- Scenes														-- UPS
@@ -68,6 +69,9 @@
 	
 	if devicechanged[nest_away] == 'On'		
 		and otherdevices[someonehome] == 'On'
+		and otherdevices[laptop_switch] == 'Off'
+		and otherdevices[television] == 'Off' 
+		and otherdevices[visitors] == 'Off'		
 		and uservariables[security_activation_type] == 0		
 	then	
 		commandArray[someonehome]='Off'
