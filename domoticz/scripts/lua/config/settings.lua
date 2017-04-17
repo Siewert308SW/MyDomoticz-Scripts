@@ -4,7 +4,7 @@
 	@ settings.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 7-4-2017
+	@ updated	: 17-4-2017
 	@ All global settings
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -29,8 +29,13 @@
 	}
 	
 	domoticz = {
-		
 		ip			= "127.0.0.1";
 		port		= "8080";
+		latitude	= "1.11";									-- Your latitude location, used in some scripts
+		longitude	= "1.11";									-- Your longitude location, used in some scripts		
+	}
+	
+	tmpfile = {
+		buienradar	= "/mnt/storage/domoticz_scripts/logging/buienradar/rain.tmp";
 	}
 		

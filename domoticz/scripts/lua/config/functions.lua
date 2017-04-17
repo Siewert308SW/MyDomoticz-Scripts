@@ -4,11 +4,12 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 12-4-2017
+	@ updated	: 17-4-2017
 	@ All global functions needed
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 --]]
+
 --
 -- **********************************************************
 -- Time Difference
@@ -124,6 +125,49 @@ function IsTimerEvent()
 	f:close()
 	IsTimerLog()	
 end	
+
+--
+-- **********************************************************
+-- Buienradar rain expected
+-- **********************************************************
+--
+
+	function IsItGonnaRain( minutesinfuture )
+	   url='http://gadgets.buienradar.nl/data/raintext/?lat='..domoticz.latitude..'&lon='..domoticz.longitude..''
+	   read = os.execute('curl -s -o '.. tmpfile.buienradar ..' "'..url..'"')
+	   file = io.open(tmpfile.buienradar, "r")
+
+	   while true do
+		  line = file:read("*line")
+		  if not line then break end
+		  linetime=string.sub(tostring(line), 5, 9)
+
+		  linetime2 = os.time{year=os.date('%Y'), month=os.date('%m'), day=os.date('%d'), hour=string.sub(linetime,1,2), min=string.sub(linetime,4,5), sec=os.date('%S')}
+		  difference = os.difftime (linetime2,os.time())
+
+		  if ((difference > 0) and (difference<=minutesinfuture*60)) then
+			 rain=tonumber(string.sub(tostring(line), 0, 3))
+			 totalrain = totalrain+rain
+			 rainlines=rainlines+1
+		  end
+
+	   end
+	   file:close()
+	   
+	   averagerain=totalrain/rainlines
+	   return(averagerain)
+	end
+	
+--
+-- **********************************************************
+-- Rounding numbers
+-- **********************************************************
+--	
+
+	function round(num, idp)
+	   local mult = 10^(idp or 0)
+	   return math.floor(num * mult + 0.5) / mult
+	end
 	
 --
 -- **********************************************************
@@ -135,13 +179,11 @@ function IsEventArray()
 	for commandArraydeviceName, commandArraydeviceValue in pairs(commandArray) do	
 	   if type(commandArraydeviceValue) == "table" then	   
 		  for commandArraydeviceTableName, commandArraydeviceTableValue in pairs(commandArraydeviceValue) do
-		  
-			if commandArraydeviceTableName ~= 'SendEmail' then
-			print('> '..commandArraydeviceName.."="..commandArraydeviceTableName.." switched ".. commandArraydeviceValue[deviceTableName])
-			end
 			
 			if commandArraydeviceTableName == 'SendEmail' then
-			print('> "'..commandArraydeviceTableName..'": '..commandArraydeviceTableValue..'')			
+			print('> "'..commandArraydeviceTableName..'": '..commandArraydeviceTableValue..'')
+			else
+			print('> '..commandArraydeviceName.."="..commandArraydeviceTableName.." switched ".. commandArraydeviceValue[deviceTableName])
 			end
 			
 		  end
