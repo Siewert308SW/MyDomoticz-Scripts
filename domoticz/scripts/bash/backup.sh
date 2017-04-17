@@ -280,7 +280,7 @@ sleep 1
 		echo "---------------------------------------------------"
 		echo "--- Cleaning old backups packages"
 		echo "--- Please standby..."
-		find $MOUNT/$DOMO_BACKUP_HOME -name '*.gz' -mtime +366 -delete
+		find $MOUNT/$DOMO_BACKUP_HOME -name '*.gz' -mtime +31 -delete
 		echo "--- Done!"	
 		echo "--- If no errors occurred then your backup has been created successfully"		
 		sleep 2		
