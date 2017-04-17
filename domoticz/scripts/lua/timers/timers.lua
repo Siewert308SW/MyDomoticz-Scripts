@@ -4,7 +4,7 @@
 	@ timers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 16-4-2017
+	@ updated	: 17-4-2017
 	@ Script for switching ON/OFF various sensors and switches when no activity
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -29,8 +29,7 @@
 	  
 	  timeon_arriving_garden_standby	= 119   
 	  
-	  timeon_natalya_away_on			= 7199 
-	  timeon_natalya_away_off			= 29
+	  timeon_natalya_away				= 3600
 
 	  timeon_shower_light				= 4499 
 	 
@@ -38,7 +37,7 @@
 
 	  timeon_topfloor_light				= 599  
 	  
-	  timeon_dinnertable_light			= 900   
+	  timeon_dinnertable_light			= 1200   
 	  
 	  presence   						= (otherdevices['Laptops'] == 'On' or otherdevices['Media'] == 'On' or otherdevices['Visite'] == 'On')
 
@@ -232,4 +231,32 @@
 			and uservariables[security_activation_type] == 0		
 		then		
 		commandArray['Aankomst Tuin - Standby']='Off'			
-		end
+		end		
+
+--
+-- **********************************************************
+-- Natalya Standby Killer
+-- **********************************************************
+--
+
+-- Standby Killer (Natalya Kamer)
+	if otherdevices['Natalya GSM'] == 'Off' 
+		and otherdevices['Standby Killer (Natalya Kamer)'] == 'On' 
+		and otherdevices['Iemand Thuis'] == 'On'
+	    and otherdevices['PIco RPi Powered']   == 'On'		
+		and timedifference(otherdevices_lastupdate['Standby Killer (Natalya Kamer)']) > timeon_natalya_away
+		and timedifference(otherdevices_lastupdate['Iemand Thuis']) > timeon_natalya_away		
+	then
+		commandArray['Standby Killer (Natalya Kamer)']='Off REPEAT 2 INTERVAL 10'
+		timer_body = 'Havent seen Natalya for more then '..timeon_natalya_away..' seconds'
+		timer_body0 = 'Assuming she isnt at home...'			
+	end
+
+	if otherdevices['Natalya GSM'] == 'On' 
+		and otherdevices['Standby Killer (Natalya Kamer)'] == 'Off' 
+		and timebetween("06:00:00","22:00:00")
+	    and otherdevices['PIco RPi Powered']   == 'On'			
+	then
+		commandArray['Standby Killer (Natalya Kamer)']='On REPEAT 2 INTERVAL 10'
+		timer_body = 'Looks like Natalya is back home...'	
+	end
