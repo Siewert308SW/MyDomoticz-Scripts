@@ -4,7 +4,7 @@
 	@ activity_toilet.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 5-4-2017
+	@ updated	: 16-4-2017
 	@ Script to switch ON toilet light when motion is triggered with standby to avoid triggering it again when light set OFF
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -20,6 +20,7 @@
 	local isdark_standby				= 'IsDonker - Standby'
 	local pico_power					= 'PIco RPi Powered'
 	local security_activation_type		= 'alarm_ActivationType'
+	weekend = IsWeekend()
 	
 --
 -- **********************************************************
@@ -31,13 +32,27 @@
 		and otherdevices[toilet_light]  == 'Off'
 		and otherdevices[toilet_standby]  == 'Off'
 	    and otherdevices[pico_power]   == 'On'
-		and timebetween("08:00:00","23:30:00")	
-		and uservariables[security_activation_type] == 0		
+		and timebetween("08:00:00","22:30:00")	
+		and uservariables[security_activation_type] == 0
+		and weekend == 0		
 	then		
 		commandArray[toilet_standby]='On'		
 		commandArray[toilet_light]='On REPEAT 2 INTERVAL 1'
 		event_body = '.............................................................'		
 	end
+	
+	if devicechanged[motion_toilet] == 'On' 
+		and otherdevices[toilet_light]  == 'Off'
+		and otherdevices[toilet_standby]  == 'Off'
+	    and otherdevices[pico_power]   == 'On'
+		and timebetween("08:00:00","23:45:00")	
+		and uservariables[security_activation_type] == 0
+		and weekend == 1		
+	then		
+		commandArray[toilet_standby]='On'		
+		commandArray[toilet_light]='On REPEAT 2 INTERVAL 1'
+		event_body = '.............................................................'		
+	end	
 
 --
 -- **********************************************************
