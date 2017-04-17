@@ -46,7 +46,8 @@
 		and otherdevices[sirene_loop] == 'Off'
 		and uservariables[security_activation_type] == 0	
 	then	
-			commandArray[someonehome]='On'
+		commandArray[someonehome]='On'
+		event_body = '.............................................................'			
 	end
 	
 	if devicechanged[motion_upstairs] 
@@ -58,7 +59,8 @@
 		and otherdevices[sirene_loop] == 'Off' 
 		and uservariables[security_activation_type] == 0	
 	then		
-			commandArray[someonehome]='On'		
+		commandArray[someonehome]='On'
+		event_body = '.............................................................'			
 	end
 	
 --
@@ -77,13 +79,15 @@
 		commandArray[someonehome]='Off'
 		commandArray[someonehome_standby]='Off AFTER 15'
 		commandArray[nobody_home]='On AFTER 30'	
+		event_body = '.............................................................'		
 	end
 	
 	if devicechanged[nest_away] == 'Off'		
 		and otherdevices[someonehome] == 'Off'	
 		and uservariables[security_activation_type] == 0		
 	then	
-		commandArray[someonehome]='On'	
+		commandArray[someonehome]='On'
+		event_body = '.............................................................'		
 	end	
 	
 --
