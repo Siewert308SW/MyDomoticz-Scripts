@@ -5,7 +5,7 @@
 ### reboot_clean_up.sh
 ### @author	: Siewert Lameijer
 ### @since	: 29-11-2016
-### @updated: 26-12-2016
+### @updated: 17-04-2017
 ### Script to check for unused files at reboot and remove them
 
 #######################################################################################################################################################	
@@ -31,6 +31,7 @@
 	file12="python/bt_device_online.py"		
 	file13="lua/JSON.lua"		
 	file14="/home/pi/domoticz/plugins/AwoxSMP/plugin.py"
+	file15="/home/pi/domoticz/scripts/dzVents/dzVents_settings_example.lua"	
 	
 		echo "--- Removing Domoticz demo script files"
 		if [ -f $DOMO_SCRIPT_DIR/$file1 ] ; then		
@@ -88,6 +89,10 @@
 		if [ -f $file14 ] ; then		
 		rm -rf /home/pi/domoticz/plugins/AwoxSMP
 		rm -rf /home/pi/domoticz/plugins/examples		
+		fi
+
+		if [ -f $file15 ] ; then		
+		rm -rf /home/pi/domoticz/scripts/dzVents	
 		fi		
 sleep 1
 ### Shutdown HDMI - save 30ma
