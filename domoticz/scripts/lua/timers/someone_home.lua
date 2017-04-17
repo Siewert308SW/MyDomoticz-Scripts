@@ -4,7 +4,7 @@
 	@ someone_home.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 10-4-2017
+	@ updated	: 17-4-2017
 	@ Script for switching SomeOneHome ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -13,15 +13,15 @@
 -- Various
 	local security_activation_type		= 'alarm_ActivationType'
 
-	timeout_someonehome_day 			= 7199 -- Assuming when after 120 minutes while no motion then nobody at home @ Day/Evening
-	timeout_someonehome_night 			= 599 -- Assuming when after 30 minutes while no motion then nobody at home @ Night
-	timeout_someonehome_standby 		= 299  -- After 2 min turn OFF standby which triggers some events
-	timeout_someone_away 				= 599  -- Nobody at home trigger to prevent accidental triggers as well to trigger some events
+	timeout_someonehome_day 			= 7200 -- Assuming that after 120 minutes while no motion then nobody at home @ Day/Evening
+	timeout_someonehome_night 			= 600 -- Assuming that after 30 minutes while no motion then nobody at home @ Night
+	timeout_someonehome_standby 		= 300  -- After 2 min turn OFF standby which triggers some events
+	timeout_someone_away 				= 600  -- Nobody at home trigger to prevent accidental triggers as well to trigger some events
 	
-	timeout_frontdoor					= 299	
-	timeout_backdoor					= 299
-	timeout_scullerydoor				= 299
-	timeout_phones						= 299	
+	timeout_frontdoor					= 300	
+	timeout_backdoor					= 300
+	timeout_scullerydoor				= 300
+	timeout_phones						= 300	
 	
 	presence 							= (otherdevices['Laptops'] == 'On' or otherdevices['Televisie'] == 'On' or otherdevices['Visite'] == 'On')	
 --
