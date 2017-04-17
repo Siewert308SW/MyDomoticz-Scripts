@@ -4,7 +4,7 @@
 	@ someone_home.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 16-4-2017
+	@ updated	: 17-4-2017
 	@ Script for switching SomeOneHome ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -63,7 +63,7 @@
 	
 --
 -- **********************************************************
--- Some one home OFF when Nest - Away kicks in
+-- Some one home ON/OFF when Nest - Away is triggered
 -- **********************************************************
 --
 	
@@ -78,6 +78,13 @@
 		commandArray[someonehome_standby]='Off AFTER 15'
 		commandArray[nobody_home]='On AFTER 30'	
 	end
+	
+	if devicechanged[nest_away] == 'Off'		
+		and otherdevices[someonehome] == 'Off'	
+		and uservariables[security_activation_type] == 0		
+	then	
+		commandArray[someonehome]='On'	
+	end	
 	
 --
 -- **********************************************************
