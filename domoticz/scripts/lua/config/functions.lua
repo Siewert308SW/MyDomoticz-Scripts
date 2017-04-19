@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 17-4-2017
+	@ updated	: 19-4-2017
 	@ All global functions needed
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -198,6 +198,24 @@ function IsEventArray()
 	end
 end
 
+--
+-- **********************************************************
+-- Timer commandArray
+-- **********************************************************
+--
+
+function IsTimerArray()
+	for commandArraydeviceName, commandArraydeviceValue in pairs(commandArray) do	
+	   if type(commandArraydeviceValue) == "table" then
+			print('> '..commandArraydeviceName.."="..commandArraydeviceTableName.." switched ".. commandArraydeviceValue[deviceTableName])
+			
+	   else
+
+				print('> "'..commandArraydeviceName..'" set: '..commandArraydeviceValue..'')
+	   end
+	end
+end
+
 
 --
 -- **********************************************************
@@ -339,7 +357,7 @@ if timer_body2 ~= nil then	print('- '..timer_body2..'')	end
 if timer_body3 ~= nil then	print('- '..timer_body3..'')	end
 if timer_body4 ~= nil then	print('- '..timer_body4..'')	end
 							print(' ')
-							print (IsEventArray())							
+							--print (IsTimerArray())							
 							print '============================================================='
 						end
 					end	
