@@ -5,7 +5,7 @@
 	@ author	: Siewert Lameijer
 	@ since		: 17-4-2017
 	@ updated	: 19-4-2017
-	@ Script for predicting rainfall in the upcoming hours
+	@ Script for predicting rainfall in the upcoming hour
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 --]]
@@ -38,15 +38,15 @@ if (m % 29 == 0) then -- run once in 30 min
 -- **********************************************************
 --	   
 
-	   if (RainPrediction > 3  ) then
+	   if (RainPrediction > 3 and RainPrediction <= 7) then
 		  verw = 4
-		RainPredictionText=('Het komende uur kan er een spatje vallen')
-	   elseif (RainPrediction > 7  ) then
+		RainPredictionText=('Het komende uur kan een spatje vallen')
+	   elseif (RainPrediction > 7 and RainPrediction <= 14) then
 		  verw = 3
-		RainPredictionText=('Het komende uur wordt er een buitje verwacht')			  		
+		RainPredictionText=('Het komende uur kan een buitje vallen')			  		
 	   elseif (RainPrediction > 14  ) then
 		  verw = 2
-		RainPredictionText=('Het komende uur word er ('..round(RainmmHour, 1)..' mm) regen verwacht')
+		RainPredictionText=('Het komende uur kan ('..round(RainmmHour, 1)..' mm) regenen')
 	   else
 		  verw = 1
 		RainPredictionText=('Het komende uur blijft het voorlopig droog')			
