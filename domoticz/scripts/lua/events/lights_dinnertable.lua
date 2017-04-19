@@ -4,7 +4,7 @@
 	@ lights_dinnertable.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 17-4-2017
+	@ updated	: 19-4-2017
 	@ Script to switch diner table light ON/OFF with taking in count Laptops ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -29,7 +29,7 @@
 	
 	deviceChangedON  = (devicechanged[laptop_switch] == 'On' or devicechanged[shower_standby] == 'Off')
 	deviceChangedOFF = (devicechanged[laptop_switch] == 'Off' or devicechanged[shower_standby] == 'On')
-	motion			 = (devicechanged[motion_dinnertable] == 'On' or devicechanged[motion_dinnertable] == 'On')
+	motion			 = (devicechanged[motion_dinnertable] == 'On' or devicechanged[motion_dinnertable2] == 'On')
 	
 --
 -- **********************************************************

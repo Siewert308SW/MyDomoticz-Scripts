@@ -4,7 +4,7 @@
 	@ timers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 17-4-2017
+	@ updated	: 19-4-2017
 	@ Script for switching ON/OFF various sensors and switches when no activity
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -36,7 +36,7 @@
 
 	  timeon_topfloor_light				= 600  
 	  
-	  timeon_dinnertable_light			= 1200   
+	  timeon_dinnertable_light			= 1800   
 	  
 	  presence   						= (otherdevices['Laptops'] == 'On' or otherdevices['Media'] == 'On' or otherdevices['Visite'] == 'On')
 
@@ -113,10 +113,16 @@
 -- **********************************************************
 --
 
-		if otherdevices['Woonkamer Eettafel Lamp'] ~= 'Off' and otherdevices['Motion Eettafel'] == 'Off' and otherdevices['Motion Eettafel 2'] == 'Off'
-		and timedifference(otherdevices_lastupdate['Motion Eettafel']) > timeon_dinnertable_light and timedifference(otherdevices_lastupdate['Woonkamer Eettafel Verlichting Knop']) > timeon_dinnertable_light	
+		if otherdevices['Woonkamer Eettafel Lamp'] ~= 'Off'
+			and otherdevices['Motion Eettafel'] == 'Off'
+			and otherdevices['Motion Eettafel 2'] == 'Off'
+			and timedifference(otherdevices_lastupdate['Laptops']) > timeon_dinnertable_light			
+			and timedifference(otherdevices_lastupdate['Motion Eettafel']) > timeon_dinnertable_light
+			and timedifference(otherdevices_lastupdate['Motion Eettafel 2']) > timeon_dinnertable_light			
+			and timedifference(otherdevices_lastupdate['Woonkamer Eettafel Verlichting Knop']) > timeon_dinnertable_light
+			and timedifference(otherdevices_lastupdate['Woonkamer Eettafel Lamp']) > timeon_dinnertable_light				
 		then	
-			commandArray['Woonkamer Eettafel Lamp']='Off REPEAT 2 INTERVAL 5'
+			commandArray['Woonkamer Eettafel Lamp']='Off REPEAT 2 INTERVAL 1'
 			timer_body = 'No motion detected for more then '..timeon_dinnertable_light..' seconds'
 			timer_body0 = 'Assuming nobody is sitting at the dinnertable...'			
 		end		
