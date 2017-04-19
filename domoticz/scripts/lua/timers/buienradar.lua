@@ -4,7 +4,7 @@
 	@ buienradar.lua
 	@ author	: Siewert Lameijer
 	@ since		: 17-4-2017
-	@ updated	: 18-4-2017
+	@ updated	: 19-4-2017
 	@ Script for predicting rainfall in the upcoming hours
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -25,11 +25,9 @@
 
 
 
-if (m % 15 == 0) then -- run once in 15 min
+if (m % 29 == 0) then -- run once in 30 min
 
-	   minuten=30
-	   minuten60=60
-	   minuten120=100
+	   minuten=60
 	   
 	   RainPrediction = IsItGonnaRain(minuten)
 	   RainmmHour=10^((RainPrediction-109)/32)	   
@@ -40,27 +38,18 @@ if (m % 15 == 0) then -- run once in 15 min
 -- **********************************************************
 --	   
 
-	   if (RainPrediction > 5  ) then
+	   if (RainPrediction > 3  ) then
+		  verw = 4
+		RainPredictionText=('Het komende uur kan er een spatje vallen')
+	   elseif (RainPrediction > 7  ) then
 		  verw = 3
-		RainPredictionText=('Komende 30min wordt er een buitje verwacht!')
-			RainPredictionText60=('Komende uur wordt er een buitje verwacht!')
-				RainPredictionText120=('Na het komende uur word er een buitje verwacht!')			  
-	   elseif (RainPrediction > 12  ) then
+		RainPredictionText=('Het komende uur wordt er een buitje verwacht')			  		
+	   elseif (RainPrediction > 14  ) then
 		  verw = 2
-		RainPredictionText=('Komende 30min ('..round(RainmmHour, 1)..' mm) regen verwacht!')
-			RainPredictionText60=('Komende uur ('..round(RainmmHour, 1)..' mm) regen verwacht!')
-				RainPredictionText120=('Na het komende uur word er ('..round(RainmmHour, 1)..' mm) regen verwacht!')			
-			
+		RainPredictionText=('Het komende uur word er ('..round(RainmmHour, 1)..' mm) regen verwacht')
 	   else
 		  verw = 1
-		RainPredictionText=('Komende 30min blijft het voorlopig droog!')
-		  	RainPredictionText60=('Komende uur blijft het voorlopig droog!')
-				RainPredictionText120=('Na het komende uur blijft het voorlopig droog!')			
+		RainPredictionText=('Het komende uur blijft het voorlopig droog')			
 	   end	   
-
-
-	   commandArray[1] = {['UpdateDevice'] = RainTextIDX .. '|0|' .. tostring(RainPredictionText)}	   
-	   commandArray[2] = {['UpdateDevice'] = Rain60TextIDX .. '|0|' .. tostring(RainPredictionText60)}
-	   commandArray[3] = {['UpdateDevice'] = Rain120TextIDX .. '|0|' .. tostring(RainPredictionText120)}	   
-
+		commandArray['UpdateDevice'] = RainTextIDX .. '|0|' .. tostring(RainPredictionText)
 end
