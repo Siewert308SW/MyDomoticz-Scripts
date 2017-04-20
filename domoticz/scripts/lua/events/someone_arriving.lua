@@ -4,7 +4,7 @@
 	@ someone_arriving.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 12-4-2017
+	@ updated	: 20-4-2017
 	@ Script for switching hallway light when someone is entering the house
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -17,7 +17,8 @@
 	local livingroom_door				= 'Kamer Deur'
 	local motion_upstairs 				= 'Trap Motion Boven'
 	local motion_toilet					= 'W.C Motion'
-
+	local motion_garden					= 'Tuin Achter Motion'
+	
 -- Cars
 	local car_1							= 'Peugeot308SW'
 	
@@ -49,7 +50,31 @@
 	
 --
 -- **********************************************************
--- Change garden light scene when a car is driving on the driveway
+-- Activate garden lights when motion detected
+-- **********************************************************
+--
+
+	if devicechanged[motion_garden] == 'On'
+		and otherdevices[arriving_garden_standby]   == 'Off'
+		and otherdevices[arriving_standby]   == 'Off'
+		and otherdevices[leaving_standby]   == 'Off'
+		and otherdevices[doorbell_standby]   == 'Off'
+		and otherdevices[hallway_light]   == 'Off'		
+		and otherdevices[frontdoor_light]   == 'Off'	
+	    and otherdevices[isdark_sunset]   == 'On'		
+		and otherdevices[isdark_garden_lights_trigger]   == 'On'
+	    and otherdevices[pico_power]   == 'On'	 		
+		and uservariables[frontdoor_acivity]   == 0
+		and uservariables[security_activation_type] == 0		
+	then
+		commandArray[arriving_garden_standby]='On'	
+		commandArray["Group:" ..garden_lights_leave_scene.. ""]='On REPEAT 2 INTERVAL 5'
+		event_body = '.............................................................'		
+	end	
+	
+--
+-- **********************************************************
+-- Activate garden light scene when a car is driving on the driveway
 -- **********************************************************
 --
 
@@ -84,7 +109,7 @@
 
 	if devicechanged[arriving_garden_standby] == 'Off'		
 	then		
-		commandArray["Group:" ..garden_lights_leave_scene.. ""]='Off AFTER 45 REPEAT 2 INTERVAL 10'
+		commandArray["Group:" ..garden_lights_leave_scene.. ""]='Off AFTER 10 REPEAT 2 INTERVAL 5'
 	end	
 	
 --

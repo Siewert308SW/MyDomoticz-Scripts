@@ -4,7 +4,7 @@
 	@ triggers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 16-4-2017
+	@ updated	: 20-4-2017
 	@ All devices which can trigger a event in a scene
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -59,6 +59,7 @@
 		motion_dinnertable				= 'Motion Eettafel',
 		motion_dinnertable2    			= 'Motion Eettafel 2',		
 		motion_living					= 'Woonkamer Motion',
+		motion_garden					= 'Tuin Achter Motion',		
 		
 	-- SomeOneHome Triggers
 		someonehome						= 'Iemand Thuis',

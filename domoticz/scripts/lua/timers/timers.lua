@@ -4,7 +4,7 @@
 	@ timers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 19-4-2017
+	@ updated	: 20-4-2017
 	@ Script for switching ON/OFF various sensors and switches when no activity
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -26,7 +26,7 @@
 	  
 	  timeon_arriving_standby  			= 120
 	  
-	  timeon_arriving_garden_standby	= 120   
+	  timeon_arriving_garden_standby	= 240   
 	  
 	  timeon_natalya_away				= 3600
 
@@ -221,18 +221,12 @@
 		end
 		
 -- Aankomst Tuin - Standby
-		if otherdevices['Aankomst Tuin - Standby'] == 'On'
-			and otherdevices['Kamer Deur'] == 'Closed' 
-			and otherdevices['Voor Deur'] == 'Closed'
-			and otherdevices['Kelder Deur'] == 'Closed' 		
-			and otherdevices['Trap Motion Boven'] == 'Off'
-			and otherdevices['Trap Motion Beneden'] == 'Off'		
-			and timedifference(otherdevices_lastupdate['Kamer Deur']) > timeon_arriving_garden_standby 
-			and timedifference(otherdevices_lastupdate['Voor Deur']) > timeon_arriving_garden_standby
-			and timedifference(otherdevices_lastupdate['Kelder Deur']) > timeon_arriving_garden_standby
-			and timedifference(otherdevices_lastupdate['W.C Motion']) > timeon_arriving_garden_standby		
-			and timedifference(otherdevices_lastupdate['Trap Motion Boven']) > timeon_arriving_garden_standby
-			and timedifference(otherdevices_lastupdate['Trap Motion Beneden']) > timeon_arriving_garden_standby 	
+		if otherdevices['Aankomst Tuin - Standby'] == 'On' 		
+			and otherdevices['Achter Deur'] == 'Closed'
+			and otherdevices['Bijkeuken Deur'] == 'Closed'
+			and timedifference(otherdevices_lastupdate['Aankomst Tuin - Standby']) > timeon_arriving_garden_standby			
+			and timedifference(otherdevices_lastupdate['Achter Deur']) > timeon_arriving_garden_standby 
+			and timedifference(otherdevices_lastupdate['Bijkeuken Deur']) > timeon_arriving_garden_standby	
 			and uservariables[security_activation_type] == 0		
 		then		
 			commandArray['Aankomst Tuin - Standby']='Off'			

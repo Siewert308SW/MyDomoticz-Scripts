@@ -4,7 +4,7 @@
 	@ worker.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 16-4-2017
+	@ updated	: 20-4-2017
 	@ All handlers which should/could trigger a event
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -93,7 +93,8 @@ function IsWorker()
 		or devicechanged[trigger.motion_downstairs]
 		or devicechanged[trigger.nest_away]
 		or devicechanged[trigger.motion_dinnertable]	
-		or devicechanged[trigger.motion_dinnertable2]		
+		or devicechanged[trigger.motion_dinnertable2]	
+		or devicechanged[trigger.motion_garden]		
 	then	
 		dofile(lua.events.."someone_home.lua")
 		dofile(lua.events.."someone_arriving.lua")
@@ -104,7 +105,7 @@ function IsWorker()
 		--dofile(lua.events.."activity_hallway.lua")
 		dofile(lua.events.."activity_pantry.lua")
 		dofile(lua.events.."activity_scullery.lua")	
-		dofile(lua.events.."activity_security_alarm.lua")		
+		dofile(lua.events.."activity_security_alarm.lua")	
 	end	
 
 --
