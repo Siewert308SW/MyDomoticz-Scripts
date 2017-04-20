@@ -4,7 +4,7 @@
 	@ buienradar.lua
 	@ author	: Siewert Lameijer
 	@ since		: 17-4-2017
-	@ updated	: 19-4-2017
+	@ updated	: 20-4-2017
 	@ Script for predicting rainfall in the upcoming hour
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -25,7 +25,7 @@
 
 
 
-if (m % 29 == 0) then -- run once in 30 min
+if (m % 25 == 0) then -- run once in 25 min
 
 	   minuten=60
 	   
@@ -40,16 +40,16 @@ if (m % 29 == 0) then -- run once in 30 min
 
 	   if (RainPrediction > 3 and RainPrediction <= 7) then
 		  verw = 4
-		RainPredictionText=('Het komende uur kan een spatje vallen')
+		RainPredictionText=('Kans op een spatje')
 	   elseif (RainPrediction > 7 and RainPrediction <= 14) then
 		  verw = 3
-		RainPredictionText=('Het komende uur kan een buitje vallen')			  		
+		RainPredictionText=('Kans op een bui')			  		
 	   elseif (RainPrediction > 14  ) then
 		  verw = 2
-		RainPredictionText=('Het komende uur kan ('..round(RainmmHour, 1)..' mm) regenen')
+		RainPredictionText=('Kans op '..round(RainmmHour, 1)..'mm neerslag')
 	   else
 		  verw = 1
-		RainPredictionText=('Het komende uur blijft het voorlopig droog')			
+		RainPredictionText=('Geen kans op neerslag')			
 	   end	   
 		commandArray['UpdateDevice'] = RainTextIDX .. '|0|' .. tostring(RainPredictionText)
 end

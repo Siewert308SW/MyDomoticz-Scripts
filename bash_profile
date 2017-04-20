@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # File Location: /home/pi/
+# Rename bash_profile to .bash_profile
 
 let upSeconds="$(/usr/bin/cut -d. -f1 /proc/uptime)"
 let secs=$((${upSeconds}%60))
