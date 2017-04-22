@@ -4,7 +4,7 @@
 	@ someone_arriving.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 20-4-2017
+	@ updated	: 23-4-2017
 	@ Script for switching hallway light when someone is entering the house
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -70,7 +70,7 @@
 		commandArray[arriving_garden_standby]='On'	
 		commandArray["Group:" ..garden_lights_leave_scene.. ""]='On REPEAT 2 INTERVAL 5'
 		event_body = '.............................................................'		
-	end	
+	end
 	
 --
 -- **********************************************************
@@ -105,11 +105,6 @@
 		commandArray[arriving_garden_standby]='On'	
 		commandArray["Group:" ..garden_lights_leave_scene.. ""]='On REPEAT 2 INTERVAL 5'
 		event_body = '.............................................................'		
-	end
-
-	if devicechanged[arriving_garden_standby] == 'Off'		
-	then		
-		commandArray["Group:" ..garden_lights_leave_scene.. ""]='Off AFTER 10 REPEAT 2 INTERVAL 5'
 	end	
 	
 --
@@ -144,17 +139,6 @@
 		event_body = '.............................................................'		
 	end
 
-	if devicechanged[arriving_standby] == 'Off'		
-	then		
-		commandArray[hallway_light]='Off AFTER 15 REPEAT 3 INTERVAL 5'
-		commandArray["Variable:" .. frontdoor_acivity .. ""]= '0'
-		
-		if otherdevices[arriving_garden_standby] == 'On'		
-		then
-			commandArray[arriving_garden_standby]='Off AFTER 50'
-		end
-		
-	end	
 
 	if devicechanged[livingroom_door] == 'Closed'
 		and otherdevices[frontdoor]   == 'Closed'
@@ -202,19 +186,7 @@
 		commandArray["Variable:" .. frontdoor_acivity .. ""]= '2'	
 		commandArray[scullery_light]='Set Level 50 AFTER 1 REPEAT 2 INTERVAL 1'
 		event_body = '.............................................................'		
-	end
-
-	if devicechanged[arriving_standby] == 'Off'		
-	then		
-		commandArray[scullery_light]='Off AFTER 15 REPEAT 3 INTERVAL 5'
-		commandArray["Variable:" .. frontdoor_acivity .. ""]= '0'
-		
-		if otherdevices[arriving_garden_standby] == 'On'		
-		then
-			commandArray[arriving_garden_standby]='Off AFTER 50'
-		end
-				
-	end	
+	end		
 
 	if devicechanged[scullery_door] == 'Closed'
 		and otherdevices[backdoor]   == 'Closed'
@@ -232,5 +204,30 @@
 			commandArray[arriving_garden_standby]='Off AFTER 50'
 		end
 				
+		event_body = '.............................................................'		
+	end	
+
+--
+-- **********************************************************
+-- When standby OFF then kill lights
+-- **********************************************************
+--
+	
+	if devicechanged[arriving_standby] == 'Off'		
+	then		
+		commandArray[hallway_light]='Off AFTER 15 REPEAT 3 INTERVAL 5'
+		commandArray["Variable:" .. frontdoor_acivity .. ""]= '0'
+		commandArray[scullery_light]='Off AFTER 20 REPEAT 3 INTERVAL 5'		
+		
+		if otherdevices[arriving_garden_standby] == 'On'		
+		then
+			commandArray[arriving_garden_standby]='Off AFTER 30'
+		end
+		event_body = '.............................................................'		
+	end	
+	
+	if devicechanged[arriving_garden_standby] == 'Off'		
+	then		
+		commandArray["Group:" ..garden_lights_leave_scene.. ""]='Off AFTER 10 REPEAT 2 INTERVAL 5'
 		event_body = '.............................................................'		
 	end	
