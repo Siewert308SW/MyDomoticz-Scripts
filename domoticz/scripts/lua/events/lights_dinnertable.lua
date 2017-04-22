@@ -4,7 +4,7 @@
 	@ lights_dinnertable.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 19-4-2017
+	@ updated	: 23-4-2017
 	@ Script to switch diner table light ON/OFF with taking in count Laptops ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -15,8 +15,7 @@
 	local dinner_table_light 				= 'Woonkamer Eettafel Lamp'
 	local shower_standby					= 'Douche - Standby'
 	local pico_power    					= 'PIco RPi Powered'
-	local motion_dinnertable    			= 'Motion Eettafel'
-	local motion_dinnertable2    			= 'Motion Eettafel 2'	
+	local motion_dinnertable    			= 'Motion Eettafel'	
 	local hood				    			= 'Afzuigkap'
 	local isdark_standby					= 'IsDonker - Standby'	
 	
@@ -29,7 +28,7 @@
 	
 	deviceChangedON  = (devicechanged[laptop_switch] == 'On' or devicechanged[shower_standby] == 'Off')
 	deviceChangedOFF = (devicechanged[laptop_switch] == 'Off' or devicechanged[shower_standby] == 'On')
-	motion			 = (devicechanged[motion_dinnertable] == 'On' or devicechanged[motion_dinnertable2] == 'On')
+	motion			 = (devicechanged[motion_dinnertable] == 'On')
 	
 --
 -- **********************************************************
@@ -39,7 +38,7 @@
 
 	if deviceChangedON
 		and otherdevices[isdark_dinner_table] == 'On'
-		and otherdevices[dinner_table_light] == 'Off'
+		--and otherdevices[dinner_table_light] == 'Off'
 	    and otherdevices[pico_power]   == 'On'	
 		and uservariables[security_activation_type] == 0		
 	then
@@ -69,9 +68,7 @@
 		and otherdevices[laptop_switch] == 'On'
 		and otherdevices[shower_standby]   == 'Off'		
 		and otherdevices[dinner_table_light] == 'Off'
-		and uservariables[security_activation_type] == 0
-		and timedifference(otherdevices_lastupdate[motion_dinnertable]) < timeon_dinnertable_motion
-		and timedifference(otherdevices_lastupdate[motion_dinnertable2]) < timeon_dinnertable_motion			
+		and uservariables[security_activation_type] == 0			
 	then
 		commandArray[dinner_table_light]='Set Level '..dinner_table_light_level_low..' REPEAT 2 INTERVAL 1'	
 		event_body = '.............................................................'		
@@ -100,6 +97,7 @@
 		and otherdevices[isdark_dinner_table] == 'On'	
 		and otherdevices[dinner_table_light] == 'Off'
 		and otherdevices[isdark_standby]   == 'Off'
+		and timebetween("15:00:00","22:30:00")			
 	then
 		commandArray[dinner_table_light]='Set Level '..dinner_table_light_level_low..' AFTER 1 REPEAT 2 INTERVAL 5'
 		event_body = '.............................................................'
@@ -113,6 +111,7 @@
 		and otherdevices[isdark_dinner_table] == 'On'	
 		and otherdevices[dinner_table_light] == 'Off'
 		and otherdevices[isdark_standby]   == 'Off'	
+		and timebetween("15:00:00","22:30:00")			
 		and timedifference(otherdevices_lastupdate[laptop_switch]) > timeon_dinnertable_light	
 	then
 		commandArray[dinner_table_light]='Set Level '..dinner_table_light_level_high..' AFTER 1 REPEAT 2 INTERVAL 5'

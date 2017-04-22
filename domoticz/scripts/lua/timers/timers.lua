@@ -4,7 +4,7 @@
 	@ timers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 20-4-2017
+	@ updated	: 24-4-2017
 	@ Script for switching ON/OFF various sensors and switches when no activity
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -26,7 +26,7 @@
 	  
 	  timeon_arriving_standby  			= 120
 	  
-	  timeon_arriving_garden_standby	= 240   
+	  timeon_arriving_garden_standby	= 300   
 	  
 	  timeon_natalya_away				= 3600
 
@@ -115,12 +115,11 @@
 
 		if otherdevices['Woonkamer Eettafel Lamp'] ~= 'Off'
 			and otherdevices['Motion Eettafel'] == 'Off'
-			and otherdevices['Motion Eettafel 2'] == 'Off'
 			and timedifference(otherdevices_lastupdate['Laptops']) > timeon_dinnertable_light			
-			and timedifference(otherdevices_lastupdate['Motion Eettafel']) > timeon_dinnertable_light
-			and timedifference(otherdevices_lastupdate['Motion Eettafel 2']) > timeon_dinnertable_light			
+			and timedifference(otherdevices_lastupdate['Motion Eettafel']) > timeon_dinnertable_light		
 			and timedifference(otherdevices_lastupdate['Woonkamer Eettafel Verlichting Knop']) > timeon_dinnertable_light
-			and timedifference(otherdevices_lastupdate['Woonkamer Eettafel Lamp']) > timeon_dinnertable_light				
+			and timedifference(otherdevices_lastupdate['Woonkamer Eettafel Lamp']) > timeon_dinnertable_light	
+			and timebetween("15:00:00","22:30:00")				
 		then	
 			commandArray['Woonkamer Eettafel Lamp']='Off REPEAT 2 INTERVAL 1'
 			timer_body = 'No motion detected for more then '..timeon_dinnertable_light..' seconds'
@@ -222,11 +221,10 @@
 		
 -- Aankomst Tuin - Standby
 		if otherdevices['Aankomst Tuin - Standby'] == 'On' 		
-			and otherdevices['Achter Deur'] == 'Closed'
-			and otherdevices['Bijkeuken Deur'] == 'Closed'
 			and timedifference(otherdevices_lastupdate['Aankomst Tuin - Standby']) > timeon_arriving_garden_standby			
 			and timedifference(otherdevices_lastupdate['Achter Deur']) > timeon_arriving_garden_standby 
-			and timedifference(otherdevices_lastupdate['Bijkeuken Deur']) > timeon_arriving_garden_standby	
+			and timedifference(otherdevices_lastupdate['Bijkeuken Deur']) > timeon_arriving_garden_standby
+			and timedifference(otherdevices_lastupdate['Tuin Achter Motion']) > timeon_arriving_garden_standby				
 			and uservariables[security_activation_type] == 0		
 		then		
 			commandArray['Aankomst Tuin - Standby']='Off'			
