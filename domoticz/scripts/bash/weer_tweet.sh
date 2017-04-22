@@ -5,7 +5,7 @@
 ### weer_tweet.sh
 ### @author	: Siewert Lameijer
 ### @since	: 29-11-2016
-### @updated: 20-4-2017
+### @updated: 23-4-2017
 ### Simple script grep weather data from WeatherUnderground sensors devices in Domoticz to sent to twitter
 ### See weer_tweet.py for tweeting this data
 timestamp=`/bin/date +%H`
@@ -32,6 +32,36 @@ echo $wind > /mnt/storage/domoticz_scripts/weer_tweets/weather-data.txt
 dir=`cat /mnt/storage/domoticz_scripts/weer_tweets/weather-data.txt | awk -F: '{print $20, $21}' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'`
 speed=`cat /mnt/storage/domoticz_scripts/weer_tweets/weather-data.txt | awk -F: '{print $22, $23}' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'`
 
+if [[ $speed > 0 && $speed < 1 ]]; then
+   speed="| 0bft"
+elif [[ $speed > 2 && $speed < 3 ]]; then
+   speed="| 1bft"
+elif [[ $speed > 4 && $speed < 6 ]]; then
+   speed="| 2bft"
+elif [[ $speed > 7 && $speed < 10 ]]; then
+   speed="| 3bft"
+elif [[ $speed > 11 && $speed < 16 ]]; then
+   speed="| 4bft"
+elif [[ $speed > 17 && $speed < 21 ]]; then
+   speed="| 5bft"
+elif [[ $speed > 22 && $speed < 27 ]]; then
+   speed="| 6bft"
+elif [[ $speed > 28 && $speed < 33 ]]; then
+   speed="| 7bft"
+elif [[ $speed > 34 && $speed < 40 ]]; then
+   speed="| 8bft"
+elif [[ $speed > 41 && $speed < 47 ]]; then
+   speed="| 9bft" 
+elif [[ $speed > 48 && $speed < 55 ]]; then
+   speed="10bft"  
+elif [[ $speed > 56 && $speed < 63 ]]; then
+   speed="| 11bft"
+elif [[ $speed > 63 ]]; then
+   speed="| 12bft"
+else
+   speed=""   
+fi
+
 chill=`curl "http://127.0.0.1:8080/json.htm?type=devices&rid=166"`
 echo $chill > /mnt/storage/domoticz_scripts/weer_tweets/weather-data.txt
 chill=`cat /mnt/storage/domoticz_scripts/weer_tweets/weather-data.txt | awk -F: '{print $15, $16}' | awk '{printf("%.1f\n", $3)}' | sed 's/\"//g' | sed 's/,//g'`
@@ -54,7 +84,7 @@ uv=`curl "http://127.0.0.1:8080/json.htm?type=devices&rid=167"`
 echo $uv > /mnt/storage/domoticz_scripts/weer_tweets/weather-data.txt
 uv=`cat /mnt/storage/domoticz_scripts/weer_tweets/weather-data.txt | awk -F: '{print $16, $17}' | awk '{print $3}' | cut -c 1-2 | sed 's/\"//g' | sed 's/,//g'`
 
-echo -ne "#Zoutkamp |"$timestamp"u| "$rainforecast"\nTemp:"$temperature"°C | Gevoel:"$chill"°C\nVocht:"$hygro"%\nNeerslag:"$rain"mm\nWind:"$dir" "$speed"m/s\nBaro:"$baro"hPa\n"$zicht"UV:"$uv"" > /mnt/storage/domoticz_scripts/weer_tweets/weather-tweet.txt
+echo -ne "#Zoutkamp |"$timestamp"u| "$rainforecast"\nTemp:"$temperature"°C | Gevoel:"$chill"°C\nVocht:"$hygro"%\nNeerslag:"$rain"mm\nWind:"$dir" "$speed"\nBaro:"$baro"hPa\n"$zicht"UV:"$uv"" > /mnt/storage/domoticz_scripts/weer_tweets/weather-tweet.txt
 
 tweet_text="/mnt/storage/domoticz_scripts/weer_tweets/weather-tweet.txt"
 
