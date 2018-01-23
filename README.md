@@ -53,6 +53,7 @@ As for RAM resources, it decreased more then 80%.<br />
 Although running i'm currently running Domoticz on a RPi3 i never stopped using this method.<br />
 <br />
 # MyDomoticz-Sidenote:
+
 In general i won't provide any install guides and such.<br />
 I assume you have some basic knowledge about Raspberry, Domoticz and scripting.<br />
 if not, then... #oops ;-)<br />
