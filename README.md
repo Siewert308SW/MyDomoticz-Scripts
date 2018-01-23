@@ -67,8 +67,8 @@ My script repository can be in handy for you to do some inspiration or act as gu
 <br />
 
 # MyDomoticz-Screenshots:
-MOTD login screen:<br />
+MOTD login screen: <br />
 ![alt text](screenshots/motd.png "motd")
 <br />
-Auto Weather Tweet:<br />
+Auto Weather Tweet: <br />
 ![alt text](screenshots/tweet.png "tweet")
