@@ -77,10 +77,10 @@
 		--'Deurbel - Knop',	
 		--'Deurbel - Standby',
 		
-	-- Lux Sensors as 3,5,10 time trigger
-		'Woonkamer - Lux', 	-- 3min
-		'Gang - Lux',		-- 5min
-		'Overloop - Lux',	-- 10min	
+	-- Sensors as 3,5,10 time trigger
+		'Woonkamer - Lux', 	-- 3min trigger
+		'Gang - Lux',		-- 5min trigger
+		'Overloop - Lux',	-- 10min trigger	
 		
 	-- Various Switches
 		'Dummy 1',

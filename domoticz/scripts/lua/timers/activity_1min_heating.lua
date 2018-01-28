@@ -53,7 +53,7 @@
 		and outside_temp < outside_temp_max	
 		and nest_current_temp <= setpoint_trigger_temp
 		and nest_setpoint_temp ~= setpoint_high	
-		and timebetween("07:30:00","22:29:59")	
+		and timebetween("07:30:00","21:59:59")	
 	then		
 		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_high)
 	end
@@ -67,7 +67,7 @@
 	if otherdevices[someonehome] == 'Thuis'
 		and outside_temp > 5	
 		and nest_setpoint_temp ~= setpoint_low_summer	
-		and timebetween("22:30:00","23:59:59")
+		and timebetween("22:00:00","23:59:59")
 		and weekend('false')
 	then		
 		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_low_summer)	
@@ -76,7 +76,7 @@
 	if otherdevices[someonehome] == 'Thuis'
 		and outside_temp <= 5	
 		and nest_setpoint_temp ~= setpoint_low_winter	
-		and timebetween("22:30:00","23:59:59")
+		and timebetween("22:00:00","23:59:59")
 		and weekend('false')
 	then		
 		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_low_winter)	
