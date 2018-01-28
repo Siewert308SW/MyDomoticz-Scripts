@@ -30,11 +30,24 @@
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
 		and dark('true', 2)
-		and timebetween("06:00:00","23:29:59")
-		and otherdevices[phone.jerina] == 'On'		
+		and timebetween("06:30:00","22:45:00")
+		and otherdevices[phone.jerina] == 'On'
+		and weekend('false')
 	then
 		commandArray[light.hallway]='On REPEAT 3 INTERVAL 2'	
 	end
+	
+	if (devicechanged[light.toilet] == 'Off' or devicechanged[motion_sensor.downstairs] == 'On' or devicechanged[door.living] == 'Open')
+		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds30	
+		and otherdevices[motion_sensor.hallway] == 'Off'	
+		and otherdevices[light.hallway] == 'Off'
+		and dark('true', 2)
+		and timebetween("07:30:00","23:59:59")
+		and otherdevices[phone.jerina] == 'On'
+		and weekend('true')
+	then
+		commandArray[light.hallway]='On REPEAT 3 INTERVAL 2'	
+	end	
 	
 	if (devicechanged[light.toilet] == 'Off' or devicechanged[motion_sensor.downstairs] == 'On' or devicechanged[door.living] == 'Open')
 		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds30	
@@ -93,5 +106,4 @@
 		and otherdevices[door.pantry] == 'Closed'
 	then
 		commandArray[light.hallway]='Off AFTER 10 REPEAT 3 INTERVAL 2'
-	
 	end
