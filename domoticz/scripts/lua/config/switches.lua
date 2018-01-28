@@ -68,6 +68,7 @@ light = {
 	dinnertable 				= 'Woonkamer - Eettafel Lamp',
 	upstairs    				= 'Overloop - Verlichting',
 	shower						= 'Douche - Lamp',
+	hallway						= 'Gang - Wandlamp',
 }
 
 --
