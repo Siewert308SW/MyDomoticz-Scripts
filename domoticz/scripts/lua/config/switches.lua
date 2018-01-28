@@ -42,9 +42,9 @@ laptop = {
 --
 
 phone = {
-		jerina					= 'Jerina GSM',
-		siewert					= 'Siewert GSM',
-		natalya					= 'Natalya GSM',		
+		jerina					= 'Jerina GSM - Bluetooth',
+		siewert					= 'Siewert GSM - Bluetooth',
+		natalya					= 'Natalya GSM - Bluetooth',		
 		switch					= 'Telefoons',
 }
 
