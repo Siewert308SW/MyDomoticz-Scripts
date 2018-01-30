@@ -22,12 +22,11 @@ CPUTEMP=`vcgencmd measure_temp | /bin/grep "temp" | /usr/bin/cut -d "=" -f 2 | /
 CPUMHZ=$(sudo cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq)
 
 HDD1=`df -h | grep 'dev/root' | awk 	'{print $2,   " 	 "    $3,"	    "$4}'`
-HDD2=`df -h | grep 'mnt/storage' | awk 	'{print $2," 	 " $3,"	    "$4}'`
-HDD3=`df -h | grep 'mnt/backup' | awk 	'{print $2," 	 " $3,"	    "$4}'`
-HDD4=`df -h | grep 'mnt/rsynced' | awk 	'{print $2," 	 " $3,"	    "$4}'`
-MEM=`free -mo | awk 'NR==2 { printf "%sM 	 %sM 	    %sM ",$2,$3,$4; }'`
+HDD2=`df -h | grep 'mnt/backup' | awk 	'{print $2," 	 " $3,"	    "$4}'`
+HDD3=`df -h | grep 'mnt/storage' | awk 	'{print $2," 	 " $3,"	    "$4}'`
+MEM=`free -m | awk 'NR==2 { printf "%sM 	 %sM 	    %sM ",$2,$3,$4; }'`
+SWAP=`free -m | awk 'NR==4 { printf "%sM 	 %sM 	    %sM ",$2,$3,$4; }'`
 
-# WLANIP=`/sbin/ifconfig wlan0 | /bin/grep "inet addr" | /usr/bin/cut -d ":" -f 2 | /usr/bin/cut -d " " -f 1`
 LANIP=`/sbin/ifconfig eth0 | /bin/grep "inet addr" | /usr/bin/cut -d ":" -f 2 | /usr/bin/cut -d " " -f 1`
 WANIP=`wget -q -O - http://icanhazip.com/`
 
@@ -40,19 +39,19 @@ UPSSERVICERUNNING=`sudo systemctl status picofssd -l | grep Active | awk {'print
 DOMOSERVICE=`sudo service domoticz.sh status | grep Active | awk {'print $2'}`
 DOMOSERVICERUNNING=`sudo service domoticz.sh status | grep Active | awk {'print $3'} | /usr/bin/cut -d "(" -f 2 | /usr/bin/cut -d ")" -f 1`
 
-DOMOSERVICEVERSION=`curl -s -X GET "http://127.0.0.1:8080/json.htm?type=command&param=getversion" | /bin/grep "version" | awk {'print $3'} | /usr/bin/cut -d '"' -f 2 | /usr/bin/cut -d '"' -f 1`
+DOMOSERVICEVERSION=`curl -s -X GET "http://127.0.0.1:8080/json.htm?type=command&param=getversion" | /bin/grep '"version" :' | awk {'print $3'} | /usr/bin/cut -d '"' -f 2 | /usr/bin/cut -d '"' -f 1`
 DOMOSERVICEHASH=`curl -s -X GET "http://127.0.0.1:8080/json.htm?type=command&param=getversion" | /bin/grep "hash" | awk {'print $3'} | /usr/bin/cut -d '"' -f 2 | /usr/bin/cut -d '"' -f 1`
 DOMOSERVICEBUILD=`curl -s -X GET "http://127.0.0.1:8080/json.htm?type=command&param=getversion" | /bin/grep "build_time" | awk {'print $3,$4'} | /usr/bin/cut -d '"' -f 2 | /usr/bin/cut -d '"' -f 1`
 
 DOMOSERVICECHANNEL=`curl -s -X GET "http://127.0.0.1:8080/json.htm?type=command&param=getversion" |grep -Po '(?<=channel=)[^&]*'`
 DOMOSERVICEUPTIME=`sudo service domoticz.sh status | grep Active | awk {'print $9, $10'}`
 
-REPOUPDATESAVAIL=`cat /mnt/storage/domoticz_scripts/logging/motd_repo_updates/repo_updates.txt`
-RPIUPDATESAVAIL=`cat /mnt/storage/domoticz_scripts/logging/motd_repo_updates/rpi_updates.txt`
-FIRMWAREUPDATESAVAIL=`cat /mnt/storage/domoticz_scripts/logging/motd_repo_updates/firmware_updates.txt`
-DOMOUPDATESAVAIL=`cat /mnt/storage/domoticz_scripts/logging/motd_domo_updates/domo_updates.txt`
-DOMOUPDATEFROM=`cat /mnt/storage/domoticz_scripts/logging/motd_domo_updates/domo_update_from.txt`
-DOMOUPDATETO=`cat /mnt/storage/domoticz_scripts/logging/motd_domo_updates/domo_update_to.txt`
+REPOUPDATESAVAIL=`cat /mnt/storage/domoticz_logs/repo_updates/repo_updates.txt`
+RPIUPDATESAVAIL=`cat /mnt/storage/domoticz_logs/repo_updates/rpi_updates.txt`
+FIRMWAREUPDATESAVAIL=`cat /mnt/storage/domoticz_logs/repo_updates/firmware_updates.txt`
+DOMOUPDATESAVAIL=`cat /mnt/storage/domoticz_logs/domo_updates/domo_updates.txt`
+DOMOUPDATEFROM=`cat /mnt/storage/domoticz_logs/domo_updates/domo_update_from.txt`
+DOMOUPDATETO=`cat /mnt/storage/domoticz_logs/domo_updates/domo_update_to.txt`
 
 # get the load averages
 read one five fifteen rest < /proc/loadavg
@@ -67,13 +66,14 @@ echo "$(tput setaf 2)
      ~ .~ (   ) ~. ~  $(tput setaf 4)	|____/ \___/|_| |_| |_|\___/ \__|_|\___/___|$(tput setaf 1)
       (  : '~' :  )   $(tput setaf 2)          Welcome back to Domoticz, ${ME}!     $(tput setaf 1)
        '~ .~~~. ~'    $(tput setaf 2)  						                        $(tput setaf 1)
-           '~' $(tput sgr0)$(tput setaf 7)                                         
-	$(tput setaf 2)HOME AUTOMATION$(tput sgr0)
-	RPi Model...........: ${MODEL}		
+           '~' $(tput sgr0)$(tput setaf 7)
+		   
+	$(tput setaf 2)HOME AUTOMATION$(tput sgr0)		
 	Domoticz Version....: V${DOMOSERVICEVERSION} ${DOMOSERVICECHANNEL} - ${DOMOSERVICEHASH} (${DOMOSERVICEBUILD})
 	Domoticz Uptime.....: ${DOMOSERVICE} for ${DOMOSERVICEUPTIME}
 	
 	$(tput setaf 2)SYSTEM DATA$(tput sgr0)
+	RPi Model...........: ${MODEL}
 	OS Release..........: ${RELEASE}
 	Kernel..............: ${KERNEL}
 	System Uptime.......: Up for ${UPTIME}
@@ -84,18 +84,18 @@ echo "$(tput setaf 2)
 	$(tput setaf 2)STORAGE / MEMORY DATA$(tput sgr0)
 			     Total:	 Used:      Free:
 	Root................:  ${HDD1}
-	Rsynced.............:  ${HDD4}	
-	Storage.............:  ${HDD2}
-	Backup..............:  ${HDD3}
+	Backup..............:  ${HDD2}	
 	Memory..............:  ${MEM}
+	Swap................:  ${SWAP}	
 	
 	$(tput setaf 2)SERVICES$(tput sgr0)						$(tput setaf 2)CONNECTIVITY$(tput sgr0)
-	Bluetooth...........: ${BTSERVICE} and ${BTSERVICERUNNING}	|	WLAN IP.............: # ${WLANIP}
+	Bluetooth...........: ${BTSERVICE} and ${BTSERVICERUNNING}	|	WLAN IP.............: 0.0.0.0
 	UPS PIco HV3.0A.....: ${UPSSERVICE} and ${UPSSERVICERUNNING}	|	LAN IP..............: ${LANIP}	
-	Domoticz............: ${DOMOSERVICE} and ${DOMOSERVICERUNNING} 	|	WAN IP..............: ${WANIP}
+	Domoticz............: ${DOMOSERVICE} and ${DOMOSERVICERUNNING} 	|	WAN IP..............: ${WANIP}	
 	
 	$(tput setaf 2)UPDATES$(tput sgr0)
 	Domoticz Updates....: $(tput setaf 1)${DOMOUPDATESAVAIL} $(tput sgr0)Domoticz update available ${DOMOUPDATEFROM} ${DOMOUPDATETO} $(tput sgr0)	
 	Repo Updates........: $(tput setaf 1)${REPOUPDATESAVAIL} $(tput sgr0)Repository updates available
 	Rpi Updates.........: $(tput setaf 1)${RPIUPDATESAVAIL} $(tput sgr0)Rpi update available
-	Firmware Update.....: $(tput sgr0)${FIRMWAREUPDATESAVAIL} $(tput sgr0)"
+	Firmware Update.....: $(tput setaf 1)${FIRMWAREUPDATESAVAIL} $(tput sgr0)Firmware update available $(tput sgr0)
+	"
