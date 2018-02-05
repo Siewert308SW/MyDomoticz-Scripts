@@ -4,7 +4,7 @@
 	@ lights_garden.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-4-2018
+	@ updated	: 2-5-2018
 	@ Script to switch garden light ON/OFF when IsDark or motion, taking in count IsWeekend or IsNotWeekend
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -51,13 +51,21 @@
 	end
 	
 	if devicechanged[lux_sensor.living]
-		and uservariables[var.garden_light_standby] == 0
-		and dark('false', 3)	
-		and otherdevices[garden.shed_lights] ~= 'Off'		
+		and uservariables[var.garden_light_standby] == 1
+		and dark('false', 4)	
+		and otherdevices[garden.shed_lights] == 'Off'		
 	then
-		if uservariables[var.garden_light_standby] == 1 then commandArray["Variable:" .. var.garden_light_standby .. ""]= '0' end	
+		commandArray["Variable:" .. var.garden_light_standby .. ""]= '0'	
 		commandArray["Group:" ..group.garden_lights.. ""]='Off AFTER 1 REPEAT 3 INTERVAL 20'	
-	end	
+	end
+
+	if devicechanged[lux_sensor.living]
+		and uservariables[var.garden_light_standby] == 0
+		and dark('false', 4)	
+		and otherdevices[garden.shed_lights] ~= 'Off'		
+	then	
+		commandArray["Group:" ..group.garden_lights.. ""]='Off AFTER 1 REPEAT 3 INTERVAL 20'	
+	end		
 	
 --
 -- **********************************************************
@@ -164,7 +172,7 @@
 	if devicechanged[motion_sensor.porch] == 'On'
 		and uservariables[var.garden_light_motion] == 0	
 		and otherdevices[garden.shed_lights] == 'Off'
-		and dark('true', 2)		
+		and dark('true', 1)		
 	then
 		commandArray["Variable:" .. var.garden_light_motion .. ""]= '1'	
 		commandArray[garden.shed_lights]='On REPEAT 3 INTERVAL 2'		

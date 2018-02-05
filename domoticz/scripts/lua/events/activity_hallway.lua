@@ -4,7 +4,7 @@
 	@ activity_hallway.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-28-2018
+	@ updated	: 2-5-2018
 	@ Script for switching hallway light when someone is entering the hallway
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -26,11 +26,11 @@
 	end
 	
 	if (devicechanged[light.toilet] == 'Off' or devicechanged[motion_sensor.downstairs] == 'On' or devicechanged[door.living] == 'Open')
-		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds30	
+		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds15	
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
 		and dark('true', 2)
-		and timebetween("06:30:00","22:45:00")
+		and timebetween("16:00:00","22:45:00")
 		and otherdevices[phone.jerina] == 'On'
 		and weekend('false')
 	then
@@ -38,11 +38,11 @@
 	end
 	
 	if (devicechanged[light.toilet] == 'Off' or devicechanged[motion_sensor.downstairs] == 'On' or devicechanged[door.living] == 'Open')
-		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds30	
+		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds15	
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
 		and dark('true', 2)
-		and timebetween("07:30:00","23:59:59")
+		and timebetween("16:00:00","23:59:59")
 		and otherdevices[phone.jerina] == 'On'
 		and weekend('true')
 	then
@@ -50,7 +50,7 @@
 	end	
 	
 	if (devicechanged[light.toilet] == 'Off' or devicechanged[motion_sensor.downstairs] == 'On' or devicechanged[door.living] == 'Open')
-		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds30	
+		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds15	
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
 		and dark('true', 2)

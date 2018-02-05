@@ -4,7 +4,7 @@
 	@ activity_hallway.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-28-2018
+	@ updated	: 2-5-2018
 	@ Script for switching hallway light when someone is entering the hallway
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -21,7 +21,7 @@
 		and otherdevices[door.pantry] == 'Closed' 
 		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds30
 		and timedifference(otherdevices_lastupdate[motion_sensor.downstairs]) > timeout.seconds30			
-		and timedifference(otherdevices_lastupdate[door.front]) > timeout.seconds30
+		and timedifference(otherdevices_lastupdate[door.front]) > timeout.minute1
 		and timedifference(otherdevices_lastupdate[door.pantry]) > timeout.seconds30		
 		and timedifference(otherdevices_lastupdate[door.living]) > timeout.seconds30			
 	then	

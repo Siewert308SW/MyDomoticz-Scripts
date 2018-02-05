@@ -4,7 +4,7 @@
 	@ settings.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-4-2018
+	@ updated	: 2-5-2018
 	@ All global settings
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -52,6 +52,11 @@
 		'Siewert GSM',
 		'Natalya GSM',		
 		'Telefoons',
+		
+	-- Phones Visitos
+		'Oma GSM',
+		'Oma Tablet',
+		'Visite',		
 		
 	-- Laptops	
 		'Jerina Laptop - eth',	

@@ -4,7 +4,7 @@
 	@ switches.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-4-2018
+	@ updated	: 2-5-2018
 	@ Define your switches and devices, Lua globally used.
 	@ Once you have renamed a switches then no need to edit all your scripts
 
@@ -46,6 +46,18 @@ phone = {
 		siewert					= 'Siewert GSM',
 		natalya					= 'Natalya GSM',		
 		switch					= 'Telefoons',
+}
+
+--
+-- **********************************************************
+-- Phones Visitors
+-- **********************************************************
+--
+
+visitor = {
+		grandma_gsm				= 'Oma GSM',
+		grandma_tablet			= 'Oma Tablet',
+		switch					= 'Visite',		
 }
 
 --
