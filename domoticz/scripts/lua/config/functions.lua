@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-28-2018
+	@ updated	: 2-4-2018
 	@ All global functions needed
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -267,62 +267,25 @@
 -- **********************************************************
 -- Get lux threshold IsDark or IsDay
 -- **********************************************************
--- Example: if dark('true') then
+-- Example: if dark('true', 3) then (3 stands for lux value min/max)
 
 	function dark(dark, lux)
 		dark = dark
 		lux = lux
 
-	-- Define Max/Min Lux threshold	as default when no lux is set
-		local lux_threshold		= 4
-
 	-- Get Lux Value	
 		living = tonumber(otherdevices_svalues[lux_sensor.living])	
 		hallway = tonumber(otherdevices_svalues[lux_sensor.hallway])
 		upstairs = tonumber(otherdevices_svalues[lux_sensor.upstairs])
-
+		veranda = tonumber(otherdevices_svalues[lux_sensor.veranda])
+		
 	-- Create table (take in count hallway light ON/OFF to avoid false readings)
 	-- For now until i have a outside lux sensor i use two lights to overrule the lux reading as they increase the threshold
 	
-		if otherdevices[light.living_wall_lights] == 'Off' and otherdevices[light.living_twilight] == 'Off' then
-			sensors={living, hallway, upstairs}
-		end
+			sensors={living, hallway, upstairs, veranda}
 		
-		if otherdevices[light.living_wall_lights] ~= 'Off' or otherdevices[light.living_twilight] ~= 'Off' then
-			sensors={1, 0, 0}
-		end
-		
-		--[[
-		if (living <= hallway or living <= upstairs) and living > 9 and (hallway >= 15 or upstairs >= 3) then
-		sensors={living, hallway, upstairs}
-		
-		elseif (living <= hallway or living <= upstairs) and living <= 9 and (hallway >= 15 or upstairs >= 3) then
-		sensors={living, 2, 1}
-		
-		elseif (living > hallway and living > upstairs) and living > 9 and (hallway >= 15 or upstairs >= 3) then
-		sensors={living, hallway, upstairs}
-
-		elseif (living > hallway and living > upstairs) and living < 9 and (hallway < 15 and upstairs < 3) then
-		sensors={living, hallway, upstairs}
-
-		elseif (living > hallway and living > upstairs) and living > 2 and (hallway == 0 and upstairs == 0) then
-		sensors={living, hallway, upstairs}				
-		
-		elseif living == hallway and living == upstairs then
-		sensors={living, hallway, upstairs}
-		
-		else
-		sensors={living, hallway, upstairs}		
-		end
-		--]]
-		
-	-- Lux_threshold		
-		
-		if lux ~= nil then
-		lux_threshold = lux
-		else
-		lux_threshold = lux_threshold
-		end		
+	-- Lux_threshold
+		local lux_threshold = tonumber(lux)		
 
 	-- Calculate Average		
 		local elements = 0

@@ -4,7 +4,7 @@
 	@ script_device_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-28-2018
+	@ updated	: 2-4-2018
 	@ Main event script on which my entire Lua event system is running. 
 
 	Just one file instead of a dozen lua device and timer scripts.
@@ -26,21 +26,20 @@
 commandArray = {}
 
 	for deviceName, deviceValue in pairs(devicechanged) do
+		if uservariables["lua_error"] == 0 then -- If predefined devices in switches.lua are missing then events will halt
+			for tableName, tableDevice in pairs (triggers) do
+				if deviceName == tableDevice then		
+					require "functions" require "switches" require "various"
+					event_folder = Current_Path .. 'events/'
 
-		for tableName, tableDevice in pairs (triggers) do
-			if deviceName == tableDevice then		
-				require "functions" require "switches" require "various"
-				event_folder = Current_Path .. 'events/'
-
-				f = io.popen('ls ' .. event_folder)
-				for event in f:lines() do
-					dofile ('' .. event_folder .. ''..event..'')
+					f = io.popen('ls ' .. event_folder)
+					for event in f:lines() do
+						dofile ('' .. event_folder .. ''..event..'')
+					end
+					--f:close()
 				end
-
-				f:close()
 			end
 		end
-	
 	end
 
 return commandArray

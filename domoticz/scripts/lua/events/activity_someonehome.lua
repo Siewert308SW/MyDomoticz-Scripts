@@ -4,7 +4,7 @@
 	@ activity_someonehome.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-28-2018
+	@ updated	: 1-30-2018
 	@ Script for switching SomeOneHome ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -41,7 +41,7 @@
 	end
 	
 	if devicechanged[switch.living_light] == 'Off' and otherdevices[someone.home] == 'Thuis' then
-		commandArray[someone.home]='Set Level 0 AFTER 15'		
+		commandArray[someone.home]='Set Level 0 AFTER 5'		
 	end	
 	
 --

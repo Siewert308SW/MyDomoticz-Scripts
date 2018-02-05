@@ -4,7 +4,7 @@
 	@ settings.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-28-2018
+	@ updated	: 2-4-2018
 	@ All global settings
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -18,8 +18,20 @@
 
 	lua = {		
 		--notify		= true;									-- If you want a email notification
-		--verbose 	= "true";									-- If you want to see logs in domoticz	
+		verbose 		= "true";							-- If you want to see logs in domoticz
+		device_check 	= "true";							-- If you want to check if your predefined devices are still present		
 	}
+
+--
+-- **********************************************************
+-- Domoticz Lux Settings
+-- **********************************************************
+--
+
+	lux_max = {		
+		living		= 5;									-- Define max Lux value (lower is dark)
+		garden 		= 3;									-- Define max Lux value (lower is dark)	
+	}	
 	
 --
 -- **********************************************************
@@ -36,9 +48,9 @@
 		'Televisie',
 	
 	-- Phones
-		'Jerina GSM - Bluetooth',
-		'Siewert GSM - Bluetooth',
-		'Natalya GSM - Bluetooth',		
+		'Jerina GSM',
+		'Siewert GSM',
+		'Natalya GSM',		
 		'Telefoons',
 		
 	-- Laptops	
@@ -63,29 +75,30 @@
 		'Voorraam',
 		'Eettafel - Motion (links)',
 		'Eettafel - Motion (rechts)',
+		'Veranda - Motion',		
 		
 	-- Light Switches
 		'Woonkamer - Kamer Verlichting Knop',
 		'Tuin - Verlichting Knop',
 		'Woonkamer - Eettafel Verlichting Knop',		
-		'Douche Lamp',
+		'Douche - Lamp',
 		'W.C - Lamp',		
 		'Keuken - Cabinet Lamp (Wasbak)',
 		'Keuken - Cabinet Lamp (Fornuis)',
 	
 	-- Doorbell Switches
-		--'Deurbel - Knop',	
-		--'Deurbel - Standby',
+		'Deurbel',
 		
 	-- Sensors as 3,5,10 time trigger
 		'Woonkamer - Lux', 	-- 3min trigger
 		'Gang - Lux',		-- 5min trigger
 		'Overloop - Lux',	-- 10min trigger	
+		'Veranda - Lux',	-- Triggers garden lights event
 		
 	-- Various Switches
-		'Dummy 1',
-		'Dummy 2',
-		'Dummy 3'			
+		--'Dummy 1',
+		--'Dummy 2',
+		--'Dummy 3'			
 }	
 	
 --
@@ -95,6 +108,7 @@
 --	
 	
 	timeout = {
+		second1 		= 1;	
 		seconds5 		= 5;	
 		seconds10 		= 10;
 		seconds15 		= 15;

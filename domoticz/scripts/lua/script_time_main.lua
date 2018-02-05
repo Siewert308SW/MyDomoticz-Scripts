@@ -4,7 +4,7 @@
 	@ script_time_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-28-2018
+	@ updated	: 2-4-2018
 	@ Script to look up and execute time scripts a specific folder
 	@ Scripts are called per your timer settings defined in settings.lua
 	@ Rename your script to something like script_2min_test.lua
@@ -17,7 +17,7 @@
 
 	local Current_Path = debug.getinfo(1).source:match("@?(.*/)")
 	package.path = package.path .. ';' .. Current_Path .. 'config/?.lua'
-	require "settings"
+	require "settings" require "functions" require "switches" require "helper"
 	
 	local m = os.date('%M')
 
@@ -28,7 +28,10 @@
 --
 
 commandArray = {}
-
+if validate() then -- Function call to check predefined devices in switches.lua, if nil then halt events
+			if uservariables[var.lua_error] == 1 then
+			commandArray["Variable:" .. var.lua_error .. ""]= '0'
+			end
 	for tablecol, tablerow in pairs(timers) do
 
 		if (m % tablerow == 0) then
@@ -39,7 +42,7 @@ commandArray = {}
 				findstring = ''..timer..'min'
 				
 				if string.find(name, '' .. findstring) then
-					require "functions" require "switches"
+					
 					dofile ('' .. timers_folder .. ''..name..'')
 				end
 				

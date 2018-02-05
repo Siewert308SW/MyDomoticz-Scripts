@@ -4,7 +4,7 @@
 	@ switch_laptops.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-28-2018
+	@ updated	: 2-2-2018
 	@ Script for switching dummy laptop switch to determine if SomeOneHome
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -135,6 +135,7 @@
 		and otherdevices[laptop.switch] == 'On'
 		and timedifference(otherdevices_lastupdate[laptop.switch]) > timeout.minutes10		
 	then
-		commandArray[plug.printer]='Off FOR 5 SECONDS'		
+		if otherdevices[plug.printer] == 'On' then commandArray[plug.printer]='Off FOR 5 SECONDS' end
+		if otherdevices[plug.printer] == 'Off' then commandArray[plug.printer]='On AFTER 1' end		
 	end		
 	

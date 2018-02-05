@@ -4,7 +4,7 @@
 	@ switches.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-28-2017
+	@ updated	: 2-4-2018
 	@ Define your switches and devices, Lua globally used.
 	@ Once you have renamed a switches then no need to edit all your scripts
 
@@ -42,9 +42,9 @@ laptop = {
 --
 
 phone = {
-		jerina					= 'Jerina GSM - Bluetooth',
-		siewert					= 'Siewert GSM - Bluetooth',
-		natalya					= 'Natalya GSM - Bluetooth',		
+		jerina					= 'Jerina GSM',
+		siewert					= 'Siewert GSM',
+		natalya					= 'Natalya GSM',		
 		switch					= 'Telefoons',
 }
 
@@ -78,12 +78,10 @@ light = {
 --
 
 garden = {
-	front_door_light			= 'Tuin - Voordeur Verlichting',
+	front_door_light			= 'Tuin - Voordeur Lamp',
 	border_lights				= 'Tuin - Border Verlichting',
 	shed_lights					= 'Tuin - Schuur Verlichting',
-	porch_lights				= 'Tuin - Veranda Verlichting',
-	upstairs1    				= 'Overloop - Verlichting Knop (H1)',
-	upstairs2    				= 'Overloop - Verlichting Knop (H2)',	
+	porch_lights				= 'Tuin - Veranda Verlichting',	
 }
 
 --
@@ -96,6 +94,8 @@ switch = {
 	living_light				= 'Woonkamer - Kamer Verlichting Knop',
 	dinner_light 				= 'Woonkamer - Eettafel Verlichting Knop',
 	garden_light				= 'Tuin - Verlichting Knop',
+	upstairs1    				= 'Overloop - Verlichting Knop (H1)',
+	upstairs2    				= 'Overloop - Verlichting Knop (H2)',	
 }
 
 --
@@ -117,7 +117,8 @@ scene = {
 	stage_2						= 'Woonkamer Stage 2',	
 	stage_3						= 'Woonkamer Stage 3',
 	stage_4						= 'Woonkamer Stage 4',
-	shutdown					= 'Woonkamer Shutdown',	
+	shutdown					= 'Woonkamer Shutdown',
+	away_shutdown				= 'Woonkamer Away Shutdown',	
 }
 
 --
@@ -152,6 +153,7 @@ motion_sensor = {
 	dinner1						= 'Eettafel - Motion (links)',
 	dinner2						= 'Eettafel - Motion (rechts)',
 	kitchen						= 'Keuken - Cabinet Motion',
+	porch						= 'Veranda - Motion',	
 }
 
 --
@@ -176,6 +178,7 @@ plug = {
 	siewert 					= 'Standbykiller - Siewert Laptop',
 	printer		 				= 'Standbykiller - Printer/Server',
 	natalya		 				= 'Standbykiller - Natalya TV Hoek',
+	pantry		 				= 'Standbykiller - Kelder',	
 }
 
 --
@@ -188,8 +191,12 @@ watt = {
 	tvcorner					= 'Verbruik - Woonkamer TV Hoek',
 	siewert						= 'Verbruik - Siewert Laptop',
 	jerina						= 'Verbruik - Jerina Laptop',
-	natalya						= 'Verbruik - Natalya TV Hoek',	
-	media_usage					= 10,	
+	natalya						= 'Verbruik - Natalya TV Hoek',
+	pantry						= 'Verbruik - Kelder',
+	hood						= 'Verbruik - Afzuigkap',	
+	media_usage					= 10,
+	hood_high					= 80, -- When hood ventilation is ON
+	hood_low					= 11, -- Only lights ON
 }
 
 --
@@ -203,8 +210,11 @@ var = {
 	living_light_override		= 'living_light_override',
 	dinner_light_override 		= 'dinner_light_override',
 	garden_light_override		= 'garden_light_override',
-	garden_light_standby		= 'garden_light_standby',	
+	garden_light_standby		= 'garden_light_standby',
+	garden_light_motion			= 'garden_light_motion',	
 	leaving_override			= 'leaving_override',
+	doorbell_standby			= 'doorbell_standby',
+	lua_error					= 'lua_error',	
 }
 
 --
@@ -217,6 +227,17 @@ lux_sensor = {
 	living						= 'Woonkamer - Lux',
 	hallway 					= 'Gang - Lux',
 	upstairs					= 'Overloop - Lux',
+	veranda						= 'Veranda - Lux',	
+}
+
+--
+-- **********************************************************
+-- Doorbell
+-- **********************************************************
+--
+
+doorbell = {
+	button						= 'Deurbel',	
 }
 
 --
@@ -226,7 +247,7 @@ lux_sensor = {
 --
 
 temp = {
-	veranda						= 'Veranda - Temperature',
+	veranda						= 'Veranda - Temperatuur',
 	porch_light					= 18,
 }
 
