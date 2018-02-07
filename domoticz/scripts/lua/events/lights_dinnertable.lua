@@ -4,7 +4,7 @@
 	@ lights_dinnertable.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-4-2018
+	@ updated	: 2-7-2018
 	@ Script to switch diner table light ON/OFF with taking in count Laptops ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -50,7 +50,7 @@
 
 	if devicechanged[lux_sensor.living]
 		and otherdevices[light.dinnertable] ~= 'Off'			
-		and dark('false', 15)
+		and dark('false', 5)
 		and timedifference(otherdevices_lastupdate[light.dinnertable]) >= timeout.minutes10				
 	then
 		commandArray[light.dinnertable]='Off REPEAT 3 INTERVAL 2'		
@@ -58,7 +58,7 @@
 		
 	if devicechanged[lux_sensor.living]
 		and uservariables[var.dinner_light_override] ~= 0			
-		and dark('false', 15)			
+		and dark('false', 5)			
 	then
 		commandArray["Variable:" .. var.dinner_light_override .. ""]= '0'		
 	end			

@@ -4,7 +4,7 @@
 	@ lights_livingroom.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-4-2018
+	@ updated	: 2-7-2018
 	@ Script to switch various livingroom lighting scenes ON/OFF
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -18,7 +18,7 @@
 
 	if devicechanged[someone.home] == 'Thuis'
 		and timebetween("00:00:00","11:59:59")
-		and dark('true', 10)	
+		and dark('true', 15)	
 		and otherdevices[light.living_standing_light] == 'Off'
 		and otherdevices[light.living_twilight] == 'Off'			
 		and otherdevices[light.living_wall_lights] == 'Off'
@@ -27,8 +27,8 @@
 	end
 
 	if devicechanged[someone.home] == 'Thuis'
-		and timebetween("15:00:00","23:59:59")
-		and dark('true', 10)
+		and timebetween("16:00:00","23:59:59")
+		and dark('true', 5)
 		and otherdevices[light.living_standing_light] == 'Off'
 		and otherdevices[light.living_twilight] == 'Off'			
 		and otherdevices[light.living_wall_lights] == 'Off'		
@@ -56,7 +56,7 @@
 	if devicechanged[lux_sensor.living]
 		and otherdevices[someone.home] == 'Thuis'
 		and timebetween("00:00:00","11:59:59")
-		and dark('true', 10)	
+		and dark('true', 5)	
 		and otherdevices[light.living_standing_light] == 'Off'
 		and otherdevices[light.living_twilight] == 'Off'			
 		and otherdevices[light.living_wall_lights] == 'Off'	
@@ -73,7 +73,7 @@
 	if devicechanged[lux_sensor.living]
 		and otherdevices[someone.home] == 'Thuis'
 		and timebetween("16:00:00","23:59:59")
-		and dark('true', 10)
+		and dark('true', 15)
 		and otherdevices[light.living_standing_light] == 'Off'
 		and otherdevices[light.living_twilight] == 'Off'			
 		and otherdevices[light.living_wall_lights] == 'Off'	
@@ -103,7 +103,7 @@
 	if devicechanged[lux_sensor.living]
 		and otherdevices[light.living_standing_light] ~= 'Off'
 		and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes10		
-		and dark('false', 10)		
+		and dark('false', 5)		
 	then
 		commandArray["Scene:" ..scene.shutdown.. ""]='On AFTER 10 REPEAT 2 INTERVAL 5'
 	end
@@ -116,7 +116,7 @@
 	
 	if devicechanged[lux_sensor.living]
 		and uservariables[var.living_light_override] ~= 0	
-		and dark('false', 10)		
+		and dark('false', 5)		
 	then
 		commandArray["Variable:" .. var.living_light_override .. ""]= '0'
 	end	

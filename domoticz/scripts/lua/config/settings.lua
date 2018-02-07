@@ -4,7 +4,7 @@
 	@ settings.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-5-2018
+	@ updated	: 2-7-2018
 	@ All global settings
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -17,20 +17,40 @@
 --
 
 	lua = {		
-		--notify		= true;									-- If you want a email notification
+		notify			= "true";								-- If you want a email notification
 		verbose 		= "true";							-- If you want to see logs in domoticz
 		device_check 	= "true";							-- If you want to check if your predefined devices are still present		
 	}
+	
+--
+-- **********************************************************
+-- Domoticz Sunrise/Sunset Settings
+-- **********************************************************
+--
 
+	before_sun = {		
+		rise		= 30;									-- Define minutes before
+		set 		= 15;									-- Define minutes before
+	}
+	
+	after_sun = {		
+		rise		= 30;									-- Define minutes after
+		set 		= 15;									-- Define minutes after
+	}	
+	
 --
 -- **********************************************************
 -- Domoticz Lux Settings
 -- **********************************************************
 --
 
-	lux_max = {		
-		living		= 5;									-- Define max Lux value (lower is dark)
-		garden 		= 3;									-- Define max Lux value (lower is dark)	
+	lux_trigger = {
+		dinner		= 15;									-- Define max Lux value (lower is dark)	
+		living1		= 10;									-- Define max Lux value (lower is dark)
+		living2		= 5;									-- Define max Lux value (lower is dark)
+		hallway		= 2;									-- Define max Lux value (lower is dark)		
+		porch 		= 1;									-- Define max Lux value (lower is dark)		
+		garden 		= 1;									-- Define max Lux value (lower is dark)	
 	}	
 	
 --

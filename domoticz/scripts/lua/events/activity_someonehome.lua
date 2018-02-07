@@ -4,7 +4,7 @@
 	@ activity_someonehome.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-30-2018
+	@ updated	: 2-6-2018
 	@ Script for switching SomeOneHome ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -16,7 +16,17 @@
 -- **********************************************************
 --
 
-	if motion_detected and (otherdevices[someone.home] == 'Slapen' or otherdevices[someone.home] == 'Weg') then
+	if (devicechanged[door.living]
+		or devicechanged[door.front]
+		or devicechanged[door.back]
+		or devicechanged[door.garden]
+		or devicechanged[door.scullery]
+		or devicechanged[motion_sensor.living] == 'On'
+		or devicechanged[window.living]
+		or devicechanged[switch.dinner_light] == 'On'
+		or devicechanged[switch.living_light] == 'On')
+		and (otherdevices[someone.home] == 'Slapen' or otherdevices[someone.home] == 'Weg') 
+	then
 		commandArray[someone.home]='Set Level 10 AFTER 1'	
 		if otherdevices[plug.tvcorner] == 'Off' then
 		commandArray["Group:" ..group.standy_killers_zwave.. ""]='On'		
@@ -24,15 +34,11 @@
 		end
 	end
 	
-	if devicechanged[motion_sensor.living] == 'On' and otherdevices[someone.home] == 'Off' then
-		commandArray[someone.home]='Set Level 10 AFTER 1'		
-		if otherdevices[plug.tvcorner] == 'Off' then
-		commandArray["Group:" ..group.standy_killers_zwave.. ""]='On'		
-		commandArray["Group:" ..group.standy_killers_433mhz.. ""]='On AFTER 10 REPEAT 3 INTERVAL 5'
-		end
-	end	
-	
-	if lightswitchON and (otherdevices[someone.home] == 'Slapen' or otherdevices[someone.home] == 'Weg' or otherdevices[someone.home] == 'Off') then
+	if (devicechanged[motion_sensor.living] == 'On'
+		or devicechanged[switch.living_light] == 'On'
+		or devicechanged[switch.dinner_light] == 'On')
+		and otherdevices[someone.home] == 'Off'
+	then
 		commandArray[someone.home]='Set Level 10 AFTER 1'		
 		if otherdevices[plug.tvcorner] == 'Off' then
 		commandArray["Group:" ..group.standy_killers_zwave.. ""]='On'		
@@ -41,7 +47,7 @@
 	end
 	
 	if devicechanged[switch.living_light] == 'Off' and otherdevices[someone.home] == 'Thuis' then
-		commandArray[someone.home]='Set Level 0 AFTER 5'		
+		commandArray[someone.home]='Set Level 0 AFTER 1'		
 	end	
 	
 --
@@ -117,9 +123,9 @@
 		and otherdevices[phone.switch] == 'Off'	
 		and motion('false', 43200)
 	then	
-		commandArray[someone.home]='Set Level 30 AFTER 1'		
+		commandArray[someone.home]='Set Level 20 AFTER 1'		
 	end
-
+--[[
 --
 -- *********************************************************************
 -- Switch Away to Holiday when Away is On longer then needed
@@ -132,4 +138,5 @@
 		and motion('false', 43200)
 	then	
 		commandArray[someone.home]='Set Level 40 AFTER 1'		
-	end	
+	end
+--]]	

@@ -4,7 +4,7 @@
 	@ switches.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-5-2018
+	@ updated	: 2-7-2018
 	@ Define your switches and devices, Lua globally used.
 	@ Once you have renamed a switches then no need to edit all your scripts
 
@@ -239,7 +239,8 @@ lux_sensor = {
 	living						= 'Woonkamer - Lux',
 	hallway 					= 'Gang - Lux',
 	upstairs					= 'Overloop - Lux',
-	veranda						= 'Veranda - Lux',	
+	veranda						= 'Veranda - Lux',
+	switch						= 'Sunrise/Sunset',	
 }
 
 --

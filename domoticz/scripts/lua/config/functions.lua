@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-4-2018
+	@ updated	: 2-7-2018
 	@ All global functions needed
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -279,10 +279,8 @@
 		upstairs = tonumber(otherdevices_svalues[lux_sensor.upstairs])
 		veranda = tonumber(otherdevices_svalues[lux_sensor.veranda])
 		
-	-- Create table (take in count hallway light ON/OFF to avoid false readings)
-	-- For now until i have a outside lux sensor i use two lights to overrule the lux reading as they increase the threshold
-	
-			sensors={living, hallway, upstairs, veranda}
+	-- Create table
+		sensors={living, hallway, upstairs, veranda}
 		
 	-- Lux_threshold
 		local lux_threshold = tonumber(lux)		
@@ -363,11 +361,11 @@
 					
 		isdark = false
 					
-		if threshold == 1 and dark == 'true' then
+		if threshold == 1 and dark == 'true' and otherdevices[lux_sensor.switch] == 'On' then
 		isdark = true
 		end
 		
-		if threshold == 0 and dark == 'false' then
+		if threshold == 0 and dark == 'false' and otherdevices[lux_sensor.switch] == 'Off' then
 		isdark = true
 		end
 		return isdark	
