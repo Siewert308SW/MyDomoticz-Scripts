@@ -4,7 +4,7 @@
 	@ settings.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-7-2018
+	@ updated	: 2-10-2018
 	@ All global settings
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -17,7 +17,7 @@
 --
 
 	lua = {		
-		notify			= "true";								-- If you want a email notification
+		notify			= "true";							-- If you want a email notification
 		verbose 		= "true";							-- If you want to see logs in domoticz
 		device_check 	= "true";							-- If you want to check if your predefined devices are still present		
 	}
@@ -121,7 +121,7 @@
 		'Veranda - Lux',	-- Triggers garden lights event
 		
 	-- Various Switches
-		--'Dummy 1',
+		'Dummy 1',
 		--'Dummy 2',
 		--'Dummy 3'			
 }	

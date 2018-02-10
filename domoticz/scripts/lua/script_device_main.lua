@@ -4,7 +4,7 @@
 	@ script_device_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-4-2018
+	@ updated	: 2-10-2018
 	@ Main event script on which my entire Lua event system is running. 
 
 	Just one file instead of a dozen lua device and timer scripts.
@@ -25,6 +25,12 @@
 	
 commandArray = {}
 
+--
+-- **********************************************************
+-- Call any device event if predefined trigger changed status
+-- **********************************************************
+--
+
 	for deviceName, deviceValue in pairs(devicechanged) do
 		if uservariables["lua_error"] == 0 then -- If predefined devices in switches.lua are missing then events will halt
 			for tableName, tableDevice in pairs (triggers) do
@@ -36,7 +42,70 @@ commandArray = {}
 					for event in f:lines() do
 						dofile ('' .. event_folder .. ''..event..'')
 					end
-					--f:close()
+
+--
+-- **********************************************************
+-- Print log 
+-- **********************************************************
+--
+					
+					if lua.verbose == 'true' then
+
+						for CommandArrayName, CommandArrayValue in pairs(commandArray) do	
+							Array = ''..CommandArrayName..' = '..CommandArrayValue..''
+						end
+	
+						if deviceName == "Woonkamer - Lux" then
+						TriggerDevice = '3 minutes time trigger'
+						elseif deviceName == "Overloop - Lux" then
+						TriggerDevice = '5 minutes time trigger'	
+						elseif deviceName == "Gang - Lux" then
+						TriggerDevice = '10 minutes time trigger'
+						elseif deviceName == "Gang - Lux" then
+						TriggerDevice = '10 minutes time trigger'	
+						else
+
+						doorstring = 'Deur'
+						motionstring = 'Motion'
+						
+						if string.find(deviceName, '' .. doorstring) then
+							
+						TriggerDevice = ''..deviceName..' has been '..deviceValue..''
+
+						elseif string.find(deviceName, '' .. motionstring) and deviceValue == 'On' then
+							
+						TriggerDevice = ''..deviceName..' detected motion'
+						
+						elseif string.find(deviceName, '' .. motionstring) and deviceValue == 'Off' then
+							
+						TriggerDevice = ''..deviceName..' didnt detect motion anymore'
+
+						else
+						TriggerDevice = ''..deviceName..' switched '..deviceValue..''				
+						end
+			
+						end
+	
+						if Array ~= nil then
+						print '===========================EVENT=============================='
+						print ''
+						print 'Trigger:'		
+						print(TriggerDevice)
+						print ''
+						if logmessage ~= nil then
+						print 'Message:'
+						print (logmessage)
+						print ''
+						end
+						print 'commandArray:'	
+						for CommandArrayName, CommandArrayValue in pairs(commandArray) do	
+						print(''..CommandArrayName..' = '..CommandArrayValue..'')
+						end
+						print ''
+						print '=============================================================='		
+						end	
+					end
+
 				end
 			end
 		end

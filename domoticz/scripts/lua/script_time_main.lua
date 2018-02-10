@@ -4,7 +4,7 @@
 	@ script_time_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-4-2018
+	@ updated	: 2-10-2018
 	@ Script to look up and execute time scripts a specific folder
 	@ Scripts are called per your timer settings defined in settings.lua
 	@ Rename your script to something like script_2min_test.lua
@@ -48,9 +48,8 @@ if validate() then -- Function call to check predefined devices in switches.lua,
 				
 			end				
 		end
-	end	
-f:close()
-
+	end
+end
 
 return commandArray
 	
