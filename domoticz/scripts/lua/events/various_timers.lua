@@ -4,7 +4,7 @@
 	@ various_timers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-7-2018
+	@ updated	: 2-10-2018
 	@ Script to switch ON/OFF various devices if max timeout reached
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -39,7 +39,7 @@
 		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) >= timeout.hour1
 		and timedifference(otherdevices_lastupdate[light.shower]) >= timeout.hour1	
 	then
-		commandArray[light.shower]='Off REPEAT 2 INTERVAL 1'		
+		commandArray[light.shower]='Off AFTER 1'		
 	end
 	
 --

@@ -4,7 +4,7 @@
 	@ activity_toilet.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-28-2018
+	@ updated	: 2-10-2018
 	@ Script to switch ON toilet light when motion is triggered with standby to avoid triggering it again when light whiched OFF
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -23,7 +23,7 @@
 		and timebetween("00:00:00","23:59:59")		
 		and timedifference(otherdevices_lastupdate[light.toilet]) > timeout.seconds10
 	then		
-		commandArray[light.toilet]='On REPEAT 3 INTERVAL 1'
+		commandArray[light.toilet]='On'
 	end	
 
 -- *********************************************************************
@@ -35,7 +35,7 @@
 		and timebetween("06:00:00","23:59:59")
 		and timedifference(otherdevices_lastupdate[light.toilet]) > timeout.seconds10
 	then		
-		commandArray[light.toilet]='On REPEAT 3 INTERVAL 1'
+		commandArray[light.toilet]='On'
 	end
 
 --

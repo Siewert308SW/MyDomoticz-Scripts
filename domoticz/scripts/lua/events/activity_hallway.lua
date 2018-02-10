@@ -4,7 +4,7 @@
 	@ activity_hallway.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-5-2018
+	@ updated	: 2-10-2018
 	@ Script for switching hallway light when someone is entering the hallway
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -20,44 +20,44 @@
 		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds30	
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
-		and dark('true', 2)		
+		and dark('true', 1)		
 	then
-		commandArray[light.hallway]='On REPEAT 3 INTERVAL 2'	
+		commandArray[light.hallway]='On'	
 	end
 	
 	if (devicechanged[light.toilet] == 'Off' or devicechanged[motion_sensor.downstairs] == 'On' or devicechanged[door.living] == 'Open')
 		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds15	
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
-		and dark('true', 2)
+		and dark('true', 1)
 		and timebetween("16:00:00","22:45:00")
 		and otherdevices[phone.jerina] == 'On'
 		and weekend('false')
 	then
-		commandArray[light.hallway]='On REPEAT 3 INTERVAL 2'	
+		commandArray[light.hallway]='On'	
 	end
 	
 	if (devicechanged[light.toilet] == 'Off' or devicechanged[motion_sensor.downstairs] == 'On' or devicechanged[door.living] == 'Open')
 		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds15	
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
-		and dark('true', 2)
+		and dark('true', 1)
 		and timebetween("16:00:00","23:59:59")
 		and otherdevices[phone.jerina] == 'On'
 		and weekend('true')
 	then
-		commandArray[light.hallway]='On REPEAT 3 INTERVAL 2'	
+		commandArray[light.hallway]='On'	
 	end	
 	
 	if (devicechanged[light.toilet] == 'Off' or devicechanged[motion_sensor.downstairs] == 'On' or devicechanged[door.living] == 'Open')
 		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timeout.seconds15	
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
-		and dark('true', 2)
+		and dark('true', 1)
 		and timebetween("00:00:00","23:59:59")
 		and otherdevices[phone.jerina] == 'Off'		
 	then
-		commandArray[light.hallway]='On REPEAT 3 INTERVAL 2'	
+		commandArray[light.hallway]='On'	
 	end	
 
 --
@@ -75,7 +75,7 @@
 		and timedifference(otherdevices_lastupdate[door.pantry]) > timeout30sec		
 		and timedifference(otherdevices_lastupdate[door.living]) > timeout30sec			
 	then	
-		commandArray[light.hallway]='Off AFTER 1 REPEAT 3 INTERVAL 2'
+		commandArray[light.hallway]='Off AFTER 1'
 	end
 --]]	
 --
@@ -90,7 +90,7 @@
 		and otherdevices[door.front] == 'Closed'
 		and otherdevices[door.pantry] == 'Closed'
 	then	
-		commandArray[light.hallway]='Off AFTER 10 REPEAT 3 INTERVAL 2'
+		commandArray[light.hallway]='Off AFTER 10'
 	end
 
 --
@@ -105,5 +105,5 @@
 		and otherdevices[door.front] == 'Closed'
 		and otherdevices[door.pantry] == 'Closed'
 	then
-		commandArray[light.hallway]='Off AFTER 10 REPEAT 3 INTERVAL 2'
+		commandArray[light.hallway]='Off AFTER 10'
 	end

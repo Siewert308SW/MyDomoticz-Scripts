@@ -4,7 +4,7 @@
 	@ lights_livingroom.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-7-2018
+	@ updated	: 2-10-2018
 	@ Script to switch various livingroom lighting scenes ON/OFF
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -23,7 +23,7 @@
 		and otherdevices[light.living_twilight] == 'Off'			
 		and otherdevices[light.living_wall_lights] == 'Off'
 	then
-		  commandArray[light.living_standing_light]='Set Level 20 REPEAT 2 INTERVAL 5'
+		  commandArray[light.living_standing_light]='Set Level 20'
 	end
 
 	if devicechanged[someone.home] == 'Thuis'
@@ -61,7 +61,7 @@
 		and otherdevices[light.living_twilight] == 'Off'			
 		and otherdevices[light.living_wall_lights] == 'Off'	
 	then
-		  commandArray[light.living_standing_light]='Set Level 20 AFTER 10 REPEAT 2 INTERVAL 5'
+		  commandArray[light.living_standing_light]='Set Level 20 AFTER 10'
 	end
 
 --
@@ -78,7 +78,7 @@
 		and otherdevices[light.living_twilight] == 'Off'			
 		and otherdevices[light.living_wall_lights] == 'Off'	
 	then
-		  commandArray[light.living_standing_light]='Set Level 66 AFTER 10 REPEAT 2 INTERVAL 5'
+		  commandArray[light.living_standing_light]='Set Level 66 AFTER 10'
 	end
 
 -- **********************************************************

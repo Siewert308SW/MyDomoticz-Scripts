@@ -4,7 +4,7 @@
 	@ lights_dinnertable.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-7-2018
+	@ updated	: 2-10-2018
 	@ Script to switch diner table light ON/OFF with taking in count Laptops ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -20,7 +20,7 @@
 		and otherdevices[light.dinnertable] == 'Off'
 		and dark('true', 15)
 	then
-		commandArray[light.dinnertable]='Set Level 7 REPEAT 3 INTERVAL 1'		
+		commandArray[light.dinnertable]='Set Level 7 AFTER 1'		
 	end
 
 -- *********************************************************************
@@ -28,7 +28,7 @@
 	if devicechanged[laptop.switch] == 'Off'
 		and otherdevices[light.dinnertable] ~= 'Off'		
 	then
-		commandArray[light.dinnertable]='Off REPEAT 3 INTERVAL 1'	
+		commandArray[light.dinnertable]='Off AFTER 1'	
 	end
 	
 --
@@ -43,7 +43,7 @@
 		and dark('true', 15)
 		and uservariables[var.dinner_light_override] == 0	
 	then
-		commandArray[light.dinnertable]='Set Level 7 AFTER 1 REPEAT 3 INTERVAL 1'		
+		commandArray[light.dinnertable]='Set Level 7 AFTER 1'		
 	end
 		
 -- *********************************************************************
@@ -53,7 +53,7 @@
 		and dark('false', 5)
 		and timedifference(otherdevices_lastupdate[light.dinnertable]) >= timeout.minutes10				
 	then
-		commandArray[light.dinnertable]='Off REPEAT 3 INTERVAL 2'		
+		commandArray[light.dinnertable]='Off AFTER 1'		
 	end
 		
 	if devicechanged[lux_sensor.living]

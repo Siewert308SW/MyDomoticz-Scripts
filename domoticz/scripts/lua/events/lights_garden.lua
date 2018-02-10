@@ -4,7 +4,7 @@
 	@ lights_garden.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-5-2018
+	@ updated	: 2-10-2018
 	@ Script to switch garden light ON/OFF when IsDark or motion, taking in count IsWeekend or IsNotWeekend
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -23,7 +23,7 @@
 		and otherdevices[garden.porch_lights] == 'Off'
 		and otherdevices[door.garden] == 'Open'	
 	then	
-		commandArray[garden.porch_lights]='On AFTER 1 REPEAT 3 INTERVAL 3'	
+		commandArray[garden.porch_lights]='On AFTER 1'	
 	end
 	
 	if devicechanged[lux_sensor.living]
@@ -32,7 +32,7 @@
 		and otherdevices[garden.porch_lights] ~= 'Off'
 		and otherdevices[door.garden] == 'Closed'	
 	then	
-		commandArray[garden.porch_lights]='Off AFTER 1 REPEAT 3 INTERVAL 3'	
+		commandArray[garden.porch_lights]='Off AFTER 1'	
 	end	
 	
 --
@@ -95,7 +95,7 @@
 		and (timebetween("23:00:00","23:59:59") or timebetween("00:00:00","15:59:59"))		
 		and (otherdevices[someone.home] == 'Weg' or otherdevices[someone.home] == 'Slapen')	
 	then	
-		if otherdevices[garden.porch_lights] == 'On' then commandArray[garden.porch_lights]='Off AFTER 10 REPEAT 3 INTERVAL 3' end
+		if otherdevices[garden.porch_lights] == 'On' then commandArray[garden.porch_lights]='Off AFTER 10' end
 		commandArray["Group:" ..group.garden_lights.. ""]='Off AFTER 60 REPEAT 3 INTERVAL 20'		
 	end
 
@@ -109,7 +109,7 @@
 		and (timebetween("23:45:00","23:59:59") or timebetween("00:00:00","15:59:59"))		
 		and (otherdevices[someone.home] == 'Weg' or otherdevices[someone.home] == 'Slapen')	
 	then	
-		if otherdevices[garden.porch_lights] == 'On' then commandArray[garden.porch_lights]='Off AFTER 10 REPEAT 3 INTERVAL 3' end
+		if otherdevices[garden.porch_lights] == 'On' then commandArray[garden.porch_lights]='Off AFTER 10' end
 		commandArray["Group:" ..group.garden_lights.. ""]='Off AFTER 60 REPEAT 3 INTERVAL 20'		
 	end
 
@@ -127,7 +127,7 @@
 		and (timebetween("23:00:00","23:59:59") or timebetween("00:00:00","15:59:59"))		
 		and (otherdevices[someone.home] == 'Thuis' or otherdevices[someone.home] == 'Weg' or otherdevices[someone.home] == 'Slapen')	
 	then	
-		if otherdevices[garden.porch_lights] == 'On' then commandArray[garden.porch_lights]='Off AFTER 1 REPEAT 3 INTERVAL 1' end
+		if otherdevices[garden.porch_lights] == 'On' then commandArray[garden.porch_lights]='Off AFTER 1' end
 		commandArray["Group:" ..group.garden_lights.. ""]='Off AFTER 10 REPEAT 3 INTERVAL 20'		
 	end
 	
@@ -141,7 +141,7 @@
 		and uservariables[var.garden_light_standby] == 1	
 		and otherdevices[garden.shed_lights] == 'On'	
 	then	
-		if otherdevices[garden.porch_lights] == 'On' then commandArray[garden.porch_lights]='Off AFTER 120 REPEAT 3 INTERVAL 1' end
+		if otherdevices[garden.porch_lights] == 'On' then commandArray[garden.porch_lights]='Off AFTER 120' end
 		commandArray["Group:" ..group.garden_lights.. ""]='Off AFTER 180 REPEAT 4 INTERVAL 20'		
 	end
 	
@@ -175,7 +175,7 @@
 		and dark('true', 1)		
 	then
 		commandArray["Variable:" .. var.garden_light_motion .. ""]= '1'	
-		commandArray[garden.shed_lights]='On REPEAT 3 INTERVAL 2'		
+		commandArray[garden.shed_lights]='On'		
 	end
 
 -- **********************************************************	
@@ -185,6 +185,6 @@
 		and timedifference(otherdevices_lastupdate[garden.shed_lights]) >= timeout.minutes5		
 	then
 		commandArray["Variable:" .. var.garden_light_motion .. ""]= '0'	
-		commandArray[garden.shed_lights]='Off REPEAT 3 INTERVAL 2'		
+		commandArray[garden.shed_lights]='Off'		
 	end	
 

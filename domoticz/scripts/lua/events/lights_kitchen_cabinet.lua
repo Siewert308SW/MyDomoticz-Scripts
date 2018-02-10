@@ -4,7 +4,7 @@
 	@ lights_kitchen_cabinet.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-3-2018
+	@ updated	: 2-10-2018
 	@ Script for switching kitchen cabinet lights ON/OFF when someone is entering the kitchen
 	@ Taking in count that the kitchen light where manually switched ON earlier
 	
@@ -20,7 +20,7 @@
 		and timedifference(otherdevices_lastupdate[light.kitchen_cabinet2]) > timeout.seconds15		
 	then
 		commandArray[light.kitchen_cabinet1]='On'
-		commandArray[light.kitchen_cabinet2]='On AFTER 1 REPEAT 2 INTERVAL 1'	
+		commandArray[light.kitchen_cabinet2]='On AFTER 1'	
 	end
 	
 --
@@ -37,7 +37,7 @@
 		and powerusage(watt.hood) < watt.hood_low	
 	then
 		commandArray[light.kitchen_cabinet1]='Off'
-		commandArray[light.kitchen_cabinet2]='Off AFTER 1 REPEAT 2 INTERVAL 1'	
+		commandArray[light.kitchen_cabinet2]='Off AFTER 1'	
 	end
 
 -- **********************************************************
@@ -50,6 +50,6 @@
 		and powerusage(watt.hood) >= watt.hood_high	
 	then
 		commandArray[light.kitchen_cabinet1]='Off'
-		commandArray[light.kitchen_cabinet2]='Off AFTER 1 REPEAT 2 INTERVAL 1'	
+		commandArray[light.kitchen_cabinet2]='Off AFTER 1'	
 	end
 	

@@ -17,10 +17,23 @@
 --
 
 	lua = {		
-		notify			= "true";							-- If you want a email notification
-		verbose 		= "true";							-- If you want to see logs in domoticz
-		device_check 	= "true";							-- If you want to check if your predefined devices are still present		
+		notify			= "true";							-- Enable/Disable email notification
+		verbose 		= "true";							-- Enable/Disable logs in domoticz
+		device_check 	= "true";							-- Enable/Disable check if your predefined devices are still present	
 	}
+
+--
+-- **********************************************************
+-- Domoticz redundant ON/OFF commands
+-- **********************************************************
+--
+	
+	redundant_array = {		
+		command			= "true";							-- Enable/Disable sending redundant ON/OFF commands	for 433mhz devices
+		verbose			= "true";							-- Enable/Disable redundant ON/OFF log message		
+		repeats 		= 3;								-- Define how many times to repeat the signal
+		interval 		= 2;								-- Define interval between each signal	
+	}	
 	
 --
 -- **********************************************************
@@ -40,7 +53,9 @@
 		messageTitle		= "BLUE";
 		message				= "GREEN";		
 		commandarrayTitle	= "BLUE";
-		commandarray		= "RED";		
+		commandarray		= "RED";
+		redundantarrayTitle	= "PURPLE";		
+		redundantarray		= "PURPLE";		
 	}
 
 	errorcolor = {		
