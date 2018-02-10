@@ -4,11 +4,21 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-7-2018
+	@ updated	: 2-10-2018
 	@ All global functions needed
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 --]]
+
+--
+-- **********************************************************
+-- Function for colorizing error log message
+-- **********************************************************
+--
+
+function print_color(color, message)
+		print('<b style="color:'..color..'">'..message..'</b>')
+end
 
 --
 -- **********************************************************

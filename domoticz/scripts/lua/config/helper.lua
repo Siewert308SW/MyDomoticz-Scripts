@@ -4,7 +4,7 @@
 	@ helper.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-7-2018
+	@ updated	: 2-10-2018
 	@ 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -204,10 +204,19 @@
 
 	function error(msg)
 		if msg ~= nil then
-			if uservariables[var.lua_error] == 0 then commandArray["Variable:" .. var.lua_error .. ""]= '1' end
-			print '===========================ERROR=============================='
-			print('Message:')
-			print('==> ' .. msg)
-			print '=============================================================='
+			if uservariables[var.lua_error] == 0 then 
+			
+			print_color(''..errorcolor.header..'', '===========================ERROR==============================')
+			print_color(''..errorcolor.title..'', 'Message:')
+			print_color(''..errorcolor.message..'', '==> All Event scripts disabled')			
+			print_color(''..errorcolor.footer..'', '==============================================================')			
+			
+			commandArray["Variable:" .. var.lua_error .. ""]= '1'
+			end
+			
+			print_color(''..errorcolor.header..'', '===========================ERROR==============================')
+			print_color(''..errorcolor.title..'', 'Message:')
+			print_color(''..errorcolor.message..'', '==> ' .. msg)			
+			print_color(''..errorcolor.footer..'', '==============================================================')
 		end
 	end

@@ -24,6 +24,34 @@
 	
 --
 -- **********************************************************
+-- Domoticz Log Message Colors
+-- **********************************************************
+-- Usage example: print_color('RED', 'Hello world')
+
+-- Possible colors option...
+-- GREEN | RED | BLUE | YELLOW | ORANGE | GOLD | GREY | WHITE | MAGENTA 
+-- LIGHTBLUE | SPRINGGREEN | GREENYELLOW | PURPLE | CHOCOLATE | CYAN
+		
+	msgcolor = {		
+		header				= "GREEN";
+		footer				= "GREEN";		
+		triggerTitle		= "BLUE";
+		trigger				= "GREEN";		
+		messageTitle		= "BLUE";
+		message				= "GREEN";		
+		commandarrayTitle	= "BLUE";
+		commandarray		= "RED";		
+	}
+
+	errorcolor = {		
+		header				= "RED";
+		footer				= "RED";		
+		title				= "BLUE";
+		message				= "PURPLE";		
+	}	
+	
+--
+-- **********************************************************
 -- Domoticz Sunrise/Sunset Settings
 -- **********************************************************
 --

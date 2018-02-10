@@ -87,22 +87,23 @@ commandArray = {}
 						end
 	
 						if Array ~= nil then
-						print '===========================EVENT=============================='
+						print_color(''..msgcolor.header..'', '==============================================================')
 						print ''
-						print 'Trigger:'		
-						print(TriggerDevice)
+						print_color(''..msgcolor.triggerTitle..'', 'Trigger:')
+						print_color(''..msgcolor.trigger..'', ''..TriggerDevice..'')
 						print ''
 						if logmessage ~= nil then
-						print 'Message:'
-						print (logmessage)
+						print_color(''..msgcolor.messageTitle..'', 'Message:')
+						print_color(''..msgcolor.message..'', ''..logmessage..'')
 						print ''
 						end
-						print 'commandArray:'	
-						for CommandArrayName, CommandArrayValue in pairs(commandArray) do	
-						print(''..CommandArrayName..' = '..CommandArrayValue..'')
+						print_color(''..msgcolor.commandarrayTitle..'', 'commandArray:')	
+						for CommandArrayName, CommandArrayValue in pairs(commandArray) do
+						print_color(''..msgcolor.commandarray..'', ''..CommandArrayName..' ==> '..CommandArrayValue..'')
 						end
 						print ''
-						print '=============================================================='		
+						print_color(''..msgcolor.footer..'', '==============================================================')
+
 						end	
 					end
 

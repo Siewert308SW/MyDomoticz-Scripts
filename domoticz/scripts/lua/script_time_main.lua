@@ -30,6 +30,10 @@
 commandArray = {}
 if validate() then -- Function call to check predefined devices in switches.lua, if nil then halt events
 			if uservariables[var.lua_error] == 1 then
+			print_color(''..errorcolor.header..'', '==============================================================')
+			print_color(''..errorcolor.title..'', 'Message:')
+			print_color(''..errorcolor.message..'', '==> All Event scripts enabled')			
+			print_color(''..errorcolor.footer..'', '==============================================================')			
 			commandArray["Variable:" .. var.lua_error .. ""]= '0'
 			end
 	for tablecol, tablerow in pairs(timers) do
