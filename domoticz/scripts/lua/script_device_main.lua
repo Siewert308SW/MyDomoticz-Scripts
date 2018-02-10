@@ -43,35 +43,6 @@ commandArray = {}
 						dofile ('' .. event_folder .. ''..event..'')
 					end
 					
-					
---
--- **********************************************************
--- Redundant commands and log message for 433mhz devices 
--- **********************************************************
---
-					
-					if redundant_array.command == 'true' then
-						for CommandArrayName, CommandArrayValue in pairs(commandArray) do
-								for i, v in pairs(otherdevices_idx) do
-									if CommandArrayName == i then
-							
-										HardwareName=os.capture("curl 'http://127.0.0.1:8080/json.htm?type=devices&rid="..v.."' | grep -w 'HardwareName'  | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
-									
-										SwitchType=os.capture("curl 'http://127.0.0.1:8080/json.htm?type=devices&rid="..v.."' | grep -w 'SwitchType'  | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
-								
-										if HardwareName == 'RFXtrx433E' and SwitchType == 'On/Off' then
-										redundantmessage = ''..CommandArrayName..' is a '..HardwareName..' device, redundant command enabled'
-										commandArray[CommandArrayName]=''..CommandArrayValue..' REPEAT '..redundant_array.repeats..' INTERVAL '..redundant_array.interval..''
-										
-										elseif HardwareName == 'Dummy' and SwitchType == 'On/Off' then
-										redundantmessage = ''..CommandArrayName..' is a '..HardwareName..' device, redundant command enabled'
-										commandArray[CommandArrayName]=''..CommandArrayValue..' REPEAT '..redundant_array.repeats..' INTERVAL '..redundant_array.interval..''
-										end			
-									end
-								end
-							end
-						end					
-
 --
 -- **********************************************************
 -- Print log 
@@ -127,9 +98,41 @@ commandArray = {}
 						print ''
 						end
 						
-						if redundantmessage ~= nil and redundant_array.verbose == 'true' then
+						
+--
+-- **********************************************************
+-- Redundant commands and log message for 433mhz devices 
+-- **********************************************************
+--
+					
+					if redundant_array.command == 'true' then
+						if redundant_array.verbose == 'true' then
 						print_color(''..msgcolor.redundantarrayTitle..'', 'Redundant:')
-						print_color(''..msgcolor.redundantarray..'', ''..redundantmessage..'')
+						end
+						
+						for CommandArrayName, CommandArrayValue in pairs(commandArray) do
+								for i, v in pairs(otherdevices_idx) do
+									if CommandArrayName == i then
+							
+										HardwareName=os.capture("curl 'http://127.0.0.1:8080/json.htm?type=devices&rid="..v.."' | grep -w 'HardwareName'  | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
+									
+										SwitchType=os.capture("curl 'http://127.0.0.1:8080/json.htm?type=devices&rid="..v.."' | grep -w 'SwitchType'  | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
+								
+										if HardwareName == 'RFXtrx433E' and (SwitchType == 'On/Off' or SwitchType == 'Dimmer') then
+										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' is a '..HardwareName..' device, redundant command enabled')
+										commandArray[CommandArrayName]=''..CommandArrayValue..' REPEAT '..redundant_array.repeats..' INTERVAL '..redundant_array.interval..''
+										
+										elseif HardwareName == 'Dummy' and SwitchType == 'On/Off' then
+										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' is a '..HardwareName..' device, redundant command enabled')
+										commandArray[CommandArrayName]=''..CommandArrayValue..' REPEAT '..redundant_array.repeats..' INTERVAL '..redundant_array.interval..''
+										end			
+									end
+								end
+							end
+						end						
+						
+						
+						if redundant_array.verbose == 'true' then
 						print ''
 						end
 						
