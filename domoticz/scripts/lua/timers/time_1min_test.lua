@@ -10,9 +10,22 @@
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 --]]
 
+
+--[[
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+	@ time_xmin_test.lua
+	@ author	: Siewert Lameijer
+	@ since		: 1-1-2015
+	@ updated	: x-xx-xxxx
+	@ Script for testing various trail and errors
+	
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+--]]
+
 -- Switches
 	local dummy1 = 'Dummy 1'	
-
+	
 	if otherdevices[dummy1] == 'Off'
 	then
 	commandArray[dummy1]='On FOR 30 SECONDS'
@@ -22,7 +35,7 @@
 -- Print average Lux calculated by function (dark)
 -- **********************************************************
 --
-
+ 
 if lua.verbose == "true" then	
 		if dark('true', 5) then
 		print('')
@@ -47,4 +60,3 @@ if lua.verbose == "true" then
 		end
 	end
 end
-	
