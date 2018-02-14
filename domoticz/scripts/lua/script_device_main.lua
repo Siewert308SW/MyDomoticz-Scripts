@@ -50,11 +50,17 @@ commandArray = {}
 --
 					
 					if lua.verbose == 'true' or uservariables[var.lua_logging] >= 1 then
+					
+						for CommandArrayName, CommandArrayValue in pairs(commandArray) do
+						   if type(CommandArrayValue) == "table" then
+							  for CommandArrayTableName, CommandArrayTableValue in pairs(CommandArrayValue) do
+								Array = ''..CommandArrayName.."="..CommandArrayTableName.." = ".. CommandArrayValue[CommandArrayTableName]	
+							  end		  
+						   else   
+								Array = ''..CommandArrayName..' = '..CommandArrayValue..''	
+						   end		   
+						end			
 
-						for CommandArrayName, CommandArrayValue in pairs(commandArray) do	
-							Array = ''..CommandArrayName..' = '..CommandArrayValue..''
-						end
-	
 						if deviceName == "Woonkamer - Lux" then
 						TriggerDevice = '3 minutes time trigger'
 						elseif deviceName == "Overloop - Lux" then
@@ -123,12 +129,6 @@ commandArray = {}
 										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' is a '..HardwareName..' device, redundant command enabled')
 										end
 										commandArray[CommandArrayName]=''..CommandArrayValue..' REPEAT '..redundant_array.repeats..' INTERVAL '..redundant_array.interval..''
-										
-										elseif HardwareName == 'Dummy' and SwitchType == 'On/Off' then
-										if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
-										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' is a '..HardwareName..' device, redundant command enabled')
-										end
-										commandArray[CommandArrayName]=''..CommandArrayValue..' REPEAT '..redundant_array.repeats..' INTERVAL '..redundant_array.interval..''
 										else
 										if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
 										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' doesnt need a redundant command')
@@ -141,19 +141,21 @@ commandArray = {}
 						
 						if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
 						print ''
-						end						
-
-						
-						print_color(''..msgcolor.commandarrayTitle..'', 'commandArray:')	
+						end
+						print_color(''..msgcolor.commandarrayTitle..'', 'commandArray:')
 						for CommandArrayName, CommandArrayValue in pairs(commandArray) do
-						print_color(''..msgcolor.commandarray..'', ''..CommandArrayName..' ==> '..CommandArrayValue..'')
+						   if type(CommandArrayValue) == "table" then
+							  for CommandArrayTableName, CommandArrayTableValue in pairs(CommandArrayValue) do
+								print_color(''..msgcolor.commandarray..'', ''..CommandArrayName.."="..CommandArrayTableName.." = ".. CommandArrayValue[CommandArrayTableName])		
+							  end		  
+						   else   
+								print_color(''..msgcolor.commandarray..'', ''..CommandArrayName..' ==> '..CommandArrayValue..'')	
+						   end		   
 						end
 						print ''
 						print_color(''..msgcolor.footer..'', '==============================================================')
-
 						end	
 					end
-
 				end
 			end
 		end

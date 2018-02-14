@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-10-2018
+	@ updated	: 2-14-2018
 	@ All global functions needed
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -272,6 +272,31 @@ end
 				return Isweekend	
 		end
 	end
+	
+--
+-- **********************************************************
+-- Blink Light IsNotDimmer
+-- **********************************************************
+--  blink('light_living', 3)
+
+	function blink(light, times)
+	   times = times or 2
+	   cmd1 = 'Off'
+	   cmd2 = 'On'
+	   pause = 7
+	   if (otherdevices[light] == 'Off') then
+		  cmd1 = 'On'
+		  cmd2 = 'Off'
+	   end   
+	   for i = 1, times do
+	   
+		  commandArray[#commandArray+1]={[light]=cmd1..' AFTER '..pause }
+		  pause = pause + 1
+		  commandArray[#commandArray+1]={[light]=cmd2..' AFTER '..pause }
+		  pause = pause + 1
+	   end
+	end
+	
 	
 --
 -- **********************************************************

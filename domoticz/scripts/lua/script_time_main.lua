@@ -61,9 +61,15 @@ if uservariables[var.lua_error] == 0 and uservariables[var.lua_logging] ~= 5	the
 					
 					if lua.verbose == 'true' or uservariables[var.lua_logging] >= 1 then
 
-						for CommandArrayName, CommandArrayValue in pairs(commandArray) do	
-							Array = ''..CommandArrayName..' = '..CommandArrayValue..''
-						end
+						for CommandArrayName, CommandArrayValue in pairs(commandArray) do
+						   if type(CommandArrayValue) == "table" then
+							  for CommandArrayTableName, CommandArrayTableValue in pairs(CommandArrayValue) do
+								Array = ''..CommandArrayName.."="..CommandArrayTableName.." = ".. CommandArrayValue[CommandArrayTableName]	
+							  end		  
+						   else   
+								Array = ''..CommandArrayName..' = '..CommandArrayValue..''	
+						   end		   
+						end	
 	
 						if Array ~= nil then
 						print_color(''..msgcolor.header..'', '==============================================================')
@@ -86,8 +92,8 @@ if uservariables[var.lua_error] == 0 and uservariables[var.lua_logging] ~= 5	the
 -- **********************************************************
 --
 					
-					if redundant_array.command == 'true' or uservariables[var.lua_logging] >= 2 then
-						if redundant_array.verbose == 'true' then
+					if redundant_array.command == 'true' then
+						if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
 						print_color(''..msgcolor.redundantarrayTitle..'', 'Redundant:')
 						end
 						
@@ -100,18 +106,12 @@ if uservariables[var.lua_error] == 0 and uservariables[var.lua_logging] ~= 5	the
 										SwitchType=os.capture("curl 'http://127.0.0.1:8080/json.htm?type=devices&rid="..v.."' | grep -w 'SwitchType'  | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
 										
 										if HardwareName == 'RFXtrx433E' and (SwitchType == 'On/Off' or SwitchType == 'Dimmer') then
-										if redundant_array.verbose == 'true' then
-										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' is a '..HardwareName..' device, redundant command enabled')
-										end
-										commandArray[CommandArrayName]=''..CommandArrayValue..' REPEAT '..redundant_array.repeats..' INTERVAL '..redundant_array.interval..''
-										
-										elseif HardwareName == 'Dummy' and SwitchType == 'On/Off' then
-										if redundant_array.verbose == 'true' then
+										if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
 										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' is a '..HardwareName..' device, redundant command enabled')
 										end
 										commandArray[CommandArrayName]=''..CommandArrayValue..' REPEAT '..redundant_array.repeats..' INTERVAL '..redundant_array.interval..''
 										else
-										if redundant_array.verbose == 'true' then
+										if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
 										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' doesnt need a redundant command')
 										end									
 										end			
@@ -120,14 +120,20 @@ if uservariables[var.lua_error] == 0 and uservariables[var.lua_logging] ~= 5	the
 							end
 						end						
 						
-						if redundant_array.verbose == 'true' then
+						if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
 						print ''
 						end						
 
 						
 						print_color(''..msgcolor.commandarrayTitle..'', 'commandArray:')	
 						for CommandArrayName, CommandArrayValue in pairs(commandArray) do
-						print_color(''..msgcolor.commandarray..'', ''..CommandArrayName..' ==> '..CommandArrayValue..'')
+						   if type(CommandArrayValue) == "table" then
+							  for CommandArrayTableName, CommandArrayTableValue in pairs(CommandArrayValue) do
+								print_color(''..msgcolor.commandarray..'', ''..CommandArrayName.."="..CommandArrayTableName.." = ".. CommandArrayValue[CommandArrayTableName])		
+							  end		  
+						   else   
+								print_color(''..msgcolor.commandarray..'', ''..CommandArrayName..' ==> '..CommandArrayValue..'')	
+						   end		   
 						end
 						print ''
 						print_color(''..msgcolor.footer..'', '==============================================================')
