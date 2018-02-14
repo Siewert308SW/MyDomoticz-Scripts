@@ -4,7 +4,7 @@
 	@ helper.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-10-2018
+	@ updated	: 2-14-2018
 	@ 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -19,7 +19,7 @@
 	function validate() 
 
 		result = true
-		if lua.device_check == "true" then		
+		if lua.device_check == "true" or uservariables[var.lua_logging] == 3 then		
 			for tableName, tableDevice in pairs (triggers) do
 				if not otherdevices[tableDevice] and tonumber(tableDevice) == nil then
 					error('Device: [' .. tableDevice .. '] in settings.lua doesnt exist')

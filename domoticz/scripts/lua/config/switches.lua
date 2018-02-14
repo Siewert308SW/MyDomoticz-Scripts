@@ -4,7 +4,7 @@
 	@ switches.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-7-2018
+	@ updated	: 2-14-2018
 	@ Define your switches and devices, Lua globally used.
 	@ Once you have renamed a switches then no need to edit all your scripts
 
@@ -18,7 +18,7 @@
 --
 
 someone = {
-		home					= 'Iemand Thuis',
+	home					= 'Iemand Thuis',
 }
 
 --
@@ -28,11 +28,11 @@ someone = {
 --
 
 laptop = {
-		jerina					= 'Jerina Laptop - eth',
-		siewert					= 'Siewert Laptop - eth',
-		natalya					= 'Natalya Laptop - eth',		
-		switch					= 'Laptops',
-		printer					= 'Print Server',
+	jerina					= 'Jerina Laptop - eth',
+	siewert					= 'Siewert Laptop - eth',
+	natalya					= 'Natalya Laptop - eth',		
+	switch					= 'Laptops',
+	printer					= 'Print Server',
 }
 
 --
@@ -42,10 +42,10 @@ laptop = {
 --
 
 phone = {
-		jerina					= 'Jerina GSM',
-		siewert					= 'Siewert GSM',
-		natalya					= 'Natalya GSM',		
-		switch					= 'Telefoons',
+	jerina					= 'Jerina GSM',
+	siewert					= 'Siewert GSM',
+	natalya					= 'Natalya GSM',		
+	switch					= 'Telefoons',
 }
 
 --
@@ -55,9 +55,9 @@ phone = {
 --
 
 visitor = {
-		grandma_gsm				= 'Oma GSM',
-		grandma_tablet			= 'Oma Tablet',
-		switch					= 'Visite',		
+	grandma_gsm				= 'Oma GSM',
+	grandma_tablet			= 'Oma Tablet',
+	switch					= 'Visite',		
 }
 
 --
@@ -218,7 +218,6 @@ watt = {
 --
 
 var = {
-
 	living_light_override		= 'living_light_override',
 	dinner_light_override 		= 'dinner_light_override',
 	garden_light_override		= 'garden_light_override',
@@ -226,7 +225,8 @@ var = {
 	garden_light_motion			= 'garden_light_motion',	
 	leaving_override			= 'leaving_override',
 	doorbell_standby			= 'doorbell_standby',
-	lua_error					= 'lua_error',	
+	lua_error					= 'lua_error',
+	lua_logging					= 'lua_logging',		
 }
 
 --
@@ -276,3 +276,7 @@ nest = {
 	room_temp					= 'Nest - TempHum',	
 	setpoint_idx				= 45,	
 }
+
+standby = {
+	hallway						= 'Gang Standby',
+}		

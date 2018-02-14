@@ -4,7 +4,7 @@
 	@ script_time_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-10-2018
+	@ updated	: 2-14-2018
 	@ Script to look up and execute time scripts a specific folder
 	@ Scripts are called per your timer settings defined in settings.lua
 	@ Rename your script to something like script_2min_test.lua
@@ -36,6 +36,8 @@ if validate() then -- Function call to check predefined devices in switches.lua,
 			print_color(''..errorcolor.footer..'', '==============================================================')			
 			commandArray["Variable:" .. var.lua_error .. ""]= '0'
 			end
+			
+if uservariables[var.lua_error] == 0 and uservariables[var.lua_logging] ~= 5	then		
 	for tablecol, tablerow in pairs(timers) do
 
 		if (m % tablerow == 0) then
@@ -57,7 +59,7 @@ if validate() then -- Function call to check predefined devices in switches.lua,
 -- **********************************************************
 --
 					
-					if lua.verbose == 'true' then
+					if lua.verbose == 'true' or uservariables[var.lua_logging] >= 1 then
 
 						for CommandArrayName, CommandArrayValue in pairs(commandArray) do	
 							Array = ''..CommandArrayName..' = '..CommandArrayValue..''
@@ -84,7 +86,7 @@ if validate() then -- Function call to check predefined devices in switches.lua,
 -- **********************************************************
 --
 					
-					if redundant_array.command == 'true' then
+					if redundant_array.command == 'true' or uservariables[var.lua_logging] >= 2 then
 						if redundant_array.verbose == 'true' then
 						print_color(''..msgcolor.redundantarrayTitle..'', 'Redundant:')
 						end
@@ -133,6 +135,7 @@ if validate() then -- Function call to check predefined devices in switches.lua,
 						end	
 					end		
 ---				
+				end
 			end
 		end
 	end

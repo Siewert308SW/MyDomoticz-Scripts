@@ -4,7 +4,7 @@
 	@ settings.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-10-2018
+	@ updated	: 2-14-2018
 	@ All global settings
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -17,9 +17,9 @@
 --
 
 	lua = {		
-		notify			= "true";							-- Enable/Disable email notification
-		verbose 		= "true";							-- Enable/Disable logs in domoticz
-		device_check 	= "true";							-- Enable/Disable check if your predefined devices are still present	
+		notify			= "false";							-- Enable/Disable email notification
+		verbose 		= "false";							-- Enable/Disable logs in domoticz
+		device_check 	= "false";							-- Enable/Disable check if your predefined devices are still present	
 	}
 
 --
@@ -30,9 +30,9 @@
 	
 	redundant_array = {		
 		command			= "true";							-- Enable/Disable sending redundant ON/OFF commands	for 433mhz devices
-		verbose			= "true";							-- Enable/Disable redundant ON/OFF log message		
+		verbose			= "false";							-- Enable/Disable redundant ON/OFF log message		
 		repeats 		= 3;								-- Define how many times to repeat the signal
-		interval 		= 2;								-- Define interval between each signal	
+		interval 		= 5;								-- Define interval between each signal	
 	}	
 	
 --
@@ -53,7 +53,7 @@
 		messageTitle		= "BLUE";
 		message				= "GREEN";		
 		commandarrayTitle	= "BLUE";
-		commandarray		= "RED";
+		commandarray		= "GREEN";
 		redundantarrayTitle	= "PURPLE";		
 		redundantarray		= "PURPLE";		
 	}
@@ -166,7 +166,7 @@
 	-- Various Switches
 		'Dummy 1',
 		--'Dummy 2',
-		--'Dummy 3'			
+		'Gang Standby',			
 }	
 	
 --

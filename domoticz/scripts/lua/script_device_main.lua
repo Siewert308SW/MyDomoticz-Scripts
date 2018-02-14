@@ -4,7 +4,7 @@
 	@ script_device_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-10-2018
+	@ updated	: 2-14-2018
 	@ Main event script on which my entire Lua event system is running. 
 
 	Just one file instead of a dozen lua device and timer scripts.
@@ -32,7 +32,7 @@ commandArray = {}
 --
 
 	for deviceName, deviceValue in pairs(devicechanged) do
-		if uservariables["lua_error"] == 0 then -- If predefined devices in switches.lua are missing then events will halt
+		if uservariables["lua_error"] == 0 and uservariables["lua_logging"] ~= 5 then -- If predefined devices in switches.lua are missing then events will halt
 			for tableName, tableDevice in pairs (triggers) do
 				if deviceName == tableDevice then		
 					require "functions" require "switches" require "various"
@@ -49,7 +49,7 @@ commandArray = {}
 -- **********************************************************
 --
 					
-					if lua.verbose == 'true' then
+					if lua.verbose == 'true' or uservariables[var.lua_logging] >= 1 then
 
 						for CommandArrayName, CommandArrayValue in pairs(commandArray) do	
 							Array = ''..CommandArrayName..' = '..CommandArrayValue..''
@@ -106,7 +106,7 @@ commandArray = {}
 --
 					
 					if redundant_array.command == 'true' then
-						if redundant_array.verbose == 'true' then
+						if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
 						print_color(''..msgcolor.redundantarrayTitle..'', 'Redundant:')
 						end
 						
@@ -119,18 +119,18 @@ commandArray = {}
 										SwitchType=os.capture("curl 'http://127.0.0.1:8080/json.htm?type=devices&rid="..v.."' | grep -w 'SwitchType'  | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
 										
 										if HardwareName == 'RFXtrx433E' and (SwitchType == 'On/Off' or SwitchType == 'Dimmer') then
-										if redundant_array.verbose == 'true' then
+										if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
 										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' is a '..HardwareName..' device, redundant command enabled')
 										end
 										commandArray[CommandArrayName]=''..CommandArrayValue..' REPEAT '..redundant_array.repeats..' INTERVAL '..redundant_array.interval..''
 										
 										elseif HardwareName == 'Dummy' and SwitchType == 'On/Off' then
-										if redundant_array.verbose == 'true' then
+										if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
 										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' is a '..HardwareName..' device, redundant command enabled')
 										end
 										commandArray[CommandArrayName]=''..CommandArrayValue..' REPEAT '..redundant_array.repeats..' INTERVAL '..redundant_array.interval..''
 										else
-										if redundant_array.verbose == 'true' then
+										if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
 										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' doesnt need a redundant command')
 										end									
 										end			
@@ -139,7 +139,7 @@ commandArray = {}
 							end
 						end						
 						
-						if redundant_array.verbose == 'true' then
+						if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
 						print ''
 						end						
 

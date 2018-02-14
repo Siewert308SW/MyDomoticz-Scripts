@@ -4,7 +4,7 @@
 	@ script_device_activity_heating.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-21-2018
+	@ updated	: 2-4-2018
 	@ Script to switch ON/OFF heating when someone @ home or not
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -21,15 +21,15 @@
 	local nest_room_temp				= 'Nest - TempHum'
 	local nest_setpoint_idx				= 45
 	
-	local setpoint_low_summer			= 16.0 --16.3
-	local setpoint_low_winter			= 18.0
+	local setpoint_low_summer			= 17.0 --16.3
+	local setpoint_low_winter			= 19.0
 
-	local setpoint_high					= 21.8
+	local setpoint_high					= 21.3
 
 	local setpoint_trigger_temp			= 22.5	
 	
 -- Outside Temp Various
-	local outside_temperature			= 'Veranda - Temperature'
+	local outside_temperature			= 'Veranda - Temperatuur'
 	local outside_temp_max				= 19
 	
 -- Scrap Thermostat and outside temperatures	
@@ -43,6 +43,7 @@
 -- Various Merged	
 	windowsCLOSED = (otherdevices[livingroom_window] == 'Closed' or otherdevices[sliding_door] == 'Closed')
 
+	if devicechanged[lux_sensor.upstairs] then	
 --
 -- **********************************************************
 -- Turn heating ON when SomeOneHome at day time
@@ -53,21 +54,10 @@
 		and outside_temp < outside_temp_max	
 		and nest_current_temp <= setpoint_trigger_temp
 		and nest_setpoint_temp ~= setpoint_high	
-		and timebetween("08:15:00","21:59:59")
-		and weekend('false')
+		and timebetween("08:00:00","21:59:59")
 	then		
 		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_high)
 	end
-	
-	if otherdevices[someonehome] == 'Thuis'
-		and outside_temp < outside_temp_max	
-		and nest_current_temp <= setpoint_trigger_temp
-		and nest_setpoint_temp ~= setpoint_high	
-		and timebetween("07:30:00","21:59:59")
-		and weekend('true')		
-	then		
-		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_high)
-	end	
 	
 --
 -- **********************************************************
@@ -96,7 +86,7 @@
 	if otherdevices[someonehome] == 'Thuis'
 		and outside_temp > 5	
 		and nest_setpoint_temp ~= setpoint_low_summer	
-		and timebetween("22:30:00","23:59:59")
+		and timebetween("23:00:00","23:59:59")
 		and weekend('true')
 	then		
 		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_low_summer)	
@@ -105,7 +95,7 @@
 	if otherdevices[someonehome] == 'Thuis'
 		and outside_temp <= 5	
 		and nest_setpoint_temp ~= setpoint_low_winter	
-		and timebetween("22:30:00","23:59:59")
+		and timebetween("23:00:00","23:59:59")
 		and weekend('true')
 	then		
 		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_low_winter)	
@@ -129,4 +119,6 @@
 		and nest_setpoint_temp ~= setpoint_low_winter		
 	then
 		commandArray['SetSetPoint:'..nest_setpoint_idx]=tostring(setpoint_low_winter)	
-	end	
+	end
+
+end	
