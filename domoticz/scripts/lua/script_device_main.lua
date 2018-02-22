@@ -4,7 +4,7 @@
 	@ script_device_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-14-2018
+	@ updated	: 2-21-2018
 	@ Main event script on which my entire Lua event system is running. 
 
 	Just one file instead of a dozen lua device and timer scripts.
@@ -45,6 +45,32 @@ commandArray = {}
 					
 --
 -- **********************************************************
+-- Redundant commands and log message for 433mhz devices 
+-- **********************************************************
+--
+					
+					if redundant_array.command == 'true' then
+						for CommandArrayName, CommandArrayValue in pairs(commandArray) do
+								for i, v in pairs(otherdevices_idx) do
+									if CommandArrayName == i then
+							
+										HardwareName=os.capture("curl 'http://127.0.0.1:8080/json.htm?type=devices&rid="..v.."' | grep -w 'HardwareName'  | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
+									
+										SwitchType=os.capture("curl 'http://127.0.0.1:8080/json.htm?type=devices&rid="..v.."' | grep -w 'SwitchType'  | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
+										
+										if HardwareName == 'RFXtrx433E' and (SwitchType == 'On/Off' or SwitchType == 'Dimmer') then
+										redundantArray = 'true'
+										commandArray[CommandArrayName]=''..CommandArrayValue..' REPEAT '..redundant_array.repeats..' INTERVAL '..redundant_array.interval..''
+										else
+										redundantArray = 'false'
+										end
+									end
+								end
+							end
+						end					
+					
+--
+-- **********************************************************
 -- Print log 
 -- **********************************************************
 --
@@ -73,18 +99,23 @@ commandArray = {}
 
 						doorstring = 'Deur'
 						motionstring = 'Motion'
+						doorbellstring = 'Deurbel'
 						
 						if string.find(deviceName, '' .. doorstring) then
 							
-						TriggerDevice = ''..deviceName..' has been '..deviceValue..''
+						TriggerDevice = ''..deviceName..' is '..deviceValue..''
+						
+						elseif string.find(deviceName, '' .. doorbellstring) then
+							
+						TriggerDevice = 'Someone just rang your '..deviceName..''
 
 						elseif string.find(deviceName, '' .. motionstring) and deviceValue == 'On' then
 							
-						TriggerDevice = ''..deviceName..' detected motion'
+						TriggerDevice = ''..deviceName..' detected movement'
 						
 						elseif string.find(deviceName, '' .. motionstring) and deviceValue == 'Off' then
 							
-						TriggerDevice = ''..deviceName..' didnt detect motion anymore'
+						TriggerDevice = ''..deviceName..' didnt detect any movement'
 
 						else
 						TriggerDevice = ''..deviceName..' switched '..deviceValue..''				
@@ -105,16 +136,8 @@ commandArray = {}
 						end
 						
 						
---
--- **********************************************************
--- Redundant commands and log message for 433mhz devices 
--- **********************************************************
---
-					
-					if redundant_array.command == 'true' then
-						if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
+						if (redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2) and redundantArray == 'true' then
 						print_color(''..msgcolor.redundantarrayTitle..'', 'Redundant:')
-						end
 						
 						for CommandArrayName, CommandArrayValue in pairs(commandArray) do
 								for i, v in pairs(otherdevices_idx) do
@@ -125,23 +148,15 @@ commandArray = {}
 										SwitchType=os.capture("curl 'http://127.0.0.1:8080/json.htm?type=devices&rid="..v.."' | grep -w 'SwitchType'  | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
 										
 										if HardwareName == 'RFXtrx433E' and (SwitchType == 'On/Off' or SwitchType == 'Dimmer') then
-										if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
-										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' is a '..HardwareName..' device, redundant command enabled')
-										end
-										commandArray[CommandArrayName]=''..CommandArrayValue..' REPEAT '..redundant_array.repeats..' INTERVAL '..redundant_array.interval..''
-										else
-										if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
-										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' doesnt need a redundant command')
-										end									
+										
+										print_color(''..msgcolor.redundantarray..'',''..CommandArrayName..' is a '..HardwareName..' device, redundant command enabled')						
 										end			
 									end
 								end
 							end
-						end						
-						
-						if redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2 then
-						print ''
+							print ''
 						end
+						
 						print_color(''..msgcolor.commandarrayTitle..'', 'commandArray:')
 						for CommandArrayName, CommandArrayValue in pairs(commandArray) do
 						   if type(CommandArrayValue) == "table" then
@@ -154,7 +169,8 @@ commandArray = {}
 						end
 						print ''
 						print_color(''..msgcolor.footer..'', '==============================================================')
-						end	
+						end
+	
 					end
 				end
 			end
