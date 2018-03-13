@@ -16,9 +16,19 @@
 -- **********************************************************
 -- speak('message')
 
-function speak(message)	
-		os.execute('sudo tts ",' ..message..'"&')
-end
+	function speak(message)	
+			os.execute('sudo tts ",' ..message..'"& sleep 3')
+	end
+
+--
+-- **********************************************************
+-- Let Domoticz play sounds
+-- **********************************************************
+-- Example: play('sound_name')
+
+	function play(sound)	
+			os.execute('sudo mpg321 "/home/pi/domoticz/scripts/sounds/' ..sound..'.mp3"&')
+	end
 
 --
 -- **********************************************************
@@ -26,9 +36,9 @@ end
 -- **********************************************************
 -- Example: print_color('Text')
 
-function print_color(color, message)
-		print('<b style="color:'..color..'">'..message..'</b>')
-end
+	function print_color(color, message)
+			print('<b style="color:'..color..'">'..message..'</b>')
+	end
 
 --
 -- **********************************************************
