@@ -22,7 +22,7 @@
 			and timebetween("16:00:00","22:44:59")
 			and device_svalue(lux_sensor.porch) <= 5		
 		then	
-			commandArray["Group:" ..group.garden_lights.. ""]='On AFTER 180 REPEAT 5 INTERVAL 20'	
+			commandArray["Group:" ..group.garden_lights.. ""]='On AFTER 10 REPEAT 5 INTERVAL 20'	
 		end
 
 -- **********************************************************

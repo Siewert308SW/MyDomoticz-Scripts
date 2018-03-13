@@ -21,7 +21,7 @@
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
 		and otherdevices[standby.hallway] == 'Off'		
-		and device_svalue(lux_sensor.porch) < 2		
+		and device_svalue(lux_sensor.porch) <= 2		
 	then
 		commandArray[light.hallway]='On'
 		commandArray[standby.hallway]='On FOR 30 SECONDS'		
@@ -32,7 +32,7 @@
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
 		and otherdevices[standby.hallway] == 'Off'			
-		and device_svalue(lux_sensor.porch) < 2	
+		and device_svalue(lux_sensor.porch) <= 2	
 		and (otherdevices[someone.home] == 'Thuis' or otherdevices[someone.home] == 'Off')	
 	then
 		commandArray[light.hallway]='On'
@@ -43,7 +43,7 @@
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
 		and otherdevices[standby.hallway] == 'Off'		
-		and device_svalue(lux_sensor.porch) < 2	
+		and device_svalue(lux_sensor.porch) <= 2	
 		and otherdevices[someone.home] == 'Thuis'	
 	then
 		commandArray[light.hallway]='On'
