@@ -12,9 +12,19 @@
 
 --
 -- **********************************************************
+-- Let Domoticz Speak
+-- **********************************************************
+-- speak('message')
+
+function speak(message)	
+		os.execute('sudo tts ",' ..message..'"&')
+end
+
+--
+-- **********************************************************
 -- Function for colorizing error log message
 -- **********************************************************
---
+-- Example: print_color('Text')
 
 function print_color(color, message)
 		print('<b style="color:'..color..'">'..message..'</b>')
@@ -24,7 +34,7 @@ end
 -- **********************************************************
 -- Function to execute os commands and get output
 -- **********************************************************
---
+-- Example: os.capture("curl 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet'
 
 	function os.capture(cmd, raw)
 		
@@ -43,7 +53,7 @@ end
 -- **********************************************************
 -- Time Difference
 -- **********************************************************
---
+-- Example: and timedifference(otherdevices_lastupdate['light.living_standing_light']) >= 15
 
 	function timedifference(s)
 		year = string.sub(s, 1, 4)
@@ -62,7 +72,7 @@ end
 -- **********************************************************
 -- Time Between X hours and X hour
 -- **********************************************************
---
+-- Example: and timebetween("03:00:00","11:59:59")
 
 	function timebetween(s,e)
 	   timenow = os.date("*t")
@@ -110,7 +120,7 @@ end
 -- **********************************************************
 -- Check for motion in home overall for specific time (seconds)
 -- **********************************************************
--- example: if motion('true', 600) then
+-- Example: if motion('true', 600) then
 --
 
 	function motion(input, minutes)
@@ -165,7 +175,7 @@ end
 -- **********************************************************
 -- Media PowerUsage
 -- **********************************************************
--- example: if media_powered('true') then
+-- Example: if media_powered('true') then
 --
 
 	function media_powered(input)
@@ -192,7 +202,7 @@ end
 -- **********************************************************
 -- Media ON? if on then do certain light scene
 -- **********************************************************
--- example: if media('true') then
+-- Example: if media('true') then
 --
 
 	function media(input)
@@ -219,7 +229,7 @@ end
 -- **********************************************************
 -- Laptop PowerUsage
 -- **********************************************************
--- example: if laptops_powered('true') then
+-- Example: if laptops_powered('true') then
 --
 
 	function laptops_powered(input)
@@ -245,7 +255,7 @@ end
 -- **********************************************************
 -- Is weekend?
 -- **********************************************************
--- example: if weekend('true') then
+-- Example: if weekend('true') then
 -- weekday [0-6 = Sunday-Saturday]
 --
 
@@ -273,7 +283,7 @@ end
 -- **********************************************************
 -- Blink Light IsNotDimmer
 -- **********************************************************
---  blink('light_living', 3)
+-- Example: blink('light_living', 3)
 
 	function blink(light, times)
 	   times = times or 2
@@ -297,7 +307,7 @@ end
 -- **********************************************************
 -- Get otherdevices_svalues
 -- **********************************************************
---	device_svalue('outside_temp_sensor') > 5
+-- Example: device_svalue('outside_temp_sensor') > 5
 	
 	function device_svalue(device)
 		device = tonumber(otherdevices_svalues[device])
