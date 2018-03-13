@@ -4,7 +4,7 @@
 	@ lights_dinnertable.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-10-2018
+	@ updated	: 3-13-2018
 	@ Script to switch diner table light ON/OFF with taking in count Laptops ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -16,19 +16,25 @@
 -- *********************************************************************
 --
 
-	if devicechanged[laptop.switch] == 'On'		
+	if (devicechanged[laptop.switch] == 'On'
+		or devicechanged[watt.jerina]
+		or devicechanged[watt.siewert])
+		and laptops_powered('true')		
 		and otherdevices[light.dinnertable] == 'Off'
-		and dark('true', 15)
+		and device_svalue(lux_sensor.porch) < 60
 	then
-		commandArray[light.dinnertable]='Set Level 7 AFTER 1'		
+		commandArray[light.dinnertable]='Set Level 7 AFTER 10'	
 	end
 
 -- *********************************************************************
 
-	if devicechanged[laptop.switch] == 'Off'
+	if (devicechanged[laptop.switch] == 'Off'
+		or devicechanged[watt.jerina]
+		or devicechanged[watt.siewert])
+		and laptops_powered('false')
 		and otherdevices[light.dinnertable] ~= 'Off'		
 	then
-		commandArray[light.dinnertable]='Off AFTER 1'	
+		commandArray[light.dinnertable]='Off AFTER 10'	
 	end
 	
 --
@@ -37,28 +43,21 @@
 -- *********************************************************************
 --
 
-	if devicechanged[lux_sensor.living]
+	if devicechanged[lux_sensor.porch]
 		and otherdevices[laptop.switch] == 'On'
 		and otherdevices[light.dinnertable] == 'Off'			
-		and dark('true', 15)
-		and uservariables[var.dinner_light_override] == 0	
+		and device_svalue(lux_sensor.porch) < 60
 	then
 		commandArray[light.dinnertable]='Set Level 7 AFTER 1'		
 	end
 		
 -- *********************************************************************
 
-	if devicechanged[lux_sensor.living]
+	if devicechanged[lux_sensor.porch]
 		and otherdevices[light.dinnertable] ~= 'Off'			
-		and dark('false', 5)
+		and device_svalue(lux_sensor.porch) >= 60
 		and timedifference(otherdevices_lastupdate[light.dinnertable]) >= timeout.minutes10				
 	then
-		commandArray[light.dinnertable]='Off AFTER 1'		
+		commandArray[light.dinnertable]='Off AFTER 1'
 	end
-		
-	if devicechanged[lux_sensor.living]
-		and uservariables[var.dinner_light_override] ~= 0			
-		and dark('false', 5)			
-	then
-		commandArray["Variable:" .. var.dinner_light_override .. ""]= '0'		
-	end			
+	

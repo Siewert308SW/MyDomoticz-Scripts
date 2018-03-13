@@ -4,7 +4,7 @@
 	@ various_timers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-10-2018
+	@ updated	: 3-13-2018
 	@ Script to switch ON/OFF various devices if max timeout reached
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -48,20 +48,8 @@
 -- *********************************************************************
 --
 
+--[[
 	if devicechanged[lux_sensor.upstairs] then
-		-- get current time
-		timenow = os.date("*t")
-		minutesnow = timenow.min + timenow.hour * 60
-		
-		-- 15 minutes before sunset
-		if (minutesnow == timeofday['SunsetInMinutes'] - before_sun.set) and otherdevices[lux_sensor.switch] == 'Off' then	
-			commandArray[lux_sensor.switch]='On AFTER 1'
-		end
-
-		-- 30 minutes before sunrise	
-		if (minutesnow == timeofday['SunriseInMinutes'] - before_sun.rise) and otherdevices[lux_sensor.switch] == 'On' then	
-			commandArray[lux_sensor.switch]='Off AFTER 1'
-		end
 		
 		-- If nighttime
 		if (timeofday['Nighttime']) and otherdevices[lux_sensor.switch] == 'Off' then
@@ -72,5 +60,6 @@
 		if (timeofday['Daytime']) and otherdevices[lux_sensor.switch] == 'On' then
 			commandArray[lux_sensor.switch]='Off AFTER 1'
 		end
-	end	
+	end
+--]]	
 	

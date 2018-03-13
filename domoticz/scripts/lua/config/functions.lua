@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-14-2018
+	@ updated	: 3-13-2018
 	@ All global functions needed
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -129,8 +129,6 @@ end
 					and timedifference(otherdevices_lastupdate[motion_sensor.downstairs]) > minutes		
 					and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) > minutes
 					and timedifference(otherdevices_lastupdate[motion_sensor.toilet]) > minutes
-					and timedifference(otherdevices_lastupdate[phone.switch]) > minutes
-					and timedifference(otherdevices_lastupdate[laptop.switch]) > minutes
 					and timedifference(otherdevices_lastupdate[motion_sensor.dinner1]) > minutes
 					and timedifference(otherdevices_lastupdate[motion_sensor.dinner2]) > minutes
 					and timedifference(otherdevices_lastupdate[motion_sensor.kitchen]) > minutes				
@@ -150,11 +148,9 @@ end
 					or timedifference(otherdevices_lastupdate[motion_sensor.downstairs]) < minutes		
 					or timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) < minutes
 					or timedifference(otherdevices_lastupdate[motion_sensor.toilet]) < minutes
-					or timedifference(otherdevices_lastupdate[phone.switch]) < minutes
-					or timedifference(otherdevices_lastupdate[laptop.switch]) < minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.dinner1]) < minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.dinner2]) < minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.kitchen]) < minutes				
+					or timedifference(otherdevices_lastupdate[motion_sensor.dinner1]) < minutes
+					or timedifference(otherdevices_lastupdate[motion_sensor.dinner2]) < minutes
+					or timedifference(otherdevices_lastupdate[motion_sensor.kitchen]) < minutes				
 					or timedifference(otherdevices_lastupdate[someone.home]) < minutes
 				then
 					IsMotion = true
@@ -296,9 +292,20 @@ end
 		  pause = pause + 1
 	   end
 	end
+
+
+-- **********************************************************
+-- Get otherdevices_svalues
+-- **********************************************************
+--	device_svalue('outside_temp_sensor') > 5
 	
+	function device_svalue(device)
+		device = tonumber(otherdevices_svalues[device])
+		devices_svalues = device		
+		  return devices_svalues
+	end		
 	
---
+--[[
 -- **********************************************************
 -- Get lux threshold IsDark or IsDay
 -- **********************************************************
@@ -406,3 +413,4 @@ end
 		return isdark	
 				
 	end
+	--]]

@@ -4,7 +4,7 @@
 	@ switch_laptops.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-2-2018
+	@ updated	: 3-13-2018
 	@ Script for switching dummy laptop switch to determine if SomeOneHome
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -20,7 +20,7 @@
 		and otherdevices[laptop.switch] == 'Off'
 	then
 		commandArray[laptop.switch]='On AFTER 1'
-		commandArray[plug.printer]='On AFTER 60'		
+		commandArray[plug.printer]='On AFTER 2'		
 	end
 
 -- **********************************************************
@@ -29,14 +29,14 @@
 		and otherdevices[laptop.switch] == 'Off'
 	then
 		commandArray[laptop.switch]='On AFTER 1'
-		commandArray[plug.siewert]='On'		
-		commandArray[plug.printer]='On AFTER 60'		
+		commandArray[plug.siewert]='On AFTER 2'		
+		commandArray[plug.printer]='On AFTER 3'
 	end
 	
 	if devicechanged[laptop.siewert]== 'On' 
 		and otherdevices[laptop.switch] == 'On'
 	then
-		commandArray[plug.siewert]='On'	
+		commandArray[plug.siewert]='On AFTER 1'	
 	end	
 
 -- **********************************************************
@@ -45,7 +45,7 @@
 		and otherdevices[laptop.switch] == 'Off'
 	then
 		commandArray[laptop.switch]='On AFTER 1'
-		commandArray[plug.printer]='On AFTER 60'		
+		commandArray[plug.printer]='On AFTER 2'		
 	end	
 
 --
@@ -60,7 +60,7 @@
 		and otherdevices[laptop.switch] == 'On'		
 	then
 		commandArray[laptop.switch]='Off AFTER 1'		
-		commandArray[plug.printer]='Off AFTER 60'		
+		commandArray[plug.printer]='Off AFTER 2'		
 	end
 
 -- **********************************************************
@@ -71,8 +71,8 @@
 		and otherdevices[laptop.switch] == 'On'	
 	then
 		commandArray[laptop.switch]='Off AFTER 1'
-		commandArray[plug.siewert]='Off'		
-		commandArray[plug.printer]='Off AFTER 60'		
+		commandArray[plug.siewert]='Off AFTER 2'		
+		commandArray[plug.printer]='Off AFTER 3'		
 	end
 	
 	if devicechanged[laptop.siewert]== 'Off'
@@ -80,7 +80,7 @@
 		and otherdevices[laptop.natalya] == 'Off'		
 		and otherdevices[laptop.switch] == 'On'		
 	then
-		commandArray[plug.siewert]='Off'	
+		commandArray[plug.siewert]='Off AFTER 1'	
 	end
 
 	if devicechanged[laptop.siewert]== 'Off'
@@ -88,7 +88,7 @@
 		and otherdevices[laptop.natalya] == 'On'		
 		and otherdevices[laptop.switch] == 'On'		
 	then
-		commandArray[plug.siewert]='Off'	
+		commandArray[plug.siewert]='Off AFTER 1'	
 	end
 	
 	if devicechanged[laptop.siewert]== 'Off'
@@ -96,7 +96,7 @@
 		and otherdevices[laptop.natalya] == 'On'		
 		and otherdevices[laptop.switch] == 'On'		
 	then
-		commandArray[plug.siewert]='Off'	
+		commandArray[plug.siewert]='Off AFTER 1'	
 	end		
 
 -- **********************************************************
@@ -107,35 +107,6 @@
 		and otherdevices[laptop.switch] == 'On'		
 	then
 		commandArray[laptop.switch]='Off AFTER 1'
-		commandArray[plug.printer]='Off AFTER 60'		
+		commandArray[plug.printer]='Off AFTER 2'		
 	end
-	
---
--- **********************************************************
--- Printserver still online while laptops offline then kill it (433mhz)
--- **********************************************************
---
-
-	if devicechanged[lux_sensor.upstairs]
-		and otherdevices[plug.printer] == 'On'
-		and otherdevices[laptop.switch] == 'Off'
-		and timedifference(otherdevices_lastupdate[laptop.switch]) > timeout.minutes10	
-	then	
-		commandArray[plug.printer]='Off'		
-	end
-	
---
--- **********************************************************
--- Printserver still offline while laptops obline then start (433mhz)
--- **********************************************************
---
-
-	if devicechanged[lux_sensor.upstairs]
-		and otherdevices[laptop.printer]== 'Off'
-		and otherdevices[laptop.switch] == 'On'
-		and timedifference(otherdevices_lastupdate[laptop.switch]) > timeout.minutes10		
-	then
-		if otherdevices[plug.printer] == 'On' then commandArray[plug.printer]='Off FOR 5 SECONDS' end
-		if otherdevices[plug.printer] == 'Off' then commandArray[plug.printer]='On AFTER 1' end		
-	end		
 	

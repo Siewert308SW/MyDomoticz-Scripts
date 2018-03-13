@@ -4,7 +4,7 @@
 	@ switches.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-14-2018
+	@ updated	: 3-13-2018
 	@ Define your switches and devices, Lua globally used.
 	@ Once you have renamed a switches then no need to edit all your scripts
 
@@ -18,8 +18,19 @@
 --
 
 someone = {
-	home					= 'Iemand Thuis',
+	home						= 'Aanwezigheid',
 }
+
+--
+-- **********************************************************
+-- media devices
+-- **********************************************************
+--
+
+media_device = {
+	tv							= 'Televisie',
+}
+
 
 --
 -- **********************************************************
@@ -28,11 +39,11 @@ someone = {
 --
 
 laptop = {
-	jerina					= 'Jerina Laptop - eth',
-	siewert					= 'Siewert Laptop - eth',
-	natalya					= 'Natalya Laptop - eth',		
-	switch					= 'Laptops',
-	printer					= 'Print Server',
+	jerina						= 'Jerina Laptop',
+	siewert						= 'Siewert Laptop',
+	natalya						= 'Natalya Laptop',		
+	switch						= 'Laptops',
+	printer						= 'Print Server',
 }
 
 --
@@ -42,10 +53,10 @@ laptop = {
 --
 
 phone = {
-	jerina					= 'Jerina GSM',
-	siewert					= 'Siewert GSM',
-	natalya					= 'Natalya GSM',		
-	switch					= 'Telefoons',
+	jerina						= 'Jerina GSM',
+	siewert						= 'Siewert GSM',
+	natalya						= 'Natalya GSM',		
+	switch						= 'Telefoons',
 }
 
 --
@@ -55,9 +66,9 @@ phone = {
 --
 
 visitor = {
-	grandma_gsm				= 'Oma GSM',
-	grandma_tablet			= 'Oma Tablet',
-	switch					= 'Visite',		
+	grandma_gsm					= 'Oma GSM',
+	grandma_tablet				= 'Oma Tablet',
+	switch						= 'Visite',		
 }
 
 --
@@ -72,14 +83,13 @@ light = {
 	living_twilight				= 'Woonkamer - Schemerlamp (achter)',
 	living_wall_lights			= 'Woonkamer - Wand Lampen',
 	living_salon_light			= 'Woonkamer - Salon Tafel Lamp',
-	toilet						= 'W.C - Lamp',
+	toilet						= 'W.C - Verlichting',
 	pantry						= 'Kelder - Verlichting',
 	kitchen_cabinet1			= 'Keuken - Cabinet Lamp (Wasbak)',
 	kitchen_cabinet2			= 'Keuken - Cabinet Lamp (Fornuis)',
-	hood						= 'Keuken - Afzuigkap',
 	dinnertable 				= 'Woonkamer - Eettafel Lamp',
 	upstairs    				= 'Overloop - Verlichting',
-	shower						= 'Douche - Lamp',
+	shower						= 'Douche - Verlichting',
 	hallway						= 'Gang - Wandlamp',
 }
 
@@ -93,7 +103,6 @@ garden = {
 	front_door_light			= 'Tuin - Voordeur Lamp',
 	border_lights				= 'Tuin - Border Verlichting',
 	shed_lights					= 'Tuin - Schuur Verlichting',
-	porch_lights				= 'Tuin - Veranda Verlichting',	
 }
 
 --
@@ -103,8 +112,8 @@ garden = {
 --
 
 switch = {
-	living_light				= 'Woonkamer - Kamer Verlichting Knop',
-	dinner_light 				= 'Woonkamer - Eettafel Verlichting Knop',
+	living_light				= 'Woonkamer - Verlichting Knop',
+	dinner_light 				= 'Eettafel - Verlichting Knop',
 	garden_light				= 'Tuin - Verlichting Knop',
 	upstairs1    				= 'Overloop - Verlichting Knop (H1)',
 	upstairs2    				= 'Overloop - Verlichting Knop (H2)',	
@@ -119,18 +128,15 @@ switch = {
 group = {
 	standy_killers_433mhz		= 'Standby Killers (433Mhz)',
 	standy_killers_zwave		= 'Standby Killers (z-wave)',
-	garden_lights				= 'Tuin Verlichting',
-	garden_lights_leaving		= 'Tuin Verlichting Vertrek',
-	nobodyhome					= 'Woonkamer Niemand Thuis',
+	garden_lights				= 'Tuin - Verlichting',
+	garden_lights_leaving		= 'Tuin - Verlichting Vertrek',
 }
 
 scene = {
-	stage_1						= 'Woonkamer Stage 1',	
-	stage_2						= 'Woonkamer Stage 2',	
-	stage_3						= 'Woonkamer Stage 3',
-	stage_4						= 'Woonkamer Stage 4',
-	shutdown					= 'Woonkamer Shutdown',
-	away_shutdown				= 'Woonkamer Away Shutdown',	
+	stage_1						= 'Woonkamer - Stage 1',	
+	stage_2						= 'Woonkamer - Stage 2',
+	shutdown					= 'Woonkamer - Shutdown',
+	nobodyhome					= 'Niemand - Thuis',	
 }
 
 --
@@ -164,7 +170,7 @@ motion_sensor = {
 	downstairs 					= 'Trap - Motion',
 	dinner1						= 'Eettafel - Motion (links)',
 	dinner2						= 'Eettafel - Motion (rechts)',
-	kitchen						= 'Keuken - Cabinet Motion',
+	kitchen						= 'Keuken - Motion',
 	porch						= 'Veranda - Motion',	
 }
 
@@ -188,9 +194,9 @@ plug = {
 	tvcorner					= 'Standbykiller - Woonkamer TV Hoek',
 	jerina 						= 'Standbykiller - Jerina Laptop',	
 	siewert 					= 'Standbykiller - Siewert Laptop',
-	printer		 				= 'Standbykiller - Printer/Server',
+	printer		 				= 'Standbykiller - Print Server',
 	natalya		 				= 'Standbykiller - Natalya TV Hoek',
-	pantry		 				= 'Standbykiller - Kelder',	
+	workbench		 			= 'Standbykiller - Werkbank',	
 }
 
 --
@@ -204,9 +210,9 @@ watt = {
 	siewert						= 'Verbruik - Siewert Laptop',
 	jerina						= 'Verbruik - Jerina Laptop',
 	natalya						= 'Verbruik - Natalya TV Hoek',
-	pantry						= 'Verbruik - Kelder',
-	hood						= 'Verbruik - Afzuigkap',	
-	media_usage					= 10,
+	hood						= 'Verbruik - Afzuigkap',
+	workbench		 			= 'Verbruik - Werkbank',	
+	media_usage					= 15,
 	hood_high					= 80, -- When hood ventilation is ON
 	hood_low					= 11, -- Only lights ON
 }
@@ -239,7 +245,7 @@ lux_sensor = {
 	living						= 'Woonkamer - Lux',
 	hallway 					= 'Gang - Lux',
 	upstairs					= 'Overloop - Lux',
-	veranda						= 'Veranda - Lux',
+	porch						= 'Veranda - Lux',
 	switch						= 'Sunrise/Sunset',	
 }
 
@@ -249,9 +255,9 @@ lux_sensor = {
 -- **********************************************************
 --
 
-doorbell = {
-	button						= 'Deurbel',	
-}
+--doorbell = {
+--	button						= 'Deurbel',	
+--}
 
 --
 -- **********************************************************
@@ -260,7 +266,7 @@ doorbell = {
 --
 
 temp = {
-	veranda						= 'Veranda - Temperatuur',
+	porch						= 'Veranda - Temperatuur',
 	porch_light					= 18,
 }
 
@@ -273,10 +279,39 @@ temp = {
 nest = {
 	heating						= 'Nest - HeatingOn',
 	setpoint					= 'Nest - Setpoint',
-	room_temp					= 'Nest - TempHum',	
-	setpoint_idx				= 45,	
+	room_temp					= 'Nest - Temperatuur',	
+	setpoint_idx				= 13,
+	
+	setpoint_low_summer			= 16.0,
+	setpoint_low_autumn			= 19.0,	
+	setpoint_low_winter			= 21.0,
+	
+	setpoint_temp				= 21.5,
+	
+	trigger_temp				= 22.0,
+	
+	summer_temp					= 19,
+	autumn_temp					= 15,	
+	winter_temp					= 0,	
 }
 
+--
+-- **********************************************************
+-- Various
+-- **********************************************************
+--
+
 standby = {
-	hallway						= 'Gang Standby',
-}		
+	hallway						= 'Gang - Standby',
+	shower						= 'Douche - Standby',
+	doorbell					= 'Deurbel - Standby',	
+}
+
+logging = {
+	switch						= 'Logging',
+}
+
+dummy = {
+	one							= 'Dummy 1',
+	two							= 'Dummy 2',	
+}	

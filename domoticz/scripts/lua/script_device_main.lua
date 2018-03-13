@@ -4,7 +4,7 @@
 	@ script_device_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-21-2018
+	@ updated	: 3-13-2018
 	@ Main event script on which my entire Lua event system is running. 
 
 	Just one file instead of a dozen lua device and timer scripts.
@@ -35,7 +35,7 @@ commandArray = {}
 		if uservariables["lua_error"] == 0 and uservariables["lua_logging"] ~= 5 then -- If predefined devices in switches.lua are missing then events will halt
 			for tableName, tableDevice in pairs (triggers) do
 				if deviceName == tableDevice then		
-					require "functions" require "switches" require "various"
+					require "functions" require "switches"
 					event_folder = Current_Path .. 'events/'
 
 					f = io.popen('ls ' .. event_folder)
@@ -88,18 +88,19 @@ commandArray = {}
 						end			
 
 						if deviceName == "Woonkamer - Lux" then
-						TriggerDevice = '3 minutes time trigger'
+						TriggerDevice = '3 minutes time trigger'	
+						elseif deviceName == "Gang - Lux" then
+						TriggerDevice = '5 minutes time trigger'
 						elseif deviceName == "Overloop - Lux" then
+						TriggerDevice = '10 minutes time trigger'						
+						elseif deviceName == "Veranda - Lux" then
 						TriggerDevice = '5 minutes time trigger'	
-						elseif deviceName == "Gang - Lux" then
-						TriggerDevice = '10 minutes time trigger'
-						elseif deviceName == "Gang - Lux" then
-						TriggerDevice = '10 minutes time trigger'	
 						else
 
 						doorstring = 'Deur'
 						motionstring = 'Motion'
 						doorbellstring = 'Deurbel'
+						plugstring = 'Verbruik'
 						
 						if string.find(deviceName, '' .. doorstring) then
 							
@@ -108,6 +109,10 @@ commandArray = {}
 						elseif string.find(deviceName, '' .. doorbellstring) then
 							
 						TriggerDevice = 'Someone just rang your '..deviceName..''
+						
+						elseif string.find(deviceName, '' .. plugstring) then
+							
+						TriggerDevice = ''..deviceName..' == '..deviceValue..' Watt'						
 
 						elseif string.find(deviceName, '' .. motionstring) and deviceValue == 'On' then
 							

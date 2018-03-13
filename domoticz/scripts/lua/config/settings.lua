@@ -19,7 +19,7 @@
 	lua = {		
 		notify			= "false";							-- Enable/Disable email notification
 		verbose 		= "false";							-- Enable/Disable logs in domoticz
-		device_check 	= "false";							-- Enable/Disable check if your predefined devices are still present	
+		device_check 	= "true";							-- Enable/Disable check if your predefined devices are still present	
 	}
 
 --
@@ -32,7 +32,7 @@
 		command			= "true";							-- Enable/Disable sending redundant ON/OFF commands	for 433mhz devices
 		verbose			= "false";							-- Enable/Disable redundant ON/OFF log message		
 		repeats 		= 3;								-- Define how many times to repeat the signal
-		interval 		= 5;								-- Define interval between each signal	
+		interval 		= 1;								-- Define interval between each signal	
 	}	
 	
 --
@@ -105,7 +105,7 @@
 	triggers = {												-- Define your trigger which can/may trigger a script
 
 	-- SomeOneHome Triggers
-		'Iemand Thuis',
+		'Aanwezigheid',
 
 	-- Media Triggers
 		'Televisie',
@@ -122,9 +122,9 @@
 		'Visite',		
 		
 	-- Laptops	
-		'Jerina Laptop - eth',	
-		'Siewert Laptop - eth',	
-		'Natalya Laptop - eth',
+		'Jerina Laptop',
+		'Siewert Laptop',	
+		'Natalya Laptop',
 		'Laptops',
 		
 	-- Door/Window/Motion Sensors
@@ -139,23 +139,23 @@
 		'Gang - Motion',		
 		'W.C - Motion',		
 		'Woonkamer - Motion',
-		'Keuken - Cabinet Motion',
+		--'Keuken - Cabinet Motion',
 		'Voorraam',
-		'Eettafel - Motion (links)',
-		'Eettafel - Motion (rechts)',
+		--'Eettafel - Motion (links)',
+		--'Eettafel - Motion (rechts)',
 		'Veranda - Motion',		
 		
 	-- Light Switches
-		'Woonkamer - Kamer Verlichting Knop',
+		'Woonkamer - Verlichting Knop',
 		'Tuin - Verlichting Knop',
-		'Woonkamer - Eettafel Verlichting Knop',		
-		'Douche - Lamp',
-		'W.C - Lamp',		
-		'Keuken - Cabinet Lamp (Wasbak)',
-		'Keuken - Cabinet Lamp (Fornuis)',
+		'Eettafel - Verlichting Knop',		
+		--'Douche - Verlichting',
+		'W.C - Verlichting',		
+		--'Keuken - Cabinet Lamp (Wasbak)',
+		--'Keuken - Cabinet Lamp (Fornuis)',
 	
 	-- Doorbell Switches
-		'Deurbel',
+		--'Deurbel',
 		
 	-- Sensors as 3,5,10 time trigger
 		'Woonkamer - Lux', 	-- 3min trigger
@@ -163,10 +163,18 @@
 		'Overloop - Lux',	-- 10min trigger	
 		'Veranda - Lux',	-- Triggers garden lights event
 		
+	-- Standby Switches
+		'Gang - Standby',
+		'Douche - Standby',
+		'Deurbel - Standby',
+		
+	-- Power Plugs
+		'Verbruik - Siewert Laptop',
+		'Verbruik - Woonkamer TV Hoek',		
+
 	-- Various Switches
 		'Dummy 1',
-		--'Dummy 2',
-		'Gang Standby',			
+		'Dummy 2',		
 }	
 	
 --
@@ -185,6 +193,7 @@
 
 		minute1 		= 60;
 		minutes2 		= 120;
+		minutes3 		= 180;		
 		minutes5 		= 300;
 		minutes10 		= 600;		
 		minutes15 		= 900;

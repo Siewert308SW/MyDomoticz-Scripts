@@ -5,7 +5,7 @@
 ### check_rpi_updates.sh
 ### @author	: Siewert Lameijer
 ### @since	: 29-11-2016
-### @updated: 1-30-2017
+### @updated: 2-20-2018
 ### Script to check for domoticz, rpi & repo updated packages to display in motd
 
 ###########################################################################################################################################
@@ -70,4 +70,3 @@
 	echo "- From: $DOMO_CURRENT_VERSION" > /mnt/storage/domoticz_logs/domo_updates/domo_update_from.txt
 	echo " To: $DOMO_NEW_VERSION" > /mnt/storage/domoticz_logs/domo_updates/domo_update_to.txt		
 	fi
-	echo "-- Done"
