@@ -4,13 +4,13 @@
 	@ various_timers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-13-2018
+	@ updated	: 3-16-2018
 	@ Script to switch ON/OFF various devices if max timeout reached
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 --]]
 
---
+--[[
 -- *********************************************************************
 -- Coridor light OFF when no motion for x minutes
 -- *********************************************************************
@@ -27,6 +27,7 @@
 		commandArray[switch.upstairs1]='Off AFTER 1'		
 		commandArray[switch.upstairs2]='Off AFTER 2'		
 	end
+--]]
 
 --
 -- *********************************************************************

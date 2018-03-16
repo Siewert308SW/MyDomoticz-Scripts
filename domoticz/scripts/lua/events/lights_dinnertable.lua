@@ -4,7 +4,7 @@
 	@ lights_dinnertable.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-13-2018
+	@ updated	: 3-16-2018
 	@ Script to switch diner table light ON/OFF with taking in count Laptops ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -21,7 +21,7 @@
 		or devicechanged[watt.siewert])
 		and laptops_powered('true')		
 		and otherdevices[light.dinnertable] == 'Off'
-		and device_svalue(lux_sensor.porch) < 60
+		and device_svalue(lux_sensor.porch) < 70
 	then
 		commandArray[light.dinnertable]='Set Level 7 AFTER 10'	
 	end
@@ -46,7 +46,7 @@
 	if devicechanged[lux_sensor.porch]
 		and otherdevices[laptop.switch] == 'On'
 		and otherdevices[light.dinnertable] == 'Off'			
-		and device_svalue(lux_sensor.porch) < 60
+		and device_svalue(lux_sensor.porch) < 70
 	then
 		commandArray[light.dinnertable]='Set Level 7 AFTER 1'		
 	end
@@ -55,7 +55,7 @@
 
 	if devicechanged[lux_sensor.porch]
 		and otherdevices[light.dinnertable] ~= 'Off'			
-		and device_svalue(lux_sensor.porch) >= 60
+		and device_svalue(lux_sensor.porch) >= 70
 		and timedifference(otherdevices_lastupdate[light.dinnertable]) >= timeout.minutes10				
 	then
 		commandArray[light.dinnertable]='Off AFTER 1'

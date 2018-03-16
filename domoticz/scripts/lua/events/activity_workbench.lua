@@ -4,7 +4,7 @@
 	@ activity_workbench.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-10-2018
+	@ updated	: 3-16-2018
 	@ Script to switch ON/OFF plug.workbench
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -34,7 +34,10 @@
 		and otherdevices[plug.workbench]  == 'Off'
 		and otherdevices[phone.siewert]  == 'On'
 		and otherdevices[someone.home]  == 'Thuis'		
-		and timebetween("08:00:00","22:29:59")		
+		and timebetween("08:00:00","22:29:59")
+		and (timedifference(otherdevices_lastupdate[door.scullery]) > timeout.minutes30
+		or timedifference(otherdevices_lastupdate[door.back]) > timeout.minutes30
+		or timedifference(otherdevices_lastupdate[motion_sensor.porch]) > timeout.minutes30)		
 	then
 		commandArray[plug.workbench]='On'	
 	end

@@ -4,7 +4,7 @@
 	@ settings.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-14-2018
+	@ updated	: 3-16-2018
 	@ All global settings
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -19,7 +19,7 @@
 	lua = {		
 		notify			= "false";							-- Enable/Disable email notification
 		verbose 		= "false";							-- Enable/Disable logs in domoticz
-		device_check 	= "true";							-- Enable/Disable check if your predefined devices are still present	
+		device_check 	= "false";							-- Enable/Disable check if your predefined devices are still present	
 	}
 
 --
@@ -174,7 +174,8 @@
 
 	-- Various Switches
 		'Dummy 1',
-		'Dummy 2',		
+		'Dummy 2',
+		'Dummy 3',		
 }	
 	
 --

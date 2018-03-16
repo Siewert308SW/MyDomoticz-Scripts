@@ -274,13 +274,13 @@
 		if input == 'true' or input == 'false' then
 		Isweekend = false
 			local dayNow = tonumber(os.date("%w"))
-				if (dayNow == 5) or (dayNow == 6) or (dayNow == 0) then
+				if (dayNow == 6) or (dayNow == 0) then
 					 if (input == 'true') then
 						Isweekend = true
 					 end
 				end
 				
-				if (dayNow == 1) or (dayNow == 2) or (dayNow == 3) or (dayNow == 4) then
+				if (dayNow == 1) or (dayNow == 2) or (dayNow == 3) or (dayNow == 4) or (dayNow == 5) then
 					if (input == 'false') then
 						Isweekend = true
 					end

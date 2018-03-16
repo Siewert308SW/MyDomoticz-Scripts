@@ -4,7 +4,7 @@
 	@ switches.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-13-2018
+	@ updated	: 3-16-2018
 	@ Define your switches and devices, Lua globally used.
 	@ Once you have renamed a switches then no need to edit all your scripts
 
@@ -231,6 +231,7 @@ var = {
 	garden_light_motion			= 'garden_light_motion',	
 	leaving_override			= 'leaving_override',
 	doorbell_standby			= 'doorbell_standby',
+	persons_upstairs			= 'persons_upstairs',	
 	lua_error					= 'lua_error',
 	lua_logging					= 'lua_logging',		
 }
@@ -313,5 +314,6 @@ logging = {
 
 dummy = {
 	one							= 'Dummy 1',
-	two							= 'Dummy 2',	
+	two							= 'Dummy 2',
+	three						= 'Dummy 3',	
 }	
