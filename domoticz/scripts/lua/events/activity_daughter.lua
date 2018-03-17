@@ -4,7 +4,7 @@
 	@ activity_daughter.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-13-2018
+	@ updated	: 3-17-2018
 	@ Script to switch ON/OFF daughter bedroom plug.natalya
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -31,10 +31,11 @@
 --
 
 	if devicechanged[lux_sensor.upstairs]
-		and otherdevices[plug.natalya]  == 'Off'
-		and otherdevices[phone.natalya]  == 'On'
+		and otherdevices[plug.natalya]  == 'Off'		
 		and otherdevices[someone.home]  == 'Thuis'		
-		and timebetween("07:00:00","22:29:59")		
+		and timebetween("07:00:00","22:29:59")
+		and (otherdevices[phone.natalya]  == 'On'
+		or otherdevices[laptop.natalya]  == 'On')		
 	then
 		commandArray[plug.natalya]='On'	
 	end
@@ -49,9 +50,11 @@
 		and otherdevices[plug.natalya]  == 'On'		
 		and powerusage(watt.natalya) <= watt.media_usage
 		and timedifference(otherdevices_lastupdate[phone.natalya]) > timeout.minutes30
+		and timedifference(otherdevices_lastupdate[laptop.natalya]) > timeout.minutes30		
 		and timedifference(otherdevices_lastupdate[plug.natalya]) > timeout.minutes30
 		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) > timeout.minutes30
 		and otherdevices[phone.natalya]  == 'Off'
+		and otherdevices[laptop.natalya]  == 'Off'		
 	then
 		commandArray[plug.natalya]='Off'	
 	end	
@@ -64,6 +67,7 @@
 
 	if devicechanged[lux_sensor.upstairs]
 		and otherdevices[plug.natalya]  == 'On'
+		and otherdevices[laptop.natalya]  == 'Off'		
 		and powerusage(watt.natalya) <= watt.media_usage
 		and (timebetween("22:30:00","23:59:59")	or timebetween("00:00:00","07:59:59"))
 	then

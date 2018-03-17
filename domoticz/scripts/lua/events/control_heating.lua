@@ -4,7 +4,7 @@
 	@ activity_heating.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-13-2018
+	@ updated	: 3-17-2018
 	@ Script to switch ON/OFF heating when someone @ home or not
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -25,25 +25,47 @@
 	
 		if otherdevices[someone.home] == 'Thuis'
 			and device_svalue(temp.porch) < nest.summer_temp
+			and device_svalue(temp.porch) > nest.winter_temp			
 			and nest_current_temp <= nest.trigger_temp
-			and device_svalue(nest.setpoint) ~= nest.setpoint_temp	
+			and device_svalue(nest.setpoint) ~= nest.setpoint_temp1	
 			and timebetween("08:00:00","21:59:59")
 			and weekend('false')	
 		then
-			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp)
+			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp1)
 		end
+		
+		if otherdevices[someone.home] == 'Thuis'
+			and device_svalue(temp.porch) <= nest.winter_temp			
+			and nest_current_temp <= nest.trigger_temp
+			and device_svalue(nest.setpoint) ~= nest.setpoint_temp2	
+			and timebetween("08:00:00","21:59:59")
+			and weekend('false')	
+		then
+			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp2)
+		end		
 
 -- **********************************************************
 		
 		if otherdevices[someone.home] == 'Thuis'
 			and device_svalue(temp.porch) < nest.summer_temp
+			and device_svalue(temp.porch) > nest.winter_temp			
 			and nest_current_temp <= nest.trigger_temp
-			and device_svalue(nest.setpoint) ~= nest.setpoint_temp
-			and timebetween("08:00:00","22:59:59")
-			and weekend('true')
+			and device_svalue(nest.setpoint) ~= nest.setpoint_temp1	
+			and timebetween("06:00:00","22:59:59")
+			and weekend('true')	
 		then
-			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp)
+			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp1)
 		end
+		
+		if otherdevices[someone.home] == 'Thuis'
+			and device_svalue(temp.porch) <= nest.winter_temp			
+			and nest_current_temp <= nest.trigger_temp
+			and device_svalue(nest.setpoint) ~= nest.setpoint_temp2	
+			and timebetween("06:00:00","22:59:59")
+			and weekend('true')	
+		then
+			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp2)
+		end	
 		
 	end
 	
@@ -58,7 +80,7 @@
 		if otherdevices[someone.home] == 'Thuis'
 			and device_svalue(temp.porch) > nest.summer_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_low_summer
-			and timebetween("22:30:00","23:59:59")
+			and (timebetween("22:30:00","23:59:59") or timebetween("00:00:00","05:59:59"))
 			and weekend('false')
 			and timedifference(otherdevices_lastupdate[someone.home]) >= timeout.hour1			
 		then
@@ -71,7 +93,7 @@
 			and device_svalue(temp.porch) <= nest.summer_temp
 			and device_svalue(temp.porch) > nest.autumn_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_low_summer
-			and timebetween("22:30:00","23:59:59")
+			and (timebetween("22:30:00","23:59:59") or timebetween("00:00:00","05:59:59"))
 			and weekend('false')
 			and timedifference(otherdevices_lastupdate[someone.home]) >= timeout.hour1			
 		then
@@ -84,7 +106,7 @@
 			and device_svalue(temp.porch) <= nest.autumn_temp
 			and device_svalue(temp.porch) > nest.winter_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_low_autumn
-			and timebetween("22:30:00","23:59:59")
+			and (timebetween("22:30:00","23:59:59") or timebetween("00:00:00","05:59:59"))
 			and weekend('false')
 			and timedifference(otherdevices_lastupdate[someone.home]) >= timeout.hour1
 		then
@@ -96,7 +118,7 @@
 		if otherdevices[someone.home] == 'Thuis'
 			and device_svalue(temp.porch) <= nest.winter_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_low_winter
-			and timebetween("22:30:00","23:59:59")
+			and (timebetween("22:30:00","23:59:59") or timebetween("00:00:00","05:59:59"))
 			and weekend('false')
 			and timedifference(otherdevices_lastupdate[someone.home]) >= timeout.hour1
 		then
@@ -112,7 +134,7 @@
 		if otherdevices[someone.home] == 'Thuis'
 			and device_svalue(temp.porch) > nest.summer_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_low_summer
-			and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00","07:59:59"))
+			and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00","05:59:59"))
 			and weekend('true')
 			and timedifference(otherdevices_lastupdate[someone.home]) >= timeout.hour1
 		then
@@ -125,7 +147,7 @@
 			and device_svalue(temp.porch) <= nest.summer_temp
 			and device_svalue(temp.porch) > nest.autumn_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_low_summer
-			and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00","07:59:59"))
+			and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00","05:59:59"))
 			and weekend('true')
 			and timedifference(otherdevices_lastupdate[someone.home]) >= timeout.hour1
 		then
@@ -138,7 +160,7 @@
 			and device_svalue(temp.porch) <= nest.autumn_temp
 			and device_svalue(temp.porch) > nest.winter_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_low_autumn
-			and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00","07:59:59"))
+			and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00","05:59:59"))
 			and weekend('true')
 			and timedifference(otherdevices_lastupdate[someone.home]) >= timeout.hour1
 		then
@@ -150,7 +172,7 @@
 		if otherdevices[someone.home] == 'Thuis'
 			and device_svalue(temp.porch) <= nest.winter_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_low_winter
-			and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00","07:59:59"))
+			and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00","05:59:59"))
 			and weekend('true')
 			and timedifference(otherdevices_lastupdate[someone.home]) >= timeout.hour1
 		then
