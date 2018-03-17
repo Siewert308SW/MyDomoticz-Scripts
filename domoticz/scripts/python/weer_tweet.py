@@ -16,7 +16,7 @@ auth = tweepy.OAuthHandler(API_KEY, API_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
-tempfile = open('/home/pi/domoticz/logging/weather_updates/weather-tweet.txt', 'rb')
+tempfile = open('/home/pi/domoticz/scripts/logging/weather_updates/weather-tweet.txt', 'rb')
 thetext = tempfile.read().decode('utf8', 'ignore')
 		  
 tempfile.close()

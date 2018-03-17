@@ -5,7 +5,7 @@
 ### check_rpi_updates.sh
 ### @author	: Siewert Lameijer
 ### @since	: 29-11-2016
-### @updated: 2-20-2018
+### @updated: 3-17-2018
 ### Script to check for domoticz, rpi & repo updated packages to display in motd
 
 ###########################################################################################################################################
@@ -34,15 +34,15 @@
 	sudo apt-get update > /dev/null 2>&1
 
 	repo=`sudo apt-get upgrade -d -y | grep 'upgraded,' | awk {'print $1'}`
-		echo $repo > /mnt/storage/domoticz_logs/repo_updates/repo_updates.txt
+		echo $repo > /home/pi/domoticz/scripts/logging/repo_updates/repo_updates.txt
 
 	rpi=`sudo apt-get install rpi-update -d -y | grep 'upgraded,' | awk {'print $1'}`
-		echo $rpi > /mnt/storage/domoticz_logs/repo_updates/rpi_updates.txt
+		echo $rpi > /home/pi/domoticz/scripts/logging/repo_updates/rpi_updates.txt
 
 	if [[ $(sudo JUST_CHECK=1 rpi-update | grep '*** Your firmware') = *Your* ]]; then
-		echo "0" > /mnt/storage/domoticz_logs/repo_updates/firmware_updates.txt 
+		echo "0" > /home/pi/domoticz/scripts/logging/repo_updates/firmware_updates.txt 
 	else
-		echo "1" > /mnt/storage/domoticz_logs/repo_updates/firmware_updates.txt
+		echo "1" > /home/pi/domoticz/scripts/logging/repo_updates/firmware_updates.txt
 	fi
 
 ############################################################################################################################################
@@ -60,13 +60,13 @@
 		
 ### Domoticz Update Check
 	if [ $DOMO_CURRENT_VERSION = $DOMO_NEW_VERSION ] ; then
-	echo 0 > /mnt/storage/domoticz_logs/domo_updates/domo_updates.txt
-	echo " " > /mnt/storage/domoticz_logs/domo_updates/domo_update_from.txt
-	echo " " > /mnt/storage/domoticz_logs/domo_updates/domo_update_to.txt		
+	echo 0 > /home/pi/domoticz/scripts/logging/domo_updates/domo_updates.txt
+	echo " " > /home/pi/domoticz/scripts/logging/domo_updates/domo_update_from.txt
+	echo " " > /home/pi/domoticz/scripts/logging/domo_updates/domo_update_to.txt		
 	fi	
 	
 	if  [ $DOMO_CURRENT_VERSION != $DOMO_NEW_VERSION ] ; then		
-	echo 1 > /mnt/storage/domoticz_logs/domo_updates/domo_updates.txt
-	echo "- From: $DOMO_CURRENT_VERSION" > /mnt/storage/domoticz_logs/domo_updates/domo_update_from.txt
-	echo " To: $DOMO_NEW_VERSION" > /mnt/storage/domoticz_logs/domo_updates/domo_update_to.txt		
+	echo 1 > /home/pi/domoticz/scripts/logging/domo_updates/domo_updates.txt
+	echo "- From: $DOMO_CURRENT_VERSION" > /home/pi/domoticz/scripts/logging/domo_updates/domo_update_from.txt
+	echo " To: $DOMO_NEW_VERSION" > /home/pi/domoticz/scripts/logging/domo_updates/domo_update_to.txt		
 	fi
