@@ -66,6 +66,6 @@
 			and timedifference(otherdevices_lastupdate[pico.fan_selector_switch]) > timeout.minutes5
 		then
 			commandArray['SendNotification']='Raspberry to HOT#Your RPi seems to be to hot, System has been shutdown'	
-			commandArray[pico.fan_selector_switch]='Set Level 50'			
+			commandArray[pico.fan_selector_switch]='Set Level 50 AFTER 10'			
 		end
 	end

@@ -18,10 +18,9 @@
 
 stairs_counter = tonumber(uservariables[var.persons_upstairs])
 
-if devicechanged[motion_sensor.downstairs] == 'On' then
-
-	if timedifference(otherdevices_lastupdate[motion_sensor.hallway]) < timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) then
-
+if devicechanged[motion_sensor.downstairs] == 'On'
+and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) < timedifference(otherdevices_lastupdate[motion_sensor.upstairs])
+then
 		logmessage = 'Iemand loopt naar boven'
 		stairs_counter = stairs_counter + 1
 		commandArray['Variable:' .. var.persons_upstairs] = tostring(stairs_counter)
@@ -46,16 +45,20 @@ if devicechanged[motion_sensor.downstairs] == 'On' then
 			then
 				commandArray[light.upstairs]='Set Level 7'
 			end
+end
+
 		
-	elseif timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) then
+if devicechanged[motion_sensor.downstairs] == 'On'
+and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > timedifference(otherdevices_lastupdate[motion_sensor.upstairs])
+then
 
 
 		logmessage = 'Iemand loopt naar beneden'
 
-		if uservariables[var.persons_upstairs] < 0 then 
+		if uservariables[var.persons_upstairs] < 1 then 
 			stairs_counter = 0
 			commandArray['Variable:' .. var.persons_upstairs] = tostring(stairs_counter)
-		elseif uservariables[var.persons_upstairs] >= 0 then 
+		elseif uservariables[var.persons_upstairs] >= 1 then 
 			stairs_counter = stairs_counter - 1
 			commandArray['Variable:' .. var.persons_upstairs] = tostring(stairs_counter)
 		end
@@ -67,8 +70,6 @@ if devicechanged[motion_sensor.downstairs] == 'On' then
 			then
 				commandArray[light.upstairs]='Off AFTER 10'
 			end
-		
-	end
 end
 
 --

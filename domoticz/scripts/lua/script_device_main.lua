@@ -4,7 +4,7 @@
 	@ script_device_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-13-2018
+	@ updated	: 3-17-2018
 	@ Main event script on which my entire Lua event system is running. 
 
 	Just one file instead of a dozen lua device and timer scripts.
@@ -27,7 +27,7 @@ commandArray = {}
 
 --
 -- **********************************************************
--- Call any device event if predefined trigger changed status
+-- Call a event if predefined trigger changed status
 -- **********************************************************
 --
 
@@ -45,7 +45,7 @@ commandArray = {}
 					
 --
 -- **********************************************************
--- Redundant commands and log message for 433mhz devices 
+-- Send redundant commandArray for 433mhz devices 
 -- **********************************************************
 --
 					
@@ -71,7 +71,7 @@ commandArray = {}
 					
 --
 -- **********************************************************
--- Print log 
+-- Print log: Print trigger which called a event
 -- **********************************************************
 --
 					
@@ -140,6 +140,11 @@ commandArray = {}
 						print ''
 						end
 						
+--
+-- **********************************************************
+-- Print Log: Print if enabled redundant commandArray device names 
+-- **********************************************************
+--
 						
 						if (redundant_array.verbose == 'true' or uservariables[var.lua_logging] >= 2) and redundantArray == 'true' then
 						print_color(''..msgcolor.redundantarrayTitle..'', 'Redundant:')
@@ -161,6 +166,12 @@ commandArray = {}
 							end
 							print ''
 						end
+
+--
+-- **********************************************************
+-- Print Log: Print commandArrays
+-- **********************************************************
+--
 						
 						print_color(''..msgcolor.commandarrayTitle..'', 'commandArray:')
 						for CommandArrayName, CommandArrayValue in pairs(commandArray) do
