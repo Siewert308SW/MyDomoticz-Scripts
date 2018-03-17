@@ -81,6 +81,7 @@ light = {
 	living_standing_light		= 'Woonkamer - Sta Lamp',
 	living_twilight_tv			= 'Woonkamer - Schemerlamp (voor)',	
 	living_twilight				= 'Woonkamer - Schemerlamp (achter)',
+	living_deco_light			= 'Woonkamer - Vaas Lamp',	
 	living_wall_lights			= 'Woonkamer - Wand Lampen',
 	living_salon_light			= 'Woonkamer - Salon Tafel Lamp',
 	toilet						= 'W.C - Verlichting',
@@ -135,6 +136,7 @@ group = {
 scene = {
 	stage_1						= 'Woonkamer - Stage 1',	
 	stage_2						= 'Woonkamer - Stage 2',
+	stage_away					= 'Woonkamer - Stage Away',	
 	shutdown					= 'Woonkamer - Shutdown',
 	nobodyhome					= 'Niemand - Thuis',	
 }
