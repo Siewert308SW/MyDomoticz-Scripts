@@ -21,7 +21,7 @@
 		and otherdevices[light.living_standing_light] == 'Off'
 		and otherdevices[light.living_twilight_tv] == 'Off'
 		and otherdevices[lux_sensor.switch] == 'On'		
-		and timedifference(otherdevices_lastupdate[someone.home]) >= timeout.minutes3
+		and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes3
 		and timebetween("16:00:00","22:29:59")	
 	then
 		commandArray["Scene:" ..scene.stage_away.. ""]='On AFTER 1 REPEAT 2 INTERVAL 5'
