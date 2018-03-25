@@ -4,7 +4,7 @@
 	@ activity_someone_leaving.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-13-2018
+	@ updated	: 3-25-2018
 	@ Script to switch Garden Lights when OFF and someone is leaving the house
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -19,7 +19,7 @@
 	if devicechanged[door.front] == 'Open' 
 		and otherdevices[door.back] == 'Closed'
 		and otherdevices[garden.shed_lights] == 'Off'
-		and device_svalue(lux_sensor.porch) <= 1
+		and device_svalue(lux_sensor.porch) == 0
 		and uservariables[var.leaving_override] == 0
 		and (timedifference(otherdevices_lastupdate[motion_sensor.hallway]) < timeout.seconds30 
 		or otherdevices[motion_sensor.hallway] == 'On')	
@@ -37,7 +37,7 @@
 	if devicechanged[door.back] == 'Open' 
 		and otherdevices[door.front] == 'Closed'	
 		and otherdevices[garden.shed_lights] == 'Off'
-		and device_svalue(lux_sensor.porch) <= 1
+		and device_svalue(lux_sensor.porch) == 0
 		and uservariables[var.leaving_override] == 0
 		and timedifference(otherdevices_lastupdate[door.scullery]) < timeout.minute1		
 	then
@@ -71,7 +71,7 @@
 		and otherdevices[door.back] == 'Closed'
 		and otherdevices[door.front] == 'Closed'	
 		and otherdevices[garden.shed_lights] == 'Off'
-		and device_svalue(lux_sensor.porch) <= 1
+		and device_svalue(lux_sensor.porch) == 0
 		and uservariables[var.leaving_override] == 0
 	then	
 		commandArray["Variable:" .. var.leaving_override .. ""]= '1'		

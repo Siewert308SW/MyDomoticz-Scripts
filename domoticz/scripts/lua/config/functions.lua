@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-18-2018
+	@ updated	: 3-25-2018
 	@ All global functions needed
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -275,40 +275,47 @@
 		Isweekend = false
 			local dayNow = tonumber(os.date("%w"))
 			
-				if (dayNow == 5) and timebetween("00:00:00","15:59:59") then
-					 if (input == 'false') then
-						Isweekend = true
-					 end
-				end				
-			
-				if (dayNow == 5) and timebetween("16:00:00","23:59:59") then
-					 if (input == 'true') then
-						Isweekend = true
-					 end
-				end			
-				
--- **********************************************************
-
-				if (dayNow == 6) and timebetween("00:00:00","21:59:59") then
-					 if (input == 'true') then
-						Isweekend = true
-					 end
-				end
-				
-				if (dayNow == 6) and timebetween("22:00:00","23:59:59") then
-					 if (input == 'false') then
-						Isweekend = true
-					 end
-				end
-				
--- **********************************************************
-				
-				if (dayNow == 1) or (dayNow == 2) or (dayNow == 3) or (dayNow == 4) then
-					if (input == 'false') then
+				if dayNow == 5 and timebetween("00:00:00","15:59:59") then 
+					if input == 'false' then
 						Isweekend = true
 					end
 				end
+
+				if dayNow == 5 and timebetween("16:00:00","23:59:59") then 
+					 if input == 'true' then
+						Isweekend = true
+					 end
+				end					
+
+-- **********************************************************
 				
+				if dayNow == 6 and timebetween("00:00:00","23:59:59") then
+					 if input == 'true' then
+						Isweekend = true
+					 end
+
+-- **********************************************************
+				end
+				
+				if dayNow == 0 and timebetween("00:00:00","15:59:59") then 
+					 if input == 'true' then
+						Isweekend = true
+					 end
+				end	
+
+				if dayNow == 0 and timebetween("16:00:00","23:59:59") then 
+					if input == 'false' then
+						Isweekend = true
+					end
+				end				
+
+-- **********************************************************
+				
+				if dayNow == 1 or dayNow == 2 or dayNow == 3 or dayNow == 4 then
+					if input == 'false' then
+						Isweekend = true
+					end
+				end
 				return Isweekend	
 		end
 	end

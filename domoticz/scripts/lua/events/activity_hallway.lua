@@ -4,7 +4,7 @@
 	@ activity_hallway.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-16-2018
+	@ updated	: 3-25-2018
 	@ Script for switching hallway light when someone is entering the hallway
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -49,7 +49,8 @@
 	then
 		commandArray[light.hallway]='On'
 		commandArray[standby.hallway]='On FOR 30 SECONDS'		
-	end	
+	end
+	
 --
 -- **********************************************************
 -- Hallway light instant OFF when some one is taking a shit
@@ -123,3 +124,11 @@
 	then
 		commandArray[standby.hallway]='On FOR 30 SECONDS'	
 	end
+
+	if devicechanged[lux_sensor.hallway]	
+		and otherdevices[light.hallway] == 'On'
+		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) >= timeout.minutes2		
+	then
+		commandArray[light.hallway]='Off AFTER 1'
+		commandArray[standby.hallway]='Off AFTER 2'		
+	end	

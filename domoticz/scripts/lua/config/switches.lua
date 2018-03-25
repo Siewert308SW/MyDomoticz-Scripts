@@ -4,7 +4,7 @@
 	@ switches.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-17-2018
+	@ updated	: 3-25-2018
 	@ Define your switches and devices, Lua globally used.
 	@ Once you have renamed a switches then no need to edit all your scripts
 
@@ -287,10 +287,10 @@ nest = {
 	
 	setpoint_low_summer			= 16.0,
 	setpoint_low_autumn			= 19.0,	
-	setpoint_low_winter			= 21.0,
+	setpoint_low_winter			= 20.5,
 	
-	setpoint_temp1				= 21.1,
-	setpoint_temp2				= 21.9,	
+	setpoint_temp1				= 21.5,
+	setpoint_temp2				= 22.0,	
 	trigger_temp				= 22.5,
 	
 	summer_temp					= 19,

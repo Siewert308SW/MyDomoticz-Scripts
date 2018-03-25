@@ -4,7 +4,7 @@
 	@ settings.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-16-2018
+	@ updated	: 3-25-2018
 	@ All global settings
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -204,6 +204,9 @@
 		minutes45 		= 2700;
 
 		hour1 			= 3600;
+		hours2 			= 7200;
+		hours3 			= 10200;
+		hours4 			= 14400;		
 		hours5 			= 18000;	
 		hours15 		= 57600;			
 	}	
