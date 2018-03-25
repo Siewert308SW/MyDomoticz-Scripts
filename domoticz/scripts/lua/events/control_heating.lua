@@ -14,8 +14,57 @@
 	sNestTemp, sNestHumidity = otherdevices_svalues[nest.room_temp]:match("([^;]+);([^;]+)")
     nest_current_temp = tonumber(sNestTemp)
 	nest_current_hum = tonumber(sNestHumidity)
-
 	
+--
+-- **********************************************************
+-- Turn heating ON instant when SomeOneHome at day time
+-- **********************************************************
+--
+
+		if devicechanged[someone.home] == 'Thuis'
+			and device_svalue(temp.porch) < nest.summer_temp
+			and device_svalue(temp.porch) > nest.winter_temp			
+			and nest_current_temp <= nest.trigger_temp
+			and device_svalue(nest.setpoint) ~= nest.setpoint_temp1	
+			and timebetween("08:00:00","22:29:59")
+			and weekend('false')	
+		then
+			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp1)
+		end
+		
+		if devicechanged[someone.home] == 'Thuis'
+			and device_svalue(temp.porch) <= nest.winter_temp			
+			and nest_current_temp <= nest.trigger_temp
+			and device_svalue(nest.setpoint) ~= nest.setpoint_temp2	
+			and timebetween("08:00:00","22:29:59")
+			and weekend('false')	
+		then
+			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp2)
+		end
+
+-- **********************************************************
+		
+		if devicechanged[someone.home] == 'Thuis'
+			and device_svalue(temp.porch) < nest.summer_temp
+			and device_svalue(temp.porch) > nest.winter_temp			
+			and nest_current_temp <= nest.trigger_temp
+			and device_svalue(nest.setpoint) ~= nest.setpoint_temp1	
+			and timebetween("08:00:00","22:59:59")
+			and weekend('true')	
+		then
+			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp1)
+		end
+		
+		if devicechanged[someone.home] == 'Thuis'
+			and device_svalue(temp.porch) <= nest.winter_temp			
+			and nest_current_temp <= nest.trigger_temp
+			and device_svalue(nest.setpoint) ~= nest.setpoint_temp2	
+			and timebetween("08:00:00","22:59:59")
+			and weekend('true')	
+		then
+			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp2)
+		end
+
 --
 -- **********************************************************
 -- Turn heating ON when SomeOneHome at day time
@@ -28,7 +77,7 @@
 			and device_svalue(temp.porch) > nest.winter_temp			
 			and nest_current_temp <= nest.trigger_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_temp1	
-			and timebetween("08:00:00","21:59:59")
+			and timebetween("08:00:00","22:29:59")
 			and weekend('false')	
 		then
 			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp1)
@@ -38,7 +87,7 @@
 			and device_svalue(temp.porch) <= nest.winter_temp			
 			and nest_current_temp <= nest.trigger_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_temp2	
-			and timebetween("08:00:00","21:59:59")
+			and timebetween("08:00:00","22:29:59")
 			and weekend('false')	
 		then
 			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp2)
