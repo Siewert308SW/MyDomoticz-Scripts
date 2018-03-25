@@ -34,8 +34,7 @@
 		and otherdevices[plug.workbench]  == 'Off'
 		and otherdevices[phone.siewert]  == 'On'
 		and otherdevices[someone.home]  == 'Thuis'		
-		and timebetween("08:00:00","22:29:59")
-		and timedifference(otherdevices_lastupdate[plug.workbench]) <= timeout.hours3			
+		and timebetween("08:00:00","22:29:59")			
 	then
 		commandArray[plug.workbench]='On'	
 	end	

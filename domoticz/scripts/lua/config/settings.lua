@@ -155,7 +155,7 @@
 		--'Keuken - Cabinet Lamp (Fornuis)',
 	
 	-- Doorbell Switches
-		--'Deurbel',
+		'Deurbel Knop',
 		
 	-- Sensors as 3,5,10 time trigger
 		'Woonkamer - Lux', 	-- 3min trigger

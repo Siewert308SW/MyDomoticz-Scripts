@@ -4,7 +4,7 @@
 	@ lights_livingroom_away.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-17-2018
+	@ updated	: 3-25-2018
 	@ Script to switch ON/OFF Away light scene when nobody at home
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -45,10 +45,15 @@
 -- **********************************************************
 --
 
-	if devicechanged[lux_sensor.living]
-		and otherdevices[light.living_twilight_tv] ~= 'Off'
+	if devicechanged[lux_sensor.living]		
 		and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes10		
-		and device_svalue(lux_sensor.porch) >= 60	
+		and device_svalue(lux_sensor.porch) >= 60
+		and otherdevices[someone.home] ~= 'Thuis'
+		and (otherdevices[light.living_twilight_tv] ~= 'Off'
+		or otherdevices[light.living_twilight] ~= 'Off'
+		or otherdevices[light.living_deco_light] ~= 'Off'
+		or otherdevices[light.living_wall_lights] ~= 'Off'
+		or otherdevices[light.living_standing_light] ~= 'Off')		
 	then
 		commandArray["Scene:" ..scene.shutdown.. ""]='On AFTER 10 REPEAT 2 INTERVAL 5'
 	end

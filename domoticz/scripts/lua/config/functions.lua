@@ -330,7 +330,7 @@
 	   times = times or 2
 	   cmd1 = 'Off'
 	   cmd2 = 'On'
-	   pause = 7
+	   pause = 5
 	   if (otherdevices[light] == 'Off') then
 		  cmd1 = 'On'
 		  cmd2 = 'Off'

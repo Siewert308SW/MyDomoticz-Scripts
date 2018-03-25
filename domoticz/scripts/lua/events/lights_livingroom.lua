@@ -135,10 +135,15 @@ end
 -- **********************************************************
 --
 
-	if devicechanged[lux_sensor.living]
-		and otherdevices[light.living_standing_light] ~= 'Off'
+	if devicechanged[lux_sensor.living]		
 		and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes10		
-		and device_svalue(lux_sensor.porch) >= 60	
+		and device_svalue(lux_sensor.porch) >= 60
+		and otherdevices[someone.home] == 'Thuis'
+		and (otherdevices[light.living_twilight_tv] ~= 'Off'
+		or otherdevices[light.living_twilight] ~= 'Off'
+		or otherdevices[light.living_deco_light] ~= 'Off'
+		or otherdevices[light.living_wall_lights] ~= 'Off'
+		or otherdevices[light.living_standing_light] ~= 'Off')		
 	then
 		commandArray["Scene:" ..scene.shutdown.. ""]='On AFTER 10 REPEAT 2 INTERVAL 5'
 	end
