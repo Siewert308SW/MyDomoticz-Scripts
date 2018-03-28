@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-25-2018
+	@ updated	: 3-28-2018
 	@ All global functions needed
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -275,13 +275,13 @@
 		Isweekend = false
 			local dayNow = tonumber(os.date("%w"))
 			
-				if dayNow == 5 and timebetween("00:00:00","15:59:59") then 
+				if dayNow == 5 and timebetween("00:00:00","21:59:59") then 
 					if input == 'false' then
 						Isweekend = true
 					end
 				end
 
-				if dayNow == 5 and timebetween("16:00:00","23:59:59") then 
+				if dayNow == 5 and timebetween("22:00:00","23:59:59") then 
 					 if input == 'true' then
 						Isweekend = true
 					 end
@@ -297,13 +297,13 @@
 -- **********************************************************
 				end
 				
-				if dayNow == 0 and timebetween("00:00:00","15:59:59") then 
+				if dayNow == 0 and timebetween("00:00:00","21:59:59") then 
 					 if input == 'true' then
 						Isweekend = true
 					 end
 				end	
 
-				if dayNow == 0 and timebetween("16:00:00","23:59:59") then 
+				if dayNow == 0 and timebetween("22:00:00","23:59:59") then 
 					if input == 'false' then
 						Isweekend = true
 					end
@@ -354,114 +354,4 @@
 		device = tonumber(otherdevices_svalues[device])
 		devices_svalues = device		
 		  return devices_svalues
-	end		
-	
---[[
--- **********************************************************
--- Get lux threshold IsDark or IsDay
--- **********************************************************
--- Example: if dark('true', 3) then (3 stands for lux value min/max)
-
-	function dark(dark, lux)
-		dark = dark
-		lux = lux
-
-	-- Get Lux Value	
-		living = tonumber(otherdevices_svalues[lux_sensor.living])	
-		hallway = tonumber(otherdevices_svalues[lux_sensor.hallway])
-		upstairs = tonumber(otherdevices_svalues[lux_sensor.upstairs])
-		veranda = tonumber(otherdevices_svalues[lux_sensor.veranda])
-		
-	-- Create table
-		sensors={living, hallway, upstairs, veranda}
-		
-	-- Lux_threshold
-		local lux_threshold = tonumber(lux)		
-
-	-- Calculate Average		
-		local elements = 0
-		local sum = 0
-		--local lux_average = 0
-			
-		for k,v in pairs(sensors) do
-			sum = sum + v
-			elements = elements + 1
-		end
-	 
-		lux_average = sum / elements
-
-		
-	-- Get Sunset
-		sunset=os.capture("curl 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet' | grep 'Sunset' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
-		sunset = tostring(""..sunset..":00")
-
-	-- Get Sunrise
-		sunrise=os.capture("curl 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet' | grep 'Sunrise' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
-		sunrise = tostring(""..sunrise..":00")
-		
-		
-	--IsDark_Dawn
-		if timebetween("00:00:00",""..sunrise.."")
-		and lux_average > lux_threshold
-		then
-		threshold = 0
-		end
-		
-		if timebetween("00:00:00",""..sunrise.."")
-		and lux_average <= lux_threshold
-		then
-		threshold = 1
-		end
-
-	--IsDay_Morning		
-		if timebetween(""..sunrise.."","11:59:59")
-		and lux_average > lux_threshold				
-		then
-		threshold = 0
-		end
-		
-		if timebetween(""..sunrise.."","11:59:59")
-		and lux_average <= lux_threshold				
-		then
-		threshold = 1				
-		end
-
-	--IsDay_Afternoon		
-		if timebetween("12:00:00",""..sunset.."")
-		and lux_average > lux_threshold			
-		then
-		threshold = 0
-		end
-		
-		if timebetween("12:00:00",""..sunset.."")
-		and lux_average <= lux_threshold			
-		then
-		threshold = 1		
-		end
-
-	--IsDark_Dusk		
-		if timebetween(""..sunset.."","23:59:59")
-		and lux_average > lux_threshold
-		then
-		threshold = 0
-		end
-		
-		if timebetween(""..sunset.."","23:59:59")
-		and lux_average <= lux_threshold
-		then
-		threshold = 1
-		end
-					
-		isdark = false
-					
-		if threshold == 1 and dark == 'true' and otherdevices[lux_sensor.switch] == 'On' then
-		isdark = true
-		end
-		
-		if threshold == 0 and dark == 'false' and otherdevices[lux_sensor.switch] == 'Off' then
-		isdark = true
-		end
-		return isdark	
-				
 	end
-	--]]

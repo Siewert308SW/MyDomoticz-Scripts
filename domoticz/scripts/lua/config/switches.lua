@@ -4,7 +4,7 @@
 	@ switches.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-25-2018
+	@ updated	: 3-28-2018
 	@ Define your switches and devices, Lua globally used.
 	@ Once you have renamed a switches then no need to edit all your scripts
 
@@ -43,7 +43,6 @@ laptop = {
 	siewert						= 'Siewert Laptop',
 	natalya						= 'Natalya Laptop',		
 	switch						= 'Laptops',
-	printer						= 'Print Server',
 }
 
 --
@@ -196,7 +195,7 @@ plug = {
 	tvcorner					= 'Standbykiller - Woonkamer TV Hoek',
 	jerina 						= 'Standbykiller - Jerina Laptop',	
 	siewert 					= 'Standbykiller - Siewert Laptop',
-	printer		 				= 'Standbykiller - Print Server',
+	printer		 				= 'Standbykiller - Printer',
 	natalya		 				= 'Standbykiller - Natalya TV Hoek',
 	workbench		 			= 'Standbykiller - Werkbank',	
 }
