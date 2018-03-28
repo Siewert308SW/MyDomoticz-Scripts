@@ -5,11 +5,12 @@ I share my scripts over here so that it can be a inspiration or guide for you al
 <br />
 
 # MyDomoticz-Hardware:
-RPi3 - PIco hv3.0A Plus / Domoticz Beta Custom 3.8XXX / RFXtrx433E / Aeotec Gen5<br /> 
-RPi3 - PIco hv3.0A Plus / PiHole / Youless Elec and Gas<br /> 
-FI9803P Cams<br /> 
-KD101 detectors<br /> 
-KaKu/Z-Wave stuff<br />
+- RPi3 - PIco UPS HV3.0A / Domo Beta 3.9XXX / RFXtrx433E / Aeotec Gen5<br />
+- RPi3 - PIco UPS HV3.0A / PiHole / PiVPN / NAS / Print Server<br />
+- Youless Elec & Gas logging<br />
+- FI9803P Cams<br />
+- KD101 detectors<br />
+- KaKu/Z-Wave stuff<br />
 Both my setups are running its /rootfs from a unpowered USB HDD<br />
 <br />
 
