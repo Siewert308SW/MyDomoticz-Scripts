@@ -286,17 +286,23 @@
 					 if input == 'true' then
 						Isweekend = true
 					 end
+				end
+
+				if dayNow == 5 and timebetween("00:00:00","23:59:59") and uservariables[var.holiday] == 1 then 
+					 if input == 'true' then
+						Isweekend = true
+					 end
 				end					
 
 -- **********************************************************
 				
-				if dayNow == 6 and timebetween("00:00:00","23:59:59") and uservariables[var.holiday] == 0 then
+				if dayNow == 6 and timebetween("00:00:00","23:59:59") then
 					 if input == 'true' then
 						Isweekend = true
-					 end
+					 end	
+				end
 
 -- **********************************************************
-				end
 				
 				if dayNow == 0 and timebetween("00:00:00","21:59:59") and uservariables[var.holiday] == 0 then 
 					 if input == 'true' then
@@ -308,7 +314,13 @@
 					if input == 'false' then
 						Isweekend = true
 					end
-				end				
+				end
+
+				if dayNow == 0 and timebetween("00:00:00","23:59:59") and uservariables[var.holiday] == 1 then 
+					 if input == 'true' then
+						Isweekend = true
+					 end
+				end					
 
 -- **********************************************************
 				
@@ -318,7 +330,7 @@
 					end
 				end
 				
-				if (dayNow == 1 or dayNow == 2 or dayNow == 3 or dayNow == 4 or dayNow == 5 or dayNow == 6 or dayNow == 0) and uservariables[var.holiday] == 1 then
+				if (dayNow == 1 or dayNow == 2 or dayNow == 3 or dayNow == 4) and uservariables[var.holiday] == 1 then
 					if input == 'true' then
 						Isweekend = true
 					end

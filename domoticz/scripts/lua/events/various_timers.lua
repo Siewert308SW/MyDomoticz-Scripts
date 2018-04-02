@@ -50,18 +50,35 @@
 --
 
 
-	if devicechanged[lux_sensor.upstairs] and timebetween("00:00:00","00:29:59") then
+	if devicechanged[lux_sensor.upstairs] and (timebetween("23:29:59","23:59:59") or timebetween("00:00:00","00:29:59")) then
 		
 		today=os.capture('date --date="0 days ago " +"%-d-%-m-%Y"', false)
-		json_return=os.capture("curl -s 'http://www.kayaposoft.com/enrico/json/v2.0/?action=isPublicHoliday&date="..today.."&country=nl'", false)
+		tomorrow=os.capture('date --date="tomorrow " +"%-d-%-m-%Y"', false)	
+		
+		return_today=os.capture("curl -s 'http://www.kayaposoft.com/enrico/json/v2.0/?action=isPublicHoliday&date="..today.."&country=nl'", false)
 
-		if string.find(json_return, 'true') and uservariables[var.holiday] ~= 1 then
+		return_tomorrow=os.capture("curl -s 'http://www.kayaposoft.com/enrico/json/v2.0/?action=isPublicHoliday&date="..tomorrow.."&country=nl'", false)
+
+-- *********************************************************************
+		
+		if string.find(return_today, 'true') and string.find(return_tomorrow, 'true') and uservariables[var.holiday] ~= 1 then
 			commandArray["Variable:" .. var.holiday .. ""]= '1'
 		end
 
-		if string.find(json_return, 'false') and uservariables[var.holiday] ~= 0 then
+		if string.find(return_today, 'false') and string.find(return_tomorrow, 'true') and uservariables[var.holiday] ~= 1 then
+			commandArray["Variable:" .. var.holiday .. ""]= '1'
+		end
+
+-- *********************************************************************
+		
+		if string.find(return_today, 'false') and string.find(return_tomorrow, 'false') and uservariables[var.holiday] ~= 0 then
 			commandArray["Variable:" .. var.holiday .. ""]= '0'
-		end	
+		end
+		
+		if string.find(return_today, 'true') and string.find(return_tomorrow, 'false') and uservariables[var.holiday] ~= 0 then
+			commandArray["Variable:" .. var.holiday .. ""]= '0'
+		end		
+
 	end
 
 	
