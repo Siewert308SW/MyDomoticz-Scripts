@@ -40,7 +40,7 @@
 		and otherdevices[light.living_wall_lights] == 'Off'
 		and (timebetween("16:00:00","23:59:59") or timebetween("00:00:00","02:59:59"))		
 	then
-		  commandArray[light.living_standing_light]='Set Level 66 AFTER 1'
+		  commandArray[light.living_standing_light]='Set Level 53 AFTER 1'
 	end
 
 -- **********************************************************

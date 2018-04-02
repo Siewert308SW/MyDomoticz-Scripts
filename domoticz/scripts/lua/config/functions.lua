@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-28-2018
+	@ updated	: 2-4-2018
 	@ All global functions needed
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -44,7 +44,7 @@
 -- **********************************************************
 -- Function to execute os commands and get output
 -- **********************************************************
--- Example: os.capture("curl 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet'
+-- Example: os.capture(curl 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet')
 
 	function os.capture(cmd, raw)
 		
@@ -54,6 +54,7 @@
 		if raw then return s end
 		s = string.gsub(s, '^%s+', '')
 		s = string.gsub(s, '%s+$', '')
+		s = string.gsub(s, '[{}]+', ' ')		
 		s = string.gsub(s, '[\n\r]+', ' ')
 		return s
 
@@ -273,15 +274,15 @@
 		input = input
 		if input == 'true' or input == 'false' then
 		Isweekend = false
-			local dayNow = tonumber(os.date("%w"))
+			local dayNow = tonumber(os.date("%w"))		
 			
-				if dayNow == 5 and timebetween("00:00:00","21:59:59") then 
+				if dayNow == 5 and timebetween("00:00:00","21:59:59") and uservariables[var.holiday] == 0 then 
 					if input == 'false' then
 						Isweekend = true
 					end
 				end
 
-				if dayNow == 5 and timebetween("22:00:00","23:59:59") then 
+				if dayNow == 5 and timebetween("22:00:00","23:59:59") and uservariables[var.holiday] == 0 then 
 					 if input == 'true' then
 						Isweekend = true
 					 end
@@ -289,7 +290,7 @@
 
 -- **********************************************************
 				
-				if dayNow == 6 and timebetween("00:00:00","23:59:59") then
+				if dayNow == 6 and timebetween("00:00:00","23:59:59") and uservariables[var.holiday] == 0 then
 					 if input == 'true' then
 						Isweekend = true
 					 end
@@ -297,13 +298,13 @@
 -- **********************************************************
 				end
 				
-				if dayNow == 0 and timebetween("00:00:00","21:59:59") then 
+				if dayNow == 0 and timebetween("00:00:00","21:59:59") and uservariables[var.holiday] == 0 then 
 					 if input == 'true' then
 						Isweekend = true
 					 end
 				end	
 
-				if dayNow == 0 and timebetween("22:00:00","23:59:59") then 
+				if dayNow == 0 and timebetween("22:00:00","23:59:59") and uservariables[var.holiday] == 0 then 
 					if input == 'false' then
 						Isweekend = true
 					end
@@ -311,11 +312,18 @@
 
 -- **********************************************************
 				
-				if dayNow == 1 or dayNow == 2 or dayNow == 3 or dayNow == 4 then
+				if (dayNow == 1 or dayNow == 2 or dayNow == 3 or dayNow == 4) and uservariables[var.holiday] == 0 then
 					if input == 'false' then
 						Isweekend = true
 					end
 				end
+				
+				if (dayNow == 1 or dayNow == 2 or dayNow == 3 or dayNow == 4 or dayNow == 5 or dayNow == 6 or dayNow == 0) and uservariables[var.holiday] == 1 then
+					if input == 'true' then
+						Isweekend = true
+					end
+				end
+				
 				return Isweekend	
 		end
 	end
@@ -330,7 +338,7 @@
 	   times = times or 2
 	   cmd1 = 'Off'
 	   cmd2 = 'On'
-	   pause = 5
+	   pause = 7
 	   if (otherdevices[light] == 'Off') then
 		  cmd1 = 'On'
 		  cmd2 = 'Off'

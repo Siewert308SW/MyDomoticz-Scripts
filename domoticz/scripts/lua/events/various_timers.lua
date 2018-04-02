@@ -4,7 +4,7 @@
 	@ various_timers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-16-2018
+	@ updated	: 2-4-2018
 	@ Script to switch ON/OFF various devices if max timeout reached
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -45,22 +45,23 @@
 	
 --
 -- *********************************************************************
--- Sunrise/Sunset switch ON/OFF to overrule some events
+-- Check if it's a national holiday
 -- *********************************************************************
 --
 
---[[
-	if devicechanged[lux_sensor.upstairs] then
+
+	if devicechanged[lux_sensor.upstairs] and timebetween("00:00:00","00:29:59") then
 		
-		-- If nighttime
-		if (timeofday['Nighttime']) and otherdevices[lux_sensor.switch] == 'Off' then
-			commandArray[lux_sensor.switch]='On AFTER 1'
+		today=os.capture('date --date="0 days ago " +"%-d-%-m-%Y"', false)
+		json_return=os.capture("curl -s 'http://www.kayaposoft.com/enrico/json/v2.0/?action=isPublicHoliday&date="..today.."&country=nl'", false)
+
+		if string.find(json_return, 'true') and uservariables[var.holiday] ~= 1 then
+			commandArray["Variable:" .. var.holiday .. ""]= '1'
 		end
 
-		-- If daytime
-		if (timeofday['Daytime']) and otherdevices[lux_sensor.switch] == 'On' then
-			commandArray[lux_sensor.switch]='Off AFTER 1'
-		end
+		if string.find(json_return, 'false') and uservariables[var.holiday] ~= 0 then
+			commandArray["Variable:" .. var.holiday .. ""]= '0'
+		end	
 	end
---]]	
+
 	

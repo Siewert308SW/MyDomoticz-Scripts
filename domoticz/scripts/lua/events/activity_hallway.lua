@@ -89,6 +89,26 @@
 	
 --
 -- **********************************************************
+-- Hallway light instant OFF when some one leaves the hallway without any other room entrance
+-- **********************************************************
+--
+
+	if devicechanged[door.living] == 'Closed'	
+		and otherdevices[light.hallway] == 'On'	
+		and otherdevices[standby.hallway] == 'On'		
+		and timedifference(otherdevices_lastupdate[motion_sensor.downstairs]) >= timeout.seconds30
+		and timedifference(otherdevices_lastupdate[motion_sensor.toilet]) >= timeout.seconds30
+		and timedifference(otherdevices_lastupdate[standby.hallway]) >= timeout.seconds10		
+		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) >= timeout.seconds5
+		and otherdevices[door.front] == 'Closed'
+		and otherdevices[door.pantry] == 'Closed'		
+	then
+		commandArray[light.hallway]='Off AFTER 5'
+		commandArray[standby.hallway]='Off AFTER 6'			
+	end	
+	
+--
+-- **********************************************************
 -- Hallway Light OFF when no motion (1min trigger in timer folder)
 -- **********************************************************
 --
@@ -96,7 +116,8 @@
 	if devicechanged[standby.hallway] == 'Off'
 		and otherdevices[light.hallway] == 'On'		
 		and otherdevices[door.front] == 'Closed' 
-		and otherdevices[door.pantry] == 'Closed'		
+		and otherdevices[door.pantry] == 'Closed'
+		and otherdevices[door.living] == 'Closed'		
 	then
 
 			if (timedifference(otherdevices_lastupdate[motion_sensor.hallway]) < timeout.seconds30
@@ -120,6 +141,7 @@
 		and otherdevices[light.hallway] == 'On'		
 		and (otherdevices[door.front] == 'Open' 
 		or otherdevices[door.pantry] == 'Open'
+		or otherdevices[door.living] == 'Open'		
 		or otherdevices[motion_sensor.hallway] == 'On')		
 	then
 		commandArray[standby.hallway]='On FOR 30 SECONDS'	
