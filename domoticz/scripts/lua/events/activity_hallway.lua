@@ -4,7 +4,7 @@
 	@ activity_hallway.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-25-2018
+	@ updated	: 4-4-2018
 	@ Script for switching hallway light when someone is entering the hallway
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -21,7 +21,7 @@
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
 		and otherdevices[standby.hallway] == 'Off'		
-		and device_svalue(lux_sensor.porch) <= 2		
+		and device_svalue(lux_sensor.porch) <= 5		
 	then
 		commandArray[light.hallway]='On'
 		commandArray[standby.hallway]='On FOR 30 SECONDS'		
@@ -32,7 +32,7 @@
 		and otherdevices[motion_sensor.hallway] == 'Off'	
 		and otherdevices[light.hallway] == 'Off'
 		and otherdevices[standby.hallway] == 'Off'			
-		and device_svalue(lux_sensor.porch) <= 2
+		and device_svalue(lux_sensor.porch) <= 5
 		and timebetween("16:00:00","23:59:59")		
 		and (otherdevices[someone.home] == 'Thuis' or otherdevices[someone.home] == 'Off')	
 	then
@@ -43,7 +43,7 @@
 	if devicechanged[motion_sensor.hallway] == 'On'
 		and otherdevices[light.hallway] == 'Off'
 		and otherdevices[standby.hallway] == 'Off'		
-		and device_svalue(lux_sensor.porch) <= 2	
+		and device_svalue(lux_sensor.porch) <= 5	
 		and otherdevices[someone.home] == 'Thuis'
 		and timebetween("16:00:00","23:59:59")		
 	then

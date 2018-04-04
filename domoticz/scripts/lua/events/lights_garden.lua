@@ -4,7 +4,7 @@
 	@ lights_garden.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-28-2018
+	@ updated	: 4-4-2018
 	@ Script to switch garden light ON/OFF when IsDark or motion, taking in count IsWeekend or IsNotWeekend
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -28,14 +28,14 @@
 -- **********************************************************
 
 		if otherdevices[garden.shed_lights] ~= 'Off'
-			and device_svalue(lux_sensor.porch) >= 2
+			and device_svalue(lux_sensor.porch) >= 5
 			and timebetween("00:00:00","15:59:59")				
 		then	
 			commandArray["Group:" ..group.garden_lights.. ""]='Off AFTER 180 REPEAT 5 INTERVAL 20'	
 		end
 		
 		if otherdevices[garden.shed_lights] ~= 'Off'
-			and device_svalue(lux_sensor.porch) >= 20
+			and device_svalue(lux_sensor.porch) >= 10
 			and timebetween("16:00:00","23:59:59")				
 		then	
 			commandArray["Group:" ..group.garden_lights.. ""]='Off AFTER 180 REPEAT 5 INTERVAL 20'	

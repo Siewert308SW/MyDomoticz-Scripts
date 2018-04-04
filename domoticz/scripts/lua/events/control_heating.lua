@@ -23,46 +23,68 @@
 
 		if devicechanged[someone.home] == 'Thuis'
 			and device_svalue(temp.porch) < nest.summer_temp
-			and device_svalue(temp.porch) > nest.winter_temp			
+			and device_svalue(temp.porch) >= nest.autumn_temp			
 			and nest_current_temp <= nest.trigger_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_temp1	
 			and timebetween("09:00:00","22:29:59")
-			and weekend('false')	
+			and weekend('false')
 		then
 			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp1)
 		end
 		
 		if devicechanged[someone.home] == 'Thuis'
-			and device_svalue(temp.porch) <= nest.winter_temp			
+			and device_svalue(temp.porch) < nest.autumn_temp
+			and device_svalue(temp.porch) >= nest.winter_temp			
 			and nest_current_temp <= nest.trigger_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_temp2	
 			and timebetween("09:00:00","22:29:59")
-			and weekend('false')	
+			and weekend('false')
 		then
 			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp2)
+		end		
+		
+		if devicechanged[someone.home] == 'Thuis'
+			and device_svalue(temp.porch) <= nest.winter_temp			
+			and nest_current_temp <= nest.trigger_temp
+			and device_svalue(nest.setpoint) ~= nest.setpoint_temp3	
+			and timebetween("09:00:00","22:29:59")
+			and weekend('false')
+		then
+			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp3)
 		end
 
 -- **********************************************************
 		
 		if devicechanged[someone.home] == 'Thuis'
 			and device_svalue(temp.porch) < nest.summer_temp
-			and device_svalue(temp.porch) > nest.winter_temp			
+			and device_svalue(temp.porch) >= nest.autumn_temp			
 			and nest_current_temp <= nest.trigger_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_temp1	
-			and timebetween("07:30:00","22:59:59")
-			and weekend('true')	
+			and timebetween("07:30:00","22:29:59")
+			and weekend('true')
 		then
 			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp1)
 		end
 		
 		if devicechanged[someone.home] == 'Thuis'
-			and device_svalue(temp.porch) <= nest.winter_temp			
+			and device_svalue(temp.porch) < nest.autumn_temp
+			and device_svalue(temp.porch) >= nest.winter_temp			
 			and nest_current_temp <= nest.trigger_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_temp2	
-			and timebetween("07:30:00","22:59:59")
-			and weekend('true')	
+			and timebetween("07:30:00","22:29:59")
+			and weekend('true')
 		then
 			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp2)
+		end		
+		
+		if devicechanged[someone.home] == 'Thuis'
+			and device_svalue(temp.porch) <= nest.winter_temp			
+			and nest_current_temp <= nest.trigger_temp
+			and device_svalue(nest.setpoint) ~= nest.setpoint_temp3	
+			and timebetween("07:30:00","22:29:59")
+			and weekend('true')
+		then
+			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp3)
 		end
 
 --
@@ -74,47 +96,69 @@
 	
 		if otherdevices[someone.home] == 'Thuis'
 			and device_svalue(temp.porch) < nest.summer_temp
-			and device_svalue(temp.porch) > nest.winter_temp			
+			and device_svalue(temp.porch) >= nest.autumn_temp			
 			and nest_current_temp <= nest.trigger_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_temp1	
 			and timebetween("09:00:00","22:29:59")
-			and weekend('false')	
+			and weekend('false')
 		then
 			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp1)
 		end
 		
 		if otherdevices[someone.home] == 'Thuis'
-			and device_svalue(temp.porch) <= nest.winter_temp			
+			and device_svalue(temp.porch) < nest.autumn_temp
+			and device_svalue(temp.porch) >= nest.winter_temp			
 			and nest_current_temp <= nest.trigger_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_temp2	
 			and timebetween("09:00:00","22:29:59")
-			and weekend('false')	
+			and weekend('false')
 		then
 			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp2)
 		end		
+		
+		if otherdevices[someone.home] == 'Thuis'
+			and device_svalue(temp.porch) <= nest.winter_temp			
+			and nest_current_temp <= nest.trigger_temp
+			and device_svalue(nest.setpoint) ~= nest.setpoint_temp3	
+			and timebetween("09:00:00","22:29:59")
+			and weekend('false')
+		then
+			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp3)
+		end
 
 -- **********************************************************
 		
 		if otherdevices[someone.home] == 'Thuis'
 			and device_svalue(temp.porch) < nest.summer_temp
-			and device_svalue(temp.porch) > nest.winter_temp			
+			and device_svalue(temp.porch) >= nest.autumn_temp			
 			and nest_current_temp <= nest.trigger_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_temp1	
-			and timebetween("07:30:00","22:59:59")
-			and weekend('true')	
+			and timebetween("07:30:00","22:29:59")
+			and weekend('true')
 		then
 			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp1)
 		end
 		
 		if otherdevices[someone.home] == 'Thuis'
-			and device_svalue(temp.porch) <= nest.winter_temp			
+			and device_svalue(temp.porch) < nest.autumn_temp
+			and device_svalue(temp.porch) >= nest.winter_temp			
 			and nest_current_temp <= nest.trigger_temp
 			and device_svalue(nest.setpoint) ~= nest.setpoint_temp2	
-			and timebetween("07:30:00","22:59:59")
-			and weekend('true')	
+			and timebetween("07:30:00","22:29:59")
+			and weekend('true')
 		then
 			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp2)
-		end	
+		end		
+		
+		if otherdevices[someone.home] == 'Thuis'
+			and device_svalue(temp.porch) <= nest.winter_temp			
+			and nest_current_temp <= nest.trigger_temp
+			and device_svalue(nest.setpoint) ~= nest.setpoint_temp3	
+			and timebetween("07:30:00","22:29:59")
+			and weekend('true')
+		then
+			commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.setpoint_temp3)
+		end
 		
 	end
 	

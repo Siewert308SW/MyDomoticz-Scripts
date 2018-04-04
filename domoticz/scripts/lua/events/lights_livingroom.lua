@@ -4,7 +4,7 @@
 	@ lights_livingroom.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-4-2018
+	@ updated	: 3-4-2018
 	@ Script to switch various livingroom lighting scenes ON/OFF
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -33,20 +33,19 @@
 --	
 
 	if devicechanged[someone.home] == 'Thuis'
-		and device_svalue(lux_sensor.porch) < 70
-		and device_svalue(lux_sensor.porch) >= 10			
+		and device_svalue(lux_sensor.porch) < 70			
 		and otherdevices[light.living_standing_light] == 'Off'
 		and otherdevices[light.living_twilight] == 'Off'			
 		and otherdevices[light.living_wall_lights] == 'Off'
 		and (timebetween("16:00:00","23:59:59") or timebetween("00:00:00","02:59:59"))		
 	then
-		  commandArray[light.living_standing_light]='Set Level 53 AFTER 1'
+		  commandArray[light.living_standing_light]='Set Level 66 AFTER 1'
 	end
 
 -- **********************************************************
 
 	if devicechanged[someone.home] == 'Thuis'
-		and device_svalue(lux_sensor.porch) < 10
+		and device_svalue(lux_sensor.porch) < 70
 		and otherdevices[light.living_standing_light] ~= 'Off'
 		and otherdevices[light.living_twilight] == 'Off'			
 		and otherdevices[light.living_wall_lights] == 'Off'
@@ -59,49 +58,49 @@
 	
 --
 -- **********************************************************
--- Livingroom lights Off, triggered by time trigger
--- **********************************************************
---
-
-	if (devicechanged[someone.home] == 'Off'
-		or devicechanged[someone.home] == 'Weg'
-		or devicechanged[someone.home] == 'Slapen') 
-		and otherdevices[light.living_standing_light] ~= 'Off' 
-	then
-		commandArray["Scene:" ..scene.shutdown.. ""]='On AFTER 1'	
-	end
-	
---
--- **********************************************************
 -- Livingroom lights ON when lux is low and in the afternoon
 -- **********************************************************
 --	
 
 	if devicechanged[lux_sensor.living] then
-	
+
 		if otherdevices[someone.home] == 'Thuis'
-			and device_svalue(lux_sensor.porch) < 70
-			and device_svalue(lux_sensor.porch) >= 10			
+			and device_svalue(lux_sensor.porch) < 70		
 			and otherdevices[light.living_standing_light] == 'Off'
 			and otherdevices[light.living_twilight] == 'Off'			
 			and otherdevices[light.living_wall_lights] == 'Off'
 			and timebetween("16:00:00","22:29:59")	
-			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes10			
+			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes5			
 		then
 			  commandArray[light.living_standing_light]='Set Level 66 AFTER 10'
 		end
 		
 -- **********************************************************
+	
+		if otherdevices[someone.home] == 'Thuis'
+			and device_svalue(lux_sensor.porch) < 70
+			and device_svalue(light.living_standing_light) == 9			
+			and otherdevices[light.living_standing_light] ~= 'Off'
+			and otherdevices[light.living_twilight] == 'Off'			
+			and otherdevices[light.living_wall_lights] == 'Off'
+			and timebetween("16:00:00","22:29:59")	
+			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes5			
+		then
+			  commandArray[light.living_standing_light]='Set Level 46 AFTER 10'
+		end
+		
+-- **********************************************************
 
 		if otherdevices[someone.home] == 'Thuis'
-			and device_svalue(lux_sensor.porch) < 10
+			and device_svalue(lux_sensor.porch) < 70
+			and device_svalue(light.living_standing_light) == 6			
 			and otherdevices[light.living_standing_light] ~= 'Off'
 			and otherdevices[light.living_twilight] == 'Off'			
 			and otherdevices[light.living_wall_lights] == 'Off'
 			and otherdevices[lux_sensor.switch] == 'On'			
 			and media('true')
 			and timebetween("16:00:00","22:29:59")
-			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes10			
+			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes5			
 		then
 			commandArray["Scene:" ..scene.stage_1.. ""]='On AFTER 10 REPEAT 2 INTERVAL 5'
 		end
@@ -109,14 +108,15 @@
 -- **********************************************************
 
 		if otherdevices[someone.home] == 'Thuis'
-			and device_svalue(lux_sensor.porch) < 10
+			and device_svalue(lux_sensor.porch) < 70
+			and device_svalue(light.living_standing_light) == 6				
 			and otherdevices[light.living_standing_light] ~= 'Off'
 			and otherdevices[light.living_twilight] ~= 'Off'			
 			and otherdevices[light.living_wall_lights] == 'Off'
 			and otherdevices[lux_sensor.switch] == 'On'			
 			and media('false')
 			and timebetween("16:00:00","22:29:59")
-			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes10			
+			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes5			
 		then
 			commandArray["Scene:" ..scene.stage_2.. ""]='On AFTER 10 REPEAT 2 INTERVAL 5'
 		end
@@ -193,3 +193,17 @@ end
 	then
 		commandArray["Scene:" ..scene.stage_2.. ""]='On AFTER 1 REPEAT 2 INTERVAL 5'
 	end
+	
+--
+-- **********************************************************
+-- Livingroom lights Off, triggered by time trigger
+-- **********************************************************
+--
+
+	if (devicechanged[someone.home] == 'Off'
+		or devicechanged[someone.home] == 'Weg'
+		or devicechanged[someone.home] == 'Slapen') 
+		and otherdevices[light.living_standing_light] ~= 'Off' 
+	then
+		commandArray["Scene:" ..scene.shutdown.. ""]='On AFTER 1'	
+	end	

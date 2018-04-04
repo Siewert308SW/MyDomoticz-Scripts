@@ -50,7 +50,7 @@
 --
 
 
-	if devicechanged[lux_sensor.upstairs] and (timebetween("23:29:59","23:59:59") or timebetween("00:00:00","00:29:59")) then
+	if devicechanged[lux_sensor.upstairs] and (timebetween("21:59:59","23:59:59") or timebetween("00:00:00","00:29:59")) then
 		
 		today=os.capture('date --date="0 days ago " +"%-d-%-m-%Y"', false)
 		tomorrow=os.capture('date --date="tomorrow " +"%-d-%-m-%Y"', false)	

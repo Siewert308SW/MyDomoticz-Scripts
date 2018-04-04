@@ -4,7 +4,7 @@
 	@ activity_daughter.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-17-2018
+	@ updated	: 4-4-2018
 	@ Script to switch ON/OFF daughter bedroom plug.natalya
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -17,7 +17,7 @@
 --
 
 	if (devicechanged[phone.natalya]  == 'On' or devicechanged[laptop.natalya]  == 'On')	
-		and timebetween("07:00:00","22:29:59")
+		and timebetween("07:00:00","21:29:59")
 		and otherdevices[plug.natalya]  == 'Off'
 		and otherdevices[someone.home]  == 'Thuis'		
 	then
@@ -33,7 +33,7 @@
 	if devicechanged[lux_sensor.upstairs]
 		and otherdevices[plug.natalya]  == 'Off'		
 		and otherdevices[someone.home]  == 'Thuis'		
-		and timebetween("07:00:00","22:29:59")
+		and timebetween("07:00:00","21:29:59")
 		and (otherdevices[phone.natalya]  == 'On'
 		or otherdevices[laptop.natalya]  == 'On')		
 	then
@@ -67,9 +67,20 @@
 
 	if devicechanged[lux_sensor.upstairs]
 		and otherdevices[plug.natalya]  == 'On'
-		and otherdevices[laptop.natalya]  == 'Off'		
+		and otherdevices[laptop.natalya]  == 'Off'
+		and weekend('false')		
 		and powerusage(watt.natalya) <= watt.media_usage
-		and (timebetween("22:30:00","23:59:59")	or timebetween("00:00:00","07:59:59"))
+		and (timebetween("21:30:00","23:59:59")	or timebetween("00:00:00","06:59:59"))
 	then
 		commandArray[plug.natalya]='Off'	
-	end	
+	end
+
+	if devicechanged[lux_sensor.upstairs]
+		and otherdevices[plug.natalya]  == 'On'
+		and otherdevices[laptop.natalya]  == 'Off'
+		and weekend('true')		
+		and powerusage(watt.natalya) <= watt.media_usage
+		and (timebetween("22:30:00","23:59:59")	or timebetween("00:00:00","06:59:59"))
+	then
+		commandArray[plug.natalya]='Off'	
+	end		

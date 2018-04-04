@@ -4,7 +4,7 @@
 	@ switches.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-4-2018
+	@ updated	: 4-4-2018
 	@ Define your switches and devices, Lua globally used.
 	@ Once you have renamed a switches then no need to edit all your scripts
 
@@ -197,7 +197,8 @@ plug = {
 	siewert 					= 'Standbykiller - Siewert Laptop',
 	printer		 				= 'Standbykiller - Printer',
 	natalya		 				= 'Standbykiller - Natalya TV Hoek',
-	workbench		 			= 'Standbykiller - Werkbank',	
+	workbench		 			= 'Standbykiller - Werkbank',
+	pihole			 			= 'Standbykiller - PiHole',	
 }
 
 --
@@ -212,7 +213,8 @@ watt = {
 	jerina						= 'Verbruik - Jerina Laptop',
 	natalya						= 'Verbruik - Natalya TV Hoek',
 	hood						= 'Verbruik - Afzuigkap',
-	workbench		 			= 'Verbruik - Werkbank',	
+	workbench		 			= 'Verbruik - Werkbank',
+	pihole			 			= 'Verbruik - PiHole',	
 	media_usage					= 15,
 	hood_high					= 80, -- When hood ventilation is ON
 	hood_low					= 11, -- Only lights ON
@@ -288,13 +290,14 @@ nest = {
 	setpoint_low_autumn			= 19.0,	
 	setpoint_low_winter			= 20.5,
 	
-	setpoint_temp1				= 21.5,
-	setpoint_temp2				= 22.0,	
+	setpoint_temp1				= 20.5,
+	setpoint_temp2				= 21.5,
+	setpoint_temp3				= 21.9,		
 	trigger_temp				= 22.5,
 	
 	summer_temp					= 19,
-	autumn_temp					= 15,	
-	winter_temp					= 3,	
+	autumn_temp					= 16,	
+	winter_temp					= 10,	
 }
 
 --
