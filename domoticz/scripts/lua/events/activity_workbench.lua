@@ -4,7 +4,7 @@
 	@ activity_workbench.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-4-2018
+	@ updated	: 4-7-2018
 	@ Script to switch ON/OFF plug.workbench
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -12,49 +12,32 @@
 	
 --
 -- *********************************************************************
---  Workbench ON when the master arrives at home
+--  If the master is at home then plug.workbench ON
 -- *********************************************************************
 --
 
-	if devicechanged[phone.siewert]  == 'On'	
-		and timebetween("08:00:00","22:29:59")
-		and otherdevices[plug.workbench]  == 'Off'		
+	if devicechanged[lux_sensor.porch]
+		and otherdevices[plug.workbench]  == 'Off'
+		and otherdevices[phone.siewert]  == 'On'
+		and otherdevices[someone.home]  == 'Thuis'		
+		and timebetween("08:00:00","22:29:59")		
 	then
 		commandArray[plug.workbench]='On'	
-	end	
+	end
 	
 --
 -- *********************************************************************
 --  If the master aint at home or sleeping then plug.workbench OFF after x minutes
 -- *********************************************************************
 --
-	
-	if devicechanged[lux_sensor.porch] then
-	
-		if otherdevices[plug.workbench]  == 'On'
-			and timedifference(otherdevices_lastupdate[plug.workbench]) > timeout.minutes30
-			and timedifference(otherdevices_lastupdate[door.back]) > timeout.minutes30
-			and timedifference(otherdevices_lastupdate[motion_sensor.porch]) > timeout.minutes30		
-			and (otherdevices[phone.siewert] == 'Off' or otherdevices[someone.home] ~= 'Thuis')		
-		then
-			commandArray[plug.workbench]='Off'	
-		end
-	
---
--- *********************************************************************
---  If the master is at home then plug.workbench ON
--- *********************************************************************
---
 
-		if otherdevices[plug.workbench]  == 'Off'
-			and timedifference(otherdevices_lastupdate[plug.workbench]) > timeout.minutes30
-			and timedifference(otherdevices_lastupdate[door.back]) > timeout.minutes30
-			and timedifference(otherdevices_lastupdate[motion_sensor.porch]) > timeout.minutes30		
-			and otherdevices[phone.siewert] == 'On' 
-			and otherdevices[someone.home] == 'Thuis'
-			and timebetween("08:00:00","22:29:59")			
-		then
-			commandArray[plug.workbench]='Off'	
-		end
-	
+	if devicechanged[lux_sensor.porch]
+		and otherdevices[plug.workbench]  == 'On'		
+		and timedifference(otherdevices_lastupdate[door.scullery]) > timeout.minutes30
+		and timedifference(otherdevices_lastupdate[door.back]) > timeout.minutes30
+		and timedifference(otherdevices_lastupdate[motion_sensor.porch]) > timeout.minutes30
+		and (otherdevices[phone.siewert]  == 'Off' or otherdevices[someone.home] ~= 'Thuis')
+		and (timebetween("22:30:00","23:59:59") or timebetween("00:00:00","07:59:59"))
+	then
+		commandArray[plug.workbench]='Off'	
 	end

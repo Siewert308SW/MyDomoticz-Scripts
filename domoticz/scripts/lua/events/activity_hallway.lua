@@ -4,7 +4,7 @@
 	@ activity_hallway.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 4-4-2018
+	@ updated	: 4-7-2018
 	@ Script for switching hallway light when someone is entering the hallway
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -83,8 +83,8 @@
 		and otherdevices[door.pantry] == 'Closed'
 		and otherdevices[door.living] == 'Closed'		
 	then
-		commandArray[light.hallway]='Off AFTER 15'
-		commandArray[standby.hallway]='Off AFTER 16'			
+		commandArray[light.hallway]='Off AFTER 4'
+		commandArray[standby.hallway]='Off AFTER 5'			
 	end
 	
 --

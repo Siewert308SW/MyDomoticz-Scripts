@@ -4,7 +4,7 @@
 	@ lights_livingroom.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 3-4-2018
+	@ updated	: 4-7-2018
 	@ Script to switch various livingroom lighting scenes ON/OFF
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -18,7 +18,7 @@
 
 	if devicechanged[someone.home] == 'Thuis'
 		and timebetween("03:00:00","11:59:59")
-		and device_svalue(lux_sensor.porch) < 70	
+		and device_svalue(lux_sensor.porch) < 25	
 		and otherdevices[light.living_standing_light] == 'Off'
 		and otherdevices[light.living_twilight] == 'Off'			
 		and otherdevices[light.living_wall_lights] == 'Off'	
@@ -33,7 +33,8 @@
 --	
 
 	if devicechanged[someone.home] == 'Thuis'
-		and device_svalue(lux_sensor.porch) < 70			
+		and device_svalue(lux_sensor.porch) < 70
+		and device_svalue(lux_sensor.porch) > 25		
 		and otherdevices[light.living_standing_light] == 'Off'
 		and otherdevices[light.living_twilight] == 'Off'			
 		and otherdevices[light.living_wall_lights] == 'Off'
@@ -45,7 +46,7 @@
 -- **********************************************************
 
 	if devicechanged[someone.home] == 'Thuis'
-		and device_svalue(lux_sensor.porch) < 70
+		and device_svalue(lux_sensor.porch) < 25
 		and otherdevices[light.living_standing_light] ~= 'Off'
 		and otherdevices[light.living_twilight] == 'Off'			
 		and otherdevices[light.living_wall_lights] == 'Off'
@@ -205,5 +206,5 @@ end
 		or devicechanged[someone.home] == 'Slapen') 
 		and otherdevices[light.living_standing_light] ~= 'Off' 
 	then
-		commandArray["Scene:" ..scene.shutdown.. ""]='On AFTER 1'	
+		commandArray["Scene:" ..scene.shutdown.. ""]='On AFTER 5'	
 	end	
