@@ -287,17 +287,19 @@ nest = {
 	setpoint_idx				= 13,
 	
 	setpoint_low_summer			= 16.0,
-	setpoint_low_autumn			= 19.0,	
-	setpoint_low_winter			= 20.5,
+	setpoint_low_autumn			= 18.0,	
+	setpoint_low_winter			= 20.0,
 	
 	setpoint_temp1				= 20.5,
-	setpoint_temp2				= 21.5,
-	setpoint_temp3				= 21.9,		
+	setpoint_temp2				= 21.0,
+	setpoint_temp3				= 21.5,
+	
 	trigger_temp				= 22.5,
+	eco_temp					= 15.0,
 	
 	summer_temp					= 19,
-	autumn_temp					= 16,	
-	winter_temp					= 10,	
+	autumn_temp					= 15,	
+	winter_temp					= 3,	
 }
 
 --
