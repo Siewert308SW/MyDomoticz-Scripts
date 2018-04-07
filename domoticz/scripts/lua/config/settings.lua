@@ -4,7 +4,7 @@
 	@ settings.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 1-4-2018
+	@ updated	: 4-7-2018
 	@ All global settings
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -173,10 +173,47 @@
 		'Verbruik - Woonkamer TV Hoek',		
 
 	-- Various Switches
+		'Aardbevingen - Last',	
 		'Dummy 1',
 		'Dummy 2',
 		'Dummy 3',		
-}	
+}
+
+--
+-- **********************************************************
+-- Locations
+-- **********************************************************
+--
+
+	locations = {									-- Define your gasdrill locations in a radius of 10km, used for quake auto tweet
+
+		'Niezijl',
+		'Grijpskerk',
+		'Pieterzijl',
+		'Visvliet',
+		'Burum',
+		'Warfstermolen',
+		'Munnekezijl',
+		'Kommerzijl',
+		'Oldehove',
+		'Niehove',
+		'Lauwerzijl',
+		'Saaksum',
+		'Ezinge',
+		'Schouwerzijl',
+		'Warfhuizen',
+		'Wehe-den Hoorn',
+		'Leens',
+		'Zuurdijk',
+		'Ulrum',
+		'Niekerk',
+		'Houwerzijl',
+		'Vierhuizen',
+		'Lauwersoog',
+		'Kloosterburen',
+		'Hornhuizen',
+		'Zoutkamp',
+	}	
 	
 --
 -- **********************************************************

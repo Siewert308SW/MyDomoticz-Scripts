@@ -4,7 +4,7 @@
 	@ switches.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 4-4-2018
+	@ updated	: 4-7-2018
 	@ Define your switches and devices, Lua globally used.
 	@ Once you have renamed a switches then no need to edit all your scripts
 
@@ -331,4 +331,10 @@ dummy = {
 	one							= 'Dummy 1',
 	two							= 'Dummy 2',
 	three						= 'Dummy 3',	
+}
+
+quake = {
+file							= '/home/pi/domoticz/scripts/logging/aardbevingen/earthquake-tweet.txt',
+tweet							= '/home/pi/domoticz/scripts/python/quake_tweet.py',
+switch							= 'Aardbevingen - Last',
 }	
