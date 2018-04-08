@@ -3,8 +3,8 @@
 
 	@ quake_tweet.lua
 	@ author	: Siewert Lameijer
-	@ since		: 4-7-2015
-	@ updated	: 4-7-2018
+	@ since		: 4-7-2018
+	@ updated	: 4-8-2018
 	@ Script for scraping data from "Dutch earthquakes" plugin and tweet if a quake occurs in my region
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -37,7 +37,7 @@ if devicechanged[quake.switch] then
 			file:write(''..maps_return..'\n\n')
 			file:write("Bron: KNMI \n")	
 			file:close()
-			commandArray['SendNotification']='Aardbeving#Datum: '..date_return..' Locatie: '..tableLocation..' Magnitude: '..magnitude_return..''
+			commandArray['SendNotification']='Aardbeving bij '..tableLocation..'#Datum: '..date_return..' Locatie: '..tableLocation..' Magnitude: '..magnitude_return..''
 			os.execute('/usr/bin/python '..quake.tweet..' &')
 		end
 	end
