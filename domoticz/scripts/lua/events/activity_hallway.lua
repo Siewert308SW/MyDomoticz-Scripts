@@ -4,7 +4,7 @@
 	@ activity_hallway.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 4-7-2018
+	@ updated	: 4-9-2018
 	@ Script for switching hallway light when someone is entering the hallway
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -76,7 +76,8 @@
 
 	if devicechanged[motion_sensor.upstairs] == 'On'	
 		and otherdevices[light.hallway] == 'On'	
-		and otherdevices[standby.hallway] == 'On'		
+		and otherdevices[standby.hallway] == 'On'
+		and otherdevices[someone.home] == 'Thuis'		
 		and timedifference(otherdevices_lastupdate[motion_sensor.downstairs]) <= timeout.seconds30
 		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) >= timeout.seconds5		
 		and otherdevices[door.front] == 'Closed'
@@ -86,6 +87,20 @@
 		commandArray[light.hallway]='Off AFTER 4'
 		commandArray[standby.hallway]='Off AFTER 5'			
 	end
+	
+	if devicechanged[motion_sensor.upstairs] == 'On'	
+		and otherdevices[light.hallway] == 'On'	
+		and otherdevices[standby.hallway] == 'On'
+		and otherdevices[someone.home] ~= 'Thuis'		
+		and timedifference(otherdevices_lastupdate[motion_sensor.downstairs]) <= timeout.seconds30
+		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) >= timeout.seconds5		
+		and otherdevices[door.front] == 'Closed'
+		and otherdevices[door.pantry] == 'Closed'
+		and otherdevices[door.living] == 'Closed'		
+	then
+		commandArray[light.hallway]='Off AFTER 28'
+		commandArray[standby.hallway]='Off AFTER 29'			
+	end	
 	
 --
 -- **********************************************************

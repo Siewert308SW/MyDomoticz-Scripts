@@ -4,7 +4,7 @@
 	@ settings.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 4-7-2018
+	@ updated	: 4-8-2018
 	@ All global settings
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -117,9 +117,9 @@
 		'Telefoons',
 		
 	-- Phones Visitos
-		'Oma GSM',
-		'Oma Tablet',
-		'Visite',		
+		--'Oma GSM',
+		--'Oma Tablet',
+		--'Visite',		
 		
 	-- Laptops	
 		'Jerina Laptop',
@@ -170,6 +170,7 @@
 		
 	-- Power Plugs
 		'Verbruik - Siewert Laptop',
+		'Verbruik - Jerina Laptop',		
 		'Verbruik - Woonkamer TV Hoek',		
 
 	-- Various Switches

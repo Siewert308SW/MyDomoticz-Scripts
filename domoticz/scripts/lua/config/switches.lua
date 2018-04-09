@@ -4,7 +4,7 @@
 	@ switches.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 4-7-2018
+	@ updated	: 4-9-2018
 	@ Define your switches and devices, Lua globally used.
 	@ Once you have renamed a switches then no need to edit all your scripts
 
@@ -64,11 +64,11 @@ phone = {
 -- **********************************************************
 --
 
-visitor = {
-	grandma_gsm					= 'Oma GSM',
-	grandma_tablet				= 'Oma Tablet',
-	switch						= 'Visite',		
-}
+--visitor = {
+--	grandma_gsm					= 'Oma GSM',
+--	grandma_tablet				= 'Oma Tablet',
+--	switch						= 'Visite',		
+--}
 
 --
 -- **********************************************************
@@ -103,6 +103,7 @@ garden = {
 	front_door_light			= 'Tuin - Voordeur Lamp',
 	border_lights				= 'Tuin - Border Verlichting',
 	shed_lights					= 'Tuin - Schuur Verlichting',
+	party_lights				= 'Tuin - Veranda Verlichting',	
 }
 
 --
@@ -297,8 +298,8 @@ nest = {
 	trigger_temp				= 22.5,
 	eco_temp					= 15.0,
 	
-	summer_temp					= 19,
-	autumn_temp					= 15,	
+	summer_temp					= 18,
+	autumn_temp					= 12,	
 	winter_temp					= 3,	
 }
 

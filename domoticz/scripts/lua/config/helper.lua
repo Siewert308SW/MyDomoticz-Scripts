@@ -4,7 +4,7 @@
 	@ helper.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 2-14-2018
+	@ updated	: 4-9-2018
 	@ 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -56,12 +56,12 @@
 			
 	-- **********************************************************
 			
-			for tableName, tableDevice in pairs (visitor) do
-				if not otherdevices[tableDevice] and tonumber(tableDevice) == nil then
-					error('Device: [' .. tableDevice .. '] in switches.lua doesnt exist')
-					result = false
-				end
-			end			
+			--for tableName, tableDevice in pairs (visitor) do
+			--	if not otherdevices[tableDevice] and tonumber(tableDevice) == nil then
+			--		error('Device: [' .. tableDevice .. '] in switches.lua doesnt exist')
+			--		result = false
+			--	end
+			--end			
 
 	-- **********************************************************
 			
