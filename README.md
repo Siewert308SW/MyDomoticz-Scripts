@@ -5,7 +5,7 @@ I share my scripts over here so that it can be a inspiration or guide for you al
 <br />
 
 # MyDomoticz-Hardware:
-- RPi3 - PIco UPS HV3.0A / Domo Beta 3.9XXX / RFXtrx433E / Aeotec Gen5<br />
+- RPi3 - PIco UPS HV3.0A / Domo Beta 4.XXXX / RFXtrx433E / Aeotec Gen5<br />
 - RPi3 - PIco UPS HV3.0A / PiHole / PiVPN / NAS / Print Server<br />
 - Youless Elec & Gas logging<br />
 - FI9803P Cams<br />
