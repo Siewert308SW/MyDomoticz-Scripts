@@ -20,6 +20,7 @@
 		notify			= 'false';							-- Enable/Disable email notification
 		verbose 		= 'false';							-- Enable/Disable logs in domoticz
 		logfile 		= 'false';							-- Enable/Disable logs into logfile @ /domoticz (only works if verbose is true)
+		folder			= '/mnt/storage/events/'; 			-- Your desired event scripts file location		
 	}
 	
 	lualog = {		

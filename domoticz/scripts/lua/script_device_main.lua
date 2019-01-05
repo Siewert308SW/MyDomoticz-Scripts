@@ -4,12 +4,12 @@
 	@ script_device_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 05-01-2019
 	@ Main event script on which my entire Lua event system is running. 
 
 	Just one file instead of a dozen lua device and timer scripts.
 	Which saves a lot of CPU resources and saves memory
-	script_device_main.lua is the only lua event script which is called.
+	script_device_main.lua is the only lua event script which is called on device change.
 	
 	script_device_main.lua keeps track on changed devices.
 	If a changed device is set in triggers.lua then it may execute a event script.
@@ -40,8 +40,7 @@ commandArray = {}
 				require "settings"
 					if otherdevices[lua_system.switch] ~= 'Off' then
 						require "functions" require "helper"	
-						event_folder = Current_Path .. 'events/'
-						f = io.popen('ls ' .. event_folder)
+						event_folder = ''..lua.folder..''
 						dofile ('' .. event_folder .. 'activity_hallway.lua')
 					end
 				end
@@ -50,7 +49,7 @@ commandArray = {}
 				require "settings"
 					if otherdevices[lua_system.switch] ~= 'Off' then
 						require "functions" require "helper" 
-						event_folder = Current_Path .. 'events/'
+						event_folder = ''..lua.folder..''
 						f = io.popen('ls ' .. event_folder)
 						for event in f:lines() do
 						dofile ('' .. event_folder .. ''..event..'')
