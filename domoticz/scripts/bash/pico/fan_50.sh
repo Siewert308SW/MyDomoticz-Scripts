@@ -1,7 +1,0 @@
-#!/bin/bash
-
-i2cset -y 1 0x6b 0x11 0
-sleep 1
-i2cset -y 1 0x6b 0x12 50
-sleep 1
-i2cset -y 1 0x6b 0x11 1
