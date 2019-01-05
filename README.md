@@ -23,7 +23,7 @@ Normally you have all your Lua scripts in /home/pi/domoticz/scripts/lua/<br />
 All those scripts contained a commandArray = {} & return commandArray.<br />
 Which can take a lot of CPU usage and resources and script reaction time is enormous if you have a lot of scripts.<br />
 So back in time when there was no dzVents i looked for a solution to decrease my Pi2 load and a way to make scripts simpler when a value like devicename has changed.<br />
-So i came up with the idea of running on main script which calls a event if all specified values where correct and true.<br />
+So i came up with the idea of running on main script which calls a event if all specified values where correct.<br />
 <br />
 
 # MyDomoticz-Scripts: 
