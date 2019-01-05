@@ -30,11 +30,11 @@ So i came up with the idea of running on main script which calls a event if all 
 You'll notice i just run 1 main device script called "script_device_main.lua".<br />
 This script will look for any device status change.<br />
 When a certain device mentioned in my trigger.lua library then it will react and start a event script.<br />
-Meanwhile it calls a several function libraries which i use lua globally.<br />
+Meanwhile it calls several function libraries which i use lua globally.<br />
 When a device isn't mentioned in the library then nothing happens which saves script loading/reading over and over again.<br />
-In case of a event script is started the script will also watch if a 433Mhz device have to be updated.<br />
-If it does detect then it will send according my preset settings redundant commandArrays (ON/OFF) commands to reduce 433mhz misfires.<br />
-When done executing a event the script will according my Eventlog Dummy Selector Switch print a log or write to a log file for debugging.<br />  
+In case of a event script is started the script will also watch if a 433Mhz device has to be switched.<br />
+If it does detect one then it will send according my preset settings a redundant commandArray (ON/OFF) command to reduce 433mhz misfires.<br />
+When done executing a event the script will according my Eventlog Dummy Selector Switch print a log or write to a log file.<br />  
 <br />
 Further more you'll notice that i have several Lua libraries.<br />
 functions.lua : Main Lua functions library.<br />
@@ -43,14 +43,14 @@ settings.lua  : Main settings library.<br />
 switches.lua  : All my devices which i use in event scripts, it doesn't contain a device which i don't use.<br />
 triggers.lua  : Table script with devices which may/can trigger a event, any device not listed can't trigger the event system.<br />
 <br /> 
-In my event scripts you won't find any device my their real name.<br />
+In my event scripts you won't find any device by their real name.<br />
 All devices i use in my scripts are named in switches.lua library.<br />
 Which saves me a lot of trouble when a device name has to be changed and there for not have to check every lua event.<br />
 But just one name change in a switches.lua will affect all scripts.<br />
-For a outsider of my system it can be hard to read my scripts.<br />
+For a outsider of my Lua system it can be hard to read my scripts.<br />
 But when you know the calling method and file load sequence it will be come clear.<br />
 <br />
-This way it will save a lot of commandArray = {} & return commandArray and there for CPU and memory Usage.<br />
+Anyway, This way it will save a lot of commandArray = {} & return commandArray and there for CPU and memory Usage.<br />
 Back in my Pi2 days i had a CPU Usage of 80/90% but after converting to this method it decreased to 10%<br />
 As for RAM resources, it decreased more then 80%.<br />
 Although i am currently running Domoticz on a RPi3 i never stopped using this method.<br />
@@ -77,8 +77,8 @@ Some of those are my own while other scripts i borrowed from other users.<br />
 - Youless Elec & Gas logging<br />
 - FI9803P Cams<br />
 - KD101 Smoke detectors<br />
-- KaKu/CoCu motion and modules<br />
-- Z-Wave door,motion,dimmers,switches and plugs<br />
+- KaKu/CoCu door contacts, motion sensors, dimmers, switches and plugs<br />
+- Z-Wave door contacts, motion sensors, dimmers, switches and plugs<br />
 All my Rpi setups are running their /rootfs from a USB HDD<br />
 <br />
 
