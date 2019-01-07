@@ -4,7 +4,7 @@
 	@ activity_garden_motion.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 07-01-2019
 	@ Script to switch garden light ON/OFF when IsDark and motion detected
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -152,6 +152,29 @@
 		end
 		
 	end
+
+-- **********************************************************
+-- **********************************************************
+	
+	if (devicechanged[geo.jerina] == 'Off' or devicechanged[geo.siewert] == 'Off' or devicechanged[geo.natalya] == 'Off')
+		and (uservariables[var.frontgarden_light_motion] == 1 or uservariables[var.garden_light_motion] == 1)
+		and timedifference(otherdevices_lastupdate[garden.front_door_light]) >= timeout.minute1
+		and timedifference(otherdevices_lastupdate[door.front]) >= timeout.minute1
+		and timedifference(otherdevices_lastupdate[garden.shed_lights]) >= timeout.minute1
+		and timedifference(otherdevices_lastupdate[motion_sensor.porch]) >= timeout.minute1		
+	then
+	
+		if uservariables[var.frontgarden_light_motion] == 1 then
+			commandArray["Variable:" .. var.frontgarden_light_motion .. ""]= '0'	
+			commandArray[garden.front_door_light]='Off'	
+		end
+		
+		if uservariables[var.garden_light_motion] == 1 then
+			commandArray["Variable:" .. var.garden_light_motion .. ""]= '0'	
+			commandArray[garden.shed_lights]='Off'	
+		end
+		
+	end	
 
 --
 -- **********************************************************
