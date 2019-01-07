@@ -4,7 +4,7 @@
 	@ lights_dinnertable.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 07-01-2019
 	@ Script to switch diner table light ON/OFF with when Laptops ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -63,7 +63,7 @@
 		commandArray[light.dinnertable]='Off'	
 	end
 	
-	if devicechanged[lux_sensor.porch]
+	if devicechanged[lux_sensor.living]
 		and laptops_powered('false')	
 		and otherdevices[light.dinnertable] ~= 'Off'
 		and timedifference(otherdevices_lastupdate[light.dinnertable]) >= timeout.minutes5
