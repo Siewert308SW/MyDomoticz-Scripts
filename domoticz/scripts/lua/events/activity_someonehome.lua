@@ -4,7 +4,7 @@
 	@ activity_someonehome.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 07-01-2019
 	@ Script for switching SomeOneHome ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -16,8 +16,7 @@
 -- **********************************************************
 --
 
-	if (devicechanged[door.living]
-		or devicechanged[door.front]
+	if (devicechanged[door.front]
 		or devicechanged[door.back]
 		or devicechanged[door.garden]
 		or devicechanged[door.scullery]
@@ -41,6 +40,27 @@
 
 -- *********************************************************************
 -- *********************************************************************
+
+	if devicechanged[door.living]
+		and otherdevices[someone.home] ~= 'Thuis'
+		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) < timeout.minute1			
+	then
+	
+		if otherdevices[someone.home] == 'Slapen' then
+			commandArray[someone.home]='Set Level 10 AFTER 1'
+			commandArray["Group:" ..group.standy_killers_zwave_sleep.. ""]='On AFTER 5'
+		end
+		
+		if otherdevices[someone.home] == 'Weg' then
+			commandArray[someone.home]='Set Level 10 AFTER 1'
+			commandArray["Group:" ..group.standy_killers_zwave_away.. ""]='On AFTER 5'
+		end
+		
+	end
+
+-- *********************************************************************
+-- *********************************************************************
+
 	
 	if devicechanged[motion_sensor.living] == 'On'
 		and otherdevices[someone.home] ~= 'Thuis'
