@@ -4,7 +4,7 @@
 	@ script_device_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 05-01-2019
+	@ updated	: 08-01-2019
 	@ Main event script on which my entire Lua event system is running. 
 
 	Just one file instead of a dozen lua device and timer scripts.
@@ -40,7 +40,7 @@ commandArray = {}
 				require "settings"
 					if otherdevices[lua_system.switch] ~= 'Off' then
 						require "functions" require "helper"	
-						event_folder = ''..lua.folder..''
+						event_folder = Current_Path .. 'events/'
 						dofile ('' .. event_folder .. 'activity_hallway.lua')
 					end
 				end
@@ -49,7 +49,7 @@ commandArray = {}
 				require "settings"
 					if otherdevices[lua_system.switch] ~= 'Off' then
 						require "functions" require "helper" 
-						event_folder = ''..lua.folder..''
+						event_folder = Current_Path .. 'events/'
 						f = io.popen('ls ' .. event_folder)
 						for event in f:lines() do
 						dofile ('' .. event_folder .. ''..event..'')
@@ -143,16 +143,16 @@ commandArray = {}
 						print('')
 				end
 				if otherdevices[lua_system.switch] == 'Writing' or otherdevices[lua_system.switch] == 'Logging & Writing' then
-								year 	= tonumber(os.date("%Y"));
-								month 	= tonumber(os.date("%m"));
-								day 	= tonumber(os.date("%d"));
-								hour 	= tonumber(os.date("%H"));
-								minutes = tonumber(os.date("%M"));						
-								logdate = tostring(''..day..'-'..month..'-'..year..'')
+								log_year 	= tonumber(os.date("%Y"));
+								log_month 	= tonumber(os.date("%m"));
+								log_day 	= tonumber(os.date("%d"));
+								log_hour 	= tonumber(os.date("%H"));
+								log_minutes = tonumber(os.date("%M"));						
+								logdate = tostring(''..log_day..'-'..log_month..'-'..log_year..'')
 								
 								file = io.open(''..lualog.folder..''..lualog.filename..'-'..logdate..''..lualog.fileext..'', 'a+')
 								file:write("Time:\n")								
-								file:write(year .. "-" .. month .. "-"..day.."  -  "..hour..":"..minutes.."\n")
+								file:write(year .. "-" .. log_month .. "-"..log_day.."  -  "..log_hour..":"..log_minutes.."\n")
 								file:write("\n")
 								file:write("Trigger:\n")
 								file:write(TriggerDevice.."\n")

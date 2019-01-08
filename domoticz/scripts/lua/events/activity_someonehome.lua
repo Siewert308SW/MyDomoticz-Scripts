@@ -4,7 +4,7 @@
 	@ activity_someonehome.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 07-01-2019
+	@ updated	: 08-01-2019
 	@ Script for switching SomeOneHome ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -22,7 +22,9 @@
 		or devicechanged[door.scullery]
 		or devicechanged[window.living]
 		or devicechanged[light.natalya_light_on]
-		or devicechanged[light.natalya_reading_on])
+		or devicechanged[light.natalya_reading_on]
+		or devicechanged[motion_sensor.dinner1]
+		or devicechanged[motion_sensor.dinner2])
 		and otherdevices[someone.home] ~= 'Thuis'
 	then
 	
@@ -93,17 +95,18 @@
 	if devicechanged[lux_sensor.living]  
 		and otherdevices[someone.home] == 'Thuis'
 		and media_powered('false')
-		and laptops_online('false')	
+		and laptops_online('false')
+		and motion('false', 1800)
 	then
 	
 		if phones_online('true')
-			and motion('false', 10800)		
+			and motion('false', 3600)		
 		then
 			commandArray[someone.home]='Set Level 0'
 		end
 		
 		if phones_online('false')			
-			and motion('false', 300)		
+			and motion('false', 1800)		
 		then
 			commandArray[someone.home]='Set Level 0'
 		end
@@ -122,7 +125,7 @@
 	
 		if otherdevices[someone.home] ~= 'Slapen'
 			and media_powered('false')				
-			and motion('false', 300)
+			and motion('false', 180)
 			and phones_online('true')		
 		then
 			commandArray[someone.home]='Set Level 30'
@@ -135,7 +138,7 @@
 		
 		if otherdevices[someone.home] ~= 'Weg'
 			and media_powered('false')				
-			and motion('false', 120)
+			and motion('false', 180)
 			and phones_online('false')		
 		then
 			commandArray[someone.home]='Set Level 20'
