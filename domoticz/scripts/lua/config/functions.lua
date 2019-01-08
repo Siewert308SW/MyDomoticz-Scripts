@@ -576,3 +576,19 @@
 		  return nest_temp
 	end	
 	
+--
+-- **********************************************************
+-- Send Notification
+-- **********************************************************
+-- Example: sendmail('Hi','Coming home tonight')
+
+	function sendmail(header,body)
+		header = header
+		body = body
+		
+		if header ~= nil and body ~= nil then
+			commandArray['SendNotification']=''..header..'#'..body..''
+		end
+		
+	end
+	
