@@ -4,7 +4,7 @@
 	@ script_device_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 08-01-2019
+	@ updated	: 09-01-2019
 	@ Main event script on which my entire Lua event system is running. 
 
 	Just one file instead of a dozen lua device and timer scripts.
@@ -39,9 +39,16 @@ commandArray = {}
 				if tableDevice == timed.trigger then
 				require "settings"
 					if otherdevices[lua_system.switch] ~= 'Off' then
-						require "functions" require "helper"	
-						event_folder = Current_Path .. 'events/'
-						dofile ('' .. event_folder .. 'activity_hallway.lua')
+						require "functions" require "helper"
+						timers_folder = Current_Path .. 'events/'	
+						f = io.popen('ls ' .. timers_folder)
+						for name in f:lines() do
+							timer = tostring(tablerow)
+							if string.find(name, '' .. findstring.trigger) then
+								dofile ('' .. timers_folder .. ''..name..'')
+							end
+						end	
+
 					end
 				end
 				

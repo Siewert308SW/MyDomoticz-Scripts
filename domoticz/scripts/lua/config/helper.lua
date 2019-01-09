@@ -4,7 +4,7 @@
 	@ helper.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 09-01-2019
 	@ Global Helper
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -20,7 +20,8 @@
 		gsm				= 'GSM';
 		laptop			= 'Laptop';
 		nest			= 'Nest';
-		geofence		= 'DomoFence';		
+		geofence		= 'DomoFence';
+		trigger			= '_1min';			
 		dummy			= 'Dummy';		
 	}
 
