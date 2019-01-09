@@ -40,7 +40,7 @@ commandArray = {}
 				require "settings"
 					if otherdevices[lua_system.switch] ~= 'Off' then
 						require "functions" require "helper"
-						timers_folder = Current_Path .. 'events/'	
+						timers_folder = Current_Path .. ''..lua.timer_folder..'/'	
 						f = io.popen('ls ' .. timers_folder)
 						for name in f:lines() do
 							timer = tostring(tablerow)
@@ -56,7 +56,7 @@ commandArray = {}
 				require "settings"
 					if otherdevices[lua_system.switch] ~= 'Off' then
 						require "functions" require "helper" 
-						event_folder = Current_Path .. 'events/'
+						event_folder = Current_Path .. ''..lua.event_folder..'/'
 						f = io.popen('ls ' .. event_folder)
 						for event in f:lines() do
 						dofile ('' .. event_folder .. ''..event..'')

@@ -4,7 +4,7 @@
 	@ settings.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 09-01-2019
 	@ Global Settings
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -20,7 +20,8 @@
 		notify			= 'false';							-- Enable/Disable email notification
 		verbose 		= 'false';							-- Enable/Disable logs in domoticz
 		logfile 		= 'false';							-- Enable/Disable logs into logfile @ /domoticz (only works if verbose is true)
-		folder			= '/mnt/storage/events/'; 			-- Your desired event scripts file location		
+		event_folder	= 'events/'; 						-- Your desired event scripts lua file location
+		timer_folder	= 'events/'; 						-- Your desired timer scripts lua file location		
 	}
 	
 	lualog = {		
