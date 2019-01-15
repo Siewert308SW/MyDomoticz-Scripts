@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 16-01-2019
 	@ Global Functions
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -41,9 +41,31 @@
 		s = string.gsub(s, '%s+$', '')
 		s = string.gsub(s, '[{}]+', ' ')		
 		s = string.gsub(s, '[\n\r]+', ' ')
+		s = string.gsub(s, '["]+', ' ')		
 		return s
+	
+	end
 
-	end	
+--
+-- **********************************************************
+-- Function to control my HEOS By Denon Speakers
+-- **********************************************************
+-- Example: heos('play') or heos('stop')
+
+	function heos(cmd)
+		cmd = cmd
+		play_state = os.capture("echo 'heos://player/get_play_state?pid="..heosconf.pid.."' | netcat "..heosconf.host.." "..heosconf.port.." -w1 | awk {'print $7'}", false)
+
+		if string.find(play_state, 'stop') and cmd == 'play' then
+		output = os.capture('echo "heos://player/set_play_state?pid='..heosconf.pid..'&state='..cmd..'" | netcat '..heosconf.host..' '..heosconf.port..' -w0')
+		end
+		
+		if string.find(play_state, 'play') and cmd == 'stop' then
+		output = os.capture('echo "heos://player/set_play_state?pid='..heosconf.pid..'&state='..cmd..'" | netcat '..heosconf.host..' '..heosconf.port..' -w0')
+		end
+		
+		return output
+	end		
 	
 --
 -- **********************************************************

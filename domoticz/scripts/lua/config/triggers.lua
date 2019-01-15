@@ -4,7 +4,7 @@
 	@ triggers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 16-01-2019
 	@ Devices which can/may trigger the event system
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -22,7 +22,7 @@
 		'Aanwezigheid',
 
 	-- Media Triggers
-		--'Televisie',
+		'Televisie',
 
 	-- DomoFence Triggers
 		'Jerina DomoFence',
