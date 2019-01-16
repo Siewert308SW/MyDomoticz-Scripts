@@ -4,7 +4,7 @@
 	@ activity_daughter.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 16-01-2019
 	@ Script to switch ON/OFF various standbykillers in my daughter her bedroom
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -18,10 +18,10 @@
 
 	if (devicechanged[motion_sensor.natalya] == 'On' or devicechanged[phone.natalya] == 'On')
 		and timebetween("06:00:00","22:29:59")
-		and otherdevices[light.natalya_rgb]  == 'Off'
+		and otherdevices[light.natalya_rgb_string]  == 'Off'
 		and otherdevices[phone.natalya] == 'On'	
 	then
-		commandArray[light.natalya_rgb]='On'
+		commandArray[light.natalya_rgb_string]='On'
 		commandArray[plug.natalya_tv]='On AFTER 1'		
 	end
 
@@ -29,9 +29,9 @@
 		and otherdevices[phone.natalya] == 'On'
 		and otherdevices[someone.home] == 'Thuis'		
 		and timebetween("06:00:00","22:29:59")
-		and otherdevices[light.natalya_rgb]  == 'Off'
+		and otherdevices[light.natalya_rgb_string]  == 'Off'
 	then
-		commandArray[light.natalya_rgb]='On'
+		commandArray[light.natalya_rgb_string]='On'
 		commandArray[plug.natalya_tv]='On AFTER 1'		
 	end
 	

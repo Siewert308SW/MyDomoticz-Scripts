@@ -4,7 +4,7 @@
 	@ activity_someonehome.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 08-01-2019
+	@ updated	: 16-01-2019
 	@ Script for switching SomeOneHome ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -94,19 +94,17 @@
 
 	if devicechanged[lux_sensor.living]  
 		and otherdevices[someone.home] == 'Thuis'
-		and media_powered('false')
-		and laptops_online('false')
-		and motion('false', 1800)
+		and motion('false', 1200)
 	then
 	
-		if phones_online('true')
-			and motion('false', 3600)		
+		if phones_online('true')	
+			and motion('false', 4800)		
 		then
 			commandArray[someone.home]='Set Level 0'
 		end
 		
 		if phones_online('false')			
-			and motion('false', 1800)		
+			and motion('false', 1200)		
 		then
 			commandArray[someone.home]='Set Level 0'
 		end
@@ -119,13 +117,12 @@
 -- *********************************************************************
 --
 
-	if devicechanged[lux_sensor.living] 
+	if devicechanged[lux_sensor.hallway] 
 		and otherdevices[someone.home] == 'Off'	
+		and motion('false', 180)
 	then
 	
 		if otherdevices[someone.home] ~= 'Slapen'
-			and media_powered('false')				
-			and motion('false', 180)
 			and phones_online('true')		
 		then
 			commandArray[someone.home]='Set Level 30'
@@ -137,8 +134,6 @@
 -- *********************************************************************
 		
 		if otherdevices[someone.home] ~= 'Weg'
-			and media_powered('false')				
-			and motion('false', 180)
 			and phones_online('false')		
 		then
 			commandArray[someone.home]='Set Level 20'
@@ -157,8 +152,9 @@
 
 		if devicechanged[lux_sensor.upstairs]
 			and otherdevices[someone.home] == 'Slapen'
-			and motion('false', 43200)
+			and phones_online('false')			
+			and motion('false', 3600)
 		then
 			commandArray[someone.home]='Set Level 20'
-			commandArray["Group:" ..group.standy_killers_zwave_away.. ""]='Off AFTER 5'
+			commandArray["Group:" ..group.standy_killers_zwave_away.. ""]='Off'
 		end

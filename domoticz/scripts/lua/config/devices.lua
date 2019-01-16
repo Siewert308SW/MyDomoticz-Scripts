@@ -4,7 +4,7 @@
 	@ devices.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 16-01-2019
 	@ PreDefined switches and devices, Lua globally used.
 
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -118,7 +118,8 @@ light = {
 	hallway_wall				= 'Gang - Wandlamp',	
 	natalya_reading				= 'Natalya Kamer - Leeslamp',
 	natalya_light				= 'Natalya Kamer - Lamp',	
-	natalya_rgb 				= 'Natalya Kamer - RGB',		
+	natalya_rgb_string 			= 'Natalya Kamer - RGB String',
+	natalya_rgb_light 			= 'Natalya Kamer - RGB Lamp',		
 }
 
 light_xmas = {
@@ -305,6 +306,41 @@ doorbell = {
 
 --
 -- **********************************************************
+-- Various Temperature Sensors
+-- **********************************************************
+--
+
+temp = {
+	porch						= 'Veranda - Temperatuur (fibaro)',
+	--natalya						= 'Natalya Kamer - Temperatuur',	
+	--porch_light					= 18,
+}
+
+--
+-- **********************************************************
+-- Various
+-- **********************************************************
+--
+--[[
+standby = {
+	trigger						= 'Raspberry - CPU Temperatuur',
+	--hallway						= 'Gang - Standby',
+	--shower						= 'Douche - Standby',
+	--doorbell					= 'Deurbel - Standby',	
+}
+--]]
+
+timed = {
+	trigger						= 'Raspberry - CPU Temperatuur',
+}
+
+test = {
+	dummy1						= 'Dummy 1',
+	dummy2						= 'Dummy 2',	
+}
+
+--
+-- **********************************************************
 -- Nest Thermostat
 -- **********************************************************
 --
@@ -334,28 +370,3 @@ doorbell = {
 
 		trigger_frost_temp			= 3.0, -- Used for garden lights OFF timeout when no motion is detected		
 	}
-
---
--- **********************************************************
--- Various Temperature Sensors
--- **********************************************************
---
-
-temp = {
-	porch						= 'Veranda - Temperatuur (fibaro)',
-}
-
---
--- **********************************************************
--- Various
--- **********************************************************
---
-
-timed = {
-	trigger						= 'Raspberry - CPU Temperatuur',
-}
-
-test = {
-	dummy1						= 'Dummy 1',
-	dummy2						= 'Dummy 2',	
-}

@@ -164,7 +164,7 @@
 					and timedifference(otherdevices_lastupdate[motion_sensor.natalya]) > minutes
 					and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > minutes
 					and timedifference(otherdevices_lastupdate[motion_sensor.porch]) > minutes
-					and timebetween("06:00:00","21:59:59")
+
 				then
 					IsMotion = true
 				end	
@@ -187,57 +187,11 @@
 					or timedifference(otherdevices_lastupdate[motion_sensor.natalya]) <= minutes
 					or timedifference(otherdevices_lastupdate[motion_sensor.hallway]) <= minutes				
 					or timedifference(otherdevices_lastupdate[motion_sensor.porch]) <= minutes
-					and timebetween("06:00:00","21:59:59")					
-				then
-					IsMotion = true
-				end	
-			end
-
--- **********************************************************
 			
-			if input == 'false' then		
-				if timedifference(otherdevices_lastupdate[door.living]) > minutes
-					and timedifference(otherdevices_lastupdate[door.front]) > minutes
-					and timedifference(otherdevices_lastupdate[door.back]) > minutes
-					and timedifference(otherdevices_lastupdate[door.garden]) > minutes
-					and timedifference(otherdevices_lastupdate[door.scullery]) > minutes
-					and timedifference(otherdevices_lastupdate[door.pantry]) > minutes					
-					and timedifference(otherdevices_lastupdate[motion_sensor.living]) > minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.downstairs]) > minutes		
-					and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) > minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.toilet]) > minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.dinner1]) > minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.dinner2]) > minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.kitchen]) > minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.porch]) > minutes
-					and (timebetween("22:00:00","23:59:59") or timebetween("00:00:00","05:59:59"))
 				then
 					IsMotion = true
 				end	
-			end
-		
-			if input == 'true' then
-				if timedifference(otherdevices_lastupdate[door.living]) <= minutes
-					or timedifference(otherdevices_lastupdate[door.front]) <= minutes
-					or timedifference(otherdevices_lastupdate[door.back]) <= minutes
-					or timedifference(otherdevices_lastupdate[door.garden]) <= minutes
-					or timedifference(otherdevices_lastupdate[door.scullery]) <= minutes
-					or timedifference(otherdevices_lastupdate[door.pantry]) <= minutes					
-					or timedifference(otherdevices_lastupdate[motion_sensor.living]) < minutes
-					or timedifference(otherdevices_lastupdate[motion_sensor.downstairs]) <= minutes		
-					or timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) <= minutes
-					or timedifference(otherdevices_lastupdate[motion_sensor.toilet]) <= minutes
-					or timedifference(otherdevices_lastupdate[motion_sensor.dinner1]) <= minutes
-					or timedifference(otherdevices_lastupdate[motion_sensor.dinner2]) <= minutes
-					or timedifference(otherdevices_lastupdate[motion_sensor.kitchen]) <= minutes
-					or timedifference(otherdevices_lastupdate[motion_sensor.hallway]) <= minutes				
-					or timedifference(otherdevices_lastupdate[motion_sensor.porch]) <= minutes
-					and (timebetween("22:00:00","23:59:59") or timebetween("00:00:00","05:59:59"))				
-				then
-					IsMotion = true
-				end	
-			end				
+			end		
 		
 		return IsMotion
 		end
@@ -581,7 +535,7 @@
 	function device_svalue(device)
 		device = tonumber(otherdevices_svalues[device])
 		devices_svalues = device		
-		  return devices_svalues
+		return devices_svalues
 	end
 
 --
@@ -595,8 +549,9 @@
 		sNestTemp, sNestHumidity = otherdevices_svalues[thermostat]:match("([^;]+);([^;]+)")
 		nest_temp = tonumber(sNestTemp)
 		nest_hum = tonumber(sNestHumidity)	
-		  return nest_temp
-	end	
+		return nest_temp
+	end
+	
 	
 --
 -- **********************************************************

@@ -51,7 +51,7 @@
 	lux_trigger = {
 		dinner			 = 90;									-- Define max Lux value (lower is dark)
 		kitchen			 = 75;									-- Define max Lux value (lower is dark)			
-		living_high		 = 65;									-- Define max Lux value (lower is dark)
+		living_high		 = 60;									-- Define max Lux value (lower is dark)
 		living_low		 = 25;									-- Define mix Lux value (lower is dark)
 		hallway			 = 15;									-- Define max Lux value (lower is dark)
 		garden_high 	 = 6;									-- Define max Lux value (lower is dark)

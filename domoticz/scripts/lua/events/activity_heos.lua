@@ -1,14 +1,14 @@
 --[[
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
-	@ activity_tv.lua
+	@ activity_heos.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
 	@ updated	: 15-01-2019
-	@ Simple Lua script to turn off HEOS Speaker if TV ON
+	@ Simple Lua script to turn HEOS Speaker OFF
 
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 --]]
-	if devicechanged[media_device.tv] == 'On' then
+	if devicechanged[media_device.tv] == 'On' or devicechanged[someone.home] == 'Off' then
 	heos('stop')
 	end
