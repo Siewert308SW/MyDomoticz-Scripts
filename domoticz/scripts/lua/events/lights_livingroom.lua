@@ -4,7 +4,7 @@
 	@ lights_livingroom.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 18-01-2019
 	@ Script for switching various livingroom light scenes
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -75,7 +75,7 @@
 			and otherdevices[light.living_twilight] == 'Off'			
 			and otherdevices[light.living_wall_lights] == 'Off'
 			and (timebetween("16:00:00","23:59:59") or timebetween("00:00:00","03:59:59"))
-			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes10
+			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes20
 			and uservariables[var.living_light_override] == 0
 		then
 			commandArray[light.living_standing_light]='Set Level 66'
@@ -88,7 +88,7 @@
 			and otherdevices[light.living_twilight] == 'Off'			
 			and otherdevices[light.living_wall_lights] == 'Off'
 			and otherdevices[light.living_deco_light] == 'Off'
-			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes15				
+			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes20				
 			and (timebetween("16:00:00","23:59:59") or timebetween("00:00:00","03:59:59"))
 			and uservariables[var.living_light_override] == 0
 		then
@@ -117,10 +117,24 @@
 			or otherdevices[light.living_standing_light] ~= 'Off'
 			or uservariables[var.living_light_override] == 1)		
 		then
-		commandArray["Scene:" ..scene.shutdown.. ""]='On REPEAT 2 INTERVAL 10'
+			commandArray["Scene:" ..scene.shutdown.. ""]='On REPEAT 2 INTERVAL 10'
 			commandArray["Variable:" .. var.living_light_override .. ""]= '0'	
 		end
 		
+	end
+
+--
+-- **********************************************************
+-- Livingroom lights OFF when someone is taking a shower
+-- **********************************************************
+--
+
+	if devicechanged[lux_sensor.living] and xmasseason('false')
+		and otherdevices[someone.home] == 'Douchen'
+		and (otherdevices[light.living_standing_light] ~= 'Off' or uservariables[var.living_light_override] == 1)		
+    then
+		commandArray["Scene:" ..scene.shutdown.. ""]='On REPEAT 2 INTERVAL 10'
+		commandArray["Variable:" .. var.living_light_override .. ""]= '0'
 	end		
 
 --
@@ -143,7 +157,7 @@
 		commandArray["Variable:" .. var.living_light_override .. ""]= '1'		
 	end	
 	
-	if devicechanged[switch.living_light] == 'Off' and xmasseason('false') and (timebetween("00:00:00","07:59:59") or timebetween("22:00:00","23:59:59")) then
+	if devicechanged[switch.living_light] == 'Off' and xmasseason('false') and (timebetween("00:00:00","08:59:59") or timebetween("22:00:00","23:59:59")) then
 		commandArray[someone.home]='Set Level 0 AFTER 1'
 		commandArray["Scene:" ..scene.shutdown.. ""]='On REPEAT 2 INTERVAL 10'
 		commandArray["Variable:" .. var.living_light_override .. ""]= '1'		
@@ -157,8 +171,7 @@
 	if devicechanged[someone.home] == 'Off' and xmasseason('false') 
 		and (otherdevices[light.living_standing_light] ~= 'Off' or otherdevices[light.living_deco_light] ~= 'Off')
 	then
-		commandArray["Scene:" ..scene.shutdown.. ""]='On REPEAT 2 INTERVAL 10'
-		--commandArray["Variable:" .. var.living_light_override .. ""]= '0'		
+		commandArray["Scene:" ..scene.shutdown.. ""]='On REPEAT 2 INTERVAL 10'	
 	end
 
 	
@@ -266,7 +279,7 @@
 		if device_svalue(lux_sensor.porch) < lux_trigger.living_low	
 			and otherdevices[light.living_standing_light] == 'Off'
 			and timebetween("04:00:00","11:59:59")
-			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes10
+			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes20
 			and uservariables[var.living_light_override] == 0				
 		then
 			commandArray[light.living_standing_light]='Set Level 20'
@@ -280,7 +293,7 @@
 			and otherdevices[light.living_twilight] == 'Off'			
 			and otherdevices[light.living_wall_lights] == 'Off'
 			and (timebetween("15:30:00","23:59:59") or timebetween("00:00:00","03:59:59"))
-			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes10
+			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes20
 			and uservariables[var.living_light_override] == 0
 		then
 		
@@ -304,7 +317,7 @@
 			and otherdevices[light.living_twilight] == 'Off'			
 			and otherdevices[light.living_wall_lights] == 'Off'
 			and otherdevices[light.living_deco_light] == 'Off'
-			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes15				
+			and timedifference(otherdevices_lastupdate[light.living_standing_light]) >= timeout.minutes20				
 			and (timebetween("15:30:00","23:59:59") or timebetween("00:00:00","03:59:59"))
 			and uservariables[var.living_light_override] == 0
 		then
@@ -372,6 +385,20 @@
 			commandArray["Variable:" .. var.living_light_override .. ""]= '0'	
 		end
 		
+	end
+
+--
+-- **********************************************************
+-- Livingroom lights OFF when someone is taking a shower
+-- **********************************************************
+--
+
+	if devicechanged[lux_sensor.living] and xmasseason('true')
+		and otherdevices[someone.home] == 'Douchen'
+		and (otherdevices[light.living_standing_light] ~= 'Off' or uservariables[var.living_light_override] == 1)		
+    then
+		commandArray["Scene:" ..scene.shutdown_xmas.. ""]='On REPEAT 2 INTERVAL 10'
+		commandArray["Variable:" .. var.living_light_override .. ""]= '0'
 	end		
 
 --

@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 16-01-2019
+	@ updated	: 18-01-2019
 	@ Global Functions
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -54,7 +54,7 @@
 
 	function heos(cmd)
 		cmd = cmd
-		play_state = os.capture("echo 'heos://player/get_play_state?pid="..heosconf.pid.."' | netcat "..heosconf.host.." "..heosconf.port.." -w1 | awk {'print $7'}", false)
+		play_state = os.capture("echo 'heos://player/get_play_state?pid="..heosconf.pid.."' | netcat "..heosconf.host.." "..heosconf.port.." -w2 | awk {'print $7'}", false)
 
 		if string.find(play_state, 'stop') and cmd == 'play' then
 		output = os.capture('echo "heos://player/set_play_state?pid='..heosconf.pid..'&state='..cmd..'" | netcat '..heosconf.host..' '..heosconf.port..' -w0')
@@ -255,6 +255,26 @@
 					
 		return Isgeofence		
 
+	end
+
+--
+-- **********************************************************
+-- How many devices online
+-- **********************************************************
+-- Example: if onlinedevices(findstring.gsm) > 1 then
+--
+
+	function onlinedevices(device)
+		device = device
+		numItems = 0
+		for i,v in pairs(triggers) do
+			if string.find(v, ''.. device) then
+				if otherdevices[''..v..''] == 'On' then
+				numItems = numItems + 1
+				end
+			end
+		end
+			return numItems
 	end	
 	
 --

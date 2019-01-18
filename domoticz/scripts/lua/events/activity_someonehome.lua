@@ -4,7 +4,7 @@
 	@ activity_someonehome.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 16-01-2019
+	@ updated	: 19-01-2019
 	@ Script for switching SomeOneHome ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -26,6 +26,7 @@
 		or devicechanged[motion_sensor.dinner1]
 		or devicechanged[motion_sensor.dinner2])
 		and otherdevices[someone.home] ~= 'Thuis'
+		and otherdevices[someone.home] ~= 'Douchen'
 	then
 	
 		if otherdevices[someone.home] == 'Slapen' then
@@ -45,6 +46,7 @@
 
 	if devicechanged[door.living]
 		and otherdevices[someone.home] ~= 'Thuis'
+		and otherdevices[someone.home] ~= 'Douchen'		
 		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) < timeout.minute1			
 	then
 	
@@ -66,6 +68,7 @@
 	
 	if devicechanged[motion_sensor.living] == 'On'
 		and otherdevices[someone.home] ~= 'Thuis'
+		and otherdevices[someone.home] ~= 'Douchen'		
 	then
 
 		if otherdevices[someone.home] == 'Slapen' then
@@ -94,7 +97,7 @@
 
 	if devicechanged[lux_sensor.living]  
 		and otherdevices[someone.home] == 'Thuis'
-		and motion('false', 1200)
+		and motion('false', 1800)
 	then
 	
 		if phones_online('true')	
@@ -104,7 +107,7 @@
 		end
 		
 		if phones_online('false')			
-			and motion('false', 1200)		
+			and motion('false', 1800)		
 		then
 			commandArray[someone.home]='Set Level 0'
 		end
@@ -119,11 +122,12 @@
 
 	if devicechanged[lux_sensor.hallway] 
 		and otherdevices[someone.home] == 'Off'	
-		and motion('false', 180)
+		and motion('false', 300)
 	then
 	
 		if otherdevices[someone.home] ~= 'Slapen'
-			and phones_online('true')		
+			and phones_online('true')
+			and motion('false', 600)			
 		then
 			commandArray[someone.home]='Set Level 30'
 			commandArray["Group:" ..group.standy_killers_zwave_sleep.. ""]='Off'
@@ -134,7 +138,8 @@
 -- *********************************************************************
 		
 		if otherdevices[someone.home] ~= 'Weg'
-			and phones_online('false')		
+			and phones_online('false')
+			and motion('false', 300)			
 		then
 			commandArray[someone.home]='Set Level 20'
 			commandArray["Group:" ..group.standy_killers_zwave_away.. ""]='Off'
