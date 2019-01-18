@@ -4,7 +4,7 @@
 	@ devices.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 16-01-2019
+	@ updated	: 18-01-2019
 	@ PreDefined switches and devices, Lua globally used.
 
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -59,9 +59,9 @@ geo = {
 --
 
 laptop = {
-	jerina						= 'Jerina Laptop',
-	siewert						= 'Siewert Laptop',
-	natalya						= 'Natalya Laptop',		
+	jerina						= 'Jerina_Laptop',
+	siewert						= 'Siewert_Laptop',
+	natalya						= 'Natalya_Laptop',		
 }
 
 --
@@ -84,8 +84,8 @@ phone = {
 
 switch = {
 	living_light				= 'Woonkamer - Verlichting Knop',
-	dinner_light 				= 'Eettafel - Verlichting Knop',
-	garden_light				= 'Tuin - Verlichting Knop',
+	--dinner_light 				= 'Eettafel - Verlichting Knop',
+	--garden_light				= 'Tuin - Verlichting Knop',
 	natalya_reading_on			= 'Natalya Kamer - Leeslamp Knop (aan)',
 	natalya_reading_off			= 'Natalya Kamer - Leeslamp Knop (uit)',
 	natalya_light_on			= 'Natalya Kamer - Lamp Knop (aan)',	
@@ -154,7 +154,7 @@ group = {
 	standy_killers_natalya		= 'Standby Killers Natalya',	
 	garden_lights				= 'Tuin - Verlichting',
 	garden_lights_xmas			= 'Tuin - Verlichting XMAS',
-	livingroom					= 'Woonkamer - Verlichting Knop',
+	--livingroom					= 'Woonkamer - Verlichting Knop',
 }
 
 scene = {
@@ -247,14 +247,12 @@ watt = {
 	phone_upstairs				= 'Standbykiller - GigaSet (Boven)',	
 	hood						= 'Verbruik - Afzuigkap',
 	workbench		 			= 'Verbruik - Werkbank',
-	printer			 			= 'Verbruik - Printer',	
-	media_usage					= 11.1,
+	tvcorner_usage				= 120,
+	media_usage					= 11,
 	media_natalya_usage			= 10,	
 	laptop_usage				= 5,	
 	hood_high					= 80, -- When hood ventilation is ON
-	hood_low					= 16, -- Only lights ON
-	printer_high				= 20, -- When printing ect
-	printer_low					= 7,  -- Idle	
+	hood_low					= 16, -- Only lights ON	
 }
 
 --
@@ -267,16 +265,15 @@ var = {
 	living_light_scene			= 'living_light_scene',
 	living_light_override		= 'living_light_override',
 	living_light_pause			= 'living_light_pause',	
-	dinner_light_override 		= 'dinner_light_override',
-	garden_light_override		= 'garden_light_override',
+	--dinner_light_override 	= 'dinner_light_override',
+	--garden_light_override		= 'garden_light_override',
+	--garden_light_standby		= 'garden_light_standby',
 	garden_light_motion			= 'garden_light_motion',
 	frontgarden_light_motion	= 'frontgarden_light_motion',	
 	preheat_override			= 'preheat_override',
 	heat_override				= 'heat_override',	
 	doorbell_standby			= 'doorbell_standby',
 	holiday						= 'holiday',	
-	--lua_error					= 'lua_error',
-	--lua_logging					= 'lua_logging',		
 }
 
 --
@@ -312,8 +309,6 @@ doorbell = {
 
 temp = {
 	porch						= 'Veranda - Temperatuur (fibaro)',
-	--natalya						= 'Natalya Kamer - Temperatuur',	
-	--porch_light					= 18,
 }
 
 --
@@ -321,14 +316,6 @@ temp = {
 -- Various
 -- **********************************************************
 --
---[[
-standby = {
-	trigger						= 'Raspberry - CPU Temperatuur',
-	--hallway						= 'Gang - Standby',
-	--shower						= 'Douche - Standby',
-	--doorbell					= 'Deurbel - Standby',	
-}
---]]
 
 timed = {
 	trigger						= 'Raspberry - CPU Temperatuur',

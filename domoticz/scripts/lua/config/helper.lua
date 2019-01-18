@@ -4,7 +4,7 @@
 	@ helper.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 09-01-2019
+	@ updated	: 18-01-2019
 	@ Global Helper
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -18,7 +18,7 @@
 
 	findstring = {
 		gsm				= 'GSM';
-		laptop			= 'Laptop';
+		laptop			= '_Laptop';
 		nest			= 'Nest';
 		geofence		= 'DomoFence';
 		trigger			= '_1min';			

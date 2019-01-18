@@ -4,7 +4,7 @@
 	@ triggers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 16-01-2019
+	@ updated	: 18-01-2019
 	@ Devices which can/may trigger the event system
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -35,9 +35,9 @@
 		'Natalya GSM',		
 		
 	-- Laptops	
-		'Jerina Laptop',
-		'Siewert Laptop',	
-		'Natalya Laptop',
+		'Jerina_Laptop',
+		'Siewert_Laptop',	
+		'Natalya_Laptop',
 		
 	-- Door/Window/Motion Sensors
 		'Voor Deur',					
@@ -60,16 +60,16 @@
 		
 	-- Light Switches
 		'Woonkamer - Verlichting Knop',		
-		'Tuin - Verlichting Knop',
-		'Eettafel - Verlichting Knop',		
+		--'Tuin - Verlichting Knop',
+		--'Eettafel - Verlichting Knop',		
 		'Douche - Verlichting',
 		'W.C - Verlichting',
 		'Natalya Kamer - Leeslamp Knop (aan)',
 		'Natalya Kamer - Leeslamp Knop (uit)',
 		'Natalya Kamer - Lamp Knop (aan)',
 		'Natalya Kamer - Lamp Knop (uit)',		
-		'Keuken - Cabinet Lamp (Wasbak)',
-		'Keuken - Cabinet Lamp (Fornuis)',
+		--'Keuken - Cabinet Lamp (Wasbak)',
+		--'Keuken - Cabinet Lamp (Fornuis)',
 	
 	-- Doorbell Switches
 		'Deurbel Knop',
@@ -78,7 +78,6 @@
 		'Raspberry - CPU Temperatuur', 	-- 1minute time trigger
 		'Woonkamer - Lux', 				-- 3min trigger
 		'Gang - Lux',					-- 5min trigger
-		'Natalya Kamer - Lux',			-- 8min trigger			
 		'Overloop - Lux',				-- 10min trigger
 		'Veranda - Lux',				-- 15min trigger
 
