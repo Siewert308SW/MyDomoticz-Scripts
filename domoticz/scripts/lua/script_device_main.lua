@@ -4,7 +4,7 @@
 	@ script_device_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 09-01-2019
+	@ updated	: 18-01-2019
 	@ Main event script on which my entire Lua event system is running. 
 
 	Just one file instead of a dozen lua device and timer scripts.
@@ -34,7 +34,6 @@ commandArray = {}
 	for deviceName, deviceValue in pairs(devicechanged) do
 		for tableName, tableDevice in pairs (triggers) do
 			if deviceName == tableDevice then
-			
 				require "devices"
 				if tableDevice == timed.trigger then
 				require "settings"
@@ -48,7 +47,6 @@ commandArray = {}
 								dofile ('' .. timers_folder .. ''..name..'')
 							end
 						end	
-
 					end
 				end
 				

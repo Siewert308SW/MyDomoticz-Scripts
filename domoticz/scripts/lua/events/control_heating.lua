@@ -4,7 +4,7 @@
 	@ control_heating.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 08-01-2019
+	@ updated	: 18-01-2019
 	@ Script to switch ON/OFF heating including a override incase i manual set setpoint higher or lower
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -216,7 +216,6 @@
 				and timedifference(otherdevices_lastupdate[someone.home]) >= timeout.hour1				
 				and device_svalue(nest.setpoint) ~= nest.eco_temp_summer			
 				and device_svalue(temp.porch) >= nest.trigger_temp_autumn
-				and geo_fence('false')
 			then
 				commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.eco_temp_summer)
 			    commandArray["Variable:" .. var.heat_override .. ""]= '0'
@@ -229,7 +228,6 @@
 				and device_svalue(nest.setpoint) ~= nest.eco_temp_autumn
 				and device_svalue(temp.porch) < nest.trigger_temp_autumn
 				and device_svalue(temp.porch) >= nest.trigger_temp_winter
-				and geo_fence('false')
 			then
 				commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.eco_temp_autumn)
 			    commandArray["Variable:" .. var.heat_override .. ""]= '0'
@@ -241,7 +239,6 @@
 				and timedifference(otherdevices_lastupdate[someone.home]) >= timeout.hour1			
 				and device_svalue(nest.setpoint) ~= nest.eco_temp_winter
 				and device_svalue(temp.porch) < nest.trigger_temp_winter
-				and geo_fence('false')
 			then
 				commandArray['SetSetPoint:'..nest.setpoint_idx]=tostring(nest.eco_temp_winter)
 			    commandArray["Variable:" .. var.heat_override .. ""]= '0'
@@ -265,7 +262,6 @@
 			and uservariables[var.preheat_override] == 0
 			and timebetween("13:00:00","17:59:59")
 			and weekend('false')
-			and geo_fence('false')
 		then
 
 			if device_svalue(nest.setpoint) ~= nest.setpoint_preheat_autumn
