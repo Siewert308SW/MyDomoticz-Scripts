@@ -4,7 +4,7 @@
 	@ activity_daughter.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 16-01-2019
+	@ updated	: 19-01-2019
 	@ Script to switch ON/OFF various standbykillers in my daughter her bedroom
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -12,7 +12,7 @@
 	
 --
 -- *********************************************************************
---  If standbykillers daughters bedroom ON when she arrives
+--  Standbykillers daughters bedroom ON when she arrives
 -- *********************************************************************
 --
 
@@ -34,7 +34,23 @@
 		commandArray[light.natalya_rgb_string]='On'
 		commandArray[plug.natalya_tv]='On AFTER 1'		
 	end
+
+--
+-- *********************************************************************
+--  Standbykillers daughters bedroom OFF when she away
+-- *********************************************************************
+--
 	
+	if devicechanged[lux_sensor.porch]
+		and otherdevices[light.natalya_rgb_string]  == 'On'
+		and timedifference(otherdevices_lastupdate[motion_sensor.natalya]) > timeout.1hour
+		and timedifference(otherdevices_lastupdate[phone.natalya]) > timeout.1hour
+		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) > timeout.1hour
+		and otherdevices[phone.natalya] == 'Off'		
+	then
+		commandArray[light.natalya_rgb_string]='Off'
+		commandArray[plug.natalya_tv]='Off AFTER 1'		
+	end	
 --
 -- *********************************************************************
 --  
