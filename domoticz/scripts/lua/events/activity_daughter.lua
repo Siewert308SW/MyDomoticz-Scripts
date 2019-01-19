@@ -43,9 +43,9 @@
 	
 	if devicechanged[lux_sensor.porch]
 		and otherdevices[light.natalya_rgb_string]  == 'On'
-		and timedifference(otherdevices_lastupdate[motion_sensor.natalya]) > timeout.1hour
-		and timedifference(otherdevices_lastupdate[phone.natalya]) > timeout.1hour
-		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) > timeout.1hour
+		and timedifference(otherdevices_lastupdate[motion_sensor.natalya]) >= timeout.hour1
+		and timedifference(otherdevices_lastupdate[phone.natalya]) >= timeout.hour1
+		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) >= timeout.hour1
 		and otherdevices[phone.natalya] == 'Off'		
 	then
 		commandArray[light.natalya_rgb_string]='Off'
