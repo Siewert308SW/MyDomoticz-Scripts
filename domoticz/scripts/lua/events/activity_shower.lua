@@ -4,7 +4,7 @@
 	@ activity_shower.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 18-1-2019
+	@ updated	: 19-1-2019
 	@ Script to switch OFF livingroom lights when one person at home and is taking a shower, to let people think i'm not at home ;-)
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -18,6 +18,7 @@
 
 	if devicechanged[light.shower] == 'On'
 		and otherdevices[someone.home] == 'Thuis'
+		and otherdevices[media_device.tv] == 'Off'
 		and onlinedevices(findstring.gsm) == 1
 	then
 		commandArray[someone.home]='Set Level 40'
