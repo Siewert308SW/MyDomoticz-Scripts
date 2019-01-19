@@ -16,9 +16,9 @@
 -- *********************************************************************
 --
 
-	if (devicechanged[motion_sensor.natalya] == 'On' or devicechanged[phone.natalya] == 'On')
+	if (devicechanged[motion_sensor.natalya] == 'On' or devicechanged[phone.natalya] == 'On' or devicechanged[phone.natalya_eth] == 'On')
 		and timebetween("06:00:00","22:29:59")
-		and otherdevices[light.natalya_rgb_string]  == 'Off'
+		and otherdevices[plug.natalya_tv]  == 'Off'
 		and otherdevices[phone.natalya] == 'On'	
 	then
 		commandArray[light.natalya_rgb_string]='On'
@@ -26,10 +26,10 @@
 	end
 
 	if devicechanged[lux_sensor.porch]
-		and otherdevices[phone.natalya] == 'On'
 		and otherdevices[someone.home] == 'Thuis'		
 		and timebetween("06:00:00","22:29:59")
-		and otherdevices[light.natalya_rgb_string]  == 'Off'
+		and otherdevices[plug.natalya_tv]  == 'Off'
+		and (otherdevices[phone.natalya] == 'On' or otherdevices[phone.natalya] == 'On')		
 	then
 		commandArray[light.natalya_rgb_string]='On'
 		commandArray[plug.natalya_tv]='On AFTER 1'		
@@ -42,11 +42,13 @@
 --
 	
 	if devicechanged[lux_sensor.porch]
-		and otherdevices[light.natalya_rgb_string]  == 'On'
+		and otherdevices[plug.natalya_tv] == 'On'
 		and timedifference(otherdevices_lastupdate[motion_sensor.natalya]) >= timeout.hour1
 		and timedifference(otherdevices_lastupdate[phone.natalya]) >= timeout.hour1
+		and timedifference(otherdevices_lastupdate[phone.natalya_eth]) >= timeout.hour1
 		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) >= timeout.hour1
-		and otherdevices[phone.natalya] == 'Off'		
+		and otherdevices[phone.natalya] == 'Off'
+		and otherdevices[phone.natalya_eth] == 'Off'		
 	then
 		commandArray[light.natalya_rgb_string]='Off'
 		commandArray[plug.natalya_tv]='Off AFTER 1'		

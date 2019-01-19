@@ -4,7 +4,7 @@
 	@ devices.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 18-01-2019
+	@ updated	: 19-01-2019
 	@ PreDefined switches and devices, Lua globally used.
 
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -74,6 +74,7 @@ phone = {
 	jerina						= 'Jerina GSM',
 	siewert						= 'Siewert GSM',
 	natalya						= 'Natalya GSM',
+	natalya_eth					= 'Natalya GSM - ETH',	
 }
 
 --

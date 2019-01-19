@@ -4,7 +4,7 @@
 	@ activity_garden_motion.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 08-01-2019
+	@ updated	: 19-01-2019
 	@ Script to switch garden light ON/OFF when IsDark and motion detected
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -133,7 +133,7 @@
 -- **********************************************************
 --
 	
-	if (devicechanged[phone.jerina] == 'Off' or devicechanged[phone.siewert] == 'Off' or devicechanged[phone.natalya] == 'Off' or devicechanged[geo.jerina] == 'Off' or devicechanged[geo.siewert] == 'Off' or devicechanged[geo.natalya] == 'Off')
+	if (devicechanged[phone.jerina] == 'Off' or devicechanged[phone.siewert] == 'Off' or devicechanged[phone.natalya] == 'Off' or devicechanged[phone.natalya_eth] == 'Off' or devicechanged[geo.jerina] == 'Off' or devicechanged[geo.siewert] == 'Off' or devicechanged[geo.natalya] == 'Off')
 		and (uservariables[var.frontgarden_light_motion] == 1 or uservariables[var.garden_light_motion] == 1)
 		and timedifference(otherdevices_lastupdate[garden.front_door_light]) >= timeout.minute1
 		and timedifference(otherdevices_lastupdate[door.front]) >= timeout.minute1
@@ -176,7 +176,7 @@
 			commandArray[garden.front_door_light]='Set Level 20'		
 		end
 		
-		if devicechanged[geo.natalya] == 'On' and otherdevices[phone.natalya] == 'Off'
+		if devicechanged[geo.natalya] == 'On' and otherdevices[phone.natalya] == 'Off' and otherdevices[phone.natalya_eth] == 'Off'
 			and uservariables[var.frontgarden_light_motion] == 0	
 			and otherdevices[garden.front_door_light] == 'Off'
 			and device_svalue(lux_sensor.porch) < lux_trigger.garden_low		

@@ -4,7 +4,7 @@
 	@ triggers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 18-01-2019
+	@ updated	: 19-01-2019
 	@ Devices which can/may trigger the event system
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -33,6 +33,7 @@
 		'Jerina GSM',
 		'Siewert GSM',
 		'Natalya GSM',		
+		'Natalya GSM - ETH',
 		
 	-- Laptops	
 		'Jerina_Laptop',
