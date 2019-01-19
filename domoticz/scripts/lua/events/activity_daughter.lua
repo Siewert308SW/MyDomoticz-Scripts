@@ -19,7 +19,8 @@
 	if (devicechanged[motion_sensor.natalya] == 'On' or devicechanged[phone.natalya] == 'On' or devicechanged[phone.natalya_eth] == 'On')
 		and timebetween("06:00:00","22:29:59")
 		and otherdevices[plug.natalya_tv]  == 'Off'
-		and otherdevices[phone.natalya] == 'On'	
+		and (otherdevices[phone.natalya] == 'On'
+		or otherdevices[phone.natalya_eth] == 'On')			
 	then
 		commandArray[light.natalya_rgb_string]='On'
 		commandArray[plug.natalya_tv]='On AFTER 1'		
@@ -29,7 +30,7 @@
 		and otherdevices[someone.home] == 'Thuis'		
 		and timebetween("06:00:00","22:29:59")
 		and otherdevices[plug.natalya_tv]  == 'Off'
-		and (otherdevices[phone.natalya] == 'On' or otherdevices[phone.natalya] == 'On')		
+		and (otherdevices[phone.natalya] == 'On' or otherdevices[phone.natalya_eth] == 'On')		
 	then
 		commandArray[light.natalya_rgb_string]='On'
 		commandArray[plug.natalya_tv]='On AFTER 1'		
