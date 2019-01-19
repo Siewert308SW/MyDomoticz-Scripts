@@ -47,7 +47,8 @@
 	if devicechanged[door.living]
 		and otherdevices[someone.home] ~= 'Thuis'
 		and otherdevices[someone.home] ~= 'Douchen'		
-		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) < timeout.minute1			
+		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) < timeout.minute1
+		and timedifference(otherdevices_lastupdate[someone.home]) >= timeout.minute1		
 	then
 	
 		if otherdevices[someone.home] == 'Slapen' then
