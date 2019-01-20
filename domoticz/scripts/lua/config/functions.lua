@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 18-01-2019
+	@ updated	: 20-01-2019
 	@ Global Functions
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -453,14 +453,8 @@
 				end
 
 -- **********************************************************
-				
-				if dayNow == 0 and timebetween("00:00:00","23:59:59") and uservariables[var.holiday] == 0 then 
-					 if input == 'false' then
-						Isweekend = true
-					 end
-				end	
 
-				if dayNow == 0 and timebetween("00:00:00","23:59:59") and uservariables[var.holiday] == 1 then 
+				if dayNow == 0 and timebetween("00:00:00","23:59:59") then 
 					if input == 'true' then
 						Isweekend = true
 					end
