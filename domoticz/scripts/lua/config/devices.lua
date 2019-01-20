@@ -329,7 +329,7 @@ test = {
 
 --
 -- **********************************************************
--- Nest Thermostat
+-- Nest Thermostat (Nest screwed up temps, real temp is 1.4 degrees lower)
 -- **********************************************************
 --
 
@@ -340,8 +340,9 @@ test = {
 		setpoint_idx				= 13,
 
 		setpoint_temp_summer		= 20.5,
-		setpoint_temp_autumn		= 21.3,		
-		setpoint_temp_winter		= 21.7,
+		setpoint_temp_autumn		= 21.1,		
+		setpoint_temp_winter		= 21.3,
+		setpoint_temp_artic_winter	= 21.7,		
 
 		setpoint_preheat_summer		= 20.0,
 		setpoint_preheat_autumn		= 20.5,		
@@ -352,9 +353,10 @@ test = {
 		eco_temp_winter				= 20.5,	
 		eco_temp_artic				= 21.0,
 		
-		trigger_temp_summer			= 22.5,
+		trigger_temp_summer			= 21.5,
 		trigger_temp_autumn			= 16.0,
 		trigger_temp_winter			= 0.0,
+		trigger_temp_artic_winter	= tonumber '-3.0',		
 
-		trigger_frost_temp			= 3.0, -- Used for garden lights OFF timeout when no motion is detected		
+		trigger_frost_temp			= 0.0, -- Used for garden lights OFF timeout when no motion is detected		
 	}
