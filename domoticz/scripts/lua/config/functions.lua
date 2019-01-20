@@ -566,6 +566,19 @@
 		return nest_temp
 	end
 	
+--
+-- **********************************************************
+-- Scrap Youless counter values
+-- **********************************************************
+-- Example: youless_svalue('youless.gas') > 1000
+
+	function youless_svalue(device)
+		device = device	
+		sYoulessTotal, sYoulessUsage = otherdevices_svalues[device]:match("([^;]+);([^;]+)")
+		youless_total = tonumber(sYoulessTotal)		
+		youless_usage = tonumber(sYoulessUsage)	
+		return youless_usage
+	end
 	
 --
 -- **********************************************************
