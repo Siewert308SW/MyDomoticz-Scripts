@@ -254,9 +254,9 @@ watt = {
 	media_usage					= 11,
 	media_natalya_usage			= 10,
 	laptop_usage				= 5,
-	kitchen_socket1_usage		= 100,
-	kitchen_socket2_usage		= 100,
-	kitchen_socket3_usage		= 100,
+	kitchen_socket1_usage		= 25,
+	kitchen_socket2_usage		= 25,
+	kitchen_socket3_usage		= 25,
 	hood_high					= 80, -- When hood ventilation is ON
 	hood_low					= 16, -- Only lights ON
 }

@@ -20,10 +20,10 @@
 		and otherdevices[light.kitchen_cabinet1] == 'Off'
 		and otherdevices[light.kitchen_cabinet2] == 'Off'
 		and otherdevices[someone.home] == 'Thuis'		
-		and powerusage(watt.hood) >= watt.hood_low
-		and powerusage(watt.kitchen_socket1) >= watt.kitchen_socket1_usage
-		and powerusage(watt.kitchen_socket2) >= watt.kitchen_socket2_usage
-		and powerusage(watt.kitchen_socket3) >= watt.kitchen_socket3_usage		
+		and (powerusage(watt.hood) >= watt.hood_low
+		or powerusage(watt.kitchen_socket1) >= watt.kitchen_socket1_usage
+		or powerusage(watt.kitchen_socket2) >= watt.kitchen_socket2_usage
+		or powerusage(watt.kitchen_socket3) >= watt.kitchen_socket3_usage)		
 	then
 		commandArray[light.kitchen_cabinet1]='On'
 		commandArray[light.kitchen_cabinet2]='On AFTER 1'	
