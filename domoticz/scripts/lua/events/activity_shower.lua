@@ -4,11 +4,26 @@
 	@ activity_shower.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 19-1-2019
+	@ updated	: 20-1-2019
 	@ Script to switch OFF livingroom lights when one person at home and is taking a shower, to let people think i'm not at home ;-)
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 --]]
+
+--
+-- *********************************************************************
+-- Shower light OFF when no motion for x minutes
+-- *********************************************************************
+--
+
+	if devicechanged[lux_sensor.upstairs]
+		and otherdevices[light.shower] =='On'
+		and youless_svalue(youless.gas) <= 1000		
+		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) >= timeout.minutes10
+		and timedifference(otherdevices_lastupdate[light.shower]) >= timeout.minutes10	
+	then
+		commandArray[light.shower]='Off'		
+	end
    
 --
 -- **********************************************************

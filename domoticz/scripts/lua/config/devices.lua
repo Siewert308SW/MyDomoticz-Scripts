@@ -321,6 +321,11 @@ timed = {
 	trigger						= 'Raspberry - CPU Temperatuur',
 }
 
+youless = {
+	gas							= 'Gas Meter',
+	electric			    	= 'Electra Meter',	
+}
+
 test = {
 	dummy1						= 'Dummy 1',
 	dummy2						= 'Dummy 2',	
