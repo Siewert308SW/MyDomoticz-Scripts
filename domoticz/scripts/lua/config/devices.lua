@@ -247,12 +247,18 @@ watt = {
 	phone_upstairs				= 'Standbykiller - GigaSet (Boven)',	
 	hood						= 'Verbruik - Afzuigkap',
 	workbench		 			= 'Verbruik - Werkbank',
+	kitchen_socket1				= 'Verbruik - Senseo',
+	kitchen_socket2				= 'Verbruik - Waterkoker',
+	kitchen_socket3				= 'Verbruik - Koffieautomaat',
 	tvcorner_usage				= 120,
 	media_usage					= 11,
-	media_natalya_usage			= 10,	
-	laptop_usage				= 5,	
+	media_natalya_usage			= 10,
+	laptop_usage				= 5,
+	kitchen_socket1_usage		= 100,
+	kitchen_socket2_usage		= 100,
+	kitchen_socket3_usage		= 100,
 	hood_high					= 80, -- When hood ventilation is ON
-	hood_low					= 16, -- Only lights ON	
+	hood_low					= 16, -- Only lights ON
 }
 
 --

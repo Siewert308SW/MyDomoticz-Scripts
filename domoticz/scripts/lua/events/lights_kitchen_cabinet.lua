@@ -4,7 +4,7 @@
 	@ lights_kitchen_cabinet.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 20-01-2019
 	@ Script for switching kitchen cabinet lights ON/OFF
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -20,7 +20,10 @@
 		and otherdevices[light.kitchen_cabinet1] == 'Off'
 		and otherdevices[light.kitchen_cabinet2] == 'Off'
 		and otherdevices[someone.home] == 'Thuis'		
-		and powerusage(watt.hood) >= watt.hood_low	
+		and powerusage(watt.hood) >= watt.hood_low
+		and powerusage(watt.kitchen_socket1) >= watt.kitchen_socket1_usage
+		and powerusage(watt.kitchen_socket2) >= watt.kitchen_socket2_usage
+		and powerusage(watt.kitchen_socket3) >= watt.kitchen_socket3_usage		
 	then
 		commandArray[light.kitchen_cabinet1]='On'
 		commandArray[light.kitchen_cabinet2]='On AFTER 1'	
@@ -54,7 +57,11 @@
 			and timedifference(otherdevices_lastupdate[light.kitchen_cabinet2]) >= timeout.minutes5
 			and otherdevices[motion_sensor.kitchen] == 'Off'		
 			and powerusage(watt.hood) >= watt.hood_low
-			and powerusage(watt.hood) < watt.hood_high			
+			and powerusage(watt.hood) < watt.hood_high
+			and powerusage(watt.kitchen_socket1) >= watt.kitchen_socket1_usage
+			and powerusage(watt.kitchen_socket2) >= watt.kitchen_socket2_usage
+			and powerusage(watt.kitchen_socket3) >= watt.kitchen_socket3_usage		
+			
 		then
 			commandArray[light.kitchen_cabinet1]='Off'
 			commandArray[light.kitchen_cabinet2]='Off AFTER 1'	
@@ -64,7 +71,11 @@
 			and timedifference(otherdevices_lastupdate[light.kitchen_cabinet1]) >= timeout.minute1
 			and timedifference(otherdevices_lastupdate[light.kitchen_cabinet2]) >= timeout.minute1
 			and otherdevices[motion_sensor.kitchen] == 'Off'		
-			and powerusage(watt.hood) < watt.hood_low	
+			and powerusage(watt.hood) < watt.hood_low
+			and powerusage(watt.kitchen_socket1) < watt.kitchen_socket1_usage
+			and powerusage(watt.kitchen_socket2) < watt.kitchen_socket2_usage
+			and powerusage(watt.kitchen_socket3) < watt.kitchen_socket3_usage		
+			
 		then
 			commandArray[light.kitchen_cabinet1]='Off'
 			commandArray[light.kitchen_cabinet2]='Off AFTER 1'	
