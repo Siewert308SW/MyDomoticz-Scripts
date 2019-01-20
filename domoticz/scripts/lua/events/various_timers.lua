@@ -4,25 +4,11 @@
 	@ various_timers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 20-01-2019
 	@ Script to switch ON/OFF various devices
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 --]]
-
---
--- *********************************************************************
--- Shower light OFF when no motion for x minutes
--- *********************************************************************
---
-
-	if devicechanged[lux_sensor.upstairs]
-		and otherdevices[light.shower] =='On'
-		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) >= timeout.hour1
-		and timedifference(otherdevices_lastupdate[light.shower]) >= timeout.hour1	
-	then
-		commandArray[light.shower]='Off'		
-	end
 	
 --
 -- *********************************************************************
