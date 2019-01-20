@@ -4,7 +4,7 @@
 	@ devices.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 19-01-2019
+	@ updated	: 20-01-2019
 	@ PreDefined switches and devices, Lua globally used.
 
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -74,7 +74,6 @@ phone = {
 	jerina						= 'Jerina GSM',
 	siewert						= 'Siewert GSM',
 	natalya						= 'Natalya GSM',
-	natalya_eth					= 'Natalya GSM - ETH',	
 }
 
 --
@@ -350,7 +349,7 @@ test = {
 		
 		eco_temp_summer				= 16.5,
 		eco_temp_autumn				= 18.5,
-		eco_temp_winter				= 20.5,	
+		eco_temp_winter				= 19.5,	
 		eco_temp_artic				= 21.0,
 		
 		trigger_temp_summer			= 21.5,
