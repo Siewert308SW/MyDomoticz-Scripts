@@ -4,7 +4,7 @@
 	@ devices.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 20-01-2019
+	@ updated	: 22-01-2019
 	@ PreDefined switches and devices, Lua globally used.
 
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -16,9 +16,9 @@
 -- **********************************************************
 --
 
-lua_system = {
-	switch						= 'EventSystem',
-}
+	lua_system = {
+		switch						= 'EventSystem',
+	}
 
 --
 -- **********************************************************
@@ -26,9 +26,9 @@ lua_system = {
 -- **********************************************************
 --
 
-someone = {
-	home						= 'Aanwezigheid',
-}
+	someone = {
+		home						= 'Aanwezigheid',
+	}
 
 --
 -- **********************************************************
@@ -36,9 +36,9 @@ someone = {
 -- **********************************************************
 --
 
-media_device = {
-	tv							= 'Televisie',
-}
+	media_device = {
+		tv							= 'Televisie',
+	}
 
 --
 -- **********************************************************
@@ -46,11 +46,11 @@ media_device = {
 -- **********************************************************
 --
 
-geo = {
-	jerina						= 'Jerina DomoFence',
-	siewert						= 'Siewert DomoFence',
-	natalya						= 'Natalya DomoFence',		
-}
+	geo = {
+		jerina						= 'Jerina DomoFence',
+		siewert						= 'Siewert DomoFence',
+		natalya						= 'Natalya DomoFence',		
+	}
 
 --
 -- **********************************************************
@@ -58,11 +58,11 @@ geo = {
 -- **********************************************************
 --
 
-laptop = {
-	jerina						= 'Jerina_Laptop',
-	siewert						= 'Siewert_Laptop',
-	natalya						= 'Natalya_Laptop',		
-}
+	laptop = {
+		jerina						= 'Jerina_Laptop',
+		siewert						= 'Siewert_Laptop',
+		natalya						= 'Natalya_Laptop',		
+	}
 
 --
 -- **********************************************************
@@ -70,11 +70,11 @@ laptop = {
 -- **********************************************************
 --
 
-phone = {
-	jerina						= 'Jerina GSM',
-	siewert						= 'Siewert GSM',
-	natalya						= 'Natalya GSM',
-}
+	phone = {
+		jerina						= 'Jerina GSM',
+		siewert						= 'Siewert GSM',
+		natalya						= 'Natalya GSM',
+	}
 
 --
 -- **********************************************************
@@ -82,17 +82,17 @@ phone = {
 -- **********************************************************
 --
 
-switch = {
-	living_light				= 'Woonkamer - Verlichting Knop',
-	--dinner_light 				= 'Eettafel - Verlichting Knop',
-	--garden_light				= 'Tuin - Verlichting Knop',
-	natalya_reading_on			= 'Natalya Kamer - Leeslamp Knop (aan)',
-	natalya_reading_off			= 'Natalya Kamer - Leeslamp Knop (uit)',
-	natalya_light_on			= 'Natalya Kamer - Lamp Knop (aan)',	
-	natalya_light_off			= 'Natalya Kamer - Lamp Knop (uit)',	
-	upstairs1    				= 'Overloop - Verlichting Knop (H1)',
-	upstairs2    				= 'Overloop - Verlichting Knop (H2)',	
-}
+	switch = {
+		living_light				= 'Woonkamer - Verlichting Knop',
+		--dinner_light 				= 'Eettafel - Verlichting Knop',
+		--garden_light				= 'Tuin - Verlichting Knop',
+		natalya_reading_on			= 'Natalya Kamer - Leeslamp Knop (aan)',
+		natalya_reading_off			= 'Natalya Kamer - Leeslamp Knop (uit)',
+		natalya_light_on			= 'Natalya Kamer - Lamp Knop (aan)',	
+		natalya_light_off			= 'Natalya Kamer - Lamp Knop (uit)',	
+		upstairs1    				= 'Overloop - Verlichting Knop (H1)',
+		upstairs2    				= 'Overloop - Verlichting Knop (H2)',	
+	}
 
 --
 -- **********************************************************
@@ -100,32 +100,32 @@ switch = {
 -- **********************************************************
 --
 
-light = {
-	living_standing_light		= 'Woonkamer - Sta Lamp',
-	living_twilight_tv			= 'Woonkamer - Schemerlamp (voor)',	
-	living_twilight				= 'Woonkamer - Schemerlamp (achter)',
-	living_deco_light			= 'Woonkamer - Vaas Lamp',	
-	living_wall_lights			= 'Woonkamer - Wand Lampen',
-	living_salon_light			= 'Woonkamer - Salon Tafel Lamp',
-	toilet						= 'W.C - Verlichting',
-	pantry						= 'Kelder - Verlichting',
-	kitchen_cabinet1			= 'Keuken - Cabinet Lamp (Wasbak)',
-	kitchen_cabinet2			= 'Keuken - Cabinet Lamp (Fornuis)',
-	dinnertable 				= 'Woonkamer - Eettafel Lamp',
-	upstairs    				= 'Overloop - Verlichting',
-	shower						= 'Douche - Verlichting',
-	hallway						= 'Gang - Lamp',
-	hallway_wall				= 'Gang - Wandlamp',	
-	natalya_reading				= 'Natalya Kamer - Leeslamp',
-	natalya_light				= 'Natalya Kamer - Lamp',	
-	natalya_rgb_string 			= 'Natalya Kamer - RGB String',
-	natalya_rgb_light 			= 'Natalya Kamer - RGB Lamp',		
-}
+	light = {
+		living_standing_light		= 'Woonkamer - Sta Lamp',
+		living_twilight_tv			= 'Woonkamer - Schemerlamp (voor)',	
+		living_twilight				= 'Woonkamer - Schemerlamp (achter)',
+		living_deco_light			= 'Woonkamer - Vaas Lamp',	
+		living_wall_lights			= 'Woonkamer - Wand Lampen',
+		living_salon_light			= 'Woonkamer - Salon Tafel Lamp',
+		toilet						= 'W.C - Verlichting',
+		pantry						= 'Kelder - Verlichting',
+		kitchen_cabinet1			= 'Keuken - Cabinet Lamp (Wasbak)',
+		kitchen_cabinet2			= 'Keuken - Cabinet Lamp (Fornuis)',
+		dinnertable 				= 'Woonkamer - Eettafel Lamp',
+		upstairs    				= 'Overloop - Verlichting',
+		shower						= 'Douche - Verlichting',
+		hallway						= 'Gang - Lamp',
+		hallway_wall				= 'Gang - Wandlamp',	
+		natalya_reading				= 'Natalya Kamer - Leeslamp',
+		natalya_light				= 'Natalya Kamer - Lamp',	
+		natalya_rgb_string 			= 'Natalya Kamer - RGB String',
+		natalya_rgb_light 			= 'Natalya Kamer - RGB Lamp',		
+	}
 
-light_xmas = {
-	tree						= 'Kerstboom',
-	window						= 'Voorraam - Kerstbal',
-}
+	light_xmas = {
+		tree						= 'Kerstboom',
+		window						= 'Voorraam - Kerstbal',
+	}
 
 --
 -- **********************************************************
@@ -133,14 +133,14 @@ light_xmas = {
 -- **********************************************************
 --
 
-garden = {
-	front_door_light			= 'Tuin - Voordeur Lamp',
-	border_lights				= 'Tuin - Border Verlichting',
-	shed_lights					= 'Tuin - Schuur Verlichting',
-	party_lights				= 'Tuin - Veranda Party Verlichting',
-	frontdoor_socket			= 'Tuin - Stopcontact Voor',	
-	xmas_frontwindow_lights		= 'Voorraam - Kerst String',	
-}
+	garden = {
+		front_door_light			= 'Tuin - Voordeur Lamp',
+		border_lights				= 'Tuin - Border Verlichting',
+		shed_lights					= 'Tuin - Schuur Verlichting',
+		party_lights				= 'Tuin - Veranda Party Verlichting',
+		frontdoor_socket			= 'Tuin - Stopcontact Voor',	
+		xmas_frontwindow_lights		= 'Voorraam - Kerst String',	
+	}
 
 --
 -- **********************************************************
@@ -148,27 +148,28 @@ garden = {
 -- **********************************************************
 --
 
-group = {
-	standy_killers_zwave_sleep	= 'Standby Killers Slapen (z-wave)',
-	standy_killers_zwave_away	= 'Standby Killers Weg (z-wave)',
-	standy_killers_natalya		= 'Standby Killers Natalya',	
-	garden_lights				= 'Tuin - Verlichting',
-	garden_lights_xmas			= 'Tuin - Verlichting XMAS',
-	--livingroom					= 'Woonkamer - Verlichting Knop',
-}
+	group = {
+		standy_killers_zwave_sleep	= 'Standby Killers Slapen (z-wave)',
+		standy_killers_zwave_away	= 'Standby Killers Weg (z-wave)',
+		standy_killers_natalya		= 'Standby Killers Natalya',	
+		garden_lights				= 'Tuin - Verlichting',
+		garden_lights_xmas			= 'Tuin - Verlichting XMAS',
+		shower						= 'Woonkamer - Douchen',	
+		--livingroom					= 'Woonkamer - Verlichting Knop',
+	}
 
-scene = {
-	normal						= 'Woonkamer - Normaal',	
-	xmas						= 'Woonkamer - Kerst',
-	xmas_daytime				= 'Woonkamer - Kerst (daytime)',
-	away						= 'Woonkamer - Away',
-	away_xmas					= 'Woonkamer - Away XMAS',	
-	shutdown					= 'Woonkamer - Shutdown',
-	shutdown_xmas				= 'Woonkamer - Shutdown XMAS',	
-	nobodyhome					= 'Niemand - Thuis',
-	nobodyhome_xmas				= 'Niemand - Thuis XMAS',	
-	
-}
+	scene = {
+		normal						= 'Woonkamer - Normaal',	
+		xmas						= 'Woonkamer - Kerst',
+		xmas_daytime				= 'Woonkamer - Kerst (daytime)',
+		away						= 'Woonkamer - Away',
+		away_xmas					= 'Woonkamer - Away XMAS',	
+		shutdown					= 'Woonkamer - Shutdown',
+		shutdown_xmas				= 'Woonkamer - Shutdown XMAS',	
+		nobodyhome					= 'Niemand - Thuis',
+		nobodyhome_xmas				= 'Niemand - Thuis XMAS',	
+		
+	}
 
 --
 -- **********************************************************
@@ -176,14 +177,14 @@ scene = {
 -- **********************************************************
 --
 
-door = {
-	front						= 'Voor Deur',
-	back			 			= 'Achter Deur',
-	living						= 'Kamer Deur',
-	garden	 					= 'Schuifpui',
-	scullery 					= 'Bijkeuken Deur',
-	pantry	 					= 'Kelder Deur',
-}
+	door = {
+		front						= 'Voor Deur',
+		back			 			= 'Achter Deur',
+		living						= 'Kamer Deur',
+		garden	 					= 'Schuifpui',
+		scullery 					= 'Bijkeuken Deur',
+		pantry	 					= 'Kelder Deur',
+	}
 
 --
 -- **********************************************************
@@ -191,18 +192,18 @@ door = {
 -- **********************************************************
 --
 
-motion_sensor = {	
-	living						= 'Woonkamer - Motion',
-	hallway						= 'Gang - Motion',
-	toilet						= 'W.C - Motion',
-	upstairs					= 'Overloop - Motion',
-	downstairs 					= 'Trap - Motion',
-	dinner1						= 'Eettafel - Motion (links)',
-	dinner2						= 'Eettafel - Motion (rechts)',
-	kitchen						= 'Keuken - Motion',
-	porch						= 'Veranda - Motion',
-	natalya						= 'Natalya Kamer - Motion',		
-}
+	motion_sensor = {	
+		living						= 'Woonkamer - Motion',
+		hallway						= 'Gang - Motion',
+		toilet						= 'W.C - Motion',
+		upstairs					= 'Overloop - Motion',
+		downstairs 					= 'Trap - Motion',
+		dinner1						= 'Eettafel - Motion (links)',
+		dinner2						= 'Eettafel - Motion (rechts)',
+		kitchen						= 'Keuken - Motion',
+		porch						= 'Veranda - Motion',
+		natalya						= 'Natalya Kamer - Motion',		
+	}
 
 --
 -- **********************************************************
@@ -210,9 +211,9 @@ motion_sensor = {
 -- **********************************************************
 --
 
-window = {
-	living						= 'Voorraam',
-}
+	window = {
+		living						= 'Voorraam',
+	}
 
 --
 -- **********************************************************
@@ -220,17 +221,17 @@ window = {
 -- **********************************************************
 --
 
-plug = {
-	tvcorner					= 'Standbykiller - Woonkamer TV Hoek',
-	jerina 						= 'Standbykiller - Jerina Laptop',	
-	siewert 					= 'Standbykiller - Siewert Laptop',
-	printer		 				= 'Standbykiller - Printer',
-	natalya_tv		 			= 'Standbykiller - Natalya TV Hoek',
-	phone_pantry				= 'Standbykiller - GigaSet (Kelder)',
-	phone_upstairs				= 'Standbykiller - GigaSet (Boven)',
-	hood				 		= 'Standbykiller - Afzuigkap',	
-	workbench		 			= 'Standbykiller - Werkbank',
-}
+	plug = {
+		tvcorner					= 'Standbykiller - Woonkamer TV Hoek',
+		jerina 						= 'Standbykiller - Jerina Laptop',	
+		siewert 					= 'Standbykiller - Siewert Laptop',
+		printer		 				= 'Standbykiller - Printer',
+		natalya_tv		 			= 'Standbykiller - Natalya TV Hoek',
+		phone_pantry				= 'Standbykiller - GigaSet (Kelder)',
+		phone_upstairs				= 'Standbykiller - GigaSet (Boven)',
+		hood				 		= 'Standbykiller - Afzuigkap',	
+		workbench		 			= 'Standbykiller - Werkbank',
+	}
 
 --
 -- **********************************************************
@@ -238,28 +239,19 @@ plug = {
 -- **********************************************************
 --
 
-watt = {
-	tvcorner					= 'Verbruik - Woonkamer TV Hoek',
-	siewert						= 'Verbruik - Siewert Laptop',
-	jerina						= 'Verbruik - Jerina Laptop',
-	natalya						= 'Verbruik - Natalya TV Hoek',
-	phone_pantry				= 'Standbykiller - GigaSet (Kelder)',
-	phone_upstairs				= 'Standbykiller - GigaSet (Boven)',	
-	hood						= 'Verbruik - Afzuigkap',
-	workbench		 			= 'Verbruik - Werkbank',
-	kitchen_socket1				= 'Verbruik - Senseo',
-	kitchen_socket2				= 'Verbruik - Waterkoker',
-	kitchen_socket3				= 'Verbruik - Koffieautomaat',
-	tvcorner_usage				= 120,
-	media_usage					= 11,
-	media_natalya_usage			= 10,
-	laptop_usage				= 5,
-	kitchen_socket1_usage		= 25,
-	kitchen_socket2_usage		= 25,
-	kitchen_socket3_usage		= 25,
-	hood_high					= 80, -- When hood ventilation is ON
-	hood_low					= 16, -- Only lights ON
-}
+	watt_plug = {
+		tvcorner					= 'Verbruik - Woonkamer TV Hoek',
+		siewert						= 'Verbruik - Siewert Laptop',
+		jerina						= 'Verbruik - Jerina Laptop',
+		natalya						= 'Verbruik - Natalya TV Hoek',
+		phone_pantry				= 'Verbruik - GigaSet (Kelder)',
+		phone_upstairs				= 'Verbruik - GigaSet (Boven)',	
+		hood						= 'Verbruik - Afzuigkap',
+		workbench		 			= 'Verbruik - Werkbank',
+		kitchen_socket1				= 'Verbruik - Senseo',
+		kitchen_socket2				= 'Verbruik - Waterkoker',
+		kitchen_socket3				= 'Verbruik - Koffieautomaat',
+	}
 
 --
 -- **********************************************************
@@ -267,20 +259,20 @@ watt = {
 -- **********************************************************
 --
 
-var = {
-	living_light_scene			= 'living_light_scene',
-	living_light_override		= 'living_light_override',
-	living_light_pause			= 'living_light_pause',	
-	--dinner_light_override 	= 'dinner_light_override',
-	--garden_light_override		= 'garden_light_override',
-	--garden_light_standby		= 'garden_light_standby',
-	garden_light_motion			= 'garden_light_motion',
-	frontgarden_light_motion	= 'frontgarden_light_motion',	
-	preheat_override			= 'preheat_override',
-	heat_override				= 'heat_override',	
-	doorbell_standby			= 'doorbell_standby',
-	holiday						= 'holiday',	
-}
+	var = {
+		living_light_scene			= 'living_light_scene',
+		living_light_override		= 'living_light_override',
+		living_light_pause			= 'living_light_pause',	
+		--dinner_light_override 	= 'dinner_light_override',
+		--garden_light_override		= 'garden_light_override',
+		--garden_light_standby		= 'garden_light_standby',
+		garden_light_motion			= 'garden_light_motion',
+		frontgarden_light_motion	= 'frontgarden_light_motion',	
+		preheat_override			= 'preheat_override',
+		heat_override				= 'heat_override',	
+		doorbell_standby			= 'doorbell_standby',
+		holiday						= 'holiday',	
+	}
 
 --
 -- **********************************************************
@@ -288,14 +280,14 @@ var = {
 -- **********************************************************
 --
 
-lux_sensor = {
-	living						= 'Woonkamer - Lux',
-	hallway 					= 'Gang - Lux',
-	kitchen						= 'Keuken - Lux',	
-	upstairs					= 'Overloop - Lux',
-	porch						= 'Veranda - Lux',
-	natalya						= 'Natalya Kamer - Lux',	
-}
+	lux_sensor = {
+		living						= 'Woonkamer - Lux',
+		hallway 					= 'Gang - Lux',
+		kitchen						= 'Keuken - Lux',	
+		upstairs					= 'Overloop - Lux',
+		porch						= 'Veranda - Lux',
+		natalya						= 'Natalya Kamer - Lux',	
+	}
 
 --
 -- **********************************************************
@@ -303,9 +295,9 @@ lux_sensor = {
 -- **********************************************************
 --
 
-doorbell = {
-	button						= 'Deurbel Knop',	
-}
+	doorbell = {
+		button						= 'Deurbel Knop',	
+	}
 
 --
 -- **********************************************************
@@ -313,9 +305,9 @@ doorbell = {
 -- **********************************************************
 --
 
-temp = {
-	porch						= 'Veranda - Temperatuur (fibaro)',
-}
+	temp = {
+		porch						= 'Veranda - Temperatuur (fibaro)',
+	}
 
 --
 -- **********************************************************
@@ -323,19 +315,19 @@ temp = {
 -- **********************************************************
 --
 
-timed = {
-	trigger						= 'Raspberry - CPU Temperatuur',
-}
+	timed = {
+		trigger						= 'Raspberry - CPU Temperatuur',
+	}
 
-youless = {
-	gas							= 'Gas Meter',
-	electric			    	= 'Electra Meter',	
-}
+	youless = {
+		gas							= 'Gas Meter',
+		electric			    	= 'Electra Meter',	
+	}
 
-test = {
-	dummy1						= 'Dummy 1',
-	dummy2						= 'Dummy 2',	
-}
+	test = {
+		dummy1						= 'Dummy 1',
+		dummy2						= 'Dummy 2',	
+	}
 
 --
 -- **********************************************************
@@ -344,29 +336,8 @@ test = {
 --
 
 	nest = {
+		heating						= 'Nest - HeatingOn',
 		setpoint					= 'Nest - Setpoint',
 		room_temp					= 'Nest - Temperatuur',
-		away						= 'Nest - Away',		
-		setpoint_idx				= 13,
-
-		setpoint_temp_summer		= 20.5,
-		setpoint_temp_autumn		= 21.1,		
-		setpoint_temp_winter		= 21.3,
-		setpoint_temp_artic_winter	= 21.7,		
-
-		setpoint_preheat_summer		= 20.0,
-		setpoint_preheat_autumn		= 20.5,		
-		setpoint_preheat_winter		= 21.0,
-		
-		eco_temp_summer				= 16.5,
-		eco_temp_autumn				= 18.5,
-		eco_temp_winter				= 19.5,	
-		eco_temp_artic				= 21.0,
-		
-		trigger_temp_summer			= 21.5,
-		trigger_temp_autumn			= 16.0,
-		trigger_temp_winter			= 0.0,
-		trigger_temp_artic_winter	= tonumber '-3.0',		
-
-		trigger_frost_temp			= 0.0, -- Used for garden lights OFF timeout when no motion is detected		
+		away						= 'Nest - Away',	
 	}

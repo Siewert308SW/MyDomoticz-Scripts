@@ -4,7 +4,7 @@
 	@ activity_doorbell.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 22-01-2019
 	@ Script when someone pressed the doorbell
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -24,7 +24,7 @@
 		commandArray["Variable:" .. var.doorbell_standby .. ""]= '1'	
 		commandArray[doorbell.button] = 'On AFTER 4'
 
-		if powerusage(watt.hood) >= watt.hood_high then
+		if powerusage(watt_plug.hood) >= watt_usage.hood_high then
 		blink(light.kitchen_cabinet1 ,3)
 		--commandArray['SendNotification']='Iemand aan de deur#Iemand aan de voordeur, Deurbel afgegaan'		
 		end

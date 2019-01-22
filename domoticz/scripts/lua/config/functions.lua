@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 20-01-2019
+	@ updated	: 22-01-2019
 	@ Global Functions
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -349,13 +349,13 @@
 		if input == 'true' or input == 'false' then
 		IsMediaPowered = false
 		
-		if powerusage(watt.tvcorner) > watt.media_usage or powerusage(watt.natalya) > watt.media_usage then
+		if powerusage(watt_plug.tvcorner) > watt_usage.media or powerusage(watt_plug.natalya) > watt_usage.media then
 			if input == 'true' then
 				IsMediaPowered = true
 			end	
 		end
 		
-		if powerusage(watt.tvcorner) <= watt.media_usage and powerusage(watt.natalya) <= watt.media_usage then
+		if powerusage(watt_plug.tvcorner) <= watt_usage.media and powerusage(watt_plug.natalya) <= watt_usage.media then
 			if input == 'false' then
 				IsMediaPowered = true
 			end	
@@ -376,13 +376,13 @@
 		if input == 'true' or input == 'false' then
 		IsMedia = false
 		
-		if powerusage(watt.tvcorner) > watt.media_usage or powerusage(watt.natalya) > watt.media_natalya_usage then
+		if powerusage(watt_plug.tvcorner) > watt_usage.media or powerusage(watt_plug.natalya) > watt_usage.media_natalya then
 			if input == 'true' then
 				IsMedia = true
 			end	
 		end
 		
-		if powerusage(watt.tvcorner) <= watt.media_usage or powerusage(watt.natalya) <= watt.media_natalya_usage then
+		if powerusage(watt_plug.tvcorner) <= watt_usage.media or powerusage(watt_plug.natalya) <= watt_usage.media_natalya then
 			if input == 'false' then
 				IsMedia = true
 			end	
@@ -403,13 +403,13 @@
 		if input == 'true' or input == 'false' then
 		IsLaptopPower = false
 		
-		if powerusage(watt.siewert) > watt.laptop_usage or powerusage(watt.jerina) > watt.laptop_usage then
+		if powerusage(watt_plug.siewert) > watt_usage.laptop or powerusage(watt_plug.jerina) > watt_usage.laptop then
 			if input == 'true' then
 				IsLaptopPower = true
 			end	
 		end
 		
-		if powerusage(watt.siewert) <= watt.laptop_usage and powerusage(watt.jerina) <= watt.laptop_usage then
+		if powerusage(watt_plug.siewert) <= watt_usage.laptop and powerusage(watt_plug.jerina) <= watt_usage.laptop then
 			if input == 'false' then
 				IsLaptopPower = true
 			end	
@@ -595,4 +595,3 @@
 		end
 		
 	end
-	

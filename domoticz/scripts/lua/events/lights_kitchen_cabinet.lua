@@ -4,7 +4,7 @@
 	@ lights_kitchen_cabinet.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 20-01-2019
+	@ updated	: 22-01-2019
 	@ Script for switching kitchen cabinet lights ON/OFF
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -20,10 +20,10 @@
 		and otherdevices[light.kitchen_cabinet1] == 'Off'
 		and otherdevices[light.kitchen_cabinet2] == 'Off'
 		and otherdevices[someone.home] == 'Thuis'		
-		and (powerusage(watt.hood) >= watt.hood_low
-		or powerusage(watt.kitchen_socket1) >= watt.kitchen_socket1_usage
-		or powerusage(watt.kitchen_socket2) >= watt.kitchen_socket2_usage
-		or powerusage(watt.kitchen_socket3) >= watt.kitchen_socket3_usage)		
+		and (powerusage(watt_plug.hood) >= watt_usage.hood_low
+		or powerusage(watt_plug.kitchen_socket1) >= watt_usage.kitchen_socket1
+		or powerusage(watt_plug.kitchen_socket2) >= watt_usage.kitchen_socket2
+		or powerusage(watt_plug.kitchen_socket3) >= watt_usage.kitchen_socket3)		
 	then
 		commandArray[light.kitchen_cabinet1]='On'
 		commandArray[light.kitchen_cabinet2]='On AFTER 1'	
@@ -35,7 +35,7 @@
 		and otherdevices[someone.home] == 'Thuis'	
 		and timedifference(otherdevices_lastupdate[light.kitchen_cabinet1]) >= timeout.seconds30
 		and timedifference(otherdevices_lastupdate[light.kitchen_cabinet2]) >= timeout.seconds30
-		and powerusage(watt.hood) < watt.hood_low
+		and powerusage(watt_plug.hood) < watt_usage.hood_low
 		and otherdevices[phone.jerina] == 'Off'
 		and otherdevices[phone.natalya] == 'Off'
 	then
@@ -56,11 +56,11 @@
 			and timedifference(otherdevices_lastupdate[light.kitchen_cabinet1]) >= timeout.minutes5
 			and timedifference(otherdevices_lastupdate[light.kitchen_cabinet2]) >= timeout.minutes5
 			and otherdevices[motion_sensor.kitchen] == 'Off'		
-			and powerusage(watt.hood) >= watt.hood_low
-			and powerusage(watt.hood) < watt.hood_high
-			and powerusage(watt.kitchen_socket1) >= watt.kitchen_socket1_usage
-			and powerusage(watt.kitchen_socket2) >= watt.kitchen_socket2_usage
-			and powerusage(watt.kitchen_socket3) >= watt.kitchen_socket3_usage		
+			and powerusage(watt_plug.hood) >= watt_usage.hood_low
+			and powerusage(watt_plug.hood) < watt_usage.hood_high
+			and powerusage(watt_plug.kitchen_socket1) >= watt_usage.kitchen_socket1
+			and powerusage(watt_plug.kitchen_socket2) >= watt_usage.kitchen_socket2
+			and powerusage(watt_plug.kitchen_socket3) >= watt_usage.kitchen_socket3		
 			
 		then
 			commandArray[light.kitchen_cabinet1]='Off'
@@ -71,10 +71,10 @@
 			and timedifference(otherdevices_lastupdate[light.kitchen_cabinet1]) >= timeout.minute1
 			and timedifference(otherdevices_lastupdate[light.kitchen_cabinet2]) >= timeout.minute1
 			and otherdevices[motion_sensor.kitchen] == 'Off'		
-			and powerusage(watt.hood) < watt.hood_low
-			and powerusage(watt.kitchen_socket1) < watt.kitchen_socket1_usage
-			and powerusage(watt.kitchen_socket2) < watt.kitchen_socket2_usage
-			and powerusage(watt.kitchen_socket3) < watt.kitchen_socket3_usage		
+			and powerusage(watt_plug.hood) < watt_usage.hood_low
+			and powerusage(watt_plug.kitchen_socket1) < watt_usage.kitchen_socket1
+			and powerusage(watt_plug.kitchen_socket2) < watt_usage.kitchen_socket2
+			and powerusage(watt_plug.kitchen_socket3) < watt_usage.kitchen_socket3		
 			
 		then
 			commandArray[light.kitchen_cabinet1]='Off'
