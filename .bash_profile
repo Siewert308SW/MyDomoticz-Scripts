@@ -21,7 +21,9 @@ CPUTEMP=`vcgencmd measure_temp | /bin/grep "temp" | /usr/bin/cut -d "=" -f 2 | /
 CPUMHZ=$(sudo cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_cur_freq)
 
 HDD1=`df -h | grep 'dev/root' | awk 	'{print $2,   " 	 "    $3,"	    "$4}'`
-HDD2=`df -h | grep 'mnt/storage' | awk 	'{print $2," 	 " $3,"	    "$4}'`
+HDD2=`df -h | grep 'mnt/backup' | awk 	'{print $2," 	 " $3,"	    "$4}'`
+HDD3=`df -h | grep 'mnt/storage1' | awk 	'{print $2," 	 " $3,"	    "$4}'`
+HDD4=`df -h | grep 'mnt/storage2' | awk 	'{print $2," 	 " $3,"	    "$4}'`
 MEM=`free -m | awk 'NR==2 { printf "%sM 	 %sM 	    %sM ",$2,$3,$4; }'`
 SWAP=`free -m | awk 'NR==3 { printf "%sM 	 %sM 	    %sM ",$2,$3,$4; }'`
 
@@ -94,7 +96,9 @@ echo "$(tput setaf 2)
 	
 	$(tput setaf 2)STORAGE / MEMORY DATA$(tput sgr0)  Total:	 Used:      Free:
 	Root................:  ${HDD1}
-	Storage.............:  ${HDD2}	
+	Backup..............:  ${HDD2}
+	Storage_1...........:  ${HDD3}
+	Storage_2...........:  ${HDD4}	
 	Memory..............:  ${MEM}
 	Swap................:  ${SWAP}
 
