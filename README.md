@@ -64,8 +64,7 @@ I just hope my scripts can be a inspiration or guide for you all.<br />
 <br />
 
 # MyDomoticz-GitHub Repository:
-This repository is reflecting my folder structure.<br />
-Which contains my Lua, Bash, Python or any other scripts.<br />
+This repository contains my Lua, Bash, Python or any other scripts.<br />
 Some of those are my own while other scripts i borrowed from other users.<br />
 <br />
 
