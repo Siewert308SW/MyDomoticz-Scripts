@@ -4,7 +4,7 @@
 	@ settings.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 22-01-2019
+	@ updated	: 24-03-2019
 	@ Global Settings
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -49,12 +49,12 @@
 --
 
 	lux_trigger = {
-		dinner			 			= 90;		-- Define max Lux value (lower is dark)
-		kitchen			 			= 75;		-- Define max Lux value (lower is dark)			
-		living_high		 			= 60;		-- Define max Lux value (lower is dark)
-		living_low		 			= 25;		-- Define mix Lux value (lower is dark)
-		hallway			 			= 15;		-- Define max Lux value (lower is dark)
-		garden_high 	 			= 6;		-- Define max Lux value (lower is dark)
+		kitchen			 			= 45;		-- Define max Lux value (lower is dark)		
+		dinner			 			= 40;		-- Define max Lux value (lower is dark)		
+		living_high		 			= 35;		-- Define max Lux value (lower is dark)
+		living_low		 			= 10;		-- Define mix Lux value (lower is dark)
+		hallway			 			= 5;		-- Define max Lux value (lower is dark)
+		garden_high 	 			= 3;		-- Define max Lux value (lower is dark)
 		garden_high_xmas 			= 15;		-- Define max Lux value (lower is dark)			
 		garden_low 		 			= 1;		-- Define min Lux value (lower is dark)			
 	}
@@ -70,9 +70,9 @@
 		media						= 11,
 		media_natalya				= 10,
 		laptop						= 5,
-		kitchen_socket1				= 25,
-		kitchen_socket2				= 25,
-		kitchen_socket3				= 25,
+		kitchen_socket1				= 100,
+		kitchen_socket2				= 100,
+		kitchen_socket3				= 100,
 		hood_high					= 120, -- When hood ventilation is ON
 		hood_low					= 16, -- Only lights ON
 	}
@@ -87,26 +87,26 @@
 		setpoint_idx				= 13,
 
 		setpoint_temp_summer		= 20.5,
-		setpoint_temp_autumn		= 21.1,		
+		setpoint_temp_autumn		= 21.0,		
 		setpoint_temp_winter		= 21.3,
 		setpoint_temp_artic			= 21.7,		
 
-		setpoint_preheat_summer		= 20.0,
-		setpoint_preheat_autumn		= 20.5,		
-		setpoint_preheat_winter		= 20.7,
-		setpoint_preheat_artic		= 21.3,		
+		setpoint_preheat_summer		= 16.5,
+		setpoint_preheat_autumn		= 18.5,		
+		setpoint_preheat_winter		= 20.5,
+		setpoint_preheat_artic		= 21.0,		
 		
 		eco_temp_summer				= 17.5,
-		eco_temp_autumn				= 19.0,
-		eco_temp_winter				= 20.5,	
-		eco_temp_artic				= 21.5,
+		eco_temp_autumn				= 18.5,
+		eco_temp_winter				= 19.5,	
+		eco_temp_artic				= 20.5,
 		
 		trigger_temp_summer			= 21.5,
 		trigger_temp_autumn			= 16.0,
-		trigger_temp_winter			= 2.0,
-		trigger_temp_artic			= tonumber '-3.0',		
+		trigger_temp_winter			= 1.0,
+		trigger_temp_artic			= tonumber '-2.0',		
 
-		trigger_frost_temp			= 0.0, -- Used for garden lights OFF timeout when no motion is detected		
+		trigger_frost_temp			= 1.0, -- Used for garden lights OFF timeout when no motion is detected		
 	}	
 	
 --
@@ -159,7 +159,7 @@
 	
 --
 -- **********************************************************
--- Domoticz Stringfind Settings (See various functions)
+-- Domoticz Stringfind variables (See various functions)
 -- **********************************************************
 --
 
@@ -167,10 +167,10 @@
 		gsm				= 'GSM';
 		laptop			= '_Laptop';
 		nest			= 'Nest';
-		geofence		= 'DomoFence';
 		trigger			= '_1min';
 		standbykiller	= 'Standbykiller';
 		dummy			= 'Dummy';
+		geodevice		= 'Presence';
 	}
 
 --
@@ -195,4 +195,15 @@
 		
 		dummy_on			= 'There is a Dummy device ON';
 		dummy_off			= 'All Dummy devices are OFF';		
-	}	
+	}
+
+--
+-- **********************************************************
+-- Domoticz UPS Variables
+-- **********************************************************
+--
+
+	ups_setting = {
+		battery				= 40 -- Minimum % for domoticz to commence shutdown
+	}
+	

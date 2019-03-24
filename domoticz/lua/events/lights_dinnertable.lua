@@ -4,7 +4,7 @@
 	@ lights_dinnertable.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 07-01-2019
+	@ updated	: 24-03-2019
 	@ Script to switch diner table light ON/OFF with when Laptops ON/OFF 
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -71,28 +71,4 @@
 		and timedifference(otherdevices_lastupdate[motion_sensor.dinner2]) >= timeout.minutes20	
 	then
 		commandArray[light.dinnertable]='Off'	
-	end		
-
---
--- *********************************************************************
--- Dinner table light standby when no motion detected
--- *********************************************************************
---
-
-	if devicechanged[lux_sensor.hallway]
-		and otherdevices[light.dinnertable] ~= 'Off'		
-		and timedifference(otherdevices_lastupdate[light.dinnertable]) >= timeout.minutes5
-		and timedifference(otherdevices_lastupdate[motion_sensor.dinner1]) >= timeout.minutes20
-		and timedifference(otherdevices_lastupdate[motion_sensor.dinner2]) >= timeout.minutes20	
-	then
-		commandArray[light.dinnertable]='Off'
 	end
-
-	if devicechanged[motion_sensor.dinner2] == 'On'
-		and otherdevices[light.dinnertable] == 'Off'			
-		and device_svalue(lux_sensor.porch) < lux_trigger.dinner
-		and laptops_powered('true')		
-	then
-		commandArray[light.dinnertable]='Set Level 7'
-	end	
-	

@@ -4,7 +4,7 @@
 	@ activity_hallway.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 01-01-2019
+	@ updated	: 24-03-2019
 	@ Script for switching hallway light ON/OFF
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -91,7 +91,6 @@
 		and otherdevices[light.hallway] ~= 'Off'		
 		and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) >= timeout.minute1
 		and timedifference(otherdevices_lastupdate[motion_sensor.downstairs]) >= timeout.seconds30
-		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) >= timeout.seconds30		
 		and timedifference(otherdevices_lastupdate[door.front]) >= timeout.seconds30
 		and timedifference(otherdevices_lastupdate[door.pantry]) >= timeout.seconds30		
 		and timedifference(otherdevices_lastupdate[door.living]) >= timeout.seconds30		

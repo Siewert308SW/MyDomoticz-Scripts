@@ -4,7 +4,7 @@
 	@ activity_corridor.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 20-01-2019
+	@ updated	: 24-03-2019
 	@ Script for switching corridor light ON/OFF
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -19,8 +19,7 @@
 	if devicechanged[motion_sensor.upstairs] == 'On'	
 		and otherdevices[light.upstairs] == 'Off'
 		and device_svalue(lux_sensor.porch) <= lux_trigger.hallway
-		and timebetween("16:00:00","21:30:00")
-		and weekend('false')	
+		and timebetween("16:00:00","21:30:00")	
 	then
 		commandArray[light.upstairs]='Set Level 30'		
 	end
@@ -29,69 +28,14 @@
 		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) > timeout.seconds30	
 		and otherdevices[light.upstairs] == 'Off'	
 		and device_svalue(lux_sensor.porch) <= lux_trigger.hallway
-		and timebetween("16:00:00","21:30:00")
-		and weekend('false')		
-	then
-		commandArray[light.upstairs]='Set Level 30'		
-	end
-	
---
--- **********************************************************
--- Corridor light ON when someone entering Corridor @ weekend
--- **********************************************************
---
-
-	if devicechanged[motion_sensor.upstairs] == 'On'	
-		and otherdevices[light.upstairs] == 'Off'
-		and device_svalue(lux_sensor.porch) <= lux_trigger.hallway
-		and timebetween("16:00:00","21:59:59")
-		and weekend('true')	
-	then
-		commandArray[light.upstairs]='Set Level 30'		
-	end
-	
-	if devicechanged[motion_sensor.downstairs] == 'On'
-		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) > timeout.seconds30	
-		and otherdevices[light.upstairs] == 'Off'	
-		and device_svalue(lux_sensor.porch) <= lux_trigger.hallway
-		and timebetween("16:00:00","21:59:59")
-		and weekend('true')	
-	then
-		commandArray[light.upstairs]='Set Level 30'		
-	end	
-
---
--- **********************************************************
--- Corridor light ON when someone entering Corridor @ weekend
--- **********************************************************
---
-	
-	if devicechanged[motion_sensor.upstairs] == 'On'	
-		and otherdevices[light.upstairs] == 'Off'
-		and otherdevices[laptop.jerina] == 'On'		
-		and device_svalue(lux_sensor.porch) <= lux_trigger.hallway
-		and timebetween("22:00:00","23:59:59")
-		and weekend('true')
-		and timedifference(otherdevices_lastupdate[motion_sensor.natalya]) <= timeout.minutes15		
-	then
-		commandArray[light.upstairs]='Set Level 30'		
-	end
-	
-	if devicechanged[motion_sensor.downstairs] == 'On'
-		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) > timeout.seconds30	
-		and otherdevices[light.upstairs] == 'Off'
-		and otherdevices[laptop.jerina] == 'On'			
-		and device_svalue(lux_sensor.porch) <= lux_trigger.hallway
-		and timebetween("22:00:00","23:59:59")
-		and weekend('true')
-		and timedifference(otherdevices_lastupdate[motion_sensor.natalya]) <= timeout.minutes15		
+		and timebetween("16:00:00","21:30:00")		
 	then
 		commandArray[light.upstairs]='Set Level 30'		
 	end	
 	
 --
 -- *********************************************************************
--- Coridor light OFF when no motion for x minutes
+-- Corridor light OFF when no motion for x minutes
 -- *********************************************************************
 --
 	

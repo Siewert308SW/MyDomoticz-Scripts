@@ -4,7 +4,7 @@
 	@ devices.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 22-01-2019
+	@ updated	: 24-03-2019
 	@ PreDefined switches and devices, Lua globally used.
 
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -42,18 +42,6 @@
 
 --
 -- **********************************************************
--- DomoFence
--- **********************************************************
---
-
-	geo = {
-		jerina						= 'Jerina DomoFence',
-		siewert						= 'Siewert DomoFence',
-		natalya						= 'Natalya DomoFence',		
-	}
-
---
--- **********************************************************
 -- Laptops
 -- **********************************************************
 --
@@ -76,6 +64,18 @@
 		natalya						= 'Natalya GSM',
 	}
 
+--
+-- **********************************************************
+-- Geofence
+-- **********************************************************
+--
+
+	geophone = {
+		jerina						= 'Life360 - Jerina Presence',
+		siewert						= 'Life360 - Siewert Presence',
+		natalya						= 'Life360 - Natalya Presence',
+	}	
+	
 --
 -- **********************************************************
 -- Light Switch Devices
@@ -251,6 +251,7 @@
 		kitchen_socket1				= 'Verbruik - Senseo',
 		kitchen_socket2				= 'Verbruik - Waterkoker',
 		kitchen_socket3				= 'Verbruik - Koffieautomaat',
+		ups							= 'Verbruik - UPS',		
 	}
 
 --
@@ -271,7 +272,9 @@
 		preheat_override			= 'preheat_override',
 		heat_override				= 'heat_override',	
 		doorbell_standby			= 'doorbell_standby',
-		holiday						= 'holiday',	
+		holiday						= 'holiday',
+		holiday_override			= 'holiday_override',
+		ups_state					= 'ups_state',		
 	}
 
 --
@@ -319,6 +322,12 @@
 		trigger						= 'Raspberry - CPU Temperatuur',
 	}
 
+	ups = {
+		state						= 'NAS - UPS Status Mode', -- ONLINE, ONLINE CHARGING, ONBATTERY DISCHARGING
+		ac							= 'NAS - UPS AC Input',		
+		battery						= 'NAS - UPS Charge',
+	}
+	
 	youless = {
 		gas							= 'Gas Meter',
 		electric			    	= 'Electra Meter',	

@@ -4,7 +4,7 @@
 	@ activity_heos.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 22-01-2019
+	@ updated	: 24-03-2019
 	@ Simple Lua script to turn HEOS Speaker OFF
 
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -13,6 +13,6 @@
 	heos('stop')
 	end
 	
-	if devicechanged[timed.trigger] and powerusage(watt_plug.tvcorner) >= watt_usage.tvcorner and otherdevices[media_device.tv] == 'Off' then
+	if devicechanged[timed.trigger] and powerusage(watt_plug.tvcorner) >= watt_usage.tvcorner then
 	heos('stop')
 	end

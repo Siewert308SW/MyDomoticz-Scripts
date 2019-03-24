@@ -4,7 +4,7 @@
 	@ functions.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 22-01-2019
+	@ updated	: 24-03-2019
 	@ Global Functions
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -65,8 +65,26 @@
 		end
 		
 		return output
-	end		
-	
+	end
+
+--
+-- **********************************************************
+-- Function to control my system
+-- **********************************************************
+-- Example: system('shutdown') or system('reboot')
+
+	function system(cmd)
+		cmd = cmd
+
+		if cmd == 'shutdown' then
+		os.execute("curl 'http://127.0.0.1:8080/json.htm?type=command&param=system_shutdown'")
+		end
+		
+		if cmd == 'reboot' then
+		os.execute("curl 'http://127.0.0.1:8080/json.htm?type=command&param=system_reboot'")
+		end
+	end
+
 --
 -- **********************************************************
 -- Time Difference
@@ -158,9 +176,6 @@
 					and timedifference(otherdevices_lastupdate[motion_sensor.downstairs]) > minutes		
 					and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) > minutes
 					and timedifference(otherdevices_lastupdate[motion_sensor.toilet]) > minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.dinner1]) > minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.dinner2]) > minutes
-					and timedifference(otherdevices_lastupdate[motion_sensor.kitchen]) > minutes
 					and timedifference(otherdevices_lastupdate[motion_sensor.natalya]) > minutes
 					and timedifference(otherdevices_lastupdate[motion_sensor.hallway]) > minutes
 					and timedifference(otherdevices_lastupdate[motion_sensor.porch]) > minutes
@@ -177,13 +192,10 @@
 					or timedifference(otherdevices_lastupdate[door.garden]) <= minutes
 					or timedifference(otherdevices_lastupdate[door.scullery]) <= minutes
 					or timedifference(otherdevices_lastupdate[door.pantry]) <= minutes					
-					or timedifference(otherdevices_lastupdate[motion_sensor.living]) < minutes
+					or timedifference(otherdevices_lastupdate[motion_sensor.living]) <= minutes
 					or timedifference(otherdevices_lastupdate[motion_sensor.downstairs]) <= minutes		
 					or timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) <= minutes
 					or timedifference(otherdevices_lastupdate[motion_sensor.toilet]) <= minutes
-					or timedifference(otherdevices_lastupdate[motion_sensor.dinner1]) <= minutes
-					or timedifference(otherdevices_lastupdate[motion_sensor.dinner2]) <= minutes
-					or timedifference(otherdevices_lastupdate[motion_sensor.kitchen]) <= minutes
 					or timedifference(otherdevices_lastupdate[motion_sensor.natalya]) <= minutes
 					or timedifference(otherdevices_lastupdate[motion_sensor.hallway]) <= minutes				
 					or timedifference(otherdevices_lastupdate[motion_sensor.porch]) <= minutes
@@ -227,36 +239,6 @@
 		return IsMotionDetected
 	end
 	
---
--- **********************************************************
--- Phones GeoFence Closed or Open
--- **********************************************************
--- Example: if geo_fence('true') then
---
-
-	function geo_fence(input)
-		input = input
-		Isgeofence = false
-		nearby = false
-		
-			for i, v in pairs(otherdevices) do
-				if string.find(i, '' .. findstring.geofence) and otherdevices[''..i..''] == 'On' then
-					nearby = true
-				end
-			end
-			
-			if input == 'true' and nearby == true then
-				Isgeofence = true
-			end
-					
-			if input == 'false' and nearby == false then
-				Isgeofence = true
-			end
-					
-		return Isgeofence		
-
-	end
-
 --
 -- **********************************************************
 -- How many devices online
@@ -306,7 +288,37 @@
 		return IsPhonesOnline		
 
 	end
+
+--
+-- **********************************************************
+-- Geofence
+-- **********************************************************
+-- Example: if geo('true') then
+--
+
+	function geo(input)
+		input = input
+		IsGeoOnline = false
+		geoonline = false
 		
+			for i, v in pairs(otherdevices) do
+				if string.find(i, '' .. findstring.geodevice) and otherdevices[''..i..''] == 'On' then
+					geoonline = true
+				end
+			end
+			
+			if input == 'true' and geoonline == true then
+				IsGeoOnline = true
+			end
+					
+			if input == 'false' and geoonline == false then
+				IsGeoOnline = true
+			end
+					
+		return IsGeoOnline		
+
+	end	
+	
 --
 -- **********************************************************
 -- Laptops Online

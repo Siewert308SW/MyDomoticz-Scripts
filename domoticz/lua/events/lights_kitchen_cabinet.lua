@@ -4,7 +4,7 @@
 	@ lights_kitchen_cabinet.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 22-01-2019
+	@ updated	: 24-03-2019
 	@ Script for switching kitchen cabinet lights ON/OFF
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -19,7 +19,8 @@
 	if devicechanged[motion_sensor.kitchen] == 'On'
 		and otherdevices[light.kitchen_cabinet1] == 'Off'
 		and otherdevices[light.kitchen_cabinet2] == 'Off'
-		and otherdevices[someone.home] == 'Thuis'		
+		and otherdevices[someone.home] == 'Thuis'
+		and device_svalue(lux_sensor.living) <= 10		
 		and (powerusage(watt_plug.hood) >= watt_usage.hood_low
 		or powerusage(watt_plug.kitchen_socket1) >= watt_usage.kitchen_socket1
 		or powerusage(watt_plug.kitchen_socket2) >= watt_usage.kitchen_socket2
@@ -38,6 +39,7 @@
 		and powerusage(watt_plug.hood) < watt_usage.hood_low
 		and otherdevices[phone.jerina] == 'Off'
 		and otherdevices[phone.natalya] == 'Off'
+		and device_svalue(lux_sensor.living) <= 10		
 	then
 		commandArray[light.kitchen_cabinet1]='On'		
 	end	

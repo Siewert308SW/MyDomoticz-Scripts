@@ -4,7 +4,7 @@
 	@ triggers.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 20-01-2019
+	@ updated	: 24-03-2019
 	@ Devices which can/may trigger the event system
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -23,11 +23,6 @@
 
 	-- Media Triggers
 		'Televisie',
-
-	-- DomoFence Triggers
-		'Jerina DomoFence',
-		'Siewert DomoFence',
-		'Natalya DomoFence',
 	
 	-- Phones
 		'Jerina GSM',
@@ -38,6 +33,11 @@
 		'Jerina_Laptop',
 		'Siewert_Laptop',	
 		'Natalya_Laptop',
+
+	-- Geofence
+		'Life360 - Jerina Presence',
+		'Life360 - Siewert Presence',
+		'Life360 - Natalya Presence',
 		
 	-- Door/Window/Motion Sensors
 		'Voor Deur',					
@@ -81,6 +81,9 @@
 		'Overloop - Lux',				-- 10min trigger
 		'Veranda - Lux',				-- 15min trigger
 
+	-- UPS State
+		'NAS - UPS Status Mode',
+		
 	-- Test (Dummy) devices used for testing
 		'Dummy 1',
 		'Dummy 2',	

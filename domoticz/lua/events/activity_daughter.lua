@@ -4,7 +4,7 @@
 	@ activity_daughter.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 20-01-2019
+	@ updated	: 24-03-2019
 	@ Script to switch ON/OFF various standbykillers in my daughter her bedroom
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -27,7 +27,7 @@
 
 	if devicechanged[lux_sensor.porch]
 		and otherdevices[someone.home] == 'Thuis'		
-		and timebetween("06:00:00","22:29:59")
+		and timebetween("08:00:00","22:29:59")
 		and otherdevices[plug.natalya_tv]  == 'Off'
 		and otherdevices[phone.natalya] == 'On'		
 	then
@@ -43,16 +43,27 @@
 	
 	if devicechanged[lux_sensor.porch] and otherdevices[plug.natalya_tv] == 'On' then
 	
-		if otherdevices[plug.natalya_tv] == 'On'
-		and timedifference(otherdevices_lastupdate[motion_sensor.natalya]) >= timeout.hours2
-		and timedifference(otherdevices_lastupdate[phone.natalya]) >= timeout.hours2
-		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) >= timeout.hours2
+	if otherdevices[plug.natalya_tv] == 'On'
+		and timedifference(otherdevices_lastupdate[motion_sensor.natalya]) >= timeout.hours3
+		and timedifference(otherdevices_lastupdate[phone.natalya]) >= timeout.hours3
+		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) >= timeout.hours3
 		and timebetween("06:00:00","22:29:59")		
 		and otherdevices[phone.natalya] == 'On'		
 	then
 		commandArray[light.natalya_rgb_string]='Off'
 		commandArray[plug.natalya_tv]='Off AFTER 1'		
-	end	
+	end
+
+	if otherdevices[plug.natalya_tv] == 'On'
+		and timedifference(otherdevices_lastupdate[motion_sensor.natalya]) >= timeout.hour1
+		and timedifference(otherdevices_lastupdate[phone.natalya]) >= timeout.hour1
+		and timedifference(otherdevices_lastupdate[motion_sensor.upstairs]) >= timeout.hour1
+		and timebetween("06:00:00","22:29:59")		
+		and otherdevices[phone.natalya] == 'Off'		
+	then
+		commandArray[light.natalya_rgb_string]='Off'
+		commandArray[plug.natalya_tv]='Off AFTER 1'		
+	end		
 	
 	if otherdevices[plug.natalya_tv] == 'On'
 		and timedifference(otherdevices_lastupdate[motion_sensor.natalya]) >= timeout.minutes15

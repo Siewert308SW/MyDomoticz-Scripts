@@ -1,11 +1,11 @@
 --[[
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
-	@ various_timers.lua
+	@ check_national_holiday.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 20-01-2019
-	@ Script to switch ON/OFF various devices
+	@ updated	: 3-2-2019
+	@ Script to check if it's a national holliday and there for its weekend when ask by function (weekend)
 	
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 --]]
@@ -17,7 +17,7 @@
 --
 
 
-	if devicechanged[lux_sensor.porch] and timebetween("21:59:59","23:59:59") then
+	if devicechanged[lux_sensor.porch] and timebetween("21:59:59","23:59:59") and uservariables[var.holiday_override] == 0 then
 		
 		today=os.capture('date --date="0 days ago " +"%-d-%-m-%Y"', false)
 		tomorrow=os.capture('date --date="tomorrow " +"%-d-%-m-%Y"', false)	
@@ -30,20 +30,35 @@
 		
 		if string.find(return_today, 'true') and string.find(return_tomorrow, 'true') and uservariables[var.holiday] ~= 1 then
 			commandArray["Variable:" .. var.holiday .. ""]= '1'
+			commandArray["Variable:" .. var.holiday_override .. ""]= '1'			
 		end
 
 		if string.find(return_today, 'false') and string.find(return_tomorrow, 'true') and uservariables[var.holiday] ~= 1 then
 			commandArray["Variable:" .. var.holiday .. ""]= '1'
+			commandArray["Variable:" .. var.holiday_override .. ""]= '1'			
 		end
 
 -- *********************************************************************
 		
 		if string.find(return_today, 'false') and string.find(return_tomorrow, 'false') and uservariables[var.holiday] ~= 0 then
 			commandArray["Variable:" .. var.holiday .. ""]= '0'
+			commandArray["Variable:" .. var.holiday_override .. ""]= '1'			
 		end
 		
 		if string.find(return_today, 'true') and string.find(return_tomorrow, 'false') and uservariables[var.holiday] ~= 0 then
 			commandArray["Variable:" .. var.holiday .. ""]= '0'
+			commandArray["Variable:" .. var.holiday_override .. ""]= '1'			
 		end		
 
+	end
+	
+--
+-- *********************************************************************
+-- Reset Standby
+-- *********************************************************************
+--
+
+
+	if devicechanged[lux_sensor.porch] and timebetween("00:00:00","20:59:59") and uservariables[var.holiday_override] == 1 then
+		commandArray["Variable:" .. var.holiday_override .. ""]= '0'			
 	end
