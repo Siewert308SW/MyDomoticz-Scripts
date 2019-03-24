@@ -4,7 +4,7 @@
 	@ script_device_main.lua
 	@ author	: Siewert Lameijer
 	@ since		: 1-1-2015
-	@ updated	: 18-01-2019
+	@ updated	: 24-03-2019
 	@ Main event script on which my entire Lua event system is running. 
 
 	Just one file instead of a dozen lua device and timer scripts.
@@ -34,11 +34,11 @@ commandArray = {}
 	for deviceName, deviceValue in pairs(devicechanged) do
 		for tableName, tableDevice in pairs (triggers) do
 			if deviceName == tableDevice then
-				require "devices"
+			require "devices"
 				if tableDevice == timed.trigger then
 				require "settings"
 					if otherdevices[lua_system.switch] ~= 'Off' then
-						require "functions" require "helper"
+						require "functions"
 						timers_folder = Current_Path .. ''..lua.timer_folder..''	
 						f = io.popen('ls ' .. timers_folder)
 						for name in f:lines() do
@@ -53,7 +53,7 @@ commandArray = {}
 				if deviceName == tableDevice and tableDevice ~= timed.trigger then
 				require "settings"
 					if otherdevices[lua_system.switch] ~= 'Off' then
-						require "functions" require "helper" 
+						require "functions" 
 						event_folder = Current_Path .. ''..lua.event_folder..''
 						f = io.popen('ls ' .. event_folder)
 						for event in f:lines() do
@@ -119,7 +119,7 @@ commandArray = {}
 						elseif deviceName == "Raspberry - CPU Temperatuur" then
 							TriggerDevice = '1 minuut trigger'
 						else
-							TriggerDevice = ''..deviceName..' == '..deviceValue..''
+							TriggerDevice = ''..deviceName..' = '..deviceValue..''
 						end
 
 				if otherdevices[lua_system.switch] ~= 'Writing' then						
@@ -133,7 +133,7 @@ commandArray = {}
 						print(''..logmessage..'')
 						print('')
 						end
-						print('CommandArray:')
+						print('commandArray:')
 						for CommandArrayName, CommandArrayValue in pairs(commandArray) do
 						   if type(CommandArrayValue) == "table" then
 							  for CommandArrayTableName, CommandArrayTableValue in pairs(CommandArrayValue) do
@@ -157,7 +157,7 @@ commandArray = {}
 								
 								file = io.open(''..lualog.folder..''..lualog.filename..'-'..logdate..''..lualog.fileext..'', 'a+')
 								file:write("Time:\n")								
-								file:write(year .. "-" .. log_month .. "-"..log_day.."  -  "..log_hour..":"..log_minutes.."\n")
+								file:write(log_year .. "-" .. log_month .. "-"..log_day.."  -  "..log_hour..":"..log_minutes.."\n")
 								file:write("\n")
 								file:write("Trigger:\n")
 								file:write(TriggerDevice.."\n")
@@ -167,7 +167,7 @@ commandArray = {}
 								file:write(logmessage.."\n")
 								file:write("\n")
 								end
-								file:write("CommandArray:\n")								
+								file:write("commandArray:\n")								
 
 									for CommandArrayName, CommandArrayValue in pairs(commandArray) do
 									   if type(CommandArrayValue) == "table" then
