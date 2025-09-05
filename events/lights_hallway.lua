@@ -6,23 +6,20 @@
 
 	if (devicechanged["Voor_Deur"] == 'Open' or devicechanged["Hal_Deur"] == 'Open')
 		and otherdevices["Hal_Verlichting"] == 'Off'
-		and otherdevices["Hal_Motion"] == 'Off'
-		and timedifference(otherdevices_lastupdate["Hal_Motion"]) > 30
-		and dark('true', 'inside', 10)
-		and uservariables["panic"] == 0		
+		and dark('true', 'Hal_LUX', 15)
+		and powerFailsave('false')
 	then
-		commandArray[#commandArray+1]={["Hal_Verlichting"] = 'On'}
+		switchDevice("Hal_Verlichting", "On")
+		--debugLog('Iemand in de hal')
 	end
-
--- **********************************************************
-
-	if devicechanged["Hal_Motion"] == 'On'
+	
+	if (devicechanged["Hal_Motion"] == 'On')
 		and otherdevices["Hal_Verlichting"] == 'Off'
-		and otherdevices["Thuis"] == 'On'
-		and dark('true', 'inside', 10)
-		and uservariables["panic"] == 0		
+		and otherdevices["Personen"] == 'Aanwezig'
+		and dark('true', 'Hal_LUX', 15)
+		and powerFailsave('false')
 	then
-		commandArray[#commandArray+1]={["Hal_Verlichting"] = "On"}
+		switchDevice("Hal_Verlichting", "On")
 	end
 	
 --
@@ -31,16 +28,35 @@
 -- **********************************************************
 --
 
-	if devicechanged["Time Trigger 1min"]
+	if devicechanged["Time Trigger 1min"] == 'Off'
 		and otherdevices["Hal_Verlichting"] == 'On'
-		and otherdevices["Voor_Deur"] == 'Closed'
-		and otherdevices["Hal_Deur"] == 'Closed'
-		and otherdevices["Hal_Motion"] == 'Off'
-		and timedifference(otherdevices_lastupdate["Hal_Motion"]) > 90
-		and timedifference(otherdevices_lastupdate["Hal_Deur"]) > 90
-		and timedifference(otherdevices_lastupdate["Voor_Deur"]) > 90
-		and timedifference(otherdevices_lastupdate["Hal_Verlichting"]) > 90
-		and uservariables["panic"] == 0			
+		and lastSeen("Hal_Motion", ">=", 90)
+		and lastSeen("Hal_Deur", ">=", 90)
+		and lastSeen("Voor_Deur", ">=", 90)
+		and lastSeen("Hal_Verlichting", ">=", 90)
+		and powerFailsave('false')		
 	then
-		commandArray[#commandArray+1]={["Hal_Verlichting"] = "Off"}
+	
+		if otherdevices["Voor_Deur"] == 'Closed'
+			and otherdevices["Hal_Deur"] == 'Closed'
+			and lastSeen("Hal_Motion", ">=", 90)
+			and lastSeen("Hal_Deur", ">=", 90)
+			and lastSeen("Voor_Deur", ">=", 90)
+			and lastSeen("Hal_Verlichting", ">=", 90)
+		then
+		switchDevice("Hal_Verlichting", "Off")
+		--debugLog('Niemand meer in de hal')
+		end
+
+		if (otherdevices["Voor_Deur"] ~= 'Closed'
+			or otherdevices["Hal_Deur"] ~= 'Closed')
+			and lastSeen("Hal_Motion", ">=", 300)
+			and lastSeen("Hal_Deur", ">=", 300)
+			and lastSeen("Voor_Deur", ">=", 300)
+			and lastSeen("Hal_Verlichting", ">=", 300)
+		then
+		switchDevice("Hal_Verlichting", "Off")
+		--debugLog('Niemand meer in de hal')
+		end		
+		
 	end	

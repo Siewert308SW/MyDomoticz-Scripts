@@ -6,30 +6,33 @@
 
 	if devicechanged["Fietsenschuur_Deur"] == 'Open'
 		and otherdevices["Fietsenschuur_Verlichting"] == 'Off'
-		and timedifference(otherdevices_lastupdate["Fietsenschuur_Verlichting"]) > 1
-		and uservariables["panic"] == 0		
+		and lastSeen("Fietsenschuur_Verlichting", ">", 2)
+		and powerFailsave('false')		
 	then
-		commandArray[#commandArray+1]={["Fietsenschuur_Verlichting"] = "On"}
+		switchDevice("Fietsenschuur_Verlichting", "On")
+		--debugLog('Fietsenschuur verlichting AAN')
 	end
 	
 --
 -- *********************************************************************
--- Shed OFF
+-- Shed light OFF
 -- *********************************************************************
 --
 
 	if devicechanged["Fietsenschuur_Deur"] == 'Closed'
 		and otherdevices["Fietsenschuur_Verlichting"] == 'On'
-		and uservariables["panic"] == 0		
+		and powerFailsave('false')
 	then
-		commandArray[#commandArray+1]={["Fietsenschuur_Verlichting"] = "Off"}
+		switchDevice("Fietsenschuur_Verlichting", "Off")
+		--debugLog('Fietsenschuur verlichting UIT')
 	end
 
 	if devicechanged["Time Trigger 5min"] == 'On'
 		and otherdevices["Fietsenschuur_Verlichting"] ~= 'Off'
-		and timedifference(otherdevices_lastupdate["Fietsenschuur_Deur"]) > 900
-		and timedifference(otherdevices_lastupdate["Fietsenschuur_Verlichting"]) > 900
-		and uservariables["panic"] == 0		
+		and lastSeen("Fietsenschuur_Deur", ">=", 300)
+		and lastSeen("Fietsenschuur_Verlichting", ">=", 300)
+		and powerFailsave('false')
 	then
-		commandArray[#commandArray+1]={["Fietsenschuur_Verlichting"] = "Off"}
+		switchDevice("Fietsenschuur_Verlichting", "Off")
+		--debugLog('#Failsave: Fietsenschuur verlichting UIT')
 	end

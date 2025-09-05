@@ -4,44 +4,43 @@
 -- **********************************************************
 --
 
-	if devicechanged["Overloop_Deur"] == 'Open'
-		and otherdevices["Thuis"] == 'On'
+	if devicechanged["Overloop_Motion"] == 'On'
+		and otherdevices["Personen"] == 'Aanwezig'
 		and otherdevices["Overloop_Verlichting"] == 'Off'
-		and otherdevices["Overloop_Motion"] == 'Off'
-		and timedifference(otherdevices_lastupdate["Overloop_Verlichting"]) > 5
-		and (timebetween("08:00:00","21:59:59") or otherdevices["Jerina_Laptop"] == 'On')
-		and (dark('true', 'inside', 10) or dark_specific('true', 10, "Overloop_LUX"))
-		and uservariables["panic"] == 0		
+		and lastSeen("Overloop_Verlichting", ">=", 30)
+		and timebetween("08:30:00","21:59:59")
+		and dark('true', 'Overloop_LUX', 10)	
+		and powerFailsave('false')
 	then
-		commandArray[#commandArray+1]={["Overloop_Verlichting"] = "On"}
+		switchDevice("Overloop_Verlichting", "On")
+		--debugLog('Iemand op de overloop')
 	end
-	
--- **********************************************************
 
-	if devicechanged["Overloop_Motion"] == 'On' 
-		and otherdevices["Thuis"] == 'On' 
+	if devicechanged["Overloop_Deur"] == 'Open'
+		and otherdevices["Personen"] == 'Aanwezig'
 		and otherdevices["Overloop_Verlichting"] == 'Off'
-		and timebetween("08:00:00","21:59:59")
-		and (dark('true', 'inside', 10) or dark_specific('true', 10, "Overloop_LUX"))
-		and uservariables["panic"] == 0	
+		and lastSeen("Overloop_Verlichting", ">=", 30)
+		and lastSeen("Overloop_Motion", ">=", 30)
+		and timebetween("08:30:00","21:59:59")
+		and dark('true', 'Overloop_LUX', 10)
+		and powerFailsave('false')
 	then
-		commandArray[#commandArray+1]={["Overloop_Verlichting"] = "On"}
-	end
-	
+		switchDevice("Overloop_Verlichting", "On")
+		--debugLog('Iemand naar de overloop')
+	end	
 --
 -- *********************************************************************
 -- Corridor light OFF
 -- *********************************************************************
 --
 
-	if devicechanged["Time Trigger 1min"]
+	if devicechanged["Time Trigger 1min"] == 'On'
 		and otherdevices["Overloop_Verlichting"] == 'On'
-		and otherdevices["Walking_Verlichting"] == 'Off'
-		and otherdevices["Badkamer_Verlichting"] == 'Off'
-		and otherdevices["Badkamer_Spiegel_Spots"] == 'Off'
-		and timedifference(otherdevices_lastupdate["Overloop_Motion"]) > 120
-		and timedifference(otherdevices_lastupdate["Overloop_Deur"]) > 120
-		and uservariables["panic"] == 0			
+		and lastSeen("Overloop_Verlichting", ">=", 120)
+		and lastSeen("Overloop_Motion", ">=", 120)
+		and lastSeen("Overloop_Deur", ">=", 120)
+		and powerFailsave('false')		
 	then		
-		commandArray[#commandArray+1]={["Overloop_Verlichting"] = "Off"}
+		switchDevice("Overloop_Verlichting", "Off")
+		--debugLog('Niemand meer op de overloop')
 	end

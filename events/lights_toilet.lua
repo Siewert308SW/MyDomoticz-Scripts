@@ -6,11 +6,12 @@
 
 	if devicechanged["Toilet_Motion"] == 'On'
 		and otherdevices["Toilet_Verlichting"] == 'Off'
-		and phones_online('true')
-		and timedifference(otherdevices_lastupdate["Toilet_Verlichting"]) > 10
-		and uservariables["panic"] == 0		
+		and otherdevices["Personen"] == 'Aanwezig'
+		and lastSeen("Toilet_Verlichting", ">", 10)
+		and powerFailsave('false')
 	then
-		commandArray[#commandArray+1]={["Toilet_Verlichting"] = "On"}
+		switchDevice("Toilet_Verlichting", "On")
+		--debugLog('Toilet verlichting AAN')
 	end
 	
 --
@@ -19,12 +20,13 @@
 -- *********************************************************************
 --
 
-	if devicechanged["Time Trigger 1min"]
+	if devicechanged["Time Trigger 1min"] == 'On'
 		and otherdevices["Toilet_Verlichting"] == 'On'
 		and otherdevices["Toilet_Motion"] == 'Off'
-		and timedifference(otherdevices_lastupdate["Toilet_Motion"]) > 240
-		and timedifference(otherdevices_lastupdate["Toilet_Verlichting"]) > 240
-		and uservariables["panic"] == 0		
+		and lastSeen("Toilet_Motion", ">=", 240)	
+		and lastSeen("Toilet_Verlichting", ">=", 140)
+		and powerFailsave('false')		
 	then
-		commandArray[#commandArray+1]={["Toilet_Verlichting"] = "Off"}
+		switchDevice("Toilet_Verlichting", "Off")
+		--debugLog('Toilet verlichting UIT.Geen beweging meer gezien')
 	end

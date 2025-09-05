@@ -3,87 +3,46 @@
 -- Garage lights ON
 -- **********************************************************
 --
-
-	if devicechanged["Garage_Deur"] == 'Open'
-		and otherdevices["Garage_Verlichting"] == 'Off'
-		and otherdevices["Thuis"] == 'Off'
-		and otherdevices["Garage_Motion"] == 'Off'
-		and timedifference(otherdevices_lastupdate["Garage_Motion"]) > 30
-		and uservariables["panic"] == 0		
-	then
-		commandArray[#commandArray+1]={["Garage_Verlichting"] = "On"}
-	end
-
 	if (devicechanged["Bijkeuken_Deur"] == 'Open' or devicechanged["Garage_Deur"] == 'Open' or devicechanged["Garage_Motion"] == 'On')
 		and otherdevices["Garage_Verlichting"] == 'Off'
-		and otherdevices["Thuis"] == 'On'
-		--and otherdevices["Garage_Motion"] == 'Off'
-		--and timedifference(otherdevices_lastupdate["Garage_Motion"]) > 5
-		and uservariables["panic"] == 0		
+		and otherdevices["Personen"] == 'Aanwezig'
+		and powerFailsave('false')		
 	then
-		commandArray[#commandArray+1]={["Garage_Verlichting"] = "On"}
+		switchDevice("Garage_Verlichting", "On")
+		--debugLog('Iemand in de garage')
 	end
 
--- **********************************************************
---[[	
-	if devicechanged["Garage_Motion"] == 'On'
+	if (devicechanged["Garage_Deur"] == 'Open')
 		and otherdevices["Garage_Verlichting"] == 'Off'
-		and timedifference(otherdevices_lastupdate["Garage_Verlichting"]) <= 600
-		and otherdevices["Thuis"] == 'On'
-		and uservariables["panic"] == 0		
+		and otherdevices["Personen"] ~= 'Aanwezig'
+		and lastSeen('Garage_Motion', '>', '10')
+		and powerFailsave('false')		
 	then
-		commandArray[#commandArray+1]={["Garage_Verlichting"] = "On"}
+		switchDevice("Garage_Verlichting", "On")
+		--debugLog('Iemand thuis gekomen via de garage')
 	end
---]]	
+	
 --
 -- **********************************************************
 -- Garage lights OFF
 -- **********************************************************
 --
-		
-	if devicechanged["Time Trigger 1min"]
+	if devicechanged["Time Trigger 5min"] == 'On'
 		and otherdevices["Garage_Verlichting"] == 'On'
 		and otherdevices["Garage_Motion"] == 'Off'
-		and timedifference(otherdevices_lastupdate["Garage_Motion"]) > 300
-		and timedifference(otherdevices_lastupdate["Bijkeuken_Deur"]) > 300
-		and timedifference(otherdevices_lastupdate["Garage_Deur"]) > 300
-		and uservariables["panic"] == 0		
+		and lastSeen('Garage_Verlichting', '>=', '300')
+		and lastSeen('Garage_Motion', '>=', '300')
+		and powerFailsave('false')
 	then
 	
-		if otherdevices["Thuis"] == 'On'
-			and otherdevices["Bijkeuken_Deur"] == 'Closed'
-			and otherdevices["Garage_Deur"] == 'Closed'
-			and timedifference(otherdevices_lastupdate["Garage_Motion"]) > 120
-			and timedifference(otherdevices_lastupdate["Bijkeuken_Deur"]) > 120
-			and timedifference(otherdevices_lastupdate["Garage_Deur"]) > 120
-		then
-			commandArray[#commandArray+1]={["Garage_Verlichting"] = "Off"}
+		if otherdevices["Garage_Deur"] == 'Closed' and lastSeen('Garage_Motion', '>=', '300') then
+		switchDevice("Garage_Verlichting", "Off")
+		--debugLog('Garage verlichting UIT na 300s')
 		end
 
-		if otherdevices["Thuis"] == 'On'
-			and otherdevices["Bijkeuken_Deur"] == 'Open'
-			and otherdevices["Garage_Deur"] == 'Closed'
-			and timedifference(otherdevices_lastupdate["Garage_Motion"]) > 300
-			and timedifference(otherdevices_lastupdate["Bijkeuken_Deur"]) > 300
-			and timedifference(otherdevices_lastupdate["Garage_Deur"]) > 300
-		then
-			commandArray[#commandArray+1]={["Garage_Verlichting"] = "Off"}
-		end
-		
-		if otherdevices["Thuis"] == 'On'
-			and (otherdevices["Bijkeuken_Deur"] == 'Open' or otherdevices["Garage_Deur"] == 'Open')
-			and timedifference(otherdevices_lastupdate["Garage_Motion"]) > 600
-			and timedifference(otherdevices_lastupdate["Bijkeuken_Deur"]) > 600
-			and timedifference(otherdevices_lastupdate["Garage_Deur"]) > 600
-		then
-			commandArray[#commandArray+1]={["Garage_Verlichting"] = "Off"}
-		end
-		
-		if otherdevices["Thuis"] == 'Off'
-			and timedifference(otherdevices_lastupdate["Garage_Motion"]) > 60
-			and timedifference(otherdevices_lastupdate["Bijkeuken_Deur"]) > 60
-			and timedifference(otherdevices_lastupdate["Garage_Deur"]) > 60
-		then
-			commandArray[#commandArray+1]={["Garage_Verlichting"] = "Off"}
+		if otherdevices["Garage_Deur"] == 'Open' and lastSeen('Garage_Motion', '>=', '1800') then
+		switchDevice("Garage_Verlichting", "Off")
+		--debugLog('Garage verlichting UIT na 1800s')
 		end		
+		
 	end

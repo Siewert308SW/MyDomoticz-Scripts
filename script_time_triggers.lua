@@ -19,18 +19,16 @@ commandArray = {}
 
 local m = os.date('%M')
 
-if (m % 1 == 0) then
-	commandArray[#commandArray+1]={["Time Trigger 1min"] = "On AFTER 5"}
-end
+	if (m % 1 == 0) then
+		commandArray[#commandArray+1]={["Time Trigger 1min"] = "On"}
+	end
 
-if (m % 2 == 0) then
-	commandArray[#commandArray+1]={["Lux Time Trigger"] = "On"}
-	commandArray[#commandArray+1]={["Garage Temp Trigger"] = "On AFTER 10"}
-end
+	if (m % 5 == 0) then
+		commandArray[#commandArray+1]={["Time Trigger 5min"] = "On AFTER 5"}
+	end
 
-if (m % 5 == 0) then
-	commandArray[#commandArray+1]={["Time Trigger 5min"] = "On AFTER 30"}
-	commandArray[#commandArray+1]={["Outside Temp Trigger"] = "On AFTER 20"}
-end
+	if (m % 10 == 0) then
+		commandArray[#commandArray+1]={["Time Trigger 10min"] = "On AFTER 10"}
+	end
 
 return commandArray

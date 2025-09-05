@@ -4,55 +4,49 @@
 -- **********************************************************
 --
 
-	if devicechanged["Time Trigger 1min"] == 'On'
+	if devicechanged["Time Trigger 10min"] == 'On'
 		and otherdevices["E-Boiler_WCD"] == 'Off'
-		and p1NetUsageDeliv("2760") >= 1
-		and timedifference(otherdevices_lastupdate["E-Boiler_WCD"]) >= 3600
-		and (timebetween("09:00:00","23:59:59") or timebetween("00:00:00","08:59:59"))
-		and powerfailsave("false")
-		and uservariables["panic"] == 0
+		and homewizard('p1Available') < 0
+		and lastSeen("E-Boiler_WCD", ">=", 3600)
+		and sensorValue('BV_Charger_Huidige_Verbruik') <= 100
+		and sensorValue('Vaatwasser_Huidige_Verbruik') <= 2
+		and sensorValue('Wasmachine_Huidige_Verbruik') <= 2
+		and sensorValue('Droger_Huidige_Verbruik') <= 2
+		and timebetween("07:00:00","19:29:59")
+		and powerFailsave('false')
 	then
 
-		if p1NetUsageDeliv("2760") >= 2000
-			and timedifference(otherdevices_lastupdate["E-Boiler_WCD"]) >= 3600 
+		if homewizard("p1Available") <= -1500
+			and uservariables["Water_Usage_Trigger"] == 0
 		then
-			commandArray[#commandArray+1]={["E-Boiler_WCD"] = "On"}
-			print("")
-			print("-- *********************")
-			print("-- Boiler AAN (Zonnestroom)")
-			print("-- *********************")
-			print("")		
+			switchDevice("E-Boiler_WCD", "On")
+			switchDevice("Boiler_WCD", "On")
+			switchDevice("Variable:Water_Usage_Trigger", "0")
+			debugLog('Boiler AAN (Zonnestroom)')	
 		end
 
 -- **********************************************************
 	
-		if p1NetUsageDeliv("2760") >= 1
-			and timedifference(otherdevices_lastupdate["E-Boiler_WCD"]) >= 57600
-		then
-			commandArray[#commandArray+1]={["E-Boiler_WCD"] = "On"}
-			commandArray[#commandArray+1]={["Variable:Water_Usage_Trigger"] = "0"}
-			print("")
-			print("-- *********************")
-			print("-- Boiler AAN - Tijd 16uur")
-			print("-- *********************")
-			print("")			
-		end
-		
--- **********************************************************
-		
-		if p1NetUsageDeliv("2760") > 1000
-			and timebetween("08:00:00","21:59:59")
+		if homewizard("p1Available") > -1500
+			and homewizard("p1Available") < -500
 			and uservariables["Water_Usage_Trigger"] ~= 0
-			--and (otherdevices_humidity['Badkamer_Humidity'] > 90 or uservariables["Water_Usage_Trigger"] ~= 0)
-			and timedifference(otherdevices_lastupdate["E-Boiler_WCD"]) >= 3600
 		then
-			commandArray[#commandArray+1]={["E-Boiler_WCD"] = "On"}
-			commandArray[#commandArray+1]={["Variable:Water_Usage_Trigger"] = "0"}
-				print("")
-				print("-- *********************")
-				print("-- Boiler AAN - Humidity")
-				print("-- *********************")
-				print("")
+			switchDevice("E-Boiler_WCD", "On")
+			switchDevice("Boiler_WCD", "On")
+			switchDevice("Variable:Water_Usage_Trigger", "0")
+			debugLog('Boiler AAN (Water Verbruik)')	
+		end
+
+-- **********************************************************
+
+		if homewizard("p1Available") >= -500
+			and lastSeen("E-Boiler_WCD", ">=", 57600)
+			and timebetween("08:00:00","18:59:59")
+		then
+			switchDevice("E-Boiler_WCD", "On")
+			switchDevice("Boiler_WCD", "On")
+			switchDevice("Variable:Water_Usage_Trigger", "0")
+			debugLog('Boiler AAN (> 16hr failsave)')				
 		end
 
 	end
@@ -61,24 +55,19 @@
 -- **********************************************************
 -- Boiler OFF
 -- **********************************************************
---
 	
-	if devicechanged["Time Trigger 5min"] == 'Off'
-		and solarwinter('false')
+	if devicechanged["Time Trigger 10min"] == 'Off'
+		and summer('true')
 		and otherdevices["E-Boiler_WCD"] == 'On'
-		and p1NetUsageDeliv("2760") == 0
-		and (timebetween("18:00:00","23:59:59") or timebetween("00:00:00","05:59:59"))
-		and powerusage("E-Boiler_Huidige_Verbruik") <= 1
-		and timedifference(otherdevices_lastupdate["E-Boiler_WCD"]) >= 3600
-		and powerfailsave("false")
-		and uservariables["panic"] == 0
+		and homewizard("p1Available") > -1500
+		and sensorValue('E-Boiler_Huidige_Verbruik') <= 2
+		and lastSeen("E-Boiler_WCD", ">=", 3600)
+		and (timebetween("19:30:00","23:59:59") or timebetween("00:00:00","06:59:59"))
+		and powerFailsave('false')
     then
-		commandArray[#commandArray+1]={["E-Boiler_WCD"] = "Off"}
-		commandArray[#commandArray+1]={["Variable:Water_Usage_Trigger"] = "0"}
-		print("")
-		print("-- *********************")
-		print("-- Boiler UIT")
-		print("-- *********************")
-		print("")
+		switchDevice("E-Boiler_WCD", "Off")
+		switchDevice("Boiler_WCD", "Off")
+		switchDevice("Variable:Water_Usage_Trigger", "0")
+		debugLog('Boiler UIT')	
 	end
 

@@ -1,30 +1,29 @@
 --
 -- **********************************************************
--- Laptops ON
+-- Printer ON
 -- **********************************************************
 --
-	if devicechanged["Time Trigger 1min"]
-		and laptops_online('true')
+	if devicechanged["Time Trigger 1min"] == 'On'
+		and laptopsOnline('true')
 		and otherdevices["Printer_WCD"] == 'Off'
 		and timebetween("08:30:00","21:59:59")
-		and powerfailsave("false")
-		and uservariables["panic"] == 0			
+		and powerFailsave('false')		
 	then
-		commandArray[#commandArray+1]={["Printer_WCD"] = "On"}
-		--commandArray[#commandArray+1]={["Opslag_NAS WOL"] = "On"}
+		switchDevice("Printer_WCD", "On")
+		--debugLog('Printer_WCD AAN')
 	end
 
 --
 -- **********************************************************
--- Laptops OFF
+-- Printer OFF
 -- **********************************************************
 --
 
-	if devicechanged["Time Trigger 1min"]
-		and laptops_online('false')
+	if devicechanged["Time Trigger 1min"] == 'On'
+		and laptopsOnline('false')
 		and otherdevices["Printer_WCD"] == 'On'
-		and powerfailsave("false")
-		and uservariables["panic"] == 0			
+		and powerFailsave('false')		
 	then
-		commandArray[#commandArray+1]={["Printer_WCD"] = "Off"}
+		switchDevice("Printer_WCD", "Off")
+		--debugLog('Printer_WCD UIT')
 	end
