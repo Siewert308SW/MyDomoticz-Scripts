@@ -10,7 +10,7 @@
 		and otherdevices["Voordeur_Verlichting"] == 'Off'
 		and uservariables["tuin_activity"] == 0
 		and darkGarden('true', 10)
-		and timebetween("16:00:00","22:59:59")
+		and timebetween(sunTime("sunset"),"23:29:59")
 		and powerFailsave('false')
 	then
 		IsSceneGarden = true
@@ -43,19 +43,19 @@
 		and otherdevices["Voordeur_Verlichting"] ~= 'Off' 
 		and uservariables["tuin_activity"] == 0
 		and motionGarden('false', 1800)
-		and (timebetween("23:00:00","23:59:59") or timebetween("00:00:00","15:59:59"))
+		and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00",sunTime("sunset")))
 		and powerFailsave('false')
 	then
 	
 		if weekend('false')
-			and (timebetween("23:00:00","23:59:59") or timebetween("00:00:00","15:59:59"))
+			and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00",sunTime("sunset")))
 		then
 			IsSceneGarden = true
 			sceneGarden = 'off'
 			
 		elseif weekend('true')
 			and otherdevices["Personen"] ~= 'Aanwezig'
-			and (timebetween("23:59:59","23:59:59") or timebetween("00:00:00","15:59:59"))
+			and (timebetween("23:59:59","23:59:59") or timebetween("00:00:00",sunTime("sunset")))
 		then
 			IsSceneGarden = true
 			sceneGarden = 'off'	

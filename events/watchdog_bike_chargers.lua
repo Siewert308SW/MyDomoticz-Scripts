@@ -6,7 +6,7 @@
 
 	if devicechanged["Time Trigger 10min"] == 'On'
 		and otherdevices["BV_Charger_WCD"] == 'On'
-		and sensorValue('BV_Charger_Huidige_Verbruik') >= 1000
+		and sensorValue('BV_Charger_Huidige_Verbruik') >= 500
 		and otherdevices["Scooter"] == 'Off'
 		and powerFailsave('false')
     then

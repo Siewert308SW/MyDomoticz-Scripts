@@ -32,7 +32,7 @@
 -- **********************************************************
 --
 
-	if devicechanged["Time Trigger 10min"] == 'On'
+	if devicechanged["Time Trigger 5min"] == 'On'
 		and otherdevices["Voordeur_Verlichting"] ~= 'Off'
 		and uservariables["tuin_activity"] == 1 
 		and motionGarden('false', 240)

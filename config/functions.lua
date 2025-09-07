@@ -60,6 +60,75 @@
 
 --
 -- **********************************************************
+-- Sunset / Sunrise
+-- **********************************************************
+-- Example: if timebetween(sunTime("sunset"),"23:00:00" then
+--
+--[[
+	function sunTime(input)
+	   
+		if input == 'sunset' then
+			local sunsetCap  = os.capture("curl 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet' | grep 'Sunset' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
+			suntime = sunsetCap .. ":00"
+			
+		elseif input == 'sunrise' then 
+			local sunriseCap = os.capture("curl 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet' | grep 'Sunrise' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
+			suntime = sunriseCap .. ":00"
+		end
+		
+		return suntime
+		
+	 end
+--]]
+	function sunTime(input)
+		local suntime = "00:00:00"
+		local offset = 0
+		local mode = input
+
+		-- Detecteer input + bepaal offset in minuten
+		if input == "sunsetEarly" then
+			mode = "sunset"
+			offset = -60
+		elseif input == "sunsetLate" then
+			mode = "sunset"
+			offset = 60
+		elseif input == "sunriseEarly" then
+			mode = "sunrise"
+			offset = -60
+		elseif input == "sunriseLate" then
+			mode = "sunrise"
+			offset = 60
+		end
+
+		-- Haal de tijd op zoals jij al deed
+		if mode == 'sunset' then
+			local sunsetCap = os.capture("curl -s 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet' | grep 'Sunset' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
+			suntime = sunsetCap .. ":00"
+		elseif mode == 'sunrise' then
+			local sunriseCap = os.capture("curl -s 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet' | grep 'Sunrise' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
+			suntime = sunriseCap .. ":00"
+		end
+
+		-- Offset toepassen als nodig
+		if offset ~= 0 then
+			local h = tonumber(string.sub(suntime, 1, 2))
+			local m = tonumber(string.sub(suntime, 4, 5))
+			local total = h * 60 + m + offset
+
+			-- Clamp tussen 0 en 1439 (23:59)
+			if total < 0 then total = 0 end
+			if total > 1439 then total = 1439 end
+
+			local hh = string.format("%02d", math.floor(total / 60))
+			local mm = string.format("%02d", total % 60)
+			suntime = hh .. ":" .. mm .. ":00"
+		end
+
+		return suntime
+	end
+
+--
+-- **********************************************************
 -- Time Between X hours and X hour
 -- **********************************************************
 -- Example: and timebetween("03:00:00","11:59:59")

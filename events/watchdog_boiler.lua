@@ -12,7 +12,7 @@
 		and sensorValue('Vaatwasser_Huidige_Verbruik') <= 2
 		and sensorValue('Wasmachine_Huidige_Verbruik') <= 2
 		and sensorValue('Droger_Huidige_Verbruik') <= 2
-		and timebetween("07:00:00","19:29:59")
+		and timebetween(sunTime("sunrise"),sunTime("sunset"))
 		and powerFailsave('false')
 	then
 
@@ -41,7 +41,6 @@
 
 		if homewizard("p1Available") >= -500
 			and lastSeen("E-Boiler_WCD", ">=", 57600)
-			and timebetween("08:00:00","18:59:59")
 		then
 			switchDevice("E-Boiler_WCD", "On")
 			switchDevice("Boiler_WCD", "On")
@@ -62,7 +61,7 @@
 		and homewizard("p1Available") > -1500
 		and sensorValue('E-Boiler_Huidige_Verbruik') <= 2
 		and lastSeen("E-Boiler_WCD", ">=", 3600)
-		and (timebetween("19:30:00","23:59:59") or timebetween("00:00:00","06:59:59"))
+		and (timebetween(sunTime("sunsetEarly"),"23:59:59") or timebetween("00:00:00",sunTime("sunrise")))
 		and powerFailsave('false')
     then
 		switchDevice("E-Boiler_WCD", "Off")
