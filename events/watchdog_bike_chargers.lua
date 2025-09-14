@@ -1,4 +1,11 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Time Trigger 10min"}) then return end
+
+--
 -- **********************************************************
 -- BV Charger determine bicycle or e-scooter charging
 -- **********************************************************
@@ -48,13 +55,3 @@
 		switchDevice("Scooter", "Off")
 		debugLog('Opladen scooter/fietsen voltooid')
 	end
-
---[[
--- Manual OFF
-	if devicechanged["BV_Charger_WCD"] == 'Off'
-		and otherdevices["Scooter"] == 'On'
-    then
-		commandArray[#commandArray+1]={["Scooter"] = "Off"}
-		commandArray[#commandArray+1]={["Variable:bvcharger_override"] = "0"}
-	end	
---]]

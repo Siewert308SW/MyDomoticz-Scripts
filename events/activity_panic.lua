@@ -1,4 +1,11 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Garage_Controler_Woonkamer UIT", "Woonkamer_Verlichting UIT", "Rookmelder_Woonkamer", "Rookmelder_Hal", "Rookmelder_Overloop", "Rookmelder_Slaapkamer", "Rookmelder_Natalya", "Rookmelder_Garage", "Rookmelder_Zolder", "Co2-Melder_Zolder" }) then return end
+
+--
 -- **********************************************************
 -- Panic ON
 -- **********************************************************
@@ -89,6 +96,7 @@
 		switchDevice("Printer_WCD", "Off")
 		switchDevice("BV_Charger_WCD", "Off")
 		switchDevice("E-Boiler_WCD", "Off")
+		switchDevice("Oven_WCD", "Off")
 		
 		switchDevice("Woonkamer_Airco_Power", "Off")
 		switchDevice("Slaapkamer_Airco_Power", "Off")

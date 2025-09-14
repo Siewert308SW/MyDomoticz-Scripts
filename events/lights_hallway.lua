@@ -1,25 +1,33 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Voor_Deur", "Hal_Deur", "Hal_Motion", "Time Trigger 1min"}) then return end
+
+--
 -- **********************************************************
 -- Hallway light ON
 -- **********************************************************
 --
 
-	if (devicechanged["Voor_Deur"] == 'Open' or devicechanged["Hal_Deur"] == 'Open')
+	if devicechanged["Voor_Deur"] == 'Open'
 		and otherdevices["Hal_Verlichting"] == 'Off'
-		and dark('true', 'Hal_LUX', 15)
+		and dark('true', 'Hal_LUX', 5)
 		and powerFailsave('false')
 	then
 		switchDevice("Hal_Verlichting", "On")
-		--debugLog('Iemand in de hal')
+		debugLogVar('Iemand in de hal')
 	end
 	
-	if (devicechanged["Hal_Motion"] == 'On')
+	if (devicechanged["Hal_Motion"] == 'On' or devicechanged["Hal_Deur"] == 'Open')
 		and otherdevices["Hal_Verlichting"] == 'Off'
 		and otherdevices["Personen"] == 'Aanwezig'
-		and dark('true', 'Hal_LUX', 15)
+		and dark('true', 'Hal_LUX', 5)
 		and powerFailsave('false')
 	then
 		switchDevice("Hal_Verlichting", "On")
+		debugLogVar('Iemand in de hal')
 	end
 	
 --
@@ -45,7 +53,7 @@
 			and lastSeen("Hal_Verlichting", ">=", 90)
 		then
 		switchDevice("Hal_Verlichting", "Off")
-		--debugLog('Niemand meer in de hal')
+		debugLogVar('Niemand meer in de hal #Failsave')
 		end
 
 		if (otherdevices["Voor_Deur"] ~= 'Closed'
@@ -56,7 +64,7 @@
 			and lastSeen("Hal_Verlichting", ">=", 300)
 		then
 		switchDevice("Hal_Verlichting", "Off")
-		--debugLog('Niemand meer in de hal')
+		debugLogVar('Niemand meer in de hal #Failsave')
 		end		
 		
 	end	

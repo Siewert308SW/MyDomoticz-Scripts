@@ -1,4 +1,11 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Time Trigger 10min"}) then return end
+	
+--
 -- **********************************************************
 -- Garden lights ON when LUX is lower then threshold
 -- **********************************************************
@@ -9,8 +16,8 @@
 	if devicechanged["Time Trigger 10min"] == 'On'
 		and otherdevices["Voordeur_Verlichting"] == 'Off'
 		and uservariables["tuin_activity"] == 0
-		and darkGarden('true', 10)
-		and timebetween(sunTime("sunset"),"23:29:59")
+		and dark('true', 'garden', 14.5)
+		and timebetween(sunTime("sunsetEarly"),"23:29:59")
 		and powerFailsave('false')
 	then
 		IsSceneGarden = true
@@ -26,11 +33,18 @@
 	if devicechanged["Time Trigger 10min"] == 'On'
 		and otherdevices["Voordeur_Verlichting"] ~= 'Off'
 		and uservariables["tuin_activity"] == 0
-		and darkGarden('false', 10)
+		and dark('false', 'garden', 14.5)
 		and powerFailsave('false')
 	then
-		IsSceneGarden = true
-		sceneGarden = 'off'
+	
+		if timebetween(sunTime("sunriseEarly"),sunTime("sunsetEarly")) and dark('false', 'garden', 5) then
+			IsSceneGarden = true
+			sceneGarden = 'off'
+		elseif timebetween(sunTime("sunsetEarly"),"23:59:59") and dark('false', 'garden', 14.5) then
+			IsSceneGarden = true
+			sceneGarden = 'off'
+		end
+		
 	end
 
 --

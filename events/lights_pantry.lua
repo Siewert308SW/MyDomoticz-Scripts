@@ -1,4 +1,11 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Kelder_Deur", "Time Trigger 10min"}) then return end
+	
+--
 -- **********************************************************
 -- Pantry light ON @ door Open
 -- **********************************************************
@@ -9,7 +16,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("Kelder_Verlichting", "On")
-		--debugLog('Kelder verlichting AAN')
+		debugLogVar('Kelder verlichting AAN')
 	end
 
 --
@@ -22,7 +29,7 @@
 		and powerFailsave('false')
 	then		
 		switchDevice("Kelder_Verlichting", "Off")
-		--debugLog('Kelder verlichting UIT')
+		debugLogVar('Kelder verlichting UIT')
 	end
 
 --
@@ -37,5 +44,5 @@
 		and powerFailsave('false')		
 	then		
 		switchDevice("Kelder_Verlichting", "Off")
-		--debugLog('Kelder verlichting UIT #Failsave')
+		debugLogVar('Kelder verlichting UIT #Failsave')
 	end

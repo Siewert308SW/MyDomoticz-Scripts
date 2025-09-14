@@ -1,4 +1,11 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Personen"}) then return end
+
+--
 -- **********************************************************
 -- Standbykillers ON
 -- **********************************************************
@@ -20,7 +27,11 @@
 		switchDevice("Woonkamer_Fauteuil_WCD", "On") 
 		switchDevice("Voordeur_WCD", "On")	 
 		switchDevice("Achterdeur_WCD", "On")
-		--debugLog('Standbykillers ingeschakeld')
+		if otherdevices["Oven_WCD"] == 'Off' then
+		switchDevice("Oven_WCD", "On")
+		debugLog('Oven was vergeten? Is nu ingeschakeld')		
+		end
+		debugLog('Standbykillers ingeschakeld')
 	end
 	
 --
@@ -44,5 +55,5 @@
 		switchDevice("Woonkamer_Fauteuil_WCD", "Off") 
 		switchDevice("Voordeur_WCD", "Off")	 
 		switchDevice("Achterdeur_WCD", "Off")
-		--debugLog('Standbykillers uitgeschakeld')
+		debugLog('Standbykillers uitgeschakeld')
 	end

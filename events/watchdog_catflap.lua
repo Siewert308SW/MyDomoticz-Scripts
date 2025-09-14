@@ -1,4 +1,11 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Personen"}) then return end
+
+--
 -- **********************************************************
 -- CatFlap open
 -- **********************************************************
@@ -10,7 +17,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("CatFlap", "On")
-		--debugLog('Kattenluik geopend')
+		debugLogVar('Kattenluik geopend')
 	end
 	
 --
@@ -24,5 +31,5 @@
 		and powerFailsave('false')
 	then
 		switchDevice("CatFlap", "Off")
-		--debugLog('Kattenluik afgesloten')
+		debugLogVar('Kattenluik afgesloten')
 	end

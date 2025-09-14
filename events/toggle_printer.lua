@@ -1,4 +1,11 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Time Trigger 1min"}) then return end
+
+--
 -- **********************************************************
 -- Printer ON
 -- **********************************************************
@@ -10,7 +17,7 @@
 		and powerFailsave('false')		
 	then
 		switchDevice("Printer_WCD", "On")
-		--debugLog('Printer_WCD AAN')
+		debugLogVar('Printer_WCD AAN')
 	end
 
 --
@@ -25,5 +32,5 @@
 		and powerFailsave('false')		
 	then
 		switchDevice("Printer_WCD", "Off")
-		--debugLog('Printer_WCD UIT')
+		debugLogVar('Printer_WCD UIT')
 	end

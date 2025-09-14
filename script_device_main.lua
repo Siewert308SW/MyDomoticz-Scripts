@@ -54,7 +54,7 @@ commandArray = {}
 				dofile ('' .. event_folder .. ''..event..'')
 			end
 
-			if message ~= nil then
+			if message ~= nil and otherdevices["DebugLog"] ~= 'Off' then
 				debugLog(message)
 			end
 			

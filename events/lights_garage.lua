@@ -1,4 +1,11 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Bijkeuken_Deur", "Garage_Deur", "Garage_Motion", "Time Trigger 5min"}) then return end
+
+--
 -- **********************************************************
 -- Garage lights ON
 -- **********************************************************
@@ -9,7 +16,7 @@
 		and powerFailsave('false')		
 	then
 		switchDevice("Garage_Verlichting", "On")
-		--debugLog('Iemand in de garage')
+		debugLogVar('Iemand in de garage')
 	end
 
 	if (devicechanged["Garage_Deur"] == 'Open')
@@ -19,7 +26,7 @@
 		and powerFailsave('false')		
 	then
 		switchDevice("Garage_Verlichting", "On")
-		--debugLog('Iemand thuis gekomen via de garage')
+		debugLogVar('Iemand thuis gekomen via de garage')
 	end
 	
 --
@@ -37,12 +44,12 @@
 	
 		if otherdevices["Garage_Deur"] == 'Closed' and lastSeen('Garage_Motion', '>=', '300') then
 		switchDevice("Garage_Verlichting", "Off")
-		--debugLog('Garage verlichting UIT na 300s')
+		debugLogVar('Garage verlichting UIT na 300s #Failsave')
 		end
 
 		if otherdevices["Garage_Deur"] == 'Open' and lastSeen('Garage_Motion', '>=', '1800') then
 		switchDevice("Garage_Verlichting", "Off")
-		--debugLog('Garage verlichting UIT na 1800s')
+		debugLogVar('Garage verlichting UIT na 1800s #Failsave')
 		end		
 		
 	end

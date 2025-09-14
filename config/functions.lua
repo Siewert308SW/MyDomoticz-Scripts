@@ -1,5 +1,20 @@
 --
 -- **********************************************************
+-- Function to help save domoticz resources when scripts are triggered
+-- **********************************************************
+--
+
+	function isMyTrigger(t)
+		for _, trig in ipairs(t) do
+			if trig == triggerDevice then 
+				return true 
+			end
+		end
+		return false
+	end
+
+--
+-- **********************************************************
 -- Function to execute os commands and get output
 -- **********************************************************
 -- Example: os.capture(curl 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet')
@@ -43,7 +58,7 @@
 -- **********************************************************
 -- Time Difference
 -- **********************************************************
--- Example: and timedifference(otherdevices_lastupdate['light.living_standing_light']) >= 15
+-- Example: timedifference(otherdevices_lastupdate['light.living_standing_light']) >= 15
 
 	function timedifference(s)
 		year = string.sub(s, 1, 4)
@@ -60,44 +75,72 @@
 
 --
 -- **********************************************************
--- Sunset / Sunrise
+-- Get Sunset / Sunrise
 -- **********************************************************
--- Example: if timebetween(sunTime("sunset"),"23:00:00" then
+-- Example: timebetween(sunTime("sunset"),"23:00:00"
 --
---[[
+
 	function sunTime(input)
-	   
-		if input == 'sunset' then
-			local sunsetCap  = os.capture("curl 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet' | grep 'Sunset' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
-			suntime = sunsetCap .. ":00"
-			
-		elseif input == 'sunrise' then 
-			local sunriseCap = os.capture("curl 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet' | grep 'Sunrise' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
-			suntime = sunriseCap .. ":00"
+		local suntime = "19:00:00"
+
+		if input == "sunset" then
+			suntime = uservariables["sunset"] or "19:00:00"
+
+		elseif input == "sunsetEarly" then
+			suntime = uservariables["sunsetEarly"] or "19:00:00"
+
+		elseif input == "sunsetLate" then
+			suntime = uservariables["sunsetLate"] or "19:00:00"
+
+		elseif input == "sunrise" then
+			suntime = uservariables["sunrise"] or "19:00:00"
+
+		elseif input == "sunriseEarly" then
+			suntime = uservariables["sunriseEarly"] or "19:00:00"
+
+		elseif input == "sunriseLate" then
+			suntime = uservariables["sunriseLate"] or "19:00:00"
 		end
-		
+
 		return suntime
-		
-	 end
---]]
-	function sunTime(input)
-		local suntime = "00:00:00"
+	end
+
+--
+-- **********************************************************
+-- Set Sunset / Sunrise cache
+-- **********************************************************
+--
+
+	function sunTimeCache(input)
+		local suntime = "19:00:00"
 		local offset = 0
 		local mode = input
 
 		-- Detecteer input + bepaal offset in minuten
 		if input == "sunsetEarly" then
 			mode = "sunset"
-			offset = -60
+			offset = -90
+			
 		elseif input == "sunsetLate" then
 			mode = "sunset"
 			offset = 60
+			
+		elseif input == "sunset" then
+			mode = "sunset"
+			offset = 0
+			
 		elseif input == "sunriseEarly" then
 			mode = "sunrise"
 			offset = -60
+			
 		elseif input == "sunriseLate" then
 			mode = "sunrise"
 			offset = 60
+
+		elseif input == "sunrise" then
+			mode = "sunrise"
+			offset = 0
+			
 		end
 
 		-- Haal de tijd op zoals jij al deed
@@ -124,22 +167,23 @@
 			suntime = hh .. ":" .. mm .. ":00"
 		end
 
-		return suntime
+		commandArray[#commandArray+1] = { ["Variable:" .. input] = suntime }
+		
 	end
-
+	
 --
 -- **********************************************************
 -- Time Between X hours and X hour
 -- **********************************************************
--- Example: and timebetween("03:00:00","11:59:59")
+-- Example: timebetween("03:00:00","11:59:59")
 
 	function timebetween(s,e)
 	   timenow = os.date("*t")
 	   year = timenow.year
 	   month = timenow.month
 	   day = timenow.day
-	   s = s .. ":00"  
-	   e = e .. ":00"
+	   --s = s .. ":00"  
+	   --e = e .. ":00"
 	   shour = string.sub(s, 1, 2)
 	   sminutes = string.sub(s, 4, 5)
 	   sseconds = string.sub(s, 7, 8)
@@ -186,7 +230,7 @@
 -- **********************************************************
 -- Is it Summer Time?
 -- **********************************************************
--- Example: if summer('true') then
+-- Example: summer('true')
 
 	function summer(input)
 		input = input
@@ -195,7 +239,7 @@
 		local tNow = os.date("*t")
 		local summertime = tNow.yday
 			
-			if input == 'true' and (summertime >= 60) and (summertime <= 274) then
+			if input == 'true' and (summertime >= 60) and (summertime <= 298) then
 				result = true
 			end
  
@@ -206,7 +250,7 @@
 -- **********************************************************
 -- Phones Online
 -- **********************************************************
--- Example: if phonesOnline('true') then
+-- Example: phonesOnline('true')
 
 	function phonesOnline(input)
 		input = input
@@ -235,7 +279,7 @@
 -- **********************************************************
 -- Laptops Online
 -- **********************************************************
--- Example: if laptopsOnline('true') then
+-- Example: laptopsOnline('true')
 
 	function laptopsOnline(input)
 		input = input
@@ -264,7 +308,7 @@
 -- **********************************************************
 -- TV Online
 -- **********************************************************
--- Example: if mediaOnline('true') then
+-- Example: mediaOnline('true')
 
 	function mediaOnline(input)
 		input = input
@@ -288,67 +332,24 @@
 		return result		
 
 	end
-
---
--- **********************************************************
--- Is weekend?
--- **********************************************************
--- Example: if weekend('true') then
--- weekday [0-6 = Sunday-Saturday]
--- day 1 = Mon
--- day 2 = Tue
--- day 3 = Wed
--- day 4 = Thur
--- day 5 = Fri
--- day 6 = Sat
--- day 0 = Sun
-
-	function weekend(input)
-		input = input
-		result = false
-		local dayNow = tonumber(os.date("%w"))
-		local t = os.date("*t")
-
-		if input == 'true' and dayNow == 5 and timebetween("19:30:00","23:59:59") then
-			result = true
-		end
-		
-		if input == 'true' and (dayNow == 6 or dayNow == 0) then
-			result = true
-		end
-		
-		if input == 'true' and dayNow == 1 and timebetween("00:00:00","02:59:59") then
-			result = true
-		end
-
--- **********************************************************
-		
-		if input == 'false' and dayNow == 1 and timebetween("03:00:00","23:59:59") then
-			result = true
-		end
-
-		if input == 'false' and (dayNow == 2 or dayNow == 3 or dayNow == 4) then
-			result = true					
-		end
-		
-		if input == 'false' and dayNow == 5 and timebetween("00:00:00","18:29:59") then
-			result = true
-		end
-		
-		return result
-	end
 	
 --
 -- **********************************************************
 -- Check motion @ home
 -- **********************************************************
--- Example: if motionHome('true', 600) then
+-- Example: motionHome('true', 600)
 
 	function motionHome(input, minutes)
 		local IsMotion = true
 
+		-- List of excluded sensors
+		local excludedDevices = {
+			["Voordeur_Motion"] = true,
+			["Achterdeur_Motion"] = true
+		}
+	
 		for name, lastupdate in pairs(otherdevices_lastupdate) do
-			if string.match(name, "_Motion$") or string.match(name, "_Deur$") then
+			if not excludedDevices[name] and (string.match(name, "_Motion$") or string.match(name, "_Deur$")) then
 				local diff = timedifference(lastupdate)
 
 				if input == 'false' and diff < minutes then
@@ -368,7 +369,7 @@
 -- **********************************************************
 -- Check overall garden motion
 -- **********************************************************
--- Example: if motionGarden('true', 600) then
+-- Example: motionGarden('true', 600)
 
 	function motionGarden(input, minutes)
 		input = input
@@ -417,19 +418,19 @@
 -- **********************************************************
 -- Turn ON Kitchen Spots with Voltage Check
 -- **********************************************************
--- Tries max 2x to dim correctly (voltage <= 2.0V)
+-- Tries to dim correctly (voltage <= 2.0V)
 -- Requires: sensorValue('Keuken_Spots_Huidige_Verbruik')
 -- **********************************************************
 
 	function kitchen_spots(input, pause)
 		local maxAttempts = 1
+		local pause = pause + 10
 		local pauseBetweenClicks = pause or 60
 
 		if input == 'On' then
 			local voltage = sensorValue('Keuken_Spots_Huidige_Verbruik')
 			
 			if voltage ~= nil and tonumber(voltage) > 0 and tonumber(voltage) <= 2.0 then
-				--debugLog('Keuken Spots zijn al gedimd. (Voltage: ' .. voltage .. 'V) — skipping toggle sequence.')
 				return
 			end
 
@@ -439,7 +440,7 @@
 				maxflicks = 0
 			elseif voltage ~= nil and tonumber(voltage) > 4 and tonumber(voltage) < 8 then
 				maxflicks = 1
-			elseif voltage ~= nil and tonumber(voltage) > 10 then
+			elseif voltage ~= nil and tonumber(voltage) > 9 then
 				maxflicks = 2
 			end
 			
@@ -452,7 +453,6 @@
 					pauseBetweenClicks = pauseBetweenClicks + 1
 				end
 
-				--debugLog('Dim-sequentie uitgevoerd voor Keuken Spots. (Voltage: ' .. voltage .. 'V)')
 			end
 
 		elseif input == 'Off' then
@@ -465,7 +465,7 @@
 -- **********************************************************
 -- Power FailSave
 -- **********************************************************
--- Example: if powerFailsave('true') then
+-- Example: powerFailsave('true')
 
 	function powerFailsave(input)
 		input = input
@@ -490,9 +490,9 @@
 	
 --
 -- **********************************************************
--- Get homewizard api output
+-- Get homewizard local api output
 -- **********************************************************
---	if homewizard("battery") < 1500 then
+-- Example: homewizard("Solar") < -1500
 
 	function homewizard(device)
 		local device = device
@@ -534,14 +534,116 @@
 			  chargerUsage = reading_charger1 + reading_charger2 + reading_charger3 + reading_charger4
 			  reading = reading_p1 - chargerUsage
 			  
-			end			
+			end	
+			
 			_,_,usage = string.find(reading, "(.+)")
 		  current_data = round(tonumber(reading), 0)
 		  return current_data
 	end
-	
+
+--
 -- **********************************************************
--- Toggle device only if needed
+-- Is weekend?
+-- **********************************************************
+-- Example: weekend('true')
+-- weekday [0-6 = Sunday-Saturday]
+-- day 1 = Mon
+-- day 2 = Tue
+-- day 3 = Wed
+-- day 4 = Thur
+-- day 5 = Fri
+-- day 6 = Sat
+-- day 0 = Sun
+
+	function weekend(input)
+		input = input
+		result = false
+		local dayNow = tonumber(os.date("%w"))
+		local t = os.date("*t")
+
+		if input == 'true' and dayNow == 5 and timebetween("19:30:00","23:59:59") then
+			result = true
+		end
+		
+		if input == 'true' and (dayNow == 6 or dayNow == 0) then
+			result = true
+		end
+		
+		if input == 'true' and dayNow == 1 and timebetween("00:00:00","02:59:59") then
+			result = true
+		end
+
+-- **********************************************************
+		
+		if input == 'false' and dayNow == 1 and timebetween("03:00:00","23:59:59") then
+			result = true
+		end
+
+		if input == 'false' and (dayNow == 2 or dayNow == 3 or dayNow == 4) then
+			result = true					
+		end
+		
+		if input == 'false' and dayNow == 5 and timebetween("00:00:00","18:29:59") then
+			result = true
+		end
+		
+		return result
+	end
+
+--[[
+-- **********************************************************
+-- Is it Bank Holiday?
+-- **********************************************************
+-- Example: if bankHoliday('true') then or if bankHoliday('false') then or if bankHoliday('lichtweek') then
+--
+
+	function bankHoliday(input)
+		local input = input
+		local isBankHoliday = false
+		
+-- = Determine current data/time
+		local t = os.date("*t")
+
+-- Instellen van jouw periode (bijv. 1 t/m 7 december)
+		local startMonth, startDay = 12, 1
+		local endMonth, endDay     = 12, 7
+
+-- Even jaar?
+		local isEvenYear = (t.year % 2 == 0)
+
+--[[ Christmas ]]--
+--[[			
+		-- Wel Kerst geen Lichtweek
+			if input == 'true' and (tDay >= 1) and (tDay < 6) then
+				isBankHoliday = true
+			end
+
+		-- Geen Kerst geen Lichtweek
+			if input == 'false' and (tDay >= 6) and (tDay < 250) then
+				isBankHoliday = true
+			end
+			
+		-- Wel Lichtweek geen kerst
+			if input == 'true' and (tDay >= 250) and (tDay < 260) then
+				isBankHoliday = true
+			end
+			
+		-- Geen kerst geen lichtweek			
+			if input == 'false' and (tDay >= 260) and (tDay < 300) then
+				isBankHoliday = true
+			end
+			
+		-- Wel Kerst geen lichtweek			
+			if input == 'true' and (tDay >= 300) and (tDay <= 366) then
+				isBankHoliday = true
+			end
+ 
+			return isBankHoliday
+		
+	end
+--]]	
+-- **********************************************************
+-- Toggle device/variable/Scene
 -- **********************************************************
 -- Example: switchDevice("Switch", "On") or switchDevice("variable:Name", "1") or switchDevice("Scene:Name", "On")
 
@@ -598,20 +700,36 @@
 
 --
 -- **********************************************************
--- Get lux threshold IsDark or IsNotDark
+-- IsDark or IsNotDark
 -- **********************************************************
--- Example: if dark('true', 'lux_sensor', lux_threshold) then
+-- Example: dark('true', 'lux_sensor', lux_threshold)
 
-	function dark(dark, lux_sensor, lux)
+	function dark(darkMode, lux_sensor, threshold)
 		local result = false
-		local sensor = sensorValue(lux_sensor)
+		local sensorValueTotal = 0
 
-		if sensor ~= nil then
-			if sensor <= lux and dark == 'true' then
-				result = true
-			elseif sensor > lux and dark == 'false' then
-				result = true
-			end
+		if lux_sensor == 'living' then
+			local s1 = sensorValue("Woonkamer_LUX") or 0
+			local s2 = sensorValue("Keuken_LUX") or 0
+			sensorValueTotal = (s1 + s2) / 2
+
+		elseif lux_sensor == 'garden' then
+			local s1 = sensorValue("Voordeur_LUX") or 0
+			local s2 = sensorValue("Achterdeur_LUX") or 0
+			sensorValueTotal = (s1 + s2) / 2
+
+		else
+			sensorValueTotal = sensorValue(lux_sensor) or 0
+		end
+
+		-- Dark?
+		if darkMode == 'true' and sensorValueTotal <= threshold then
+			result = true
+		end
+
+		-- Not Dark?
+		if darkMode == 'false' and sensorValueTotal > threshold then
+			result = true
 		end
 
 		return result
@@ -619,58 +737,12 @@
 
 --
 -- **********************************************************
--- Get lux threshold Living
--- **********************************************************
--- Example: if darkLiving('true', lux_threshold) then
-
-	function darkLiving(dark, lux)
-		local result    = false
-		local sensor1 = sensorValue("Woonkamer_LUX")
-		local sensor2 = sensorValue("Keuken_LUX")
-
-	if sensor1 ~= nil and sensor2 ~= nil then
-		local sensorAvg = (sensor1 + sensor2) / 2
-			if sensorAvg <= lux and dark == 'true' then
-				result = true
-			elseif sensorAvg > lux and dark == 'false' then
-				result = true
-			end
-		end
-
-		return result
-	end
-	
---
--- **********************************************************
--- Get lux threshold Garden
--- **********************************************************
--- Example: if darkGarden('true', lux_threshold) then
-
-	function darkGarden(dark, lux)
-		local result    = false
-		local sensor1 = sensorValue("Voordeur_LUX")
-		local sensor2 = sensorValue("Achterdeur_LUX")
-
-	if sensor1 ~= nil and sensor2 ~= nil then
-		local sensorAvg = (sensor1 + sensor2) / 2
-			if sensorAvg <= lux and dark == 'true' then
-				result = true
-			elseif sensorAvg > lux and dark == 'false' then
-				result = true
-			end
-		end
-
-		return result
-	end
-
---
--- **********************************************************
--- Debug Function
+-- Debug Function (Important logs)
 -- **********************************************************
 -- Example: debugLog('message')
 
 	function debugLog(message)
-		if lua.debugLogging == 'yes' then
+		if (otherdevices["DebugLog"] == 'Show' or otherdevices["DebugLog"] == 'Show/Write') then
 			local formattedMessage = tostring(message):gsub("%#", "\n Status: LUA: ")
 			
 			print(' ')
@@ -683,19 +755,23 @@
 			print(' ')
 			print("Message:")
 			print(formattedMessage)
-			
+		end
+
+		if (otherdevices["DebugLog"] ~= 'Off') then
 			toggledDevices = {}
 
 			for CommandArrayName, CommandArrayValue in pairs(commandArray) do
 				if type(CommandArrayValue) == "table" then
 					for CommandArrayTableName, CommandArrayTableValue in pairs(CommandArrayValue) do
-						table.insert(toggledDevices, ''..CommandArrayName..', '..CommandArrayTableName..' > '..CommandArrayValue[CommandArrayTableName]..'')
+						table.insert(toggledDevices, ''..CommandArrayName..', '..CommandArrayTableName..' == '..CommandArrayValue[CommandArrayTableName]..'')
 					end		  
 				else
-					table.insert(toggledDevices, ''..CommandArrayName..' > '..CommandArrayValue..'')
+					table.insert(toggledDevices, ''..CommandArrayName..' == '..CommandArrayValue..'')
 				end		   
 			end
-
+		end
+		
+		if (otherdevices["DebugLog"] == 'Show' or otherdevices["DebugLog"] == 'Show/Write') then
 			if #toggledDevices > 0 then
 				print(' ')
 				print("CommandArray:")
@@ -710,7 +786,7 @@
 		end
 		
 		
-		
+		if (otherdevices["DebugLog"] == 'Write' or otherdevices["DebugLog"] == 'Show/Write') then		
 			lua = lua or {}
 			lua.debugLogging   = lua.debugLogging   or 'yes' -- console log
 			lua.debugLogToFile = lua.debugLogToFile or 'yes' -- file logging
@@ -718,7 +794,112 @@
 			lua.debugLogPrefix = lua.debugLogPrefix or 'Debug' -- bestandsnaam-prefix
 
     -- File logging
-		if lua.debugLogToFile == 'yes' then
+		--if lua.debugLogToFile == 'yes' then
+			local now      = os.date('%d-%m-%Y %H:%M:%S')
+			local daystamp = os.date('%Y-%m-%d')
+			local dir      = lua.debugLogDir
+			local fileName = string.format('%s/%s_%s.log', dir, lua.debugLogPrefix, daystamp)
+			local formattedFiledMessage = tostring(message):gsub("%#", "\n")
+
+			-- Create directory if it doesn't exist
+			os.execute('mkdir -p "' .. dir .. '"')
+
+			-- Format lines
+			local logLines = {}
+			table.insert(logLines,' | DebugLog - '.. now ..'')
+			table.insert(logLines,' | ==========================================')
+			table.insert(logLines,' |')
+			table.insert(logLines,' | Trigger:')
+			table.insert(logLines,' | ' .. triggerDevice .. ' == ' .. triggerValue)
+			table.insert(logLines,' |')
+			table.insert(logLines,' | Message:')
+			for line in string.gmatch(formattedFiledMessage, "[^\n]+") do
+				line = line:gsub("^%s+", "")  -- trim spatie aan het begin
+				table.insert(logLines,' | ' .. line)
+			end
+			if #toggledDevices > 0 then
+				table.insert(logLines,' |')
+				table.insert(logLines,' | CommandArray:')
+				for _, line in ipairs(toggledDevices) do
+					table.insert(logLines,' | ' .. line)
+				end
+			end
+			table.insert(logLines,' |')
+			table.insert(logLines,' | ==========================================')
+			table.insert(logLines, '')
+
+			-- Write to file
+			local f = io.open(fileName, "a")
+			if f then
+				f:write(table.concat(logLines, '\n'))
+				f:close()
+				os.execute('chmod 664 "' .. fileName .. '"')
+			else
+				print("DebugLog: fout bij schrijven naar bestand: " .. fileName)
+			end
+		end
+	end
+	
+--
+-- **********************************************************
+-- Debug Function (Less important logs)
+-- **********************************************************
+-- Example: debugLogVar('message')
+
+	function debugLogVar(message)
+		if (otherdevices["DebugLog"] == 'Show' or otherdevices["DebugLog"] == 'Show/Write') then
+			local formattedMessage = tostring(message):gsub("%#", "\n Status: LUA: ")
+			
+			print(' ')
+			print('==========================================')
+			print('DebugLog')
+			print('==========================================')
+			print(' ')
+			print("Trigger:")
+			print(''..triggerDevice..' == '..triggerValue..'')
+			print(' ')
+			print("Message:")
+			print(formattedMessage)
+		end
+
+		if (otherdevices["DebugLog"] ~= 'Off') then
+			toggledDevices = {}
+
+			for CommandArrayName, CommandArrayValue in pairs(commandArray) do
+				if type(CommandArrayValue) == "table" then
+					for CommandArrayTableName, CommandArrayTableValue in pairs(CommandArrayValue) do
+						table.insert(toggledDevices, ''..CommandArrayName..', '..CommandArrayTableName..' == '..CommandArrayValue[CommandArrayTableName]..'')
+					end		  
+				else
+					table.insert(toggledDevices, ''..CommandArrayName..' == '..CommandArrayValue..'')
+				end		   
+			end
+		end
+		
+		if (otherdevices["DebugLog"] == 'Show' or otherdevices["DebugLog"] == 'Show/Write') then
+			if #toggledDevices > 0 then
+				print(' ')
+				print("CommandArray:")
+				for _, line in ipairs(toggledDevices) do
+					print(line)
+				end
+			end
+			
+			print(' ')						
+			print('==========================================')
+			print(' ')
+		end
+		
+		
+		if (otherdevices["DebugLog"] == 'Write' or otherdevices["DebugLog"] == 'Show/Write') then		
+			lua = lua or {}
+			lua.debugLogging   = lua.debugLogging   or 'yes' -- console log
+			lua.debugLogToFile = lua.debugLogToFile or 'yes' -- file logging
+			lua.debugLogDir    = lua.debugLogDir    or '/home/siewert/domoticz/scripts/lua/logs' -- pad naar logmap
+			lua.debugLogPrefix = lua.debugLogPrefix or 'DebugVar' -- bestandsnaam-prefix
+
+    -- File logging
+		--if lua.debugLogToFile == 'yes' then
 			local now      = os.date('%d-%m-%Y %H:%M:%S')
 			local daystamp = os.date('%Y-%m-%d')
 			local dir      = lua.debugLogDir

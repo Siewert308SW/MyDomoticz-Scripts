@@ -1,4 +1,11 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Time Trigger 10min"}) then return end
+
+--
 -- **********************************************************
 -- Boiler ON Time triggered
 -- **********************************************************
@@ -6,13 +13,13 @@
 
 	if devicechanged["Time Trigger 10min"] == 'On'
 		and otherdevices["E-Boiler_WCD"] == 'Off'
-		and homewizard('p1Available') < 0
+		and homewizard('Solar') < 0
 		and lastSeen("E-Boiler_WCD", ">=", 3600)
 		and sensorValue('BV_Charger_Huidige_Verbruik') <= 100
 		and sensorValue('Vaatwasser_Huidige_Verbruik') <= 2
 		and sensorValue('Wasmachine_Huidige_Verbruik') <= 2
 		and sensorValue('Droger_Huidige_Verbruik') <= 2
-		and timebetween(sunTime("sunrise"),sunTime("sunset"))
+		and timebetween(sunTime("sunrise"),sunTime("sunsetEarly"))
 		and powerFailsave('false')
 	then
 
@@ -20,7 +27,6 @@
 			and uservariables["Water_Usage_Trigger"] == 0
 		then
 			switchDevice("E-Boiler_WCD", "On")
-			switchDevice("Boiler_WCD", "On")
 			switchDevice("Variable:Water_Usage_Trigger", "0")
 			debugLog('Boiler AAN (Zonnestroom)')	
 		end
@@ -28,22 +34,19 @@
 -- **********************************************************
 	
 		if homewizard("p1Available") > -1500
-			and homewizard("p1Available") < -500
+			and homewizard("p1Available") <= 0
 			and uservariables["Water_Usage_Trigger"] ~= 0
 		then
 			switchDevice("E-Boiler_WCD", "On")
-			switchDevice("Boiler_WCD", "On")
 			switchDevice("Variable:Water_Usage_Trigger", "0")
 			debugLog('Boiler AAN (Water Verbruik)')	
 		end
 
 -- **********************************************************
 
-		if homewizard("p1Available") >= -500
-			and lastSeen("E-Boiler_WCD", ">=", 57600)
+		if lastSeen("E-Boiler_WCD", ">=", 57600)
 		then
 			switchDevice("E-Boiler_WCD", "On")
-			switchDevice("Boiler_WCD", "On")
 			switchDevice("Variable:Water_Usage_Trigger", "0")
 			debugLog('Boiler AAN (> 16hr failsave)')				
 		end
@@ -65,7 +68,6 @@
 		and powerFailsave('false')
     then
 		switchDevice("E-Boiler_WCD", "Off")
-		switchDevice("Boiler_WCD", "Off")
 		switchDevice("Variable:Water_Usage_Trigger", "0")
 		debugLog('Boiler UIT')	
 	end

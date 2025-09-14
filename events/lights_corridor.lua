@@ -1,4 +1,11 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Overloop_Motion", "Overloop_Deur", "Time Trigger 1min"}) then return end
+
+--
 -- **********************************************************
 -- Corridor light ON
 -- **********************************************************
@@ -13,7 +20,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("Overloop_Verlichting", "On")
-		--debugLog('Iemand op de overloop')
+		debugLogVar('Iemand op de overloop')
 	end
 
 	if devicechanged["Overloop_Deur"] == 'Open'
@@ -26,7 +33,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("Overloop_Verlichting", "On")
-		--debugLog('Iemand naar de overloop')
+		debugLogVar('Iemand naar de overloop')
 	end	
 --
 -- *********************************************************************
@@ -42,5 +49,5 @@
 		and powerFailsave('false')		
 	then		
 		switchDevice("Overloop_Verlichting", "Off")
-		--debugLog('Niemand meer op de overloop')
+		debugLogVar('Niemand meer op de overloop #Failsave')
 	end

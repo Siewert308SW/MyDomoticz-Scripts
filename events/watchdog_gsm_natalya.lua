@@ -1,4 +1,11 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Natalya_GSM", "Time Trigger 5min"}) then return end
+
+--
 -- **********************************************************
 -- Natalya Bedroom WCD ON
 -- **********************************************************
@@ -8,7 +15,7 @@
 		and otherdevices["Natalya_WCD"] == 'Off'
 	then
 		switchDevice("Natalya_WCD", "On")
-		--debugLog('Natalya is thuis, Slaapkamer uit standby')
+		debugLogVar('Natalya is thuis, Slaapkamer uit standby')
 	end
 
 --
@@ -24,5 +31,5 @@
 	then
 		switchDevice("Natalya_WCD", "Off")
 		switchDevice("Natalya_Verlichting", "Off")
-		--debugLog('Natalya is weg, Slaapkamer in standby')
+		debugLogVar('Natalya is weg, Slaapkamer in standby')
 	end

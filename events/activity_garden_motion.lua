@@ -1,4 +1,11 @@
 --
+-- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Voor_Deur", "Voordeur_Motion", "Achter_Deur", "Garage_Deur", "Achterdeur_Motion", "Fietsenschuur_Deur", "Time Trigger 5min" }) then return end
+	
+--
 -- **********************************************************
 -- Garden lights ON @ motion
 -- **********************************************************
@@ -9,7 +16,7 @@
 	if (devicechanged["Voor_Deur"] == 'Open' or devicechanged["Voordeur_Motion"] == 'On')
 		and otherdevices["Voordeur_Verlichting"] == 'Off'
 		and uservariables["tuin_activity"] == 0
-		and darkGarden('true', 10)
+		and dark('true', 'garden', 10)
 		and powerFailsave('false')
 	then
 		IsSceneGardenMotion = true
@@ -19,7 +26,7 @@
 	if (devicechanged["Achter_Deur"] == 'Open' or devicechanged["Garage_Deur"] == 'Open' or devicechanged["Achterdeur_Motion"] == 'On' or devicechanged["Fietsenschuur_Deur"] == 'Open')
 		and otherdevices["Voordeur_Verlichting"] == 'Off'
 		and uservariables["tuin_activity"] == 0
-		and darkGarden('true', 10)
+		and dark('true', 'garden', 10)
 		and powerFailsave('false')
 	then
 		IsSceneGardenMotion = true
@@ -49,19 +56,19 @@
 --
 	
 	if IsSceneGardenMotion == true and sceneGardenMotion == 'front' and powerFailsave('false') then
+		switchDevice("Variable:tuin_activity", "1")
 		switchDevice("Voordeur_Verlichting", "Set Level 7")	
 		switchDevice("Brandgang_Verlichting", "Set Level 7") 
 		switchDevice("Fietsenschuur_Buiten_Verlichting", "Set Level 7")		 
 		switchDevice("Achterdeur_Verlichting", "Set Level 7")	
-		switchDevice("Variable:tuin_activity", "1")
 		debugLog('Garden Motion Voortuin: Tuin verlichting ingeschakeld')
 			
 	elseif IsSceneGardenMotion == true and sceneGardenMotion == 'back' and powerFailsave('false') then
+		switchDevice("Variable:tuin_activity", "1")
 		switchDevice("Achterdeur_Verlichting", "Set Level 7")
 		switchDevice("Fietsenschuur_Buiten_Verlichting", "Set Level 7")
 		switchDevice("Brandgang_Verlichting", "Set Level 7") 
-		switchDevice("Voordeur_Verlichting", "Set Level 7")		 	
-		switchDevice("Variable:tuin_activity", "1")
+		switchDevice("Voordeur_Verlichting", "Set Level 7")
 		debugLog('Garden Motion Achtertuin: Tuin verlichting ingeschakeld')
 
 	elseif IsSceneGardenMotion == true and sceneGardenMotion == 'off' and powerFailsave('false') then

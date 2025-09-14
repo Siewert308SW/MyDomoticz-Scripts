@@ -24,11 +24,11 @@ local m = os.date('%M')
 	end
 
 	if (m % 5 == 0) then
-		commandArray[#commandArray+1]={["Time Trigger 5min"] = "On AFTER 5"}
+		commandArray[#commandArray+1]={["Time Trigger 5min"] = "On AFTER 10"}
 	end
 
 	if (m % 10 == 0) then
-		commandArray[#commandArray+1]={["Time Trigger 10min"] = "On AFTER 10"}
+		commandArray[#commandArray+1]={["Time Trigger 10min"] = "On AFTER 20"}
 	end
 
 return commandArray

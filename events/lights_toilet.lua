@@ -1,5 +1,12 @@
 --
 -- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Toilet_Motion", "Time Trigger 1min"}) then return end
+	
+--
+-- *********************************************************************
 -- Toilet light ON when motion detection
 -- *********************************************************************
 --
@@ -11,7 +18,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("Toilet_Verlichting", "On")
-		--debugLog('Toilet verlichting AAN')
+		debugLogVar('Iemand op het toilet')
 	end
 	
 --
@@ -28,5 +35,5 @@
 		and powerFailsave('false')		
 	then
 		switchDevice("Toilet_Verlichting", "Off")
-		--debugLog('Toilet verlichting UIT.Geen beweging meer gezien')
+		debugLogVar('Niemand meer op het toilet #Failsave')
 	end

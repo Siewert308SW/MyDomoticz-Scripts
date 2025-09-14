@@ -1,5 +1,12 @@
 --
 -- *********************************************************************
+-- Check trigger before load script, saves resources
+-- *********************************************************************
+--
+	if not isMyTrigger({"Badkamer_Motion", "Time Trigger 10min"}) then return end
+
+--
+-- *********************************************************************
 -- Bathroom light ON when motion detected
 -- *********************************************************************
 --
@@ -14,7 +21,7 @@
 	then
 		switchDevice("Badkamer_Spiegel_Spots", "On")
 		switchDevice("Badkamer_Verlichting", "On")
-		--debugLog('Iemand in de badkamer')
+		debugLogVar('Iemand in de badkamer')
 	end
 	
 --
@@ -34,5 +41,5 @@
 	then
 		switchDevice("Badkamer_Spiegel_Spots", "Off")
 		switchDevice("Badkamer_Verlichting", "Off")
-		--debugLog('Niemand meer in de badkamer')
+		debugLogVar('Niemand meer in de badkamer #Failsave')
 	end
