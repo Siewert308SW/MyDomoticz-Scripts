@@ -44,7 +44,7 @@
 		print("-- *********************")
 		print("")	
 
-		if waterCounter > 75 and uservariables["Water_Usage_Trigger"] == 0 then
+		if waterCounter > 50 and uservariables["Water_Usage_Trigger"] == 0 then
 			switchDevice("Variable:Water_Usage_Trigger", "1")
 		end
 	end

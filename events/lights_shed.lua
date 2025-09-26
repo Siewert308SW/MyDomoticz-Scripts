@@ -17,7 +17,7 @@
 		and powerFailsave('false')		
 	then
 		switchDevice("Fietsenschuur_Verlichting", "On")
-		debugLogVar('Iemand in de fietsenschuur')
+		debugLog('Iemand in de fietsenschuur')
 	end
 	
 --
@@ -31,7 +31,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("Fietsenschuur_Verlichting", "Off")
-		debugLogVar('Niemand meer in de fietsenschuur')
+		debugLog('Niemand meer in de fietsenschuur')
 	end
 
 	if devicechanged["Time Trigger 5min"] == 'On'
@@ -43,11 +43,11 @@
 	
 		if otherdevices["Fietsenschuur_Verlichting"] == 'Closed' and lastSeen('Fietsenschuur_Deur', '>=', '300') then
 			switchDevice("Fietsenschuur_Verlichting", "Off")
-			debugLogVar('Fietsenschuur verlichting UIT na 300s #Failsave')
+			debugLog('Fietsenschuur verlichting UIT na 300s #Failsave')
 			
 		elseif otherdevices["Fietsenschuur_Verlichting"] == 'Open' and lastSeen('Fietsenschuur_Deur', '>=', '1800') then
 			switchDevice("Fietsenschuur_Verlichting", "Off")
-			debugLogVar('Fietsenschuur verlichting UIT na 1800s #Failsave')		
+			debugLog('Fietsenschuur verlichting UIT na 1800s #Failsave')		
 		end
 
 	end

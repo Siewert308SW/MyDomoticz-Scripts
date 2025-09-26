@@ -16,7 +16,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("Kelder_Verlichting", "On")
-		debugLogVar('Kelder verlichting AAN')
+		debugLog('Kelder verlichting AAN')
 	end
 
 --
@@ -29,7 +29,7 @@
 		and powerFailsave('false')
 	then		
 		switchDevice("Kelder_Verlichting", "Off")
-		debugLogVar('Kelder verlichting UIT')
+		debugLog('Kelder verlichting UIT')
 	end
 
 --
@@ -44,5 +44,5 @@
 		and powerFailsave('false')		
 	then		
 		switchDevice("Kelder_Verlichting", "Off")
-		debugLogVar('Kelder verlichting UIT #Failsave')
+		debugLog('Kelder verlichting UIT #Failsave')
 	end

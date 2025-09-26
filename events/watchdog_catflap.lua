@@ -17,7 +17,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("CatFlap", "On")
-		debugLogVar('Kattenluik geopend')
+		debugLog('Kattenluik geopend')
 	end
 	
 --
@@ -31,5 +31,5 @@
 		and powerFailsave('false')
 	then
 		switchDevice("CatFlap", "Off")
-		debugLogVar('Kattenluik afgesloten')
+		debugLog('Kattenluik afgesloten')
 	end

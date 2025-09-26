@@ -20,7 +20,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("Overloop_Verlichting", "On")
-		debugLogVar('Iemand op de overloop')
+		debugLog('Iemand op de overloop')
 	end
 
 	if devicechanged["Overloop_Deur"] == 'Open'
@@ -33,7 +33,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("Overloop_Verlichting", "On")
-		debugLogVar('Iemand naar de overloop')
+		debugLog('Iemand naar de overloop')
 	end	
 --
 -- *********************************************************************
@@ -49,5 +49,5 @@
 		and powerFailsave('false')		
 	then		
 		switchDevice("Overloop_Verlichting", "Off")
-		debugLogVar('Niemand meer op de overloop #Failsave')
+		debugLog('Niemand meer op de overloop #Failsave')
 	end

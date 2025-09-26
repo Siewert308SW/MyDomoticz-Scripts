@@ -15,6 +15,23 @@
 
 --
 -- **********************************************************
+-- Function appendToFile
+-- **********************************************************
+--
+
+	function appendToFile(filePath, content)
+		local file = io.open(filePath, "a+")
+		if file then
+			file:write(content)
+			file:close()
+			os.execute('chmod 664 "' .. filePath .. '"')
+		else
+			print("Kan logfile niet openen: " .. filePath)
+		end
+	end
+
+--
+-- **********************************************************
 -- Function to execute os commands and get output
 -- **********************************************************
 -- Example: os.capture(curl 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet')
@@ -53,12 +70,17 @@
 			return math.ceil(nVal - 0.5)
 		end
 	end
+
+
+	function roundToHalf(value)
+		return math.floor(value * 2 + 0.5) / 2
+	end
 	
 --
 -- **********************************************************
 -- Time Difference
 -- **********************************************************
--- Example: timedifference(otherdevices_lastupdate['light.living_standing_light']) >= 15
+--
 
 	function timedifference(s)
 		year = string.sub(s, 1, 4)
@@ -77,7 +99,6 @@
 -- **********************************************************
 -- Get Sunset / Sunrise
 -- **********************************************************
--- Example: timebetween(sunTime("sunset"),"23:00:00"
 --
 
 	function sunTime(input)
@@ -119,11 +140,11 @@
 		-- Detecteer input + bepaal offset in minuten
 		if input == "sunsetEarly" then
 			mode = "sunset"
-			offset = -90
+			offset = -60
 			
 		elseif input == "sunsetLate" then
 			mode = "sunset"
-			offset = 60
+			offset = 30
 			
 		elseif input == "sunset" then
 			mode = "sunset"
@@ -131,7 +152,7 @@
 			
 		elseif input == "sunriseEarly" then
 			mode = "sunrise"
-			offset = -60
+			offset = -30
 			
 		elseif input == "sunriseLate" then
 			mode = "sunrise"
@@ -143,7 +164,6 @@
 			
 		end
 
-		-- Haal de tijd op zoals jij al deed
 		if mode == 'sunset' then
 			local sunsetCap = os.capture("curl -s 'http://127.0.0.1:8080/json.htm?type=command&param=getSunRiseSet' | grep 'Sunset' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g'", false)
 			suntime = sunsetCap .. ":00"
@@ -152,13 +172,11 @@
 			suntime = sunriseCap .. ":00"
 		end
 
-		-- Offset toepassen als nodig
 		if offset ~= 0 then
 			local h = tonumber(string.sub(suntime, 1, 2))
 			local m = tonumber(string.sub(suntime, 4, 5))
 			local total = h * 60 + m + offset
 
-			-- Clamp tussen 0 en 1439 (23:59)
 			if total < 0 then total = 0 end
 			if total > 1439 then total = 1439 end
 
@@ -175,7 +193,7 @@
 -- **********************************************************
 -- Time Between X hours and X hour
 -- **********************************************************
--- Example: timebetween("03:00:00","11:59:59")
+--
 
 	function timebetween(s,e)
 	   timenow = os.date("*t")
@@ -206,7 +224,7 @@
 -- **********************************************************
 -- Last Seen
 -- **********************************************************
--- Example: lastSeen('device', '>', '300')
+--
 
 	function lastSeen(device, operator, seconds)
 		local diff = timedifference(otherdevices_lastupdate[device])
@@ -218,7 +236,7 @@
 -- **********************************************************
 -- Last Seen Variable
 -- **********************************************************
--- Example: lastSeenVar('variable', '>', '300')
+--
 
 	function lastSeenVar(device, operator, seconds)
 		local diff = timedifference(uservariables_lastupdate[device])
@@ -230,7 +248,7 @@
 -- **********************************************************
 -- Is it Summer Time?
 -- **********************************************************
--- Example: summer('true')
+--
 
 	function summer(input)
 		input = input
@@ -239,7 +257,7 @@
 		local tNow = os.date("*t")
 		local summertime = tNow.yday
 			
-			if input == 'true' and (summertime >= 60) and (summertime <= 298) then
+			if input == 'true' and (summertime >= 60) and (summertime <= 300) then
 				result = true
 			end
  
@@ -250,7 +268,7 @@
 -- **********************************************************
 -- Phones Online
 -- **********************************************************
--- Example: phonesOnline('true')
+--
 
 	function phonesOnline(input)
 		input = input
@@ -279,7 +297,7 @@
 -- **********************************************************
 -- Laptops Online
 -- **********************************************************
--- Example: laptopsOnline('true')
+--
 
 	function laptopsOnline(input)
 		input = input
@@ -308,7 +326,7 @@
 -- **********************************************************
 -- TV Online
 -- **********************************************************
--- Example: mediaOnline('true')
+--
 
 	function mediaOnline(input)
 		input = input
@@ -337,12 +355,11 @@
 -- **********************************************************
 -- Check motion @ home
 -- **********************************************************
--- Example: motionHome('true', 600)
+--
 
 	function motionHome(input, minutes)
 		local IsMotion = true
 
-		-- List of excluded sensors
 		local excludedDevices = {
 			["Voordeur_Motion"] = true,
 			["Achterdeur_Motion"] = true
@@ -369,7 +386,7 @@
 -- **********************************************************
 -- Check overall garden motion
 -- **********************************************************
--- Example: motionGarden('true', 600)
+--
 
 	function motionGarden(input, minutes)
 		input = input
@@ -409,18 +426,41 @@
 -- **********************************************************
 -- Get otherdevices_svalues
 -- **********************************************************
--- Example: sensorValue('outside_temp_sensor') > 5
+--
 
 	function sensorValue(device)
 		return tonumber(otherdevices_svalues[device])
 	end
 
+--
+-- **********************************************************
+-- Get Humidity
+-- **********************************************************
+--	if humidity("bathroom") < 1500 then
+
+	function humidity(device)
+		local device = device
+		local reading
+		local usage
+		local NetHum = '"Humidity"'
+			if device == "bathroom" then
+			  reading = os.capture("curl 'http://127.0.0.1:8080/json.htm?type=command&param=getdevices&rid=3939' | grep '"..NetHum.."' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g' | sed 's/Humidity//g'", false)
+			end
+			
+			if device == "living" then
+			  reading = os.capture("curl 'http://127.0.0.1:8080/json.htm?type=command&param=getdevices&rid=3661' | grep '"..NetHum.."' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g' | sed 's/Humidity//g'", false)
+			end
+			
+			_,_,usage = string.find(reading, "(.+)")
+		  current_humidity = tonumber(reading)
+		  return current_humidity
+	end
+	
+--
 -- **********************************************************
 -- Turn ON Kitchen Spots with Voltage Check
 -- **********************************************************
--- Tries to dim correctly (voltage <= 2.0V)
--- Requires: sensorValue('Keuken_Spots_Huidige_Verbruik')
--- **********************************************************
+--
 
 	function kitchen_spots(input, pause)
 		local maxAttempts = 1
@@ -465,7 +505,7 @@
 -- **********************************************************
 -- Power FailSave
 -- **********************************************************
--- Example: powerFailsave('true')
+--
 
 	function powerFailsave(input)
 		input = input
@@ -492,7 +532,7 @@
 -- **********************************************************
 -- Get homewizard local api output
 -- **********************************************************
--- Example: homewizard("Solar") < -1500
+--
 
 	function homewizard(device)
 		local device = device
@@ -524,7 +564,7 @@
 
 --[[ HomeWizard virtual P1 power available  ]]--			
 			if device == "p1Available" then
-			  reading_p1 = os.capture("curl -s 'http://192.168.178.77/api/v1/data' | gron | grep 'active_power_w' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
+			  reading_p1       = os.capture("curl -s 'http://192.168.178.77/api/v1/data' | gron | grep 'active_power_w' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
 			  
 			  reading_charger1 = os.capture("curl -s 'http://192.168.178.90/api/v1/data' | gron | grep 'active_power_w' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
 			  reading_charger2 = os.capture("curl -s 'http://192.168.178.89/api/v1/data' | gron | grep 'active_power_w' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
@@ -533,8 +573,25 @@
 
 			  chargerUsage = reading_charger1 + reading_charger2 + reading_charger3 + reading_charger4
 			  reading = reading_p1 - chargerUsage
-			  
 			end	
+
+--[[ HomeWizard Battery Percentage ]]--
+			if device == "battery" then
+			  reading = os.capture("curl 'http://192.168.178.3:8080/json.htm?type=command&param=getdevices&rid=64' | grep 'Data' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g' | sed 's/%//g'", false)
+			end
+
+--[[ HomeWizard Inverters ON/OFF ]]--
+			if device == "inverters" then
+			  local readingInv1 = os.capture("curl -s 'http://192.168.178.88/api/v1/state' | gron | grep 'power_on' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
+			  local readingInv2 = os.capture("curl -s 'http://192.168.178.98/api/v1/state' | gron | grep 'power_on' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
+				
+				if readingInv2 == 'true' and readingInv1 == 'true' then
+				reading = 1
+				else
+				reading = 0
+				end
+			end
+
 			
 			_,_,usage = string.find(reading, "(.+)")
 		  current_data = round(tonumber(reading), 0)
@@ -545,7 +602,6 @@
 -- **********************************************************
 -- Is weekend?
 -- **********************************************************
--- Example: weekend('true')
 -- weekday [0-6 = Sunday-Saturday]
 -- day 1 = Mon
 -- day 2 = Tue
@@ -641,13 +697,14 @@
 			return isBankHoliday
 		
 	end
---]]	
+--]]
+
+--	
 -- **********************************************************
 -- Toggle device/variable/Scene
 -- **********************************************************
--- Example: switchDevice("Switch", "On") or switchDevice("variable:Name", "1") or switchDevice("Scene:Name", "On")
-
-	local autoDelay = 0
+--
+	local autoDelay = 1
 
 	function switchDevice(deviceName, newCommand)
 		local needsSwitch = false
@@ -692,7 +749,7 @@
 		-- Uitvoeren indien nodig
 		if needsSwitch and isSwitch then
 			commandArray[#commandArray+1] = { [deviceName] = newCommand .. " AFTER " .. autoDelay }
-			autoDelay = autoDelay + 1
+			autoDelay = autoDelay + 2
 		elseif needsSwitch and not isSwitch then
 			commandArray[#commandArray+1] = { [deviceName] = newCommand }
 		end
@@ -702,7 +759,7 @@
 -- **********************************************************
 -- IsDark or IsNotDark
 -- **********************************************************
--- Example: dark('true', 'lux_sensor', lux_threshold)
+--
 
 	function dark(darkMode, lux_sensor, threshold)
 		local result = false
@@ -737,9 +794,9 @@
 
 --
 -- **********************************************************
--- Debug Function (Important logs)
+-- Debug Function
 -- **********************************************************
--- Example: debugLog('message')
+--
 
 	function debugLog(message)
 		if (otherdevices["DebugLog"] == 'Show' or otherdevices["DebugLog"] == 'Show/Write') then
@@ -790,7 +847,7 @@
 			lua = lua or {}
 			lua.debugLogging   = lua.debugLogging   or 'yes' -- console log
 			lua.debugLogToFile = lua.debugLogToFile or 'yes' -- file logging
-			lua.debugLogDir    = lua.debugLogDir    or '/home/siewert/domoticz/scripts/lua/logs' -- pad naar logmap
+			lua.debugLogDir    = lua.debugLogDir    or '/home/siewert/domoticz/scripts/lua/logs/debug' -- pad naar logmap
 			lua.debugLogPrefix = lua.debugLogPrefix or 'Debug' -- bestandsnaam-prefix
 
     -- File logging
@@ -842,17 +899,17 @@
 	
 --
 -- **********************************************************
--- Debug Function (Less important logs)
+-- Debug Function
 -- **********************************************************
--- Example: debugLogVar('message')
+--
 
-	function debugLogVar(message)
+	function debugLogClima(message)
 		if (otherdevices["DebugLog"] == 'Show' or otherdevices["DebugLog"] == 'Show/Write') then
 			local formattedMessage = tostring(message):gsub("%#", "\n Status: LUA: ")
 			
 			print(' ')
 			print('==========================================')
-			print('DebugLog')
+			print('ClimaLogger')
 			print('==========================================')
 			print(' ')
 			print("Trigger:")
@@ -895,8 +952,8 @@
 			lua = lua or {}
 			lua.debugLogging   = lua.debugLogging   or 'yes' -- console log
 			lua.debugLogToFile = lua.debugLogToFile or 'yes' -- file logging
-			lua.debugLogDir    = lua.debugLogDir    or '/home/siewert/domoticz/scripts/lua/logs' -- pad naar logmap
-			lua.debugLogPrefix = lua.debugLogPrefix or 'DebugVar' -- bestandsnaam-prefix
+			lua.debugLogDir    = lua.debugLogDir    or '/home/siewert/domoticz/scripts/lua/logs/climate' -- pad naar logmap
+			lua.debugLogPrefix = lua.debugLogPrefix or 'Climate' -- bestandsnaam-prefix
 
     -- File logging
 		--if lua.debugLogToFile == 'yes' then
@@ -911,7 +968,7 @@
 
 			-- Format lines
 			local logLines = {}
-			table.insert(logLines,' | DebugLog - '.. now ..'')
+			table.insert(logLines,' | Climalogger - '.. now ..'')
 			table.insert(logLines,' | ==========================================')
 			table.insert(logLines,' |')
 			table.insert(logLines,' | Trigger:')

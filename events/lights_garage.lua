@@ -16,7 +16,7 @@
 		and powerFailsave('false')		
 	then
 		switchDevice("Garage_Verlichting", "On")
-		debugLogVar('Iemand in de garage')
+		debugLog('Iemand in de garage')
 	end
 
 	if (devicechanged["Garage_Deur"] == 'Open')
@@ -26,7 +26,7 @@
 		and powerFailsave('false')		
 	then
 		switchDevice("Garage_Verlichting", "On")
-		debugLogVar('Iemand thuis gekomen via de garage')
+		debugLog('Iemand thuis gekomen via de garage')
 	end
 	
 --
@@ -44,12 +44,12 @@
 	
 		if otherdevices["Garage_Deur"] == 'Closed' and lastSeen('Garage_Motion', '>=', '300') then
 		switchDevice("Garage_Verlichting", "Off")
-		debugLogVar('Garage verlichting UIT na 300s #Failsave')
+		debugLog('Garage verlichting UIT na 300s #Failsave')
 		end
 
 		if otherdevices["Garage_Deur"] == 'Open' and lastSeen('Garage_Motion', '>=', '1800') then
 		switchDevice("Garage_Verlichting", "Off")
-		debugLogVar('Garage verlichting UIT na 1800s #Failsave')
+		debugLog('Garage verlichting UIT na 1800s #Failsave')
 		end		
 		
 	end

@@ -17,7 +17,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("Hal_Verlichting", "On")
-		debugLogVar('Iemand in de hal')
+		debugLog('Iemand in de hal')
 	end
 	
 	if (devicechanged["Hal_Motion"] == 'On' or devicechanged["Hal_Deur"] == 'Open')
@@ -27,7 +27,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("Hal_Verlichting", "On")
-		debugLogVar('Iemand in de hal')
+		debugLog('Iemand in de hal')
 	end
 	
 --
@@ -53,7 +53,7 @@
 			and lastSeen("Hal_Verlichting", ">=", 90)
 		then
 		switchDevice("Hal_Verlichting", "Off")
-		debugLogVar('Niemand meer in de hal #Failsave')
+		debugLog('Niemand meer in de hal #Failsave')
 		end
 
 		if (otherdevices["Voor_Deur"] ~= 'Closed'
@@ -64,7 +64,7 @@
 			and lastSeen("Hal_Verlichting", ">=", 300)
 		then
 		switchDevice("Hal_Verlichting", "Off")
-		debugLogVar('Niemand meer in de hal #Failsave')
+		debugLog('Niemand meer in de hal #Failsave')
 		end		
 		
 	end	

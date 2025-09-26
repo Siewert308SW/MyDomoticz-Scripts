@@ -21,7 +21,7 @@
 	then
 		switchDevice("Badkamer_Spiegel_Spots", "On")
 		switchDevice("Badkamer_Verlichting", "On")
-		debugLogVar('Iemand in de badkamer')
+		debugLog('Iemand in de badkamer')
 	end
 	
 --
@@ -41,5 +41,5 @@
 	then
 		switchDevice("Badkamer_Spiegel_Spots", "Off")
 		switchDevice("Badkamer_Verlichting", "Off")
-		debugLogVar('Niemand meer in de badkamer #Failsave')
+		debugLog('Niemand meer in de badkamer #Failsave')
 	end

@@ -18,7 +18,7 @@
 		and powerFailsave('false')
 	then
 		switchDevice("Toilet_Verlichting", "On")
-		debugLogVar('Iemand op het toilet')
+		debugLog('Iemand op het toilet')
 	end
 	
 --
@@ -35,5 +35,5 @@
 		and powerFailsave('false')		
 	then
 		switchDevice("Toilet_Verlichting", "Off")
-		debugLogVar('Niemand meer op het toilet #Failsave')
+		debugLog('Niemand meer op het toilet #Failsave')
 	end

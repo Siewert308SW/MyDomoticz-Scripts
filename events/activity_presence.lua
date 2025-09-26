@@ -96,7 +96,7 @@
 	if devicechanged["Personen"] == 'Start'
 		and powerFailsave('false')
 	then
-		commandArray[#commandArray+1]={["Personen"] = "Set Level 10 AFTER 5"}
+		commandArray[#commandArray+1]={["Personen"] = "Set Level 10 AFTER 8"}
 		debugLog('Iemand thuis, huis wordt opgestart')
 	end
 
@@ -107,11 +107,11 @@
 	then
 
 		if phonesOnline('true') then
-		commandArray[#commandArray+1]={["Personen"] = "Set Level 20 AFTER 5"}
+		commandArray[#commandArray+1]={["Personen"] = "Set Level 20 AFTER 8"}
 		debugLog('Iedereen slaapt, huis wordt afgesloten')
 		
 		elseif phonesOnline('false') then
-		commandArray[#commandArray+1]={["Personen"] = "Set Level 0 AFTER 5"}
+		commandArray[#commandArray+1]={["Personen"] = "Set Level 0 AFTER 8"}
 		debugLog('Niemand thuis, huis wordt afgesloten')		
 		end
 

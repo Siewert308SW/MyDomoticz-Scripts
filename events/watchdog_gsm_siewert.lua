@@ -16,7 +16,7 @@
 		and otherdevices["Siewert_Charger"] == 'Off'
 	then
 		switchDevice("Siewert_Charger", "On")
-		debugLogVar('Siewert is thuis, GSM charger AAN')
+		debugLog('Siewert is thuis, GSM charger AAN')
 	end
 
 
@@ -32,7 +32,7 @@
 		and sensorValue('Siewert_Charger_Huidige_Verbruik') >= 7
 	then
 		switchDevice("Variable:siewert_charger", "1")
-		debugLogVar('Siewert GSM is aan het laden')
+		debugLog('Siewert GSM is aan het laden')
 	end
 	
 --
@@ -47,5 +47,5 @@
 		and lastSeen('Siewert_Charger', '>=', '4800')
 	then
 		switchDevice("Siewert_Charger", "Off")
-		debugLogVar('Siewert GSM opladen voltooid, charger UIT')
+		debugLog('Siewert GSM opladen voltooid, charger UIT')
 	end

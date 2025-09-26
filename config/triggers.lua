@@ -58,5 +58,7 @@
 		'Time Trigger 1min',
 		'Time Trigger 5min',
 		'Time Trigger 10min',
+		'Time Trigger 30min',
+		--'Time Trigger 60min',
 		'Dummy',
 }

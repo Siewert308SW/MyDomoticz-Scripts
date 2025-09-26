@@ -17,7 +17,7 @@
 		and powerFailsave('false')		
 	then
 		switchDevice("Printer_WCD", "On")
-		debugLogVar('Printer_WCD AAN')
+		debugLog('Printer_WCD AAN')
 	end
 
 --
@@ -32,5 +32,5 @@
 		and powerFailsave('false')		
 	then
 		switchDevice("Printer_WCD", "Off")
-		debugLogVar('Printer_WCD UIT')
+		debugLog('Printer_WCD UIT')
 	end

@@ -16,7 +16,7 @@
 		and otherdevices["Jerina_Laptop_WCD"] == 'Off'
 	then
 		switchDevice("Jerina_Laptop_WCD", "On")
-		debugLogVar('Jerina is thuis, Laptop_WCD ingeschakeld')
+		debugLog('Jerina Laptop_WCD ingeschakeld')
 	end
 
 --
@@ -31,5 +31,5 @@
 		and lastSeen('Jerina_Laptop_WCD', '>=', '300')
 	then
 		switchDevice("Jerina_Laptop_WCD", "Off")
-		debugLogVar('Jerina is weg, Laptop_WCD uitgeschakeld')
+		debugLog('Jerina Laptop_WCD uitgeschakeld')
 	end

@@ -15,7 +15,7 @@
 		and otherdevices["Natalya_WCD"] == 'Off'
 	then
 		switchDevice("Natalya_WCD", "On")
-		debugLogVar('Natalya is thuis, Slaapkamer uit standby')
+		debugLog('Natalya is thuis, Slaapkamer uit standby')
 	end
 
 --
@@ -31,5 +31,5 @@
 	then
 		switchDevice("Natalya_WCD", "Off")
 		switchDevice("Natalya_Verlichting", "Off")
-		debugLogVar('Natalya is weg, Slaapkamer in standby')
+		debugLog('Natalya is weg, Slaapkamer in standby')
 	end

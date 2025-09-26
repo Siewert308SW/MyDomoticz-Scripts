@@ -23,29 +23,51 @@
 		and powerFailsave('false')
 	then
 
-		if homewizard("p1Available") <= -1500
+		local mode = "none"
+		if homewizard("p1Available") <= -2500
 			and uservariables["Water_Usage_Trigger"] == 0
+			and mode == 'none'
 		then
+			mode = "solar"
 			switchDevice("E-Boiler_WCD", "On")
 			switchDevice("Variable:Water_Usage_Trigger", "0")
 			debugLog('Boiler AAN (Zonnestroom)')	
 		end
+			  
+-- **********************************************************
 
+		if homewizard("p1Available") <= -1400
+			and homewizard("battery") > 25
+			and homewizard("inverters") == 1
+			and uservariables["Water_Usage_Trigger"] == 0
+			and mode == 'none'
+		then
+			mode = "solar"
+			switchDevice("E-Boiler_WCD", "On")
+			switchDevice("Variable:Water_Usage_Trigger", "0")
+			debugLog('Boiler AAN (Zonnestroom + Batterij)')	
+		end
+			  
 -- **********************************************************
 	
-		if homewizard("p1Available") > -1500
-			and homewizard("p1Available") <= 0
+		if homewizard("p1Available") > -2000
+			and homewizard("p1Available") <= -500
 			and uservariables["Water_Usage_Trigger"] ~= 0
+			and mode == 'none'
 		then
+			mode = "water"
 			switchDevice("E-Boiler_WCD", "On")
 			switchDevice("Variable:Water_Usage_Trigger", "0")
 			debugLog('Boiler AAN (Water Verbruik)')	
 		end
 
+
 -- **********************************************************
 
 		if lastSeen("E-Boiler_WCD", ">=", 57600)
+		and mode == 'none'
 		then
+			mode = "solar"
 			switchDevice("E-Boiler_WCD", "On")
 			switchDevice("Variable:Water_Usage_Trigger", "0")
 			debugLog('Boiler AAN (> 16hr failsave)')				
@@ -61,7 +83,7 @@
 	if devicechanged["Time Trigger 10min"] == 'Off'
 		and summer('true')
 		and otherdevices["E-Boiler_WCD"] == 'On'
-		and homewizard("p1Available") > -1500
+		and homewizard("p1Available") > -1800
 		and sensorValue('E-Boiler_Huidige_Verbruik') <= 2
 		and lastSeen("E-Boiler_WCD", ">=", 3600)
 		and (timebetween(sunTime("sunsetEarly"),"23:59:59") or timebetween("00:00:00",sunTime("sunrise")))

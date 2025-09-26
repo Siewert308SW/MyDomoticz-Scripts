@@ -20,5 +20,5 @@
 		and powerFailsave('false')		
 	then
 		switchDevice("WalkIn_Verlichting", "Off")
-		debugLogVar('WalkIn verlichting UIT #Failsave')
+		debugLog('WalkIn verlichting UIT #Failsave')
 	end
