@@ -3,7 +3,7 @@
 -- Check trigger before load script, saves resources
 -- *********************************************************************
 --
-	if not isMyTrigger({"Garage_Controler_Woonkamer UIT", "Woonkamer_Verlichting UIT", "Rookmelder_Woonkamer", "Rookmelder_Hal", "Rookmelder_Overloop", "Rookmelder_Slaapkamer", "Rookmelder_Natalya", "Rookmelder_Garage", "Rookmelder_Zolder", "Co2-Melder_Zolder" }) then return end
+	if not isMyTrigger({"WoonkamerContr_Verlichting_UIT", "BijkeukenContr_Verlichting_UIT", "Rookmelder_Woonkamer", "Rookmelder_Hal", "Rookmelder_Overloop", "Rookmelder_Slaapkamer", "Rookmelder_Natalya", "Rookmelder_Garage", "Rookmelder_Zolder", "Co2-Melder_Zolder" }) then return end
 
 --
 -- **********************************************************
@@ -33,7 +33,7 @@
 -- **********************************************************
 --
 
-	if (devicechanged["Woonkamer_Verlichting UIT"] == 'On' or devicechanged["Garage_Controler_Woonkamer UIT"] == 'On')
+	if (devicechanged["WoonkamerContr_Verlichting_UIT"] == 'On' or devicechanged["BijkeukenContr_Verlichting_UIT"] == 'On')
 		and uservariables["panic"] == 1
 	then
 		IsScenePanic = true

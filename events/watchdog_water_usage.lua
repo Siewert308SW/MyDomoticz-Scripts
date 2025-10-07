@@ -17,6 +17,7 @@
 		and sensorValue("Watermeter - Current usage") > 0
 		and (otherdevices["Badkamer_Verlichting"] == "On" or otherdevices["Badkamer_Spiegel_Spots"] == "On")
 		and powerFailsave('false')
+		and summer('true')
 	then
 		local waterStart   = round(tonumber(sensorValue("Watermeter")), 1)
 		switchDevice("Variable:Watermeter_Start", ""..waterStart.."")
@@ -32,6 +33,7 @@
 		and uservariables["Watermeter_Start"] ~= "0"
 		and sensorValue("Watermeter - Current usage") > 0
 		and powerFailsave('false')
+		and summer('true')
 	then
 		local waterStart   = round(tonumber(uservariables["Watermeter_Start"]), 2)
 		local waterEnd     = round(tonumber(sensorValue("Watermeter")), 2)
@@ -60,6 +62,7 @@
 		and otherdevices["Badkamer_Verlichting"] == "Off" 
 		and otherdevices["Badkamer_Spiegel_Spots"] == "Off"
 		and powerFailsave('false')
+		and summer('true')
 	then
 		local waterStart   = round(tonumber(uservariables["Watermeter_Start"]), 2)
 		local waterEnd     = round(tonumber(sensorValue("Watermeter")), 2)

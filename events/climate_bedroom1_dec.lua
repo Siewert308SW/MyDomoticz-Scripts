@@ -21,10 +21,13 @@
 		"winter"
 
 -- Path to logfile
-	local logFile = "/home/siewert/domoticz/scripts/lua/logs/climate/bedroom1_history_" .. season .. ".csv"
+	local logFile = "/opt/domoticz/userdata/scripts/lua/logs/climate/bedroom1_history_" .. season .. ".csv"
 	local f = io.open(logFile, "r")
 	if not f then debugLogClima("Kan logbestand niet openen."); return end
 
+-- Devices/Switches
+	local presence       	= otherdevices["Personen"] or "Aanwezig"
+	
 -- Sensors
 	local insideBedroomTemp = sensorValue("Slaapkamer_Deur_Master_Temp")
 	local outsideFrontTemp 	= sensorValue("Voortuin_Temp")
@@ -57,17 +60,17 @@
 	local tTol, oTol, spTol
 
 	if seasonNow == "summer" then
-		tTol 				= 2.0   -- Inside Temperature
-		oTol 				= 5.0   -- Outside Temperature
-		spTol 				= 1.0   -- Setpoint
+		tTol 				= 0.5   -- Inside Temperature
+		oTol 				= 4.0   -- Outside Temperature
+		spTol 				= 0.5   -- Setpoint
 	elseif seasonNow == "winter" then
-		tTol 				= 2.0   -- Inside Temperature
-		oTol 				= 15.0  -- Outside Temperature
-		spTol 				= 1.0   -- Setpoint
+		tTol 				= 0.5   -- Inside Temperature
+		oTol 				= 2.0  -- Outside Temperature
+		spTol 				= 0.5   -- Setpoint
 	else
-		tTol 				= 2.0   -- Inside Temperature
-		oTol 				= 5.0   -- Outside Temperature
-		spTol 				= 1.0   -- Setpoint
+		tTol 				= 0.5   -- Inside Temperature
+		oTol 				= 2.0   -- Outside Temperature
+		spTol 				= 0.5   -- Setpoint
 	end
 
 -- Votes + setpoint tracking
@@ -82,11 +85,11 @@
 		inT, outT, lux, sp = tonumber(inT), tonumber(outT), tonumber(lux), tonumber(sp)
 
 		if inT and outT and lux and sp and season == seasonNow then
-			local luxConditionMatch =
-				(avgLux <= 1 and lux <= 1) or
-				(avgLux > 1 and lux > 1)
+			--local luxConditionMatch =
+			--	(avgLux <= 1 and lux <= 1) or
+			--	(avgLux > 1 and lux > 1)
 
-			if luxConditionMatch then
+			--if luxConditionMatch then
 				local inMatch = math.abs(inT - insideTemp) <= tTol
 				local outMatch = math.abs(outT - outsideTemp) <= oTol
 				local spMatch = math.abs(sp - tonumber(setpointBedroom1)) <= spTol
@@ -106,7 +109,7 @@
 					end
 					matches = matches + 1
 				end
-			end
+			--end
 		end
 	end
 	f:close()
@@ -148,7 +151,7 @@
 	end
 
 -- Write to LogFile
-	local decisionLogPath = "/home/siewert/domoticz/scripts/lua/logs/climate/bedroom1_dec_" .. season .. ".csv"
+	local decisionLogPath = "/opt/domoticz/userdata/scripts/lua/logs/climate/bedroom1_dec_" .. season .. ".csv"
 	local now = os.date("%Y-%m-%d %H:%M:%S")
 	local logLine = string.format("%s,%s,%d,%d,%d,%d\n", now, decision, matches, votes.Heat, votes.Cool, votes.Off)
 	appendToFile(decisionLogPath, logLine)

@@ -33,11 +33,29 @@
 		'Slaapkamer_Deur_Master',
 		
 	-- Light Switches
-		'Woonkamer_Verlichting AAN',
-		'Woonkamer_Verlichting UIT',	
+		'WoonkamerContr_Verlichting_AAN',
+		'WoonkamerContr_Verlichting_UIT',	
 
-		'Garage_Controler_Woonkamer AAN',
-		'Garage_Controler_Woonkamer UIT',
+		'WoonkamerContr_Hal_AAN',
+		'WoonkamerContr_Hal_UIT',
+		
+		'WoonkamerContr_Manco1_AAN',
+		'WoonkamerContr_Manco1_UIT',
+
+		'WoonkamerContr_Manco2_AAN',
+		'WoonkamerContr_Manco2_UIT',
+
+		'BijkeukenContr_Garage_AAN',
+		'BijkeukenContr_Garage_UIT',
+
+		'BijkeukenContr_Manco1_AAN',
+		'BijkeukenContr_Manco2_UIT',
+
+		'BijkeukenContr_Manco2_AAN',
+		'BijkeukenContr_Manco2_UIT',
+		
+		'BijkeukenContr_Verlichting_AAN',
+		'BijkeukenContr_Verlichting_UIT',
 	
 	-- Various
 		'Woonkamer_Airco_Power',

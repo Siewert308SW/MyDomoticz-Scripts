@@ -19,12 +19,23 @@
 		or devicechanged["Overloop_Deur"] == 'Open')
 		and (otherdevices["Personen"] ~= 'Aanwezig' or uservariables["manual_light"] == 1)
 		and lastSeen("Personen", ">", 60)
-		and lastSeen("Woonkamer_Verlichting UIT", ">", 120)
-		and lastSeen("Garage_Controler_Woonkamer UIT", ">", 120)
+		and lastSeen("WoonkamerContr_Verlichting_UIT", ">", 120)
+		and lastSeen("BijkeukenContr_Verlichting_UIT", ">", 120)
 		and powerFailsave('false')
 	then
 		switchDevice("Personen", "Set Level 40") -- START
 		debugLog('Iemand thuis gekomen')
+	end
+
+	if devicechanged["Fietsenschuur_Deur"] == 'Closed'
+		and (otherdevices["Personen"] ~= 'Aanwezig' or uservariables["manual_light"] == 1)
+		and lastSeen("Personen", ">", 600)
+		and lastSeen("WoonkamerContr_Verlichting_UIT", ">", 600)
+		and lastSeen("BijkeukenContr_Verlichting_UIT", ">", 600)
+		and powerFailsave('false')
+	then
+		switchDevice("Personen", "Set Level 40") -- START
+		debugLog('Iemand thuis gekomen en is in de fietsenschuur')
 	end
 	
 --

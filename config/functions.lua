@@ -257,7 +257,7 @@
 		local tNow = os.date("*t")
 		local summertime = tNow.yday
 			
-			if input == 'true' and (summertime >= 60) and (summertime <= 300) then
+			if input == 'true' and (summertime >= 60) and (summertime <= 274) then
 				result = true
 			end
  
@@ -704,9 +704,9 @@
 -- Toggle device/variable/Scene
 -- **********************************************************
 --
-	local autoDelay = 1
+		local autoDelay = 0
 
-	function switchDevice(deviceName, newCommand)
+	function switchDevice(deviceName, newCommand, delayed)
 		local needsSwitch = false
 		local isSwitch = false
 
@@ -749,7 +749,13 @@
 		-- Uitvoeren indien nodig
 		if needsSwitch and isSwitch then
 			commandArray[#commandArray+1] = { [deviceName] = newCommand .. " AFTER " .. autoDelay }
-			autoDelay = autoDelay + 2
+
+			if delayed == "delayed" then
+				autoDelay = autoDelay + 2
+			else
+				autoDelay = autoDelay + 1
+			end
+		
 		elseif needsSwitch and not isSwitch then
 			commandArray[#commandArray+1] = { [deviceName] = newCommand }
 		end
@@ -846,8 +852,8 @@
 		if (otherdevices["DebugLog"] == 'Write' or otherdevices["DebugLog"] == 'Show/Write') then		
 			lua = lua or {}
 			lua.debugLogging   = lua.debugLogging   or 'yes' -- console log
-			lua.debugLogToFile = lua.debugLogToFile or 'yes' -- file logging
-			lua.debugLogDir    = lua.debugLogDir    or '/home/siewert/domoticz/scripts/lua/logs/debug' -- pad naar logmap
+			lua.debugLogToFile = lua.debugLogToFile or 'yes' -- file logging 
+			lua.debugLogDir    = lua.debugLogDir    or '/opt/domoticz/userdata/scripts/lua/logs/debug/' -- pad naar logmap
 			lua.debugLogPrefix = lua.debugLogPrefix or 'Debug' -- bestandsnaam-prefix
 
     -- File logging
@@ -952,7 +958,7 @@
 			lua = lua or {}
 			lua.debugLogging   = lua.debugLogging   or 'yes' -- console log
 			lua.debugLogToFile = lua.debugLogToFile or 'yes' -- file logging
-			lua.debugLogDir    = lua.debugLogDir    or '/home/siewert/domoticz/scripts/lua/logs/climate' -- pad naar logmap
+			lua.debugLogDir    = lua.debugLogDir    or '/opt/domoticz/userdata/scripts/lua/logs/climate' -- pad naar logmap
 			lua.debugLogPrefix = lua.debugLogPrefix or 'Climate' -- bestandsnaam-prefix
 
     -- File logging

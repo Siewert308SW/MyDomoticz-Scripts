@@ -19,6 +19,10 @@
 		and sensorValue('Vaatwasser_Huidige_Verbruik') <= 2
 		and sensorValue('Wasmachine_Huidige_Verbruik') <= 2
 		and sensorValue('Droger_Huidige_Verbruik') <= 2
+		and lastSeen("Badkamer_Spiegel_Spots", ">=", 1200)
+		and lastSeen("Badkamer_Verlichting", ">=", 1200)
+		and lastSeen("Badkamer_Motion", ">=", 1200)
+		and sensorValue("Watermeter - Current usage") == 0
 		and timebetween(sunTime("sunrise"),sunTime("sunsetEarly"))
 		and powerFailsave('false')
 	then
@@ -50,7 +54,7 @@
 			  
 -- **********************************************************
 	
-		if homewizard("p1Available") > -2000
+		if homewizard("p1Available") > -2500
 			and homewizard("p1Available") <= -500
 			and uservariables["Water_Usage_Trigger"] ~= 0
 			and mode == 'none'
@@ -83,7 +87,7 @@
 	if devicechanged["Time Trigger 10min"] == 'Off'
 		and summer('true')
 		and otherdevices["E-Boiler_WCD"] == 'On'
-		and homewizard("p1Available") > -1800
+		and homewizard("p1Available") > -1400
 		and sensorValue('E-Boiler_Huidige_Verbruik') <= 2
 		and lastSeen("E-Boiler_WCD", ">=", 3600)
 		and (timebetween(sunTime("sunsetEarly"),"23:59:59") or timebetween("00:00:00",sunTime("sunrise")))

@@ -22,7 +22,7 @@ if not isMyTrigger({"Time Trigger 30min", "Dummy"}) then return end
 		"winter"
 		
 -- Path to logfile
-	local logFile = "/home/siewert/domoticz/scripts/lua/logs/climate/living_history_" .. season .. ".csv"
+	local logFile = "/opt/domoticz/userdata/scripts/lua/logs/climate/living_history_" .. season .. ".csv"
 	
 -- Sensors
 	local insideLiving1Temp = sensorValue("Woonkamer_Hum_Temp")
@@ -35,13 +35,19 @@ if not isMyTrigger({"Time Trigger 30min", "Dummy"}) then return end
 	local frontdoorLux   	= sensorValue("Voordeur_LUX")
 	local backdoorLux 		= sensorValue("Achterdeur_LUX")
 	local aircoState       	= otherdevices["Woonkamer_Airco_Power"] or "Off"
-	local aircoMode        	= otherdevices["Woonkamer_Airco_Mode"] or "Off"
 	local aircoSetpoint    	= tonumber(otherdevices["Woonkamer_Airco_Setpoint"]) or 0
-
+	local aircoMode        	= otherdevices["Woonkamer_Airco_Mode"] or "Off"
+	
 	if aircoState == "Off" then
 		aircoMode = "Off"
 	end
 	
+-- Devices/Switches
+	local presence       	= otherdevices["Personen"] or "Aanwezig"
+
+	if presence == "Standby" or presence == "Start" or presence == "Stop" then
+		presence = "Aanwezig"
+	end
 
 -- Average Inside temperature
 	local avgInsideTemp     = roundToHalf(((tonumber(insideLiving1Temp) or 20) + (tonumber(insideLiving2Temp) or 20) + (tonumber(insideKitchenTemp) or 20)) / 3)
@@ -87,7 +93,7 @@ if not isMyTrigger({"Time Trigger 30min", "Dummy"}) then return end
 
 -- Create Log Lines
 	local line = string.format(
-		"%s,%.1f,%.1f,%.0f,%.0f,%s,%s,%s,%s\n",
+		"%s,%.1f,%.1f,%.0f,%.0f,%s,%s,%s,%s,%s\n",
 		timestamp,
 		tonumber(avgInsideTemp) or 0,
 		tonumber(avgOutsideTemp) or 0,
@@ -96,7 +102,8 @@ if not isMyTrigger({"Time Trigger 30min", "Dummy"}) then return end
 		aircoSetpoint,
 		aircoState,
 		aircoMode,
-		season
+		season,
+		presence
 	)
 
 -- Write to LogFile

@@ -16,7 +16,7 @@
 	if devicechanged["Time Trigger 10min"] == 'On'
 		and otherdevices["Voordeur_Verlichting"] == 'Off'
 		and uservariables["tuin_activity"] == 0
-		and dark('true', 'garden', 14.5)
+		and dark('true', 'garden', 13)
 		and timebetween(sunTime("sunsetEarly"),"23:29:59")
 		and powerFailsave('false')
 	then
@@ -33,7 +33,7 @@
 	if devicechanged["Time Trigger 10min"] == 'On'
 		and otherdevices["Voordeur_Verlichting"] ~= 'Off'
 		and uservariables["tuin_activity"] == 0
-		and dark('false', 'garden', 14.5)
+		and dark('false', 'garden', 15)
 		and powerFailsave('false')
 	then
 	
@@ -82,18 +82,19 @@
 -- Scenes
 -- **********************************************************
 --
-	
-	if IsSceneGarden == true and sceneGarden == 'on' and powerFailsave('false') then
-		switchDevice("Voordeur_Verlichting", "Set Level 7")	
-		switchDevice("Brandgang_Verlichting", "Set Level 7") 
-		switchDevice("Fietsenschuur_Buiten_Verlichting", "Set Level 7")		 
-		switchDevice("Achterdeur_Verlichting", "Set Level 7")	
-		debugLog('Tuin verlichting ingeschakeld')
+	if devicechanged["Time Trigger 10min"] then
+		if IsSceneGarden == true and sceneGarden == 'on' and powerFailsave('false') then
+			switchDevice("Voordeur_Verlichting", "Set Level 7")	
+			switchDevice("Brandgang_Verlichting", "Set Level 7") 
+			switchDevice("Fietsenschuur_Buiten_Verlichting", "Set Level 7")		 
+			switchDevice("Achterdeur_Verlichting", "Set Level 7")	
+			debugLog('Tuin verlichting ingeschakeld')
 
-	elseif IsSceneGarden == true and sceneGarden == 'off' and powerFailsave('false') then
-		switchDevice("Achterdeur_Verlichting", "Off")
-		switchDevice("Fietsenschuur_Buiten_Verlichting", "Off")
-		switchDevice("Brandgang_Verlichting", "Off") 
-		switchDevice("Voordeur_Verlichting", "Off")
-		debugLog('Tuin verlichting uitgeschakeld')
+		elseif IsSceneGarden == true and sceneGarden == 'off' and powerFailsave('false') then
+			switchDevice("Achterdeur_Verlichting", "Off")
+			switchDevice("Fietsenschuur_Buiten_Verlichting", "Off")
+			switchDevice("Brandgang_Verlichting", "Off") 
+			switchDevice("Voordeur_Verlichting", "Off")
+			debugLog('Tuin verlichting uitgeschakeld')
+		end
 	end

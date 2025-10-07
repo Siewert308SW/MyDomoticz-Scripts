@@ -1,0 +1,15 @@
+ | Climalogger - 06-10-2025 00:00:40
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 30min == Off
+ |
+ | Message:
+ | Bedroom1 Airco OFF (Comfort Mode)
+ | Decision based on 44 comparable logs:
+ | Heat=43, Cool=0, Off=1 → decision: Heat
+ |
+ | CommandArray:
+ | 1, Variable:slaapkamer_airco_decision == Heat
+ |
+ | ==========================================

@@ -1,0 +1,2340 @@
+ | DebugLog - 07-10-2025 01:21:48
+ | ==========================================
+ |
+ | Trigger:
+ | Voordeur_Motion == On
+ |
+ | Message:
+ | Garden Motion Voortuin: Tuin verlichting ingeschakeld
+ |
+ | CommandArray:
+ | 1, Variable:tuin_activity == 1
+ | 2, Voordeur_Verlichting == Set Level 7 AFTER 0
+ | 3, Brandgang_Verlichting == Set Level 7 AFTER 1
+ | 4, Fietsenschuur_Buiten_Verlichting == Set Level 7 AFTER 2
+ | 5, Achterdeur_Verlichting == Set Level 7 AFTER 3
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:22:57
+ | ==========================================
+ |
+ | Trigger:
+ | Achter_Deur == Open
+ |
+ | Message:
+ | Iemand thuis gekomen
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 40 AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:22:57
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Start
+ |
+ | Message:
+ | Iemand thuis, huis wordt opgestart
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 10 AFTER 8
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:22:57
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Start
+ |
+ | Message:
+ | Woonkamer Scene 3 ingeschakeld
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 10 AFTER 8
+ | 2, Variable:manual_light == 0
+ | 3, Woonkamer_Spotjes-TV-Kast == On AFTER 0
+ | 4, Woonkamer_Spotjes == Set Level 45 AFTER 2
+ | 5, Woonkamer_Vloerlamp_Dressoir == On AFTER 4
+ | 6, Woonkamer_Vloerlamp_Links == On AFTER 6
+ | 7, Woonkamer_Vloerlamp_Rechts == On AFTER 8
+ | 8, Bijkeuken_Spots_Verlichting == Set Level 22 AFTER 10
+ | 9, Bijkeuken_NIS_Verlichting == Set Level 22 AFTER 12
+ | 10, Keuken_Cabinet_Verlichting == On AFTER 14
+ | 11, Keuken_Spots == Off AFTER 55
+ | 12, Keuken_Spots == On AFTER 56
+ | 13, Keuken_Spots == Off AFTER 57
+ | 14, Keuken_Spots == On AFTER 58
+ | 15, Keuken_Spots == Off AFTER 59
+ | 16, Keuken_Spots == On AFTER 60
+ | 17, Variable:woonkamer_verlichting_auto == 3
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:23:05
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Aanwezig
+ |
+ | Message:
+ | Standbykillers ingeschakeld
+ |
+ | CommandArray:
+ | 1, Aanrecht_WCD1 == On AFTER 0
+ | 2, Afzuigkap_WCD == On AFTER 2
+ | 3, TV-Kast_WCD == On AFTER 4
+ | 4, Droger_WCD == On AFTER 6
+ | 5, Aanrecht_WCD2 == On AFTER 8
+ | 6, Stofzuiger_WCD == On AFTER 10
+ | 7, Speaker_Keuken_WCD == On AFTER 12
+ | 8, Woonkamer_Bank_WCD == On AFTER 14
+ | 9, Woonkamer_Fauteuil_WCD == On AFTER 16
+ | 10, Voordeur_WCD == On AFTER 18
+ | 11, Achterdeur_WCD == On AFTER 20
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:24:09
+ | ==========================================
+ |
+ | Trigger:
+ | Hal_Deur == Open
+ |
+ | Message:
+ | Iemand in de hal
+ |
+ | CommandArray:
+ | 1, Hal_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:24:41
+ | ==========================================
+ |
+ | Trigger:
+ | Toilet_Motion == On
+ |
+ | Message:
+ | Iemand op het toilet
+ |
+ | CommandArray:
+ | 1, Toilet_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:25:40
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == Off
+ |
+ | Message:
+ | Jerina Laptop_WCD ingeschakeld
+ |
+ | CommandArray:
+ | 1, Jerina_Laptop_WCD == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:26:06
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:27:30
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == Off
+ |
+ | Message:
+ | Niemand meer in de hal 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Hal_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:28:59
+ | ==========================================
+ |
+ | Trigger:
+ | Hal_Deur == Open
+ |
+ | Message:
+ | Iemand in de hal
+ |
+ | CommandArray:
+ | 1, Hal_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:30:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garden Motion: Tuin verlichting uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Achterdeur_Verlichting == Off AFTER 0
+ | 2, Fietsenschuur_Buiten_Verlichting == Off AFTER 1
+ | 3, Brandgang_Verlichting == Off AFTER 2
+ | 4, Voordeur_Verlichting == Off AFTER 3
+ | 5, Variable:tuin_activity == 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:31:30
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == Off
+ |
+ | Message:
+ | Niemand meer in de hal 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Hal_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:45:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 01:45:22
+ | ==========================================
+ |
+ | Trigger:
+ | Garage_Motion == On
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 02:00:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 02:00:16
+ | ==========================================
+ |
+ | Trigger:
+ | Garage_Motion == On
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 02:10:43
+ | ==========================================
+ |
+ | Trigger:
+ | Woonkamer_Verlichting UIT == On
+ |
+ | Message:
+ | Woonkamer verlichting manueel uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 30 AFTER 0
+ | 2, Variable:manual_light == 1
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 02:10:43
+ | ==========================================
+ |
+ | Trigger:
+ | Woonkamer_Verlichting UIT == On
+ |
+ | Message:
+ | Woonkamer verlichting uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 30 AFTER 0
+ | 2, Variable:manual_light == 1
+ | 3, Woonkamer_Spotjes-TV-Kast == Off AFTER 1
+ | 4, Woonkamer_Spotjes == Off AFTER 3
+ | 5, Woonkamer_Vloerlamp_Dressoir == Off AFTER 5
+ | 6, Woonkamer_Vloerlamp_Links == Off AFTER 7
+ | 7, Woonkamer_Vloerlamp_Rechts == Off AFTER 9
+ | 8, Bijkeuken_Spots_Verlichting == Off AFTER 11
+ | 9, Bijkeuken_NIS_Verlichting == Off AFTER 13
+ | 10, Keuken_Cabinet_Verlichting == Off AFTER 15
+ | 11, Keuken_Spots == Off AFTER 17
+ | 12, Variable:woonkamer_verlichting_auto == 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 02:10:43
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Standby
+ |
+ | Message:
+ | Kattenluik afgesloten
+ |
+ | CommandArray:
+ | 1, CatFlap == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 02:15:40
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == Off
+ |
+ | Message:
+ | Jerina Laptop_WCD uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Jerina_Laptop_WCD == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 02:25:41
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == Off
+ |
+ | Message:
+ | Iedereen slaapt (2min trigger)
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 50 AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 02:25:41
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Stop
+ |
+ | Message:
+ | Iedereen slaapt, huis wordt afgesloten
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 20 AFTER 8
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 02:25:49
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Slapen
+ |
+ | Message:
+ | Standbykillers uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Aanrecht_WCD1 == Off AFTER 0
+ | 2, Afzuigkap_WCD == Off AFTER 2
+ | 3, TV-Kast_WCD == Off AFTER 4
+ | 4, Droger_WCD == Off AFTER 6
+ | 5, Aanrecht_WCD2 == Off AFTER 8
+ | 6, Stofzuiger_WCD == Off AFTER 10
+ | 7, Speaker_Keuken_WCD == Off AFTER 12
+ | 8, Woonkamer_Bank_WCD == Off AFTER 14
+ | 9, Woonkamer_Fauteuil_WCD == Off AFTER 16
+ | 10, Voordeur_WCD == Off AFTER 18
+ | 11, Achterdeur_WCD == Off AFTER 20
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 06:42:46
+ | ==========================================
+ |
+ | Trigger:
+ | Voordeur_Motion == On
+ |
+ | Message:
+ | Garden Motion Voortuin: Tuin verlichting ingeschakeld
+ |
+ | CommandArray:
+ | 1, Variable:tuin_activity == 1
+ | 2, Voordeur_Verlichting == Set Level 7 AFTER 0
+ | 3, Brandgang_Verlichting == Set Level 7 AFTER 1
+ | 4, Fietsenschuur_Buiten_Verlichting == Set Level 7 AFTER 2
+ | 5, Achterdeur_Verlichting == Set Level 7 AFTER 3
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 06:50:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garden Motion: Tuin verlichting uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Achterdeur_Verlichting == Off AFTER 0
+ | 2, Fietsenschuur_Buiten_Verlichting == Off AFTER 1
+ | 3, Brandgang_Verlichting == Off AFTER 2
+ | 4, Voordeur_Verlichting == Off AFTER 3
+ | 5, Variable:tuin_activity == 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 06:50:44
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Deur == Open
+ |
+ | Message:
+ | Iemand thuis gekomen
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 40 AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 06:50:44
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Start
+ |
+ | Message:
+ | Iemand thuis, huis wordt opgestart
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 10 AFTER 8
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 06:50:44
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Start
+ |
+ | Message:
+ | Woonkamer Scene 3 ingeschakeld
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 10 AFTER 8
+ | 2, Variable:manual_light == 0
+ | 3, Woonkamer_Spotjes-TV-Kast == On AFTER 0
+ | 4, Woonkamer_Spotjes == Set Level 45 AFTER 2
+ | 5, Woonkamer_Vloerlamp_Dressoir == On AFTER 4
+ | 6, Woonkamer_Vloerlamp_Links == On AFTER 6
+ | 7, Woonkamer_Vloerlamp_Rechts == On AFTER 8
+ | 8, Bijkeuken_Spots_Verlichting == Set Level 22 AFTER 10
+ | 9, Bijkeuken_NIS_Verlichting == Set Level 22 AFTER 12
+ | 10, Keuken_Cabinet_Verlichting == On AFTER 14
+ | 11, Keuken_Spots == Off AFTER 55
+ | 12, Keuken_Spots == On AFTER 56
+ | 13, Keuken_Spots == Off AFTER 57
+ | 14, Keuken_Spots == On AFTER 58
+ | 15, Keuken_Spots == Off AFTER 59
+ | 16, Keuken_Spots == On AFTER 60
+ | 17, Variable:woonkamer_verlichting_auto == 3
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 06:50:52
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Aanwezig
+ |
+ | Message:
+ | Kattenluik geopend
+ |
+ | CommandArray:
+ | 1, CatFlap == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 06:50:52
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Aanwezig
+ |
+ | Message:
+ | Standbykillers ingeschakeld
+ |
+ | CommandArray:
+ | 1, CatFlap == On AFTER 0
+ | 2, Aanrecht_WCD1 == On AFTER 1
+ | 3, Afzuigkap_WCD == On AFTER 3
+ | 4, TV-Kast_WCD == On AFTER 5
+ | 5, Droger_WCD == On AFTER 7
+ | 6, Aanrecht_WCD2 == On AFTER 9
+ | 7, Stofzuiger_WCD == On AFTER 11
+ | 8, Speaker_Keuken_WCD == On AFTER 13
+ | 9, Woonkamer_Bank_WCD == On AFTER 15
+ | 10, Woonkamer_Fauteuil_WCD == On AFTER 17
+ | 11, Voordeur_WCD == On AFTER 19
+ | 12, Achterdeur_WCD == On AFTER 21
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 06:51:04
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 06:55:40
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == Off
+ |
+ | Message:
+ | Jerina Laptop_WCD ingeschakeld
+ |
+ | CommandArray:
+ | 1, Jerina_Laptop_WCD == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 07:05:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 07:48:46
+ | ==========================================
+ |
+ | Trigger:
+ | Hal_Deur == Open
+ |
+ | Message:
+ | Iemand in de hal
+ |
+ | CommandArray:
+ | 1, Hal_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 07:52:00
+ | ==========================================
+ |
+ | Trigger:
+ | Hal_Deur == Open
+ |
+ | Message:
+ | Iemand in de hal
+ |
+ | CommandArray:
+ | 1, Hal_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 07:52:07
+ | ==========================================
+ |
+ | Trigger:
+ | Toilet_Motion == On
+ |
+ | Message:
+ | Iemand op het toilet
+ |
+ | CommandArray:
+ | 1, Toilet_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 07:55:40
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == Off
+ |
+ | Message:
+ | Woonkamer Scene 2 ingeschakeld
+ |
+ | CommandArray:
+ | 1, Woonkamer_Spotjes == Set Level 55 AFTER 0
+ | 2, Woonkamer_Vloerlamp_Dressoir == Off AFTER 2
+ | 3, Woonkamer_Vloerlamp_Links == Off AFTER 4
+ | 4, Woonkamer_Vloerlamp_Rechts == Off AFTER 6
+ | 5, Bijkeuken_Spots_Verlichting == Off AFTER 8
+ | 6, Bijkeuken_NIS_Verlichting == Off AFTER 10
+ | 7, Variable:woonkamer_verlichting_auto == 2
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 07:55:58
+ | ==========================================
+ |
+ | Trigger:
+ | Fietsenschuur_Deur == Open
+ |
+ | Message:
+ | Iemand in de fietsenschuur
+ |
+ | CommandArray:
+ | 1, Fietsenschuur_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 07:58:03
+ | ==========================================
+ |
+ | Trigger:
+ | Fietsenschuur_Deur == Closed
+ |
+ | Message:
+ | Niemand meer in de fietsenschuur
+ |
+ | CommandArray:
+ | 1, Fietsenschuur_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 07:58:24
+ | ==========================================
+ |
+ | Trigger:
+ | Garage_Controler_Woonkamer UIT == On
+ |
+ | Message:
+ | Woonkamer verlichting manueel uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 30 AFTER 0
+ | 2, Variable:manual_light == 1
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 07:58:24
+ | ==========================================
+ |
+ | Trigger:
+ | Garage_Controler_Woonkamer UIT == On
+ |
+ | Message:
+ | Woonkamer verlichting uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 30 AFTER 0
+ | 2, Variable:manual_light == 1
+ | 3, Woonkamer_Spotjes-TV-Kast == Off AFTER 1
+ | 4, Woonkamer_Spotjes == Off AFTER 3
+ | 5, Keuken_Cabinet_Verlichting == Off AFTER 5
+ | 6, Keuken_Spots == Off AFTER 7
+ | 7, Variable:woonkamer_verlichting_auto == 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 07:58:24
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Standby
+ |
+ | Message:
+ | Kattenluik afgesloten
+ |
+ | CommandArray:
+ | 1, CatFlap == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:00:40
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == Off
+ |
+ | Message:
+ | Jerina Laptop_WCD uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Jerina_Laptop_WCD == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:05:41
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == Off
+ |
+ | Message:
+ | Iedereen slaapt (2min trigger)
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 50 AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:05:41
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Stop
+ |
+ | Message:
+ | Iedereen slaapt, huis wordt afgesloten
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 20 AFTER 8
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:05:49
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Slapen
+ |
+ | Message:
+ | Standbykillers uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Aanrecht_WCD1 == Off AFTER 0
+ | 2, Afzuigkap_WCD == Off AFTER 2
+ | 3, TV-Kast_WCD == Off AFTER 4
+ | 4, Droger_WCD == Off AFTER 6
+ | 5, Aanrecht_WCD2 == Off AFTER 8
+ | 6, Stofzuiger_WCD == Off AFTER 10
+ | 7, Speaker_Keuken_WCD == Off AFTER 12
+ | 8, Woonkamer_Bank_WCD == Off AFTER 14
+ | 9, Woonkamer_Fauteuil_WCD == Off AFTER 16
+ | 10, Voordeur_WCD == Off AFTER 18
+ | 11, Achterdeur_WCD == Off AFTER 20
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:30:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Printer_WCD AAN
+ |
+ | CommandArray:
+ | 1, Printer_WCD == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:41:35
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Deur == Open
+ |
+ | Message:
+ | Iemand thuis gekomen
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 40 AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:41:35
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Start
+ |
+ | Message:
+ | Iemand thuis, huis wordt opgestart
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 10 AFTER 8
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:41:35
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Start
+ |
+ | Message:
+ | Woonkamer Scene 1 ingeschakeld
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 10 AFTER 8
+ | 2, Variable:manual_light == 0
+ | 3, Woonkamer_Spotjes-TV-Kast == On AFTER 0
+ | 4, Keuken_Cabinet_Verlichting == On AFTER 2
+ | 5, Keuken_Spots == Off AFTER 55
+ | 6, Keuken_Spots == On AFTER 56
+ | 7, Keuken_Spots == Off AFTER 57
+ | 8, Keuken_Spots == On AFTER 58
+ | 9, Keuken_Spots == Off AFTER 59
+ | 10, Keuken_Spots == On AFTER 60
+ | 11, Variable:woonkamer_verlichting_auto == 1
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:41:43
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Aanwezig
+ |
+ | Message:
+ | Kattenluik geopend
+ |
+ | CommandArray:
+ | 1, CatFlap == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:41:43
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Aanwezig
+ |
+ | Message:
+ | Standbykillers ingeschakeld
+ |
+ | CommandArray:
+ | 1, CatFlap == On AFTER 0
+ | 2, Aanrecht_WCD1 == On AFTER 1
+ | 3, Afzuigkap_WCD == On AFTER 3
+ | 4, TV-Kast_WCD == On AFTER 5
+ | 5, Droger_WCD == On AFTER 7
+ | 6, Aanrecht_WCD2 == On AFTER 9
+ | 7, Stofzuiger_WCD == On AFTER 11
+ | 8, Speaker_Keuken_WCD == On AFTER 13
+ | 9, Woonkamer_Bank_WCD == On AFTER 15
+ | 10, Woonkamer_Fauteuil_WCD == On AFTER 17
+ | 11, Voordeur_WCD == On AFTER 19
+ | 12, Achterdeur_WCD == On AFTER 21
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:44:57
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Deur == Open
+ |
+ | Message:
+ | Iemand naar de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:48:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:52:53
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Motion == On
+ |
+ | Message:
+ | Iemand op de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:52:58
+ | ==========================================
+ |
+ | Trigger:
+ | Badkamer_Motion == On
+ |
+ | Message:
+ | Iemand in de badkamer
+ |
+ | CommandArray:
+ | 1, Badkamer_Spiegel_Spots == On AFTER 0
+ | 2, Badkamer_Verlichting == On AFTER 1
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:56:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 08:56:51
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Motion == On
+ |
+ | Message:
+ | Iemand op de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 09:00:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 09:26:52
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Motion == On
+ |
+ | Message:
+ | Iemand op de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 09:28:18
+ | ==========================================
+ |
+ | Trigger:
+ | Toilet_Motion == On
+ |
+ | Message:
+ | Iemand op het toilet
+ |
+ | CommandArray:
+ | 1, Toilet_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 09:30:09
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 09:52:08
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Motion == On
+ |
+ | Message:
+ | Iemand op de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 09:55:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 10:21:13
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Deur == Open
+ |
+ | Message:
+ | Iemand naar de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 10:25:01
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 10:31:27
+ | ==========================================
+ |
+ | Trigger:
+ | Kelder_Deur == Open
+ |
+ | Message:
+ | Kelder verlichting AAN
+ |
+ | CommandArray:
+ | 1, Kelder_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 10:31:29
+ | ==========================================
+ |
+ | Trigger:
+ | Kelder_Deur == Closed
+ |
+ | Message:
+ | Kelder verlichting UIT
+ |
+ | CommandArray:
+ | 1, Kelder_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 10:32:21
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 10:41:15
+ | ==========================================
+ |
+ | Trigger:
+ | Toilet_Motion == On
+ |
+ | Message:
+ | Iemand op het toilet
+ |
+ | CommandArray:
+ | 1, Toilet_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 10:46:42
+ | ==========================================
+ |
+ | Trigger:
+ | Kelder_Deur == Open
+ |
+ | Message:
+ | Kelder verlichting AAN
+ |
+ | CommandArray:
+ | 1, Kelder_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 10:46:44
+ | ==========================================
+ |
+ | Trigger:
+ | Kelder_Deur == Closed
+ |
+ | Message:
+ | Kelder verlichting UIT
+ |
+ | CommandArray:
+ | 1, Kelder_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 10:52:21
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Motion == On
+ |
+ | Message:
+ | Iemand op de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 10:52:27
+ | ==========================================
+ |
+ | Trigger:
+ | Badkamer_Motion == On
+ |
+ | Message:
+ | Iemand in de badkamer
+ |
+ | CommandArray:
+ | 1, Badkamer_Spiegel_Spots == On AFTER 0
+ | 2, Badkamer_Verlichting == On AFTER 1
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 10:57:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 10:57:49
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Motion == On
+ |
+ | Message:
+ | Iemand op de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 11:01:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 11:04:11
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Motion == On
+ |
+ | Message:
+ | Iemand op de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 11:07:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 11:10:24
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 11:23:46
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Motion == On
+ |
+ | Message:
+ | Iemand op de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 11:27:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 11:32:20
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 11:40:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 11:40:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Natalya is weg, Slaapkamer in standby
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ | 2, Natalya_WCD == Off AFTER 1
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 11:47:45
+ | ==========================================
+ |
+ | Trigger:
+ | Kelder_Deur == Open
+ |
+ | Message:
+ | Kelder verlichting AAN
+ |
+ | CommandArray:
+ | 1, Kelder_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 11:47:52
+ | ==========================================
+ |
+ | Trigger:
+ | Kelder_Deur == Closed
+ |
+ | Message:
+ | Kelder verlichting UIT
+ |
+ | CommandArray:
+ | 1, Kelder_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 11:48:44
+ | ==========================================
+ |
+ | Trigger:
+ | Toilet_Motion == On
+ |
+ | Message:
+ | Iemand op het toilet
+ |
+ | CommandArray:
+ | 1, Toilet_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:07:47
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:15:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:16:29
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:30:17
+ | ==========================================
+ |
+ | Trigger:
+ | BijkeukenContr_Garage_UIT == On
+ |
+ | Message:
+ | Garage verlichting manueel UIT
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:30:32
+ | ==========================================
+ |
+ | Trigger:
+ | BijkeukenContr_Garage_AAN == On
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:31:00
+ | ==========================================
+ |
+ | Trigger:
+ | WoonkamerContr_Hal_AAN == On
+ |
+ | Message:
+ | Iemand in de hal
+ |
+ | CommandArray:
+ | 1, Hal_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:31:04
+ | ==========================================
+ |
+ | Trigger:
+ | WoonkamerContr_Hal_UIT == On
+ |
+ | Message:
+ | Hal verlichting manueel UIT
+ |
+ | CommandArray:
+ | 1, Hal_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:34:10
+ | ==========================================
+ |
+ | Trigger:
+ | Toilet_Motion == On
+ |
+ | Message:
+ | Iemand op het toilet
+ |
+ | CommandArray:
+ | 1, Toilet_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:40:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:51:17
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Deur == Open
+ |
+ | Message:
+ | Iemand naar de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:53:20
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:56:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 12:57:15
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Deur == Open
+ |
+ | Message:
+ | Iemand naar de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 13:10:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 13:10:30
+ | ==========================================
+ |
+ | Trigger:
+ | Garage_Motion == On
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 13:15:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Natalya is weg, Slaapkamer in standby
+ |
+ | CommandArray:
+ | 1, Natalya_WCD == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 13:25:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 13:25:26
+ | ==========================================
+ |
+ | Trigger:
+ | Garage_Motion == On
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 13:36:27
+ | ==========================================
+ |
+ | Trigger:
+ | Toilet_Motion == On
+ |
+ | Message:
+ | Iemand op het toilet
+ |
+ | CommandArray:
+ | 1, Toilet_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 14:00:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 14:36:17
+ | ==========================================
+ |
+ | Trigger:
+ | Toilet_Motion == On
+ |
+ | Message:
+ | Iemand op het toilet
+ |
+ | CommandArray:
+ | 1, Toilet_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 14:39:41
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 14:40:15
+ | ==========================================
+ |
+ | Trigger:
+ | Kelder_Deur == Open
+ |
+ | Message:
+ | Kelder verlichting AAN
+ |
+ | CommandArray:
+ | 1, Kelder_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 14:40:28
+ | ==========================================
+ |
+ | Trigger:
+ | Kelder_Deur == Closed
+ |
+ | Message:
+ | Kelder verlichting UIT
+ |
+ | CommandArray:
+ | 1, Kelder_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 14:50:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 15:13:06
+ | ==========================================
+ |
+ | Trigger:
+ | Toilet_Motion == On
+ |
+ | Message:
+ | Iemand op het toilet
+ |
+ | CommandArray:
+ | 1, Toilet_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 15:14:46
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 15:25:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 15:55:35
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 15:56:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Printer_WCD UIT
+ |
+ | CommandArray:
+ | 1, Printer_WCD == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:01:43
+ | ==========================================
+ |
+ | Trigger:
+ | BijkeukenContr_Garage_UIT == On
+ |
+ | Message:
+ | Garage verlichting manueel UIT
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:02:04
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Deur == Open
+ |
+ | Message:
+ | Iemand naar de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:06:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:14:22
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:15:30
+ | ==========================================
+ |
+ | Trigger:
+ | BijkeukenContr_Garage_UIT == On
+ |
+ | Message:
+ | Garage verlichting manueel UIT
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:16:50
+ | ==========================================
+ |
+ | Trigger:
+ | Badkamer_Motion == On
+ |
+ | Message:
+ | Iemand in de badkamer
+ |
+ | CommandArray:
+ | 1, Badkamer_Spiegel_Spots == On AFTER 0
+ | 2, Badkamer_Verlichting == On AFTER 1
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:18:03
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:19:13
+ | ==========================================
+ |
+ | Trigger:
+ | Toilet_Motion == On
+ |
+ | Message:
+ | Iemand op het toilet
+ |
+ | CommandArray:
+ | 1, Toilet_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:20:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:22:41
+ | ==========================================
+ |
+ | Trigger:
+ | BijkeukenContr_Verlichting_UIT == On
+ |
+ | Message:
+ | Woonkamer verlichting manueel uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 30 AFTER 0
+ | 2, Variable:manual_light == 1
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:22:41
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Standby
+ |
+ | Message:
+ | Kattenluik afgesloten
+ |
+ | CommandArray:
+ | 1, CatFlap == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:22:51
+ | ==========================================
+ |
+ | Trigger:
+ | BijkeukenContr_Verlichting_UIT == On
+ |
+ | Message:
+ | Woonkamer verlichting manueel uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 30 AFTER 0
+ | 2, Variable:manual_light == 1
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:22:51
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Standby
+ |
+ | Message:
+ | Kattenluik afgesloten
+ |
+ | CommandArray:
+ | 1, CatFlap == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:23:04
+ | ==========================================
+ |
+ | Trigger:
+ | WoonkamerContr_Verlichting_UIT == On
+ |
+ | Message:
+ | Woonkamer verlichting manueel uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 30 AFTER 0
+ | 2, Variable:manual_light == 1
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:23:41
+ | ==========================================
+ |
+ | Trigger:
+ | Fietsenschuur_Deur == Open
+ |
+ | Message:
+ | Iemand in de fietsenschuur
+ |
+ | CommandArray:
+ | 1, Fietsenschuur_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:25:08
+ | ==========================================
+ |
+ | Trigger:
+ | Fietsenschuur_Deur == Closed
+ |
+ | Message:
+ | Niemand meer in de fietsenschuur
+ |
+ | CommandArray:
+ | 1, Fietsenschuur_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:25:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:27:52
+ | ==========================================
+ |
+ | Trigger:
+ | BijkeukenContr_Verlichting_UIT == On
+ |
+ | Message:
+ | Woonkamer verlichting manueel uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 30 AFTER 0
+ | 2, Variable:manual_light == 1
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:35:40
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == Off
+ |
+ | Message:
+ | Niemand thuis (2min trigger)
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 50 AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:35:40
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Stop
+ |
+ | Message:
+ | Niemand thuis, huis wordt afgesloten
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 0 AFTER 8
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:35:48
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Weg
+ |
+ | Message:
+ | Woonkamer verlichting uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Variable:manual_light == 0
+ | 2, Woonkamer_Spotjes-TV-Kast == Off AFTER 0
+ | 3, Keuken_Cabinet_Verlichting == Off AFTER 2
+ | 4, Keuken_Spots == Off AFTER 4
+ | 5, Variable:woonkamer_verlichting_auto == 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 16:35:48
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Weg
+ |
+ | Message:
+ | Standbykillers uitgeschakeld
+ |
+ | CommandArray:
+ | 1, Variable:manual_light == 0
+ | 2, Woonkamer_Spotjes-TV-Kast == Off AFTER 0
+ | 3, Keuken_Cabinet_Verlichting == Off AFTER 2
+ | 4, Keuken_Spots == Off AFTER 4
+ | 5, Variable:woonkamer_verlichting_auto == 0
+ | 6, Aanrecht_WCD1 == Off AFTER 6
+ | 7, Afzuigkap_WCD == Off AFTER 8
+ | 8, TV-Kast_WCD == Off AFTER 10
+ | 9, Droger_WCD == Off AFTER 12
+ | 10, Aanrecht_WCD2 == Off AFTER 14
+ | 11, Stofzuiger_WCD == Off AFTER 16
+ | 12, Speaker_Keuken_WCD == Off AFTER 18
+ | 13, Woonkamer_Bank_WCD == Off AFTER 20
+ | 14, Woonkamer_Fauteuil_WCD == Off AFTER 22
+ | 15, Voordeur_WCD == Off AFTER 24
+ | 16, Achterdeur_WCD == Off AFTER 26
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 19:00:20
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 10min == On
+ |
+ | Message:
+ | Tuin verlichting ingeschakeld
+ |
+ | CommandArray:
+ | 1, Voordeur_Verlichting == Set Level 7 AFTER 0
+ | 2, Brandgang_Verlichting == Set Level 7 AFTER 1
+ | 3, Fietsenschuur_Buiten_Verlichting == Set Level 7 AFTER 2
+ | 4, Achterdeur_Verlichting == Set Level 7 AFTER 3
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 19:58:31
+ | ==========================================
+ |
+ | Trigger:
+ | Fietsenschuur_Deur == Open
+ |
+ | Message:
+ | Iemand in de fietsenschuur
+ |
+ | CommandArray:
+ | 1, Fietsenschuur_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 19:59:26
+ | ==========================================
+ |
+ | Trigger:
+ | Fietsenschuur_Deur == Closed
+ |
+ | Message:
+ | Niemand meer in de fietsenschuur
+ |
+ | CommandArray:
+ | 1, Fietsenschuur_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:00:59
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Start
+ |
+ | Message:
+ | Iemand thuis, huis wordt opgestart
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 10 AFTER 8
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:00:59
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Start
+ |
+ | Message:
+ | Woonkamer Scene 3 ingeschakeld
+ |
+ | CommandArray:
+ | 1, Personen == Set Level 10 AFTER 8
+ | 2, Variable:manual_light == 0
+ | 3, Woonkamer_Spotjes-TV-Kast == On AFTER 0
+ | 4, Woonkamer_Spotjes == Set Level 45 AFTER 2
+ | 5, Woonkamer_Vloerlamp_Dressoir == On AFTER 4
+ | 6, Woonkamer_Vloerlamp_Links == On AFTER 6
+ | 7, Woonkamer_Vloerlamp_Rechts == On AFTER 8
+ | 8, Bijkeuken_Spots_Verlichting == Set Level 22 AFTER 10
+ | 9, Bijkeuken_NIS_Verlichting == Set Level 22 AFTER 12
+ | 10, Keuken_Cabinet_Verlichting == On AFTER 14
+ | 11, Keuken_Spots == Off AFTER 55
+ | 12, Keuken_Spots == On AFTER 56
+ | 13, Keuken_Spots == Off AFTER 57
+ | 14, Keuken_Spots == On AFTER 58
+ | 15, Keuken_Spots == Off AFTER 59
+ | 16, Keuken_Spots == On AFTER 60
+ | 17, Variable:woonkamer_verlichting_auto == 3
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:01:08
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Aanwezig
+ |
+ | Message:
+ | Kattenluik geopend
+ |
+ | CommandArray:
+ | 1, CatFlap == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:01:08
+ | ==========================================
+ |
+ | Trigger:
+ | Personen == Aanwezig
+ |
+ | Message:
+ | Standbykillers ingeschakeld
+ |
+ | CommandArray:
+ | 1, CatFlap == On AFTER 0
+ | 2, Aanrecht_WCD1 == On AFTER 1
+ | 3, Afzuigkap_WCD == On AFTER 3
+ | 4, TV-Kast_WCD == On AFTER 5
+ | 5, Droger_WCD == On AFTER 7
+ | 6, Aanrecht_WCD2 == On AFTER 9
+ | 7, Stofzuiger_WCD == On AFTER 11
+ | 8, Speaker_Keuken_WCD == On AFTER 13
+ | 9, Woonkamer_Bank_WCD == On AFTER 15
+ | 10, Woonkamer_Fauteuil_WCD == On AFTER 17
+ | 11, Voordeur_WCD == On AFTER 19
+ | 12, Achterdeur_WCD == On AFTER 21
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:01:11
+ | ==========================================
+ |
+ | Trigger:
+ | Overloop_Deur == Open
+ |
+ | Message:
+ | Iemand naar de overloop
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:02:01
+ | ==========================================
+ |
+ | Trigger:
+ | Hal_Deur == Open
+ |
+ | Message:
+ | Iemand in de hal
+ |
+ | CommandArray:
+ | 1, Hal_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:02:19
+ | ==========================================
+ |
+ | Trigger:
+ | Bijkeuken_Deur == Open
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:04:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Niemand meer op de overloop 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Overloop_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:06:30
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == Off
+ |
+ | Message:
+ | Niemand meer in de hal 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Hal_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:06:41
+ | ==========================================
+ |
+ | Trigger:
+ | Kelder_Deur == Open
+ |
+ | Message:
+ | Kelder verlichting AAN
+ |
+ | CommandArray:
+ | 1, Kelder_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:06:47
+ | ==========================================
+ |
+ | Trigger:
+ | Kelder_Deur == Closed
+ |
+ | Message:
+ | Kelder verlichting UIT
+ |
+ | CommandArray:
+ | 1, Kelder_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:07:45
+ | ==========================================
+ |
+ | Trigger:
+ | Kelder_Deur == Open
+ |
+ | Message:
+ | Kelder verlichting AAN
+ |
+ | CommandArray:
+ | 1, Kelder_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:07:48
+ | ==========================================
+ |
+ | Trigger:
+ | Kelder_Deur == Closed
+ |
+ | Message:
+ | Kelder verlichting UIT
+ |
+ | CommandArray:
+ | 1, Kelder_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:08:56
+ | ==========================================
+ |
+ | Trigger:
+ | Hal_Deur == Open
+ |
+ | Message:
+ | Iemand in de hal
+ |
+ | CommandArray:
+ | 1, Hal_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:09:02
+ | ==========================================
+ |
+ | Trigger:
+ | WoonkamerContr_Hal_UIT == On
+ |
+ | Message:
+ | Hal verlichting manueel UIT
+ |
+ | CommandArray:
+ | 1, Hal_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:10:00
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 1min == On
+ |
+ | Message:
+ | Printer_WCD AAN
+ |
+ | CommandArray:
+ | 1, Printer_WCD == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:15:10
+ | ==========================================
+ |
+ | Trigger:
+ | Time Trigger 5min == On
+ |
+ | Message:
+ | Garage verlichting UIT na 300s 
+ | Failsave
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:15:17
+ | ==========================================
+ |
+ | Trigger:
+ | Garage_Motion == On
+ |
+ | Message:
+ | Iemand in de garage
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == On AFTER 0
+ |
+ | ==========================================
+ | DebugLog - 07-10-2025 20:36:13
+ | ==========================================
+ |
+ | Trigger:
+ | BijkeukenContr_Garage_UIT == On
+ |
+ | Message:
+ | Garage verlichting manueel UIT
+ |
+ | CommandArray:
+ | 1, Garage_Verlichting == Off AFTER 0
+ |
+ | ==========================================

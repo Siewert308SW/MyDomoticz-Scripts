@@ -16,7 +16,7 @@
 		and otherdevices["Overloop_Verlichting"] == 'Off'
 		and lastSeen("Overloop_Verlichting", ">=", 30)
 		and timebetween("08:30:00","21:59:59")
-		and dark('true', 'Overloop_LUX', 10)	
+		and dark('true', 'Overloop_LUX', 8)	
 		and powerFailsave('false')
 	then
 		switchDevice("Overloop_Verlichting", "On")
@@ -29,7 +29,7 @@
 		and lastSeen("Overloop_Verlichting", ">=", 30)
 		and lastSeen("Overloop_Motion", ">=", 30)
 		and timebetween("08:30:00","21:59:59")
-		and dark('true', 'Overloop_LUX', 10)
+		and dark('true', 'Overloop_LUX', 8)
 		and powerFailsave('false')
 	then
 		switchDevice("Overloop_Verlichting", "On")

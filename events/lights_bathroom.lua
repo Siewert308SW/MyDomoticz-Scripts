@@ -17,6 +17,7 @@
 		and otherdevices["Personen"] == 'Aanwezig'
 		and timebetween("08:30:00","21:59:59")
 		and lastSeen("Badkamer_Spiegel_Spots", ">=", 30)
+		and lastSeen("Badkamer_Verlichting", ">=", 30)
 		and powerFailsave('false')
 	then
 		switchDevice("Badkamer_Spiegel_Spots", "On")

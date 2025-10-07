@@ -3,7 +3,7 @@
 -- Check trigger before load script, saves resources
 -- *********************************************************************
 --
-	if not isMyTrigger({"Voor_Deur", "Hal_Deur", "Hal_Motion", "Time Trigger 1min"}) then return end
+	if not isMyTrigger({"WoonkamerContr_Hal_AAN", "WoonkamerContr_Hal_UIT", "Voor_Deur", "Hal_Deur", "Hal_Motion", "Time Trigger 1min"}) then return end
 
 --
 -- **********************************************************
@@ -24,6 +24,14 @@
 		and otherdevices["Hal_Verlichting"] == 'Off'
 		and otherdevices["Personen"] == 'Aanwezig'
 		and dark('true', 'Hal_LUX', 5)
+		and powerFailsave('false')
+	then
+		switchDevice("Hal_Verlichting", "On")
+		debugLog('Iemand in de hal')
+	end
+
+	if devicechanged["WoonkamerContr_Hal_AAN"] == 'On'
+		and otherdevices["Hal_Verlichting"] == 'Off'
 		and powerFailsave('false')
 	then
 		switchDevice("Hal_Verlichting", "On")
@@ -67,4 +75,12 @@
 		debugLog('Niemand meer in de hal #Failsave')
 		end		
 		
-	end	
+	end
+	
+	if devicechanged["WoonkamerContr_Hal_UIT"] == 'On'
+		and otherdevices["Hal_Verlichting"] == 'On'
+		and powerFailsave('false')
+	then
+		switchDevice("Hal_Verlichting", "Off")
+		debugLog('Hal verlichting manueel UIT')
+	end

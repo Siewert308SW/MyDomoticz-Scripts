@@ -17,7 +17,7 @@
 		and (timebetween(sunTime("sunset"),"23:59:59") or timebetween("00:00:00",sunTime("sunriseEarly")))
 		and otherdevices["Voordeur_Verlichting"] == 'Off'
 		and uservariables["tuin_activity"] == 0
-		and dark('true', 'garden', 10)
+		and dark('true', 'garden', 5)
 		and powerFailsave('false')
 	then
 		IsSceneGardenMotion = true
@@ -28,7 +28,7 @@
 		and (timebetween(sunTime("sunsetLate"),"23:59:59") or timebetween("00:00:00",sunTime("sunriseEarly")))
 		and otherdevices["Voordeur_Verlichting"] == 'Off'
 		and uservariables["tuin_activity"] == 0
-		and dark('true', 'garden', 10)
+		and dark('true', 'garden', 5)
 		and powerFailsave('false')
 	then
 		IsSceneGardenMotion = true
@@ -56,7 +56,8 @@
 -- Scenes
 -- **********************************************************
 --
-	
+if (devicechanged["Voor_Deur"] or devicechanged["Voordeur_Motion"] or devicechanged["Achter_Deur"] or devicechanged["Garage_Deur"] or devicechanged["Achterdeur_Motion"] or devicechanged["Fietsenschuur_Deur"] or devicechanged["Time Trigger 5min"]) then
+		
 	if IsSceneGardenMotion == true and sceneGardenMotion == 'front' and uservariables["tuin_activity"] == 0 and powerFailsave('false') then
 		switchDevice("Variable:tuin_activity", "1")
 		switchDevice("Voordeur_Verlichting", "Set Level 7")	
@@ -81,3 +82,4 @@
 		switchDevice("Variable:tuin_activity", "0")
 		debugLog('Garden Motion: Tuin verlichting uitgeschakeld')
 	end
+end
