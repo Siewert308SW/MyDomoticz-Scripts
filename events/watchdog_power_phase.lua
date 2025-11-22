@@ -14,7 +14,6 @@
 	if devicechanged["Time Trigger 1min"] == 'Off'
 		and (otherdevices["Power_FailsaveL1"] == 'Off' or otherdevices["Power_FailsaveL2"] == 'Off'	or otherdevices["Power_FailsaveL3"] == 'Off')
 		and (homewizard('L1') > 5000 or homewizard('L2') > 5000 or homewizard('L3') > 5000)
-		and powerFailsave('false')
 	then
 
 --
@@ -83,7 +82,7 @@
 -- *********************************************************************
 --
 
-		if homewizard('L1') > 5000 and otherdevices["Power_FailsaveL3"] == 'Off' then
+		if homewizard('L3') > 5000 and otherdevices["Power_FailsaveL3"] == 'Off' then
 			switchDevice("Power_FailsaveL3", "On")
 
 			if sensorValue('E-Boiler_Huidige_Verbruik') >= 100 then
@@ -109,10 +108,9 @@
 		and homewizard('L1') <= 1000
 		and homewizard('L2') <= 1000
 		and homewizard('L3') <= 1000
-		and lastSeen("Power_FailsaveL1", ">=", 300)
-		and lastSeen("Power_FailsaveL2", ">=", 300)
-		and lastSeen("Power_FailsaveL3", ">=", 300)
-		and powerFailsave('false')
+		and lastSeen("Power_FailsaveL1", ">=", 120)
+		and lastSeen("Power_FailsaveL2", ">=", 120)
+		and lastSeen("Power_FailsaveL3", ">=", 120)
 	then
 
 --
@@ -122,7 +120,7 @@
 --
 
 		if homewizard('L1') <= 1000 and otherdevices["Power_FailsaveL1"] == 'On' then
-			switchDevice("Power_FailsaveL1", "On")
+			switchDevice("Power_FailsaveL1", "Off")
 			
 			if sensorValue('Droger_Huidige_Verbruik') < 100 then
 				switchDevice("Droger_WCD", "On")
@@ -150,7 +148,7 @@
 --
 		
 		if homewizard('L2') <= 1000 and otherdevices["Power_FailsaveL2"] == 'On' then
-			switchDevice("Power_FailsaveL2", "On")
+			switchDevice("Power_FailsaveL2", "Off")
 
 			if sensorValue('Wasmachine_Huidige_Verbruik') < 100 then
 				switchDevice("Wasmachine_WCD", "On")
@@ -181,8 +179,8 @@
 -- *********************************************************************
 --
 
-		if homewizard('L1') <= 1000 and otherdevices["Power_FailsaveL3"] == 'On' then
-			switchDevice("Power_FailsaveL3", "On")
+		if homewizard('L3') <= 1000 and otherdevices["Power_FailsaveL3"] == 'On' then
+			switchDevice("Power_FailsaveL3", "Off")
 			
 			if sensorValue('E-Boiler_Huidige_Verbruik') < 100 then
 				switchDevice("E-Boiler_WCD", "On")

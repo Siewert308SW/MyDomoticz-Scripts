@@ -23,24 +23,26 @@
 		and lastSeen("BijkeukenContr_Verlichting_UIT", ">", 120)
 		and powerFailsave('false')
 	then
-		switchDevice("Personen", "Set Level 40") -- START
+		switchDevice("Personen", "Set Level 40") -- START		
 		debugLog('Iemand thuis gekomen')
 	end
 
-	if devicechanged["Fietsenschuur_Deur"] == 'Closed'
-		and (otherdevices["Personen"] ~= 'Aanwezig' or uservariables["manual_light"] == 1)
-		and lastSeen("Personen", ">", 600)
-		and lastSeen("WoonkamerContr_Verlichting_UIT", ">", 600)
-		and lastSeen("BijkeukenContr_Verlichting_UIT", ">", 600)
+--
+-- **********************************************************
+-- Personen Start
+-- **********************************************************
+--
+	
+	if devicechanged["Personen"] == 'Start'
 		and powerFailsave('false')
 	then
-		switchDevice("Personen", "Set Level 40") -- START
-		debugLog('Iemand thuis gekomen en is in de fietsenschuur')
+		commandArray[#commandArray+1]={["Personen"] = "Set Level 10 AFTER 9"}
+		debugLog('Iemand thuis, huis wordt opgestart')
 	end
 	
 --
 -- **********************************************************
--- Personen Slapen
+-- Personen Stop
 -- **********************************************************
 --
 
@@ -51,78 +53,43 @@
 		and otherdevices["Personen"] == 'Aanwezig'
 		and motionHome('false', 3600)
 		and powerFailsave('false')
-	then
-		switchDevice("Personen", "Set Level 50") -- STOP
-		debugLog('Iedereen slaapt (1hr trigger)')
+	then		
+		switchDevice("Personen", "Set Level 50") -- STOP		
+		debugLog('Niemand aanwezig? (1hr trigger)')
 	end
-
-	if devicechanged["Time Trigger 5min"] == 'Off'
-		and phonesOnline('true')
-		and laptopsOnline('false')
-		and mediaOnline('false')
-		and otherdevices["Personen"] == 'Standby'
-		and motionHome('false', 300)
-		and powerFailsave('false')
-	then
-		switchDevice("Personen", "Set Level 50") -- STOP
-		debugLog('Iedereen slaapt (2min trigger)')
-	end
-	
---
--- **********************************************************
--- Personen Weg
--- **********************************************************
---
 
 	if devicechanged["Time Trigger 5min"] == 'On'
 		and phonesOnline('false')
 		and laptopsOnline('false')
 		and mediaOnline('false')
 		and otherdevices["Personen"] == 'Aanwezig'
-		and motionHome('false', 600)
-		and powerFailsave('false')
-	then
-		switchDevice("Personen", "Set Level 50") -- STOP
-		debugLog('Niemand thuis (10min trigger)')
-	end
-
-	if devicechanged["Time Trigger 5min"] == 'Off'
-		and phonesOnline('false')
-		and laptopsOnline('false')
-		and mediaOnline('false')
-		and otherdevices["Personen"] == 'Standby'
 		and motionHome('false', 300)
 		and powerFailsave('false')
-	then
-		switchDevice("Personen", "Set Level 50") -- STOP
-		debugLog('Niemand thuis (2min trigger)')
+	then		
+		switchDevice("Personen", "Set Level 50") -- STOP		
+		debugLog('Niemand thuis? (5min trigger)')
 	end
-
+	
 --
 -- **********************************************************
--- Personen Start/Stop
+-- Personen Slapen/Weg
 -- **********************************************************
 --
 	
-	if devicechanged["Personen"] == 'Start'
-		and powerFailsave('false')
-	then
-		commandArray[#commandArray+1]={["Personen"] = "Set Level 10 AFTER 8"}
-		debugLog('Iemand thuis, huis wordt opgestart')
-	end
-
--- **********************************************************
-	
-	if devicechanged["Personen"] == 'Stop'
+	if devicechanged["Time Trigger 5min"] == 'Off'
+		and laptopsOnline('false')
+		and mediaOnline('false')
+		and otherdevices["Personen"] == 'Stop'
+		and motionHome('false', 300)
 		and powerFailsave('false')
 	then
 
 		if phonesOnline('true') then
-		commandArray[#commandArray+1]={["Personen"] = "Set Level 20 AFTER 8"}
+		commandArray[#commandArray+1]={["Personen"] = "Set Level 20 AFTER 9"}
 		debugLog('Iedereen slaapt, huis wordt afgesloten')
 		
 		elseif phonesOnline('false') then
-		commandArray[#commandArray+1]={["Personen"] = "Set Level 0 AFTER 8"}
+		commandArray[#commandArray+1]={["Personen"] = "Set Level 0 AFTER 9"}
 		debugLog('Niemand thuis, huis wordt afgesloten')		
 		end
 

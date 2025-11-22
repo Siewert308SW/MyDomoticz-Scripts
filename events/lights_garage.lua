@@ -10,7 +10,7 @@
 -- Garage lights ON
 -- **********************************************************
 --
-	if (devicechanged["Bijkeuken_Deur"] == 'Open' or devicechanged["Garage_Deur"] == 'Open' or devicechanged["Garage_Motion"] == 'On' or devicechanged["BijkeukenContr_Garage_AAN"] == 'On')
+	if (devicechanged["Garage_Motion"] == 'On' or devicechanged["Bijkeuken_Deur"] == 'Open' or devicechanged["Garage_Deur"] == 'Open' or devicechanged["BijkeukenContr_Garage_AAN"] == 'On')
 		and otherdevices["Garage_Verlichting"] == 'Off'
 		and otherdevices["Personen"] == 'Aanwezig'
 		and powerFailsave('false')		

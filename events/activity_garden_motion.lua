@@ -10,31 +10,35 @@
 -- Garden lights ON @ motion
 -- **********************************************************
 --
-	IsSceneGardenMotion = false
-	sceneGardenMotion   = 'none'
 	
-	if (devicechanged["Voor_Deur"] == 'Open' or devicechanged["Voordeur_Motion"] == 'On')
-		and (timebetween(sunTime("sunset"),"23:59:59") or timebetween("00:00:00",sunTime("sunriseEarly")))
+	if (devicechanged["Voor_Deur"] == 'Open' or devicechanged["Voordeur_Motion"] == 'On' or devicechanged["Achter_Deur"] == 'Open' or devicechanged["Garage_Deur"] == 'Open' or devicechanged["Achterdeur_Motion"] == 'On' or devicechanged["Fietsenschuur_Deur"] == 'Open')
+		and (timebetween(sunTime("sunset"),"23:59:59") or timebetween("00:00:00","12:00:00"))
 		and otherdevices["Voordeur_Verlichting"] == 'Off'
 		and uservariables["tuin_activity"] == 0
+		and uservariables["tuin_verlichting_auto"] == 0
 		and dark('true', 'garden', 5)
 		and powerFailsave('false')
 	then
-		IsSceneGardenMotion = true
-		sceneGardenMotion   = 'front'
+		commandArray[#commandArray+1]={["Scene:Tuinverlichting AAN"] = "On"}
+		switchDevice("Variable:tuin_activity", "1")
 	end
 
-	if (devicechanged["Achter_Deur"] == 'Open' or devicechanged["Garage_Deur"] == 'Open' or devicechanged["Achterdeur_Motion"] == 'On' or devicechanged["Fietsenschuur_Deur"] == 'Open')
-		and (timebetween(sunTime("sunsetLate"),"23:59:59") or timebetween("00:00:00",sunTime("sunriseEarly")))
-		and otherdevices["Voordeur_Verlichting"] == 'Off'
+--[[
+	if (devicechanged["Voor_Deur"] == 'Open' or devicechanged["Voordeur_Motion"] == 'On' or devicechanged["Achter_Deur"] == 'Open' or devicechanged["Garage_Deur"] == 'Open' or devicechanged["Achterdeur_Motion"] == 'On' or devicechanged["Fietsenschuur_Deur"] == 'Open')
+		and timebetween(sunTime("sunsetEarly"),"23:29:59")
+		and otherdevices["Voordeur_Verlichting"] ~= 'Off'
 		and uservariables["tuin_activity"] == 0
+		and uservariables["tuin_verlichting_auto"] == 1
 		and dark('true', 'garden', 5)
 		and powerFailsave('false')
 	then
-		IsSceneGardenMotion = true
-		sceneGardenMotion   = 'back'
+		switchDevice("Voordeur_Verlichting", "Set Level 45")	
+		switchDevice("Brandgang_Verlichting", "Set Level 45") 
+		switchDevice("Fietsenschuur_Buiten_Verlichting", "Set Level 45")		 
+		switchDevice("Achterdeur_Verlichting", "Set Level 45")	
+		switchDevice("Variable:tuin_activity", "2")
 	end
-	
+--]]	
 --
 -- **********************************************************
 -- Garden lights OFF @ no motion
@@ -42,44 +46,24 @@
 --
 
 	if devicechanged["Time Trigger 5min"] == 'On'
-		and otherdevices["Voordeur_Verlichting"] ~= 'Off'
-		and uservariables["tuin_activity"] == 1 
+		--and otherdevices["Voordeur_Verlichting"] ~= 'Off'
+		and uservariables["tuin_activity"] == 1
+		and uservariables["tuin_verlichting_auto"] == 0
 		and motionGarden('false', 240)
 		and powerFailsave('false')
 	then
-		IsSceneGardenMotion = true
-		sceneGardenMotion   = 'off'
-	end
-	
---
--- **********************************************************
--- Scenes
--- **********************************************************
---
-if (devicechanged["Voor_Deur"] or devicechanged["Voordeur_Motion"] or devicechanged["Achter_Deur"] or devicechanged["Garage_Deur"] or devicechanged["Achterdeur_Motion"] or devicechanged["Fietsenschuur_Deur"] or devicechanged["Time Trigger 5min"]) then
-		
-	if IsSceneGardenMotion == true and sceneGardenMotion == 'front' and uservariables["tuin_activity"] == 0 and powerFailsave('false') then
-		switchDevice("Variable:tuin_activity", "1")
-		switchDevice("Voordeur_Verlichting", "Set Level 7")	
-		switchDevice("Brandgang_Verlichting", "Set Level 7") 
-		switchDevice("Fietsenschuur_Buiten_Verlichting", "Set Level 7")		 
-		switchDevice("Achterdeur_Verlichting", "Set Level 7")	
-		debugLog('Garden Motion Voortuin: Tuin verlichting ingeschakeld')
-			
-	elseif IsSceneGardenMotion == true and sceneGardenMotion == 'back' and uservariables["tuin_activity"] == 0 and powerFailsave('false') then
-		switchDevice("Variable:tuin_activity", "1")
-		switchDevice("Achterdeur_Verlichting", "Set Level 7")
-		switchDevice("Fietsenschuur_Buiten_Verlichting", "Set Level 7")
-		switchDevice("Brandgang_Verlichting", "Set Level 7") 
-		switchDevice("Voordeur_Verlichting", "Set Level 7")
-		debugLog('Garden Motion Achtertuin: Tuin verlichting ingeschakeld')
-
-	elseif IsSceneGardenMotion == true and sceneGardenMotion == 'off' and uservariables["tuin_activity"] == 1 and powerFailsave('false') then
-		switchDevice("Achterdeur_Verlichting", "Off")
-		switchDevice("Fietsenschuur_Buiten_Verlichting", "Off")
-		switchDevice("Brandgang_Verlichting", "Off") 
-		switchDevice("Voordeur_Verlichting", "Off")		 	
+		commandArray[#commandArray+1]={["Scene:Tuinverlichting UIT"] = "On"}
 		switchDevice("Variable:tuin_activity", "0")
-		debugLog('Garden Motion: Tuin verlichting uitgeschakeld')
 	end
-end
+--[[	
+	if devicechanged["Time Trigger 5min"] == 'On'
+		--and otherdevices["Voordeur_Verlichting"] ~= 'Off'
+		and uservariables["tuin_activity"] == 2
+		and uservariables["tuin_verlichting_auto"] == 1
+		and motionGarden('false', 120)
+		and powerFailsave('false')
+	then
+		commandArray[#commandArray+1]={["Scene:Tuinverlichting AAN"] = "On"}
+		switchDevice("Variable:tuin_activity", "0")
+	end
+--]]

@@ -30,7 +30,7 @@
 		'Voordeur_Motion',
 		'Achterdeur_Motion',
 		'Badkamer_Motion',
-		'Slaapkamer_Deur_Master',
+		--'Slaapkamer_Deur_Master',
 		
 	-- Light Switches
 		'WoonkamerContr_Verlichting_AAN',
@@ -58,9 +58,9 @@
 		'BijkeukenContr_Verlichting_UIT',
 	
 	-- Various
-		'Woonkamer_Airco_Power',
-		'Slaapkamer_Airco_Power',
-		'Natalya_Airco_Power',
+		--'Woonkamer_Airco_Power',
+		--'Slaapkamer_Airco_Power',
+		--'Natalya_Airco_Power',
 		
 	-- Smoke Sensors
 		'Rookmelder_Woonkamer',

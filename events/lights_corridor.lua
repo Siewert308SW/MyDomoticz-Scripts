@@ -43,9 +43,9 @@
 
 	if devicechanged["Time Trigger 1min"] == 'On'
 		and otherdevices["Overloop_Verlichting"] == 'On'
-		and lastSeen("Overloop_Verlichting", ">=", 120)
-		and lastSeen("Overloop_Motion", ">=", 120)
-		and lastSeen("Overloop_Deur", ">=", 120)
+		and lastSeen("Overloop_Verlichting", ">=", 300)
+		and lastSeen("Overloop_Motion", ">=", 300)
+		and lastSeen("Overloop_Deur", ">=", 300)
 		and powerFailsave('false')		
 	then		
 		switchDevice("Overloop_Verlichting", "Off")

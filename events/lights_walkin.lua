@@ -14,9 +14,9 @@
 	if (devicechanged["Time Trigger 1min"] == 'On' or devicechanged["Personen"] == 'Slapen' or devicechanged["Personen"] == 'Weg')
 		and otherdevices["WalkIn_Verlichting"] == 'On'
 		and otherdevices["Overloop_Verlichting"] == 'Off'
-		and lastSeen("WalkIn_Verlichting", ">=", 600)
-		and lastSeen("Overloop_Motion", ">=", 300)
-		and lastSeen("Overloop_Deur", ">=", 300)
+		and lastSeen("WalkIn_Verlichting", ">=", 1200)
+		and lastSeen("Overloop_Motion", ">=", 600)
+		and lastSeen("Overloop_Deur", ">=", 600)
 		and powerFailsave('false')		
 	then
 		switchDevice("WalkIn_Verlichting", "Off")

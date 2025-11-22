@@ -140,7 +140,7 @@
 		-- Detecteer input + bepaal offset in minuten
 		if input == "sunsetEarly" then
 			mode = "sunset"
-			offset = -60
+			offset = -30
 			
 		elseif input == "sunsetLate" then
 			mode = "sunset"
@@ -156,7 +156,7 @@
 			
 		elseif input == "sunriseLate" then
 			mode = "sunrise"
-			offset = 60
+			offset = 30
 
 		elseif input == "sunrise" then
 			mode = "sunrise"
@@ -264,6 +264,7 @@
 			return result
 		
 	end
+	
 --
 -- **********************************************************
 -- Phones Online
@@ -303,9 +304,14 @@
 		input = input
 		result = false
 		laptopsonline = false
+
+		local excludedDevices = {
+			["Natalya_Lapt0p"] = true,
+			["Natalya_School_Lapt0p"] = true
+		}
 		
 			for i, v in pairs(otherdevices) do
-				if string.match(i, "_Lapt0p$") and otherdevices[i] == 'On' then
+				if not excludedDevices[name] and string.match(i, "_Lapt0p$") and otherdevices[i] == 'On' then
 					laptopsonline = true
 				end
 			end
@@ -357,49 +363,53 @@
 -- **********************************************************
 --
 
-	function motionHome(input, minutes)
-		local IsMotion = true
+	function motionHome(input, seconds)
+		local anyRecent = false
+		local allQuiet = true
 
-		local excludedDevices = {
-			["Voordeur_Motion"] = true,
-			["Achterdeur_Motion"] = true
-		}
-	
 		for name, lastupdate in pairs(otherdevices_lastupdate) do
-			if not excludedDevices[name] and (string.match(name, "_Motion$") or string.match(name, "_Deur$")) then
+			if string.match(name, "_Motion$") or string.match(name, "_Deur$") then
 				local diff = timedifference(lastupdate)
 
-				if input == 'false' and diff < minutes then
-					IsMotion = false
-					break
-				elseif input == 'true' and diff >= minutes then
-					IsMotion = false
-					break
+				if diff < seconds then
+					anyRecent = true
+					allQuiet = false
 				end
 			end
 		end
 
-		return IsMotion
+		if input == 'true' then
+			return anyRecent
+		elseif input == 'false' then
+			return allQuiet
+		else
+			return false
+		end
 	end
-
+	
 --
 -- **********************************************************
 -- Check overall garden motion
 -- **********************************************************
 --
 
-	function motionGarden(input, minutes)
+	function motionGarden(input, seconds)
 		input = input
-		minutes = minutes
+		seconds = seconds
 		result = false
 
 			if input == 'false' then
-				if timedifference(otherdevices_lastupdate["Voor_Deur"]) > minutes
-					and timedifference(otherdevices_lastupdate["Garage_Deur"]) > minutes
-					and timedifference(otherdevices_lastupdate["Achter_Deur"]) > minutes
-					and timedifference(otherdevices_lastupdate["Voordeur_Motion"]) > minutes
-					and timedifference(otherdevices_lastupdate["Achterdeur_Motion"]) > minutes
-					and timedifference(otherdevices_lastupdate["Fietsenschuur_Deur"]) > minutes			
+				if timedifference(otherdevices_lastupdate["Voor_Deur"]) > seconds
+					and timedifference(otherdevices_lastupdate["Garage_Deur"]) > seconds
+					and timedifference(otherdevices_lastupdate["Achter_Deur"]) > seconds
+					and timedifference(otherdevices_lastupdate["Voordeur_Motion"]) > seconds
+					and timedifference(otherdevices_lastupdate["Achterdeur_Motion"]) > seconds
+					and timedifference(otherdevices_lastupdate["Fietsenschuur_Deur"]) > seconds
+					and timedifference(otherdevices_lastupdate["Fietsenschuur_Motion"]) > seconds
+					and otherdevices["Voor_Deur"] == 'Closed'
+					and otherdevices["Achter_Deur"] == 'Closed'
+					and otherdevices["Garage_Deur"] == 'Closed'	
+					and otherdevices["Fietsenschuur_Deur"] == 'Closed'					
 				then
 					result = true
 				end	
@@ -407,12 +417,13 @@
 			
 	
 			if input == 'true' then
-				if timedifference(otherdevices_lastupdate["Voor_Deur"]) <= minutes
-					and timedifference(otherdevices_lastupdate["Garage_Deur"]) <= minutes
-					and timedifference(otherdevices_lastupdate["Achter_Deur"]) <= minutes
-					and timedifference(otherdevices_lastupdate["Voordeur_Motion"]) <= minutes
-					and timedifference(otherdevices_lastupdate["Achterdeur_Motion"]) <= minutes
-					and timedifference(otherdevices_lastupdate["Fietsenschuur_Deur"]) <= minutes
+				if timedifference(otherdevices_lastupdate["Voor_Deur"]) <= seconds
+					and timedifference(otherdevices_lastupdate["Garage_Deur"]) <= seconds
+					and timedifference(otherdevices_lastupdate["Achter_Deur"]) <= seconds
+					and timedifference(otherdevices_lastupdate["Voordeur_Motion"]) <= seconds
+					and timedifference(otherdevices_lastupdate["Achterdeur_Motion"]) <= seconds
+					and timedifference(otherdevices_lastupdate["Fietsenschuur_Deur"]) <= seconds
+					and timedifference(otherdevices_lastupdate["Fietsenschuur_Motion"]) <= seconds	
 				then
 					result = true
 				end	
@@ -463,14 +474,14 @@
 --
 
 	function kitchen_spots(input, pause)
-		local maxAttempts = 1
-		local pause = pause + 10
-		local pauseBetweenClicks = pause or 60
+		--local maxAttempts = 1
+		local pause = pause
+		local pauseBetweenClicks = pause
 
 		if input == 'On' then
 			local voltage = sensorValue('Keuken_Spots_Huidige_Verbruik')
 			
-			if voltage ~= nil and tonumber(voltage) > 0 and tonumber(voltage) <= 2.0 then
+			if voltage ~= nil and otherdevices["Keuken_Spots_Huidige_Verbruik"] == 'On' and tonumber(voltage) > 0 and tonumber(voltage) <= 2.0 then
 				return
 			end
 
@@ -484,7 +495,7 @@
 				maxflicks = 2
 			end
 			
-			for attempt = 1, maxAttempts do
+			--for attempt = 1, maxAttempts do
 
 				for i = 1, maxflicks do
 					commandArray[#commandArray+1] = { ["Keuken_Spots"] = 'Off AFTER ' .. pauseBetweenClicks }
@@ -493,7 +504,7 @@
 					pauseBetweenClicks = pauseBetweenClicks + 1
 				end
 
-			end
+			--end
 
 		elseif input == 'Off' then
 			local offPause = tonumber(pause or 0)
@@ -646,6 +657,44 @@
 		return result
 	end
 
+--
+-- **********************************************************
+-- Is it Xmas season?
+-- **********************************************************
+-- Example: if xmasseason('true') then
+--
+	function xmasseason(input)
+	
+		input = input
+		if input == 'true' or input == 'false' then
+		IsXmas = false
+			local tNow = os.date("*t")
+			local xmas = tNow.yday
+			
+			if (xmas >= 7) and (xmas < 305) then
+					if input == 'false' then
+						IsXmas = true
+					end
+			end
+			
+			if (xmas > 0) and (xmas < 7) then
+			
+					if input == 'true' then
+						IsXmas = true
+					end
+			end
+			
+			if (xmas >= 305) and (xmas <= 366) then
+			
+					if input == 'true' then
+						IsXmas = true
+					end
+			end	 
+			return IsXmas
+		
+		end
+	end
+	
 --[[
 -- **********************************************************
 -- Is it Bank Holiday?
@@ -777,9 +826,15 @@
 			sensorValueTotal = (s1 + s2) / 2
 
 		elseif lux_sensor == 'garden' then
-			local s1 = sensorValue("Voordeur_LUX") or 0
-			local s2 = sensorValue("Achterdeur_LUX") or 0
-			sensorValueTotal = (s1 + s2) / 2
+		
+			if xmasseason('false') then
+				local s1 = sensorValue("Voordeur_LUX") or 0
+				local s2 = sensorValue("Achterdeur_LUX") or 0
+				sensorValueTotal = (s1 + s2) / 2
+			else
+				local s2 = sensorValue("Achterdeur_LUX") or 0
+				sensorValueTotal = s2		
+			end
 
 		else
 			sensorValueTotal = sensorValue(lux_sensor) or 0
