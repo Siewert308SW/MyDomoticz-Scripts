@@ -611,6 +611,39 @@
 
 --
 -- **********************************************************
+-- Bank Holidays checker
+-- **********************************************************
+--
+	function bankHoliday(input)
+		input = input
+		local result = false
+
+		-- (MM-DD)
+		local holidays = {
+			["12-24"] = true,
+			["12-25"] = true,
+			["12-26"] = true,
+			["12-27"] = true,
+			["12-31"] = true,
+			["01-01"] = true,
+		}
+
+		local today = os.date("%m-%d")
+
+		local isHoliday = holidays[today] == true
+
+		if input == 'true' and isHoliday then
+			result = true
+		end
+		if input == 'false' and not isHoliday then
+			result = true
+		end
+
+		return result
+	end
+	
+--
+-- **********************************************************
 -- Is weekend?
 -- **********************************************************
 -- weekday [0-6 = Sunday-Saturday]
@@ -635,18 +668,10 @@
 		if input == 'true' and (dayNow == 6 or dayNow == 0) then
 			result = true
 		end
-		
-		if input == 'true' and dayNow == 1 and timebetween("00:00:00","02:59:59") then
-			result = true
-		end
 
 -- **********************************************************
-		
-		if input == 'false' and dayNow == 1 and timebetween("03:00:00","23:59:59") then
-			result = true
-		end
 
-		if input == 'false' and (dayNow == 2 or dayNow == 3 or dayNow == 4) then
+		if input == 'false' and (dayNow == 1 or dayNow == 2 or dayNow == 3 or dayNow == 4) then
 			result = true					
 		end
 		
@@ -694,66 +719,12 @@
 		
 		end
 	end
-	
---[[
--- **********************************************************
--- Is it Bank Holiday?
--- **********************************************************
--- Example: if bankHoliday('true') then or if bankHoliday('false') then or if bankHoliday('lichtweek') then
---
 
-	function bankHoliday(input)
-		local input = input
-		local isBankHoliday = false
-		
--- = Determine current data/time
-		local t = os.date("*t")
-
--- Instellen van jouw periode (bijv. 1 t/m 7 december)
-		local startMonth, startDay = 12, 1
-		local endMonth, endDay     = 12, 7
-
--- Even jaar?
-		local isEvenYear = (t.year % 2 == 0)
-
---[[ Christmas ]]--
---[[			
-		-- Wel Kerst geen Lichtweek
-			if input == 'true' and (tDay >= 1) and (tDay < 6) then
-				isBankHoliday = true
-			end
-
-		-- Geen Kerst geen Lichtweek
-			if input == 'false' and (tDay >= 6) and (tDay < 250) then
-				isBankHoliday = true
-			end
-			
-		-- Wel Lichtweek geen kerst
-			if input == 'true' and (tDay >= 250) and (tDay < 260) then
-				isBankHoliday = true
-			end
-			
-		-- Geen kerst geen lichtweek			
-			if input == 'false' and (tDay >= 260) and (tDay < 300) then
-				isBankHoliday = true
-			end
-			
-		-- Wel Kerst geen lichtweek			
-			if input == 'true' and (tDay >= 300) and (tDay <= 366) then
-				isBankHoliday = true
-			end
- 
-			return isBankHoliday
-		
-	end
---]]
-
---	
 -- **********************************************************
 -- Toggle device/variable/Scene
 -- **********************************************************
 --
-		local autoDelay = 0
+	local autoDelay = 0
 
 	function switchDevice(deviceName, newCommand, delayed)
 		local needsSwitch = false
@@ -762,13 +733,13 @@
 		local currentDeviceStatus = otherdevices[deviceName]
 		local currentVarStatus = nil
 
-		-- Check of het om een Variable gaat
+		-- Handle Variables
 		if string.find(deviceName, "^Variable:") then
 			local varName = deviceName:match("^Variable:(.+)")
 			currentVarStatus = uservariables[varName]
 		end
 
-		-- Special handling for SetSetPoint and other custom commands
+		-- Handle SetSetPoint and other custom commands
 		if string.find(deviceName, "^SetSetPoint:") or 
 		   string.find(deviceName, "^SetSetPoint[^:]*:") or
 		   string.find(deviceName, "^OpenURL") then
@@ -795,20 +766,31 @@
 			isSwitch = true
 		end
 
-		-- Uitvoeren indien nodig
+		-- Update if needed
 		if needsSwitch and isSwitch then
-			commandArray[#commandArray+1] = { [deviceName] = newCommand .. " AFTER " .. autoDelay }
 
-			if delayed == "delayed" then
-				autoDelay = autoDelay + 2
+			local delayToUse
+
+			if type(delayed) == "number" then
+				delayToUse = delayed
+
 			else
-				autoDelay = autoDelay + 1
+				delayToUse = autoDelay
+
+				if delayed == "delayed" then
+					autoDelay = autoDelay + 2
+				else
+					autoDelay = autoDelay + 1
+				end
 			end
-		
+
+			commandArray[#commandArray+1] = { [deviceName] = newCommand .. " AFTER " .. delayToUse }
+
 		elseif needsSwitch and not isSwitch then
 			commandArray[#commandArray+1] = { [deviceName] = newCommand }
 		end
 	end
+
 
 --
 -- **********************************************************
@@ -821,16 +803,27 @@
 		local sensorValueTotal = 0
 
 		if lux_sensor == 'living' then
-			local s1 = sensorValue("Woonkamer_LUX") or 0
-			local s2 = sensorValue("Keuken_LUX") or 0
-			sensorValueTotal = (s1 + s2) / 2
-
+		
+			if xmasseason('false') then
+				local s1 = sensorValue("Woonkamer_LUX") or 0
+				local s2 = sensorValue("Keuken_LUX") or 0
+				local s3 = sensorValue("Voordeur_LUX") or 0
+				local s4 = sensorValue("Achterdeur_LUX") or 0
+				sensorValueTotal = round((s1 + s2 + s3 + s4) / 4, 0)
+			else
+				local s1 = sensorValue("Woonkamer_LUX") or 0
+				local s2 = sensorValue("Keuken_LUX") or 0
+				local s3 = sensorValue("Achterdeur_LUX") or 0
+				local s4 = sensorValue("Achterdeur_LUX") or 0
+				sensorValueTotal = round((s1 + s2 + s3 + s4) / 4, 0)
+			end
+			
 		elseif lux_sensor == 'garden' then
 		
 			if xmasseason('false') then
 				local s1 = sensorValue("Voordeur_LUX") or 0
 				local s2 = sensorValue("Achterdeur_LUX") or 0
-				sensorValueTotal = (s1 + s2) / 2
+				sensorValueTotal = round((s1 + s2) / 2, 0)
 			else
 				local s2 = sensorValue("Achterdeur_LUX") or 0
 				sensorValueTotal = s2		
@@ -843,16 +836,18 @@
 		-- Dark?
 		if darkMode == 'true' and sensorValueTotal <= threshold then
 			result = true
+			--print("Woonkamer LUX = "..sensorValueTotal.."")
 		end
 
 		-- Not Dark?
 		if darkMode == 'false' and sensorValueTotal > threshold then
 			result = true
+			--print("Woonkamer LUX = "..sensorValueTotal.."")
 		end
 
 		return result
 	end
-
+	
 --
 -- **********************************************************
 -- Debug Function

@@ -11,8 +11,8 @@
 -- **********************************************************
 --
 	if devicechanged["Time Trigger 1min"] == 'On'
-		and laptopsOnline('true')
 		and otherdevices["Printer_WCD"] == 'Off'
+		and laptopsOnline('true')
 		and timebetween("08:30:00","21:59:59")
 		and powerFailsave('false')		
 	then
@@ -27,8 +27,8 @@
 --
 
 	if devicechanged["Time Trigger 1min"] == 'On'
-		and laptopsOnline('false')
 		and otherdevices["Printer_WCD"] == 'On'
+		and laptopsOnline('false')
 		and powerFailsave('false')		
 	then
 		switchDevice("Printer_WCD", "Off")

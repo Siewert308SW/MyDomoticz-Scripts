@@ -4,37 +4,35 @@
 -- *********************************************************************
 --
 
-if not isMyTrigger({"Time Trigger 30min", "Dummy"}) then return end
-	if devicechanged["Time Trigger 30min"] == "On" or devicechanged["Dummy"] == "On" then
+if not isMyTrigger({"Time Trigger 30min"}) then return end
+	if devicechanged["Time Trigger 30min"] == "On" then
 
 --
 -- *********************************************************************
--- Bedroom1 Climate Logger
+-- Bedroom 1 Climate Logger
 -- *********************************************************************
 --
 
 -- Seasons
-	local nowMonth 			= tonumber(os.date("%m"))
-	local season =
-		nowMonth >= 3 and nowMonth <= 4 and "spring" or
-		nowMonth >= 5 and nowMonth <= 8 and "summer" or
-		nowMonth >= 9 and nowMonth <= 11 and "autumn" or
-		"winter"
+    local nowMonth = tonumber(os.date("%m"))
+    local season =
+        nowMonth >= 3 and nowMonth <= 5 and "spring" or
+        nowMonth >= 6 and nowMonth <= 8 and "summer" or
+        nowMonth >= 9 and nowMonth <= 10 and "autumn" or
+        "winter"
 		
 -- Path to logfile
 	local logFile = "/opt/domoticz/userdata/scripts/lua/logs/climate/bedroom1_history_" .. season .. ".csv"
 	
 -- Sensors
-	local insideBedroomTemp = sensorValue("Slaapkamer_Deur_Master_Temp")
+	local inside1Temp		= sensorValue("Slaapkamer_Deur_Master_Temp")
+	local inside2Temp		= sensorValue("Master Airco Temp")
 	local outsideFrontTemp 	= sensorValue("Voortuin_Temp")
 	local outsideBackTemp  	= sensorValue("Achtertuin_Temp")
 	
-	local insideHumidity   	= humidity("living")
-	local frontdoorLux   	= sensorValue("Voordeur_LUX")
-	local backdoorLux 		= sensorValue("Achterdeur_LUX")
-	local aircoState       	= otherdevices["Slaapkamer_Airco_Power"] or "Off"
-	local aircoSetpoint    	= tonumber(otherdevices["Slaapkamer_Airco_Setpoint"]) or 0
-	local aircoMode        	= otherdevices["Slaapkamer_Airco_Mode"] or "Off"
+	local aircoState       	= otherdevices["Master Airco Power"] or "Off"
+	local aircoSetpoint    	= tonumber(otherdevices["Master Airco Setpoint"]) or 18
+	local aircoMode        	= otherdevices["Master Airco Mode"] or "Off"
 	
 	if aircoState == "Off" then
 		aircoMode = "Off"
@@ -46,22 +44,15 @@ if not isMyTrigger({"Time Trigger 30min", "Dummy"}) then return end
 	if presence == "Standby" or presence == "Start" or presence == "Stop" then
 		presence = "Aanwezig"
 	end
-	
+
 -- Average Inside temperature
-	local avgInsideTemp     = roundToHalf(((tonumber(insideBedroomTemp) or 20) or 20))
+	local avgInsideTemp     = roundToHalf(((tonumber(inside1Temp) or 20) + (tonumber(inside2Temp) or 20)) / 2)
 
 -- Average outside temperature
 	local avgOutsideTemp 	= roundToHalf(((tonumber(outsideFrontTemp) or 18) + (tonumber(outsideBackTemp) or 18)) / 2)
 	
--- Average outside lux
-	local avgLux 			= roundToHalf(((tonumber(frontdoorLux) or 0) + (tonumber(backdoorLux) or 0)) / 2)
-
 -- TimeStamp
-	local timestamp 		= os.date("%Y-%m-%d %H:%M:%S")
-
--- Skip unsupported modes (Auto, Dry, Fan Only)
-	local unsupported = { ["Dry"] = true, ["Auto"] = true, ["Fan Only"] = true }
-	if unsupported[aircoMode] then return end
+	local timestamp 		= os.date("%Y-%m-%d %H:%M")
 
 --
 -- *********************************************************************
@@ -85,18 +76,16 @@ if not isMyTrigger({"Time Trigger 30min", "Dummy"}) then return end
 		for part in string.gmatch(previousLine, "([^,]+)") do
 			table.insert(parts, part)
 		end
-		local prevState = parts[7] or "Off"  -- colom 7 = aircoState
-		local prevMode  = parts[8] or "Off" -- colom 8 = aircoMode
+		local prevState = parts[5] or "Off"
+		local prevMode  = parts[6] or "Off"
 	end
 
 -- Create Log Lines
 	local line = string.format(
-		"%s,%.1f,%.1f,%.0f,%.0f,%s,%s,%s,%s,%s\n",
+		"%s,%.1f,%.1f,%.0f,%s,%s,%s,%s\n",
 		timestamp,
 		tonumber(avgInsideTemp) or 0,
 		tonumber(avgOutsideTemp) or 0,
-		tonumber(insideHumidity) or 0,
-		avgLux,
 		aircoSetpoint,
 		aircoState,
 		aircoMode,

@@ -11,19 +11,19 @@
 -- **********************************************************
 --
 	
-	if devicechanged["Time Trigger 10min"] == 'On'
+	if devicechanged["Time Trigger 10min"] == 'Off'
 		and otherdevices["Voordeur_Verlichting"] == 'Off'
 		and otherdevices["Achterdeur_Verlichting"] == 'Off'
 		and otherdevices["Brandgang_Verlichting"] == 'Off'
 		and otherdevices["Fietsenschuur_Buiten_Verlichting"] == 'Off'
-		and otherdevices["Voordeur_WCD"] == 'On'
 		and uservariables["tuin_activity"] == 0
 		and dark('true', 'garden', 15)
-		and timebetween(sunTime("sunsetEarly"),"23:29:59")
+		and timebetween(sunTime("sunset"),"23:29:59")
 		and powerFailsave('false')
 	then
-		commandArray[#commandArray+1]={["Scene:Tuinverlichting AAN"] = "On"}
+		switchDevice("Scene:Tuinverlichting AAN", "On")
 		switchDevice("Variable:tuin_verlichting_auto", "1")
+		debugLog('Tuinverlichting ingeschakeld')
 	end
 
 --
@@ -40,10 +40,12 @@
 		and uservariables["tuin_activity"] == 0
 		and dark('false', 'garden', 15)
 		and xmasseason('false')
+		and lastSeen('Voordeur_Verlichting', '>', '300')
 		and powerFailsave('false')
 	then
-		commandArray[#commandArray+1]={["Scene:Tuinverlichting UIT"] = "On"}
+		switchDevice("Scene:Tuinverlichting UIT", "On")
 		switchDevice("Variable:tuin_verlichting_auto", "0")
+		debugLog('Tuinverlichting uitgeschakeld')
 	end
 
 --
@@ -52,7 +54,7 @@
 -- **********************************************************
 --
 
-	if devicechanged["Time Trigger 10min"] == 'On'
+	if devicechanged["Time Trigger 10min"] == 'Off'
 		and (otherdevices["Voordeur_Verlichting"] ~= 'Off'
 		or otherdevices["Achterdeur_Verlichting"] ~= 'Off'
 		or otherdevices["Brandgang_Verlichting"] ~= 'Off'
@@ -63,17 +65,29 @@
 		and powerFailsave('false')
 	then
 	
-		if weekend('false')
+		if weekend('false') and bankHoliday('false')
 			and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00",sunTime("sunset")))
 		then
-			commandArray[#commandArray+1]={["Scene:Tuinverlichting UIT"] = "On"}
-			switchDevice("Variable:tuin_verlichting_auto", "0")		
-		elseif weekend('true')
-			and otherdevices["Personen"] ~= 'Aanwezig'
-			and timebetween("00:00:00",sunTime("sunset"))
-		then
-			commandArray[#commandArray+1]={["Scene:Tuinverlichting UIT"] = "On"}
+			switchDevice("Scene:Tuinverlichting UIT", "On")
 			switchDevice("Variable:tuin_verlichting_auto", "0")
+			debugLog('Tuinverlichting uitgeschakeld')
+		
+		elseif weekend('true') and bankHoliday('false')
+			and otherdevices["Personen"] ~= 'Aanwezig'
+			and timebetween("00:00:00",sunTime("sunrise"))
+		then
+			switchDevice("Scene:Tuinverlichting UIT", "On")
+			switchDevice("Variable:tuin_verlichting_auto", "0")
+			debugLog('Tuinverlichting uitgeschakeld')
+
+		elseif bankHoliday('true')
+			and otherdevices["Personen"] ~= 'Aanwezig'
+			and timebetween("02:00:00",sunTime("sunrise"))			
+		then
+			switchDevice("Scene:Tuinverlichting UIT", "On")
+			switchDevice("Variable:tuin_verlichting_auto", "0")
+			debugLog('Tuinverlichting uitgeschakeld')
+			
 		end
 		
 	end

@@ -4,8 +4,9 @@
 -- *********************************************************************
 --
 
-	if not isMyTrigger({"Time Trigger 30min", "Dummy"}) then return end
-		if (devicechanged["Time Trigger 30min"] == "Off" or devicechanged["Dummy"] == "Off") then
+if not isMyTrigger({"Time Trigger 30min", "Dummy"}) then return end
+    if devicechanged["Time Trigger 30min"] == "Off" then
+
 --
 -- *********************************************************************
 -- Living Airco Mode Decision Based on Matching Historical Conditions
@@ -13,188 +14,222 @@
 --
 
 -- Seasons
-	local nowMonth = tonumber(os.date("%m"))
-	local season =
-		nowMonth >= 3 and nowMonth <= 4 and "spring" or
-		nowMonth >= 5 and nowMonth <= 8 and "summer" or
-		nowMonth >= 9 and nowMonth <= 11 and "autumn" or
-		"winter"
+    local nowMonth = tonumber(os.date("%m"))
+    local season =
+        nowMonth >= 3 and nowMonth <= 5 and "spring" or
+        nowMonth >= 6 and nowMonth <= 8 and "summer" or
+        nowMonth >= 9 and nowMonth <= 10 and "autumn" or
+        "winter"
 
 -- Path to logfile
-	local logFile = "/opt/domoticz/userdata/scripts/lua/logs/climate/living_history_" .. season .. ".csv"
-	local f = io.open(logFile, "r")
-	if not f then debugLogClima("Kan logbestand niet openen."); return end
+    local logFile = "/opt/domoticz/userdata/scripts/lua/logs/climate/living_history_" .. season .. ".csv"
+    local f = io.open(logFile, "r")
+    if not f then
+        debugLogClima("Living Decision: kan logbestand niet openen: " .. logFile)
+        return
+    end
 
 -- Devices/Switches
-	local presence       	= otherdevices["Personen"] or "Aanwezig"
-	
--- Sensors
-	local insideLiving1Temp = sensorValue("Woonkamer_Hum_Temp")
-	local insideKitchenTemp	= sensorValue("Keuken_Motion_Temp")
-	local insideLiving2Temp	= sensorValue("Woonkamer_Motion_Temp")
-	local outsideFrontTemp 	= sensorValue("Voortuin_Temp")
-	local outsideBackTemp 	= sensorValue("Achtertuin_Temp")
+    local presence = otherdevices["Personen"] or "Aanwezig"
+    if presence == "Standby" or presence == "Start" or presence == "Stop" then
+        presence = "Aanwezig"
+    end
 
-	local insideHumidity 	= humidity("living")
-	local frontdoorLux 		= sensorValue("Voordeur_LUX")
-	local backdoorLux 		= sensorValue("Achterdeur_LUX")
-	local aircoState 		= otherdevices["Woonkamer_Airco_Power"] or "Off"
-	local aircoMode 		= otherdevices["Woonkamer_Airco_Mode"] or "None"
-	local aircoSetpoint 	= tonumber(otherdevices["Woonkamer_Airco_Setpoint"]) or 20
+-- Sensors
+    local insideLiving1Temp = sensorValue("Woonkamer_Hum_Temp")
+    local insideKitchenTemp = sensorValue("Keuken_Motion_Temp")
+    local insideLiving2Temp = sensorValue("Woonkamer_Motion_Temp")
+    local outsideFrontTemp  = sensorValue("Voortuin_Temp")
+    local outsideBackTemp   = sensorValue("Achtertuin_Temp")
+
+    local aircoState    	= otherdevices["Woonkamer Airco Power"] or "Off"
+    local aircoSetpoint 	= tonumber(otherdevices["Woonkamer Airco Setpoint"]) or 18
+    local aircoMode     	= otherdevices["Woonkamer Airco Mode"] or "Off"
 
 -- Average Inside temperature
-	local avgInsideTemp     = roundToHalf(((tonumber(insideLiving1Temp) or 20) + (tonumber(insideLiving2Temp) or 20) + (tonumber(insideKitchenTemp) or 20)) / 3)
+    local avgInsideTemp 	= roundToHalf(((tonumber(insideLiving1Temp) or 20)
+                                    + (tonumber(insideLiving2Temp) or 20)
+                                    + (tonumber(insideKitchenTemp) or 20)) / 3)
 
 -- Average outside temperature
-	local avgOutsideTemp 	= roundToHalf(((tonumber(outsideFrontTemp) or 18) + (tonumber(outsideBackTemp) or 18)) / 2)
-	
--- Average outside lux
-	local avgLux 			= roundToHalf(((tonumber(frontdoorLux) or 0) + (tonumber(backdoorLux) or 0)) / 2)
+    local avgOutsideTemp 	= roundToHalf(((tonumber(outsideFrontTemp) or 18)
+                                      + (tonumber(outsideBackTemp) or 18)) / 2)
 
 -- Current climate
-	local insideTemp 		= avgInsideTemp
-	local outsideTemp 		= avgOutsideTemp
-	local insideHum 		= insideHumidity
-	local setpoint 			= aircoSetpoint
-	local seasonNow 		= season
-	
+    local insideTemp 		= avgInsideTemp
+    local outsideTemp 		= avgOutsideTemp
+    local setpoint 			= aircoSetpoint
+    local seasonNow 		= season
+
 -- Tolerances
-	local tTol, oTol, spTol
+    local tTol  = 2.0   -- Inside Temperature
+    local oTol  = 5.0   -- Outside Temperature
+    local spTol = 0.5   -- Setpoint
 
-	if seasonNow == "summer" then
-		tTol 				= 0.5   -- Inside Temperature
-		oTol 				= 4.0   -- Outside Temperature
-		spTol 				= 0.5   -- Setpoint
-	elseif seasonNow == "winter" then
-		tTol 				= 0.5   -- Inside Temperature
-		oTol 				= 2.0  -- Outside Temperature
-		spTol 				= 0.5   -- Setpoint
-	else
-		tTol 				= 0.5   -- Inside Temperature
-		oTol 				= 2.0   -- Outside Temperature
-		spTol 				= 0.5   -- Setpoint
-	end
+-- Votes + setpoint tracking (alle modes)
+    local votes = {Heat = 0, Cool = 0, Dry = 0, Fan = 0, Auto = 0, Off = 0}
 
--- Votes + setpoint tracking
-	local votes = {Heat = 0, Cool = 0, Off = 0}
-	local spHeatSum, spCoolSum = 0, 0
-	local spHeatCount, spCoolCount = 0, 0
-	local matches = 0
+    local spHeatSum, spCoolSum, spDrySum, spFanSum, spAutoSum =
+        0, 0, 0, 0, 0
+    local spHeatCount, spCoolCount, spDryCount, spFanCount, spAutoCount =
+        0, 0, 0, 0, 0
+
+    local matches = 0
 
 -- Create Decision
-	for line in f:lines() do
-		local ts, inT, outT, hum, lux, sp, state, mode, season, presenceLog = line:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
-		inT, outT, lux, sp = tonumber(inT), tonumber(outT), tonumber(lux), tonumber(sp)
+    for line in f:lines() do
+        local ts, inT, outT, sp, stateLog, modeLog, seasonLog, presenceLog =
+            line:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
 
-		if inT and outT and lux and sp and season == seasonNow and presenceLog == presence then
-			--local luxConditionMatch =
-			--	(avgLux <= 1 and lux <= 1) or
-			--	(avgLux > 1 and lux > 1)
+        inT = tonumber(inT)
+        outT = tonumber(outT)
+        sp = tonumber(sp)
 
-			--if luxConditionMatch then
-				local inMatch = math.abs(inT - insideTemp) <= tTol
-				local outMatch = math.abs(outT - outsideTemp) <= oTol
-				local spMatch = math.abs(sp - tonumber(setpoint)) <= spTol
+        if inT and outT and sp
+            and seasonLog == seasonNow
+            and presenceLog == presence
+        then
+            local inMatch  = math.abs(inT - insideTemp)   <= tTol
+            local outMatch = math.abs(outT - outsideTemp) <= oTol
+            local spMatch  = math.abs(sp - setpoint)      <= spTol
 
-				if inMatch and outMatch and spMatch then
-					mode = mode:lower()
-					if mode == "heat" then
-						votes.Heat = votes.Heat + 1
-						spHeatSum = spHeatSum + sp
-						spHeatCount = spHeatCount + 1
-					elseif mode == "cool" then
-						votes.Cool = votes.Cool + 1
-						spCoolSum = spCoolSum + sp
-						spCoolCount = spCoolCount + 1
-					elseif mode == "none" or mode == "off" then
-						votes.Off = votes.Off + 1
-					end
-					matches = matches + 1
-				end
-			--end
-		end
-	end
-	f:close()
+            if inMatch and outMatch and spMatch then
+                local mode = (modeLog or ""):lower()
+
+                if mode == "heat" then
+                    votes.Heat = votes.Heat + 1
+                    spHeatSum = spHeatSum + sp
+                    spHeatCount = spHeatCount + 1
+
+                elseif mode == "cool" then
+                    votes.Cool = votes.Cool + 1
+                    spCoolSum = spCoolSum + sp
+                    spCoolCount = spCoolCount + 1
+
+                elseif mode == "dry" then
+                    votes.Dry = votes.Dry + 1
+                    spDrySum = spDrySum + sp
+                    spDryCount = spDryCount + 1
+
+                elseif mode == "fan only" or mode == "fan" then
+                    votes.Fan = votes.Fan + 1
+                    spFanSum = spFanSum + sp
+                    spFanCount = spFanCount + 1
+
+                elseif mode == "auto" then
+                    votes.Auto = votes.Auto + 1
+                    spAutoSum = spAutoSum + sp
+                    spAutoCount = spAutoCount + 1
+
+                elseif mode == "none" or mode == "off" then
+                    votes.Off = votes.Off + 1
+
+                else
+                    -- Onbekende mode telt als Off
+                    votes.Off = votes.Off + 1
+                end
+
+                matches = matches + 1
+            end
+        end
+    end
+    f:close()
 
 -- Decision
-	local decision = "Off"
-	local setpointLearned = nil
+    local decision = "Off"
+    local setpointLearned = nil
 
--- Season lock
-	if seasonNow == "winter" then
-		votes.Cool = 0
-	elseif seasonNow == "summer" then
-		votes.Heat = 0
-	end
+    local bestVotes = math.max(
+        votes.Heat, votes.Cool, votes.Dry,
+        votes.Fan,  votes.Auto, votes.Off
+    )
 
-	local bestVotes = math.max(votes.Heat, votes.Cool, votes.Off)
-	if bestVotes > 0 then
-		if votes.Heat == bestVotes then
-			decision = "Heat"
-			if spHeatCount > 0 then setpointLearned = spHeatSum / spHeatCount end
-		elseif votes.Cool == bestVotes then
-			decision = "Cool"
-			if spCoolCount > 0 then setpointLearned = spCoolSum / spCoolCount end
-		else
-			decision = "Off"
-		end
-	end
+    if bestVotes > 0 then
+        if votes.Heat == bestVotes then
+            decision = "Heat"
+            if spHeatCount > 0 then setpointLearned = spHeatSum / spHeatCount end
 
--- Extra fallback
-	if matches == 0 then
-		decision = aircoMode
-	end
+        elseif votes.Cool == bestVotes then
+            decision = "Cool"
+            if spCoolCount > 0 then setpointLearned = spCoolSum / spCoolCount end
+
+        elseif votes.Dry == bestVotes then
+            decision = "Dry"
+            if spDryCount > 0 then setpointLearned = spDrySum / spDryCount end
+
+        elseif votes.Fan == bestVotes then
+            decision = "Fan Only"
+            if spFanCount > 0 then setpointLearned = spFanSum / spFanCount end
+
+        elseif votes.Auto == bestVotes then
+            decision = "Auto"
+            if spAutoCount > 0 then setpointLearned = spAutoSum / spAutoCount end
+
+        else
+            decision = "Off"
+        end
+    end
+
+-- Extra fallback: geen matches → huidige mode vasthouden
+    if matches == 0 then
+        decision = aircoMode
+    end
 
 -- Write Variables
-	switchDevice("Variable:woonkamer_airco_decision", ""..decision.."")
-	if setpointLearned then
-	local roundedSetpoint = roundToHalf(setpointLearned)
-	switchDevice("Variable:woonkamer_airco_dec_setpoint", string.format("%0.1f", roundedSetpoint))
-	end
+    switchDevice("Variable:woonkamer_airco_decision", "" .. decision .. "")
+    if setpointLearned then
+        local roundedSetpoint = roundToHalf(setpointLearned)
+        switchDevice("Variable:woonkamer_airco_dec_setpoint", string.format("%0.1f", roundedSetpoint))
+    end
 
 -- Write to LogFile
-	local decisionLogPath = "/opt/domoticz/userdata/scripts/lua/logs/climate/living_dec_" .. season .. ".csv"
-	local now = os.date("%Y-%m-%d %H:%M:%S")
-	local logLine = string.format("%s,%s,%d,%d,%d,%d\n", now, decision, matches, votes.Heat, votes.Cool, votes.Off)
-	appendToFile(decisionLogPath, logLine)
-
-
+    local decisionLogPath = "/opt/domoticz/userdata/scripts/lua/logs/climate/living_dec_" .. season .. ".csv"
+    local now = os.date("%Y-%m-%d %H:%M:%S")
+    local logLine = string.format(
+        "%s,%s,%d,%d,%d,%d,%d,%d\n",
+        now, decision, matches,
+        votes.Heat, votes.Cool, votes.Dry,
+        votes.Fan, votes.Off
+    )
+    appendToFile(decisionLogPath, logLine)
+--[[
 --
 -- *********************************************************************
 -- Living Airco Mode Based on Matching Historical Conditions
 -- *********************************************************************
---	
-		IsSceneLiving = false
-		sceneLiving   = 'none'
-		
-			if uservariables["Woonkamer_Airco_auto"] == 1
-				and uservariables["woonkamer_airco_decision"] == "Cool"
-				and (otherdevices["Woonkamer_Airco_Power"] == 'Off' or otherdevices["Woonkamer_Airco_Mode"] ~= 'Cool')
-				and lastSeen('Woonkamer_Airco_Power', '>=', '1800')
-				and powerFailsave('false')
-			then
-				IsSceneLiving = true
-				sceneLiving = 'cooling'
+--
+    IsSceneLiving = false
+    sceneLiving   = 'none'
 
-			elseif uservariables["Woonkamer_Airco_auto"] == 1
-				and uservariables["woonkamer_airco_decision"] == "Heat"
-				and (otherdevices["Woonkamer_Airco_Power"] == 'Off' or otherdevices["Woonkamer_Airco_Mode"] ~= 'Heat')
-				and lastSeen('Woonkamer_Airco_Power', '>=', '1800')
-				and powerFailsave('false')
-			then
-				IsSceneLiving = true
-				sceneLiving = 'heating'
-				
-			elseif uservariables["Woonkamer_Airco_auto"] == 1
-				and uservariables["woonkamer_airco_decision"] == "Off"
-				and otherdevices["Woonkamer_Airco_Power"] ~= 'Off'
-				and lastSeen('Woonkamer_Airco_Power', '>=', '1800')
-				and powerFailsave('false')
-			then
-				IsSceneLiving = true
-				sceneLiving = 'off'
-				
-			end
+    if uservariables["Woonkamer_Airco_auto"] == 1
+        and uservariables["woonkamer_airco_decision"] == "Cool"
+        and (otherdevices["Woonkamer_Airco_Power"] == 'Off'
+             or otherdevices["Woonkamer_Airco_Mode"] ~= 'Cool')
+        and lastSeen('Woonkamer_Airco_Power', '>=', '1800')
+        and powerFailsave('false')
+    then
+        IsSceneLiving = true
+        sceneLiving = 'cooling'
+
+    elseif uservariables["Woonkamer_Airco_auto"] == 1
+        and uservariables["woonkamer_airco_decision"] == "Heat"
+        and (otherdevices["Woonkamer_Airco_Power"] == 'Off'
+             or otherdevices["Woonkamer_Airco_Mode"] ~= 'Heat')
+        and lastSeen('Woonkamer_Airco_Power', '>=', '1800')
+        and powerFailsave('false')
+    then
+        IsSceneLiving = true
+        sceneLiving = 'heating'
+
+    elseif uservariables["Woonkamer_Airco_auto"] == 1
+        and uservariables["woonkamer_airco_decision"] == "Off"
+        and otherdevices["Woonkamer_Airco_Power"] ~= 'Off'
+        and lastSeen('Woonkamer_Airco_Power', '>=', '1800')
+        and powerFailsave('false')
+    then
+        IsSceneLiving = true
+        sceneLiving = 'off'
+    end
 
 --
 -- **********************************************************
@@ -202,40 +237,26 @@
 -- **********************************************************
 --
 
-		if IsSceneLiving == true and sceneLiving == 'cooling' then
-			--[[
-			switchDevice("SetSetPoint:4055", setpoint)
-			switchDevice("Woonkamer_Airco_Mode", "Set Level 10")
-			switchDevice("Woonkamer_Airco_Fan_Mode", "Set Level 0")
-			switchDevice("Woonkamer_Airco_Swing_Mode(Up/Down)", "Set Level 10")
-			switchDevice("Woonkamer_Airco_Swing_Mode(Left/Right)", "Set Level 50")
-			--]]
-			debugLogClima(string.format(
-				"Living Airco ON (Cooling Mode)# Decision based on %d comparable logs:# Heat=%d, Cool=%d, Off=%d → decision: %s",
-				matches, votes.Heat, votes.Cool, votes.Off, decision
-			))
-			
-		elseif IsSceneLiving == true and sceneLiving == 'heating' then
-		    --[[
-			switchDevice("SetSetPoint:4055", setpoint)
-			switchDevice("Woonkamer_Airco_Mode", "Set Level 20")
-			switchDevice("Woonkamer_Airco_Fan_Mode", "Set Level 10")
-			switchDevice("Woonkamer_Airco_Swing_Mode(Up/Down)", "Set Level 10")
-			switchDevice("Woonkamer_Airco_Swing_Mode(Left/Right)", "Set Level 0")
-			--]]
-			debugLogClima(string.format(
-				"Living Airco ON (Heating Mode)# Decision based on %d comparable logs:# Heat=%d, Cool=%d, Off=%d → decision: %s",
-				matches, votes.Heat, votes.Cool, votes.Off, decision
-			))
+    if IsSceneLiving == true and sceneLiving == 'cooling' then
+        -- hier setpoint / modes zetten
+        debugLogClima(string.format(
+            "Living Airco ON (Cooling Mode)# Decision based on %d comparable logs:# Heat=%d, Cool=%d, Dry=%d, Fan=%d, Off=%d → decision: %s",
+            matches, votes.Heat, votes.Cool, votes.Dry, votes.Fan, votes.Off, decision
+        ))
 
-		elseif IsSceneLiving == true and sceneLiving == 'off' then
-			--[[
-			switchDevice("Woonkamer_Airco_Power", "Off")
-			--]]
-			debugLogClima(string.format(
-				"Living Airco OFF (Comfort Mode)# Decision based on %d comparable logs:# Heat=%d, Cool=%d, Off=%d → decision: %s",
-				matches, votes.Heat, votes.Cool, votes.Off, decision
-			))
-		end
+    elseif IsSceneLiving == true and sceneLiving == 'heating' then
+        -- hier setpoint / modes zetten
+        debugLogClima(string.format(
+            "Living Airco ON (Heating Mode)# Decision based on %d comparable logs:# Heat=%d, Cool=%d, Dry=%d, Fan=%d, Off=%d → decision: %s",
+            matches, votes.Heat, votes.Cool, votes.Dry, votes.Fan, votes.Off, decision
+        ))
 
+    elseif IsSceneLiving == true and sceneLiving == 'off' then
+        -- switchDevice("Woonkamer_Airco_Power", "Off")
+        debugLogClima(string.format(
+            "Living Airco OFF (Comfort Mode)# Decision based on %d comparable logs:# Heat=%d, Cool=%d, Dry=%d, Fan=%d, Off=%d → decision: %s",
+            matches, votes.Heat, votes.Cool, votes.Dry, votes.Fan, votes.Off, decision
+        ))
+    end
+--]]
 end

@@ -32,8 +32,8 @@
 --
 
 	if devicechanged["Time Trigger 10min"] == 'On'
-		and otherdevices["Badkamer_Motion"] == 'Off'
 		and(otherdevices["Badkamer_Spiegel_Spots"] == 'On' or otherdevices["Badkamer_Verlichting"] == 'On')
+		and otherdevices["Badkamer_Motion"] == 'Off'
 		and lastSeen("Badkamer_Spiegel_Spots", ">=", 1200)
 		and lastSeen("Badkamer_Verlichting", ">=", 1200)
 		and lastSeen("Badkamer_Motion", ">=", 1200)

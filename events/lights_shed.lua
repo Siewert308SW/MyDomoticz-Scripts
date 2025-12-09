@@ -26,16 +26,6 @@
 -- Shed light OFF
 -- *********************************************************************
 --
---[[
-	if devicechanged["Fietsenschuur_Deur"] == 'Closed'
-		and otherdevices["Fietsenschuur_Verlichting"] == 'On'
-		and lastSeen("Personen", "<", 120)
-		and powerFailsave('false')
-	then
-		switchDevice("Fietsenschuur_Verlichting", "Off")
-		debugLog('Niemand meer in de fietsenschuur')
-	end
---]]
 
 	if devicechanged["Time Trigger 5min"] == 'On'
 		and otherdevices["Fietsenschuur_Verlichting"] == 'On'

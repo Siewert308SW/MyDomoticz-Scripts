@@ -13,8 +13,10 @@
 	if devicechanged["Time Trigger 1min"] == 'Off' then
 	
 		hysteresis						  = 0.5                             			-- Wiggle room for temperature, else relays/switch gets used too much
-		setpoint         				  = 14										-- setpoint
+		setpoint         				  = 12										-- setpoint
 		switch     						  = 'Fietsenschuur_Heater_WCD'               	-- heater wcd_plug switch name
+		motion     						  = 'Fietsenschuur_Motion'               	-- heater wcd_plug switch name
+		door     						  = 'Fietsenschuur_Deur'               	-- heater wcd_plug switch name
 		faseMaxPowerUsage				  = 5000
 		
 	-- Get Temp Values
@@ -24,6 +26,7 @@
 		sensor_outside1    				  = otherdevices_temperature["Voortuin_Temp"]
 		sensor_outside2   				  = otherdevices_temperature["Achtertuin_Temp"]
 		heater_setpoint    				  = tonumber(otherdevices["Fietsenschuur_Setpoint"]) or setpoint
+		oven            				  = tonumber(otherdevices["Oven_Huidige_Verbruik"])
 		fasePowerAvailable			      = tonumber(faseMaxPowerUsage - homewizard('L2'))
 		
 		
@@ -61,10 +64,10 @@
 	heating_allowed = true
 
 -- Fase te zwaar of deur te lang open → niet verwarmen
-		if fasePowerAvailable < 1100 and otherdevices[switch] == 'Off' then
+		if (fasePowerAvailable < 1100 or oven >= 1) and otherdevices[switch] == 'Off' then
 			heating_allowed = false
 
-		elseif fasePowerAvailable <= 0 and otherdevices[switch] == 'On' then
+		elseif (fasePowerAvailable <= 0 or oven >= 1) and otherdevices[switch] == 'On' then
 			heating_allowed = false
 			
 		elseif otherdevices["Fietsenschuur_Deur"] == 'Open' and lastSeen("Fietsenschuur_Deur", ">", 120) then
@@ -75,6 +78,7 @@
 
 		end
 
+		--[[
 		print("--------------------------")
 		print(" ")
 		print("Setpoint: "..heater_setpoint.."")
@@ -91,7 +95,7 @@
 		else
 		print("heating: UIT")
 		end
-		
+--]]		
 --
 -- **********************************************************
 -- Shed Heater ON/OFF and sensorValue('Fietsenschuur_Heater_Huidige_Verbruik') <= 800
@@ -100,20 +104,26 @@
 		if heating_allowed == false and otherdevices[switch] == 'On' then
 			switchDevice(switch, "Off")
 			debugLog('Kachel UIT #heating_Allowed = false')
-		print("Kachel UIT #heating_Allowed = false")
+		--print("Kachel UIT #heating_Allowed = false")
 		
 		elseif heating_allowed == true and lastSeen(switch, ">", 600) and inside_temp <= (heater_setpoint - hysteresis) and otherdevices[switch] == 'Off' and otherdevices["Fietsenschuur_Deur"] == 'Closed' and powerFailsave('false') then
 			switchDevice(switch, "On")
 			debugLog('Kachel AAN #heating_Allowed = true')
-		print("Kachel AAN #heating_Allowed = true")
+		--print("Kachel AAN #heating_Allowed = true")
 		
 		elseif heating_allowed == true and lastSeen(switch, ">", 600) and inside_temp >= (heater_setpoint + hysteresis) and otherdevices[switch] == 'On' then
 			switchDevice(switch, "Off")
 			debugLog('Kachel UIT #Setpoint behaald')
-		print("Kachel UIT #Setpoint behaald")
+		--print("Kachel UIT #Setpoint behaald")
+
+		elseif heating_allowed == true and lastSeen(switch, ">", 600) and lastSeen(motion, ">", 3600)  and lastSeen(door, ">", 3600) and heater_setpoint ~= setpoint then
+			--switchDevice(switch, "Off")
+			switchDevice("SetSetPoint:6141", setpoint)
+			debugLog('Kachel setpoint naar vorstbeveiliging')
+		--print("Kachel UIT #Setpoint vorstbeveiliging")
 		
 		end
 
-		print(" ")
-		print("--------------------------")
+		--print(" ")
+		--print("--------------------------")
 	end

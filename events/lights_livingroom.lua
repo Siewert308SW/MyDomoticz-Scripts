@@ -7,27 +7,27 @@
 
 --
 -- **********************************************************
--- Living lights ON when some one gets home
+-- Living lights ON when some one gets home 
 -- **********************************************************
 --
 	
-	if devicechanged["Personen"] == 'Start' and lastSeenVar("woonkamer_verlichting_auto", ">", 10) and powerFailsave('false') then
-		if dark('false', 'living', 20) and uservariables["woonkamer_verlichting_auto"] ~= 1 then
-			commandArray[#commandArray+1]={["Scene:Woonkamer One"] = "On"}
+	if devicechanged["Personen"] == 'Start' and powerFailsave('false') then
+		if dark('false', 'living', 60) and uservariables["woonkamer_verlichting_auto"] ~= 1 then
+			switchDevice("Scene:Woonkamer One", "On")
 			kitchen_spots('On', 60)
 			switchDevice("Variable:manual_light", "0")
 			switchDevice("Variable:woonkamer_verlichting_auto", "1")
 			debugLog('Woonkamer Scene 1 ingeschakeld')
 			
-		elseif dark('true', 'living', 20) and dark('false', 'living', 10) and uservariables["woonkamer_verlichting_auto"] ~= 2 then
-			commandArray[#commandArray+1]={["Scene:Woonkamer Two"] = "On"}
+		elseif dark('true', 'living', 60) and dark('false', 'living', 20) and uservariables["woonkamer_verlichting_auto"] ~= 2 then
+			switchDevice("Scene:Woonkamer Two", "On")
 			kitchen_spots('On', 60)
 			switchDevice("Variable:manual_light", "0")
 			switchDevice("Variable:woonkamer_verlichting_auto", "2")
 			debugLog('Woonkamer Scene 2 ingeschakeld')			
 			
-		elseif dark('true', 'living', 10) and uservariables["woonkamer_verlichting_auto"] ~= 3 then
-			commandArray[#commandArray+1]={["Scene:Woonkamer Three"] = "On"}
+		elseif dark('true', 'living', 20) and uservariables["woonkamer_verlichting_auto"] ~= 3 then
+			switchDevice("Scene:Woonkamer Three", "On")
 			kitchen_spots('On', 60)
 			switchDevice("Variable:manual_light", "0")
 			switchDevice("Variable:woonkamer_verlichting_auto", "3")
@@ -47,10 +47,10 @@
 	if devicechanged["Personen"] == 'Stop' 
 		and (uservariables["manual_light"] == 0 or uservariables["woonkamer_verlichting_auto"] ~= 0) and powerFailsave('false')
 	then
-		commandArray[#commandArray+1]={["Scene:Woonkamer Shutdown"] = "On"}
+		switchDevice("Scene:Woonkamer Shutdown", "On")
 		switchDevice("Variable:manual_light", "0")
 		switchDevice("Variable:woonkamer_verlichting_auto", "0")
-		--debugLog('Woonkamer verlichting uitgeschakeld, niemand aanwezig....')
+		debugLog('Woonkamer verlichting uitgeschakeld, niemand aanwezig....')
 	end
 	
 --
@@ -61,20 +61,20 @@
 
 	if devicechanged["Time Trigger 5min"] == 'Off' and otherdevices["Personen"] == 'Aanwezig' and uservariables["manual_light"] == 0 and powerFailsave('false') then
 
-		if dark('false', 'living', 20) and lastSeenVar("woonkamer_verlichting_auto", ">", 3) and uservariables["woonkamer_verlichting_auto"] ~= 1 then
-			commandArray[#commandArray+1]={["Scene:Woonkamer One"] = "On"}
+		if uservariables["woonkamer_verlichting_auto"] ~= 1 and dark('false', 'living', 60) and lastSeenVar("woonkamer_verlichting_auto", ">", '300') then
+			switchDevice("Scene:Woonkamer One", "On")
 			kitchen_spots('On', 30)
 			switchDevice("Variable:woonkamer_verlichting_auto", "1")
 			debugLog('Woonkamer Scene 1 ingeschakeld')			
 			
-		elseif dark('true', 'living', 20) and dark('false', 'living', 10) and lastSeenVar("woonkamer_verlichting_auto", ">", 3) and uservariables["woonkamer_verlichting_auto"] ~= 2 then
-			commandArray[#commandArray+1]={["Scene:Woonkamer Two"] = "On"}
+		elseif uservariables["woonkamer_verlichting_auto"] ~= 2 and dark('true', 'living', 60) and dark('false', 'living', 20) and lastSeenVar("woonkamer_verlichting_auto", ">", '300') then
+			switchDevice("Scene:Woonkamer Two", "On")
 			kitchen_spots('On', 30)
 			switchDevice("Variable:woonkamer_verlichting_auto", "2")
 			debugLog('Woonkamer Scene 2 ingeschakeld')			
 			
-		elseif dark('true', 'living', 10) and lastSeenVar("woonkamer_verlichting_auto", ">", 3) and uservariables["woonkamer_verlichting_auto"] ~= 3 then
-			commandArray[#commandArray+1]={["Scene:Woonkamer Three"] = "On"}
+		elseif uservariables["woonkamer_verlichting_auto"] ~= 3 and dark('true', 'living', 20) and lastSeenVar("woonkamer_verlichting_auto", ">", '300') then
+			switchDevice("Scene:Woonkamer Three", "On")
 			kitchen_spots('On', 30)
 			switchDevice("Variable:woonkamer_verlichting_auto", "3")
 			debugLog('Woonkamer Scene 3 ingeschakeld')			
@@ -90,7 +90,7 @@
 --
 
 	if (devicechanged["WoonkamerContr_Verlichting_AAN"] == 'On' or devicechanged["BijkeukenContr_Verlichting_AAN"] == 'On') and powerFailsave('false') then
-		commandArray[#commandArray+1]={["Scene:Woonkamer Three"] = "On"}
+		switchDevice("Scene:Woonkamer Three", "On")
 		kitchen_spots('On', 10)
 		switchDevice("Personen", "Set Level 40") -- START
 		switchDevice("Variable:manual_light", "1")
@@ -101,7 +101,7 @@
 -- **********************************************************
 		
 	if (devicechanged["WoonkamerContr_Verlichting_UIT"] == 'On' or devicechanged["BijkeukenContr_Verlichting_UIT"] == 'On') and powerFailsave('false') then	
-		commandArray[#commandArray+1]={["Scene:Woonkamer Shutdown"] = "On"}
+		switchDevice("Scene:Woonkamer Shutdown", "On")
 		switchDevice("Personen", "Set Level 50") -- STOP
 		switchDevice("Variable:manual_light", "1")
 		switchDevice("Variable:woonkamer_verlichting_auto", "0")

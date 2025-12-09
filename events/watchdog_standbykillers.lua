@@ -25,7 +25,7 @@
 		and otherdevices["Achterdeur_WCD"] == 'Off'
 		and powerFailsave('false')
 	then
-		commandArray[#commandArray+1]={["Scene:Standbykillers AAN"] = "On"}
+		switchDevice("Scene:Standbykillers AAN", "On")
 		
 		if otherdevices["Oven_WCD"] == 'Off' then
 		switchDevice("Oven_WCD", "On", "delayed")
@@ -61,7 +61,7 @@
 			or otherdevices["Achterdeur_WCD"] == 'On')
 			and powerFailsave('false')
 		then
-			commandArray[#commandArray+1]={["Scene:Standbykillers UIT"] = "On"}
+			switchDevice("Scene:Standbykillers UIT", "On")
 			
 			if otherdevices["Oven_WCD"] == 'On' and sensorValue('Oven_Huidige_Verbruik') >= 100 then
 			switchDevice("Oven_WCD", "Off")
