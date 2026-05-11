@@ -32,9 +32,9 @@
 		debugLog('Oven was vergeten? Is nu ingeschakeld')		
 		end
 		
-		if otherdevices["Voordeur_WCD"] == 'Off' and xmasseason('false') then
-		switchDevice("Voordeur_WCD", "On", "delayed")		
-		end
+		--if otherdevices["Voordeur_WCD"] == 'Off' and xmasseason('false') then
+		--switchDevice("Voordeur_WCD", "On", "delayed")		
+		--end
 		
 		debugLog('Standbykillers ingeschakeld')
 	end
@@ -68,9 +68,9 @@
 			debugLog('Oven vergeten? Is nu uitgeschakeld')		
 			end
 			
-			if otherdevices["Voordeur_WCD"] == 'On' and xmasseason('false') then
-			switchDevice("Voordeur_WCD", "Off", "delayed")		
-			end
+			--if otherdevices["Voordeur_WCD"] == 'On' and xmasseason('false') then
+			--switchDevice("Voordeur_WCD", "Off", "delayed")		
+			--end
 		
 			debugLog('Standbykillers uitgeschakeld')
 		end

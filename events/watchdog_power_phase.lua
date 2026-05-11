@@ -10,8 +10,8 @@
 -- Watchdog PFASE 1,2 and 3 Power usage
 -- *********************************************************************
 --
-
-	if devicechanged["Time Trigger 1min"] == 'On'
+	
+	if devicechanged["Time Trigger 1min"] == 'Off'
 		and (homewizard('L1') > 5000 or homewizard('L2') > 5000 or homewizard('L3') > 5000)
 	then
 
@@ -212,7 +212,7 @@
 -- *********************************************************************
 --
 
-	if devicechanged["Time Trigger 1min"] == 'Off'
+	if devicechanged["Time Trigger 1min"] == 'On'
 		and (otherdevices["Power_FailsaveL1"] == 'On' or otherdevices["Power_FailsaveL2"] == 'On' or otherdevices["Power_FailsaveL3"] == 'On')
 	then
 
@@ -222,7 +222,7 @@
 -- *********************************************************************
 --
 
-		if homewizard('L1') <= 4000 
+		if homewizard('L1') <= 3000 
 			and lastSeen("Power_FailsaveL1", ">=", 120) 
 			and (otherdevices["Droger_WCD"] == 'Off' or otherdevices["Garage_Heater_WCD"] == 'Off' or otherdevices["Quooker_WCD"] == 'Off' or otherdevices["Voordeur_WCD"] == 'Off')
 		then
@@ -250,25 +250,25 @@
 -- *********************************************************************
 --
 		
-		if homewizard('L2') <= 4000
+		if homewizard('L2') <= 3000
 			and lastSeen("Power_FailsaveL2", ">=", 120)
 			and (otherdevices["Wasmachine_WCD"] == 'Off' or otherdevices["Achterdeur_WCD"] == 'Off' or otherdevices["BV_Charger_WCD"] == 'Off' or otherdevices["Aanrecht_WCD1"] == 'Off' or otherdevices["Aanrecht_WCD2"] == 'Off')
 		then
 
 --[[ Switch ON appliance ]]--	
-			if otherdevices["Aanrecht_WCD1"] == 'Off' and homewizard('L2') <= 4000 then
+			if otherdevices["Aanrecht_WCD1"] == 'Off' and homewizard('L2') <= 3000 then
 				switchDevice("Aanrecht_WCD1", "On")
 				
-			elseif otherdevices["Aanrecht_WCD2"] == 'Off' and homewizard('L2') <= 4000 then
+			elseif otherdevices["Aanrecht_WCD2"] == 'Off' and homewizard('L2') <= 3000 then
 				switchDevice("Aanrecht_WCD2", "On")
 				
 			elseif otherdevices["Wasmachine_WCD"] == 'Off' and homewizard('L2') <= 3000 then
 				switchDevice("Wasmachine_WCD", "On")
 				
-			elseif otherdevices["Achterdeur_WCD"] == 'Off' and homewizard('L2') <= 4000 then
+			elseif otherdevices["Achterdeur_WCD"] == 'Off' and homewizard('L2') <= 3000 then
 				switchDevice("Achterdeur_WCD", "On")
 				
-			elseif otherdevices["BV_Charger_WCD"] == 'Off' and homewizard('L2') <= 4000 then
+			elseif otherdevices["BV_Charger_WCD"] == 'Off' and homewizard('L2') <= 3000 then
 				switchDevice("BV_Charger_WCD", "On")
 				
 			end
@@ -281,16 +281,16 @@
 -- *********************************************************************
 --
 
-		if homewizard('L3') <= 4000
-			and lastSeen("Power_FailsaveL3", ">=", 120)
+		if homewizard('L3') <= 3000
+			and lastSeen("Power_FailsaveL3", ">=", 300)
 			and (otherdevices["E-Boiler_WCD"] == 'Off' or otherdevices["Vaatwasser_WCD"] == 'Off')
 		then
 
 --[[ Switch ON appliance ]]--
-			if otherdevices["Vaatwasser_WCD"] == 'Off' and homewizard('L3') <= 3000 then
+			if otherdevices["Vaatwasser_WCD"] == 'Off' and homewizard('L3') <= 2500 then
 				switchDevice("Vaatwasser_WCD", "On")
 
-			elseif otherdevices["E-Boiler_WCD"] == 'Off' and homewizard('L3') <= 2500 then
+			elseif otherdevices["E-Boiler_WCD"] == 'Off' and lastSeen("E-Boiler_WCD", ">=", 600) and homewizard('L3') <= 2500 then
 				switchDevice("E-Boiler_WCD", "On")
 				
 			end

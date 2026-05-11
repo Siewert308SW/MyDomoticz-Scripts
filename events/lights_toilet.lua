@@ -4,13 +4,17 @@
 -- *********************************************************************
 --
 	if not isMyTrigger({"Toilet_Motion", "Time Trigger 1min"}) then return end
-	
+
 --
 -- *********************************************************************
 -- Toilet light ON when motion detection
 -- *********************************************************************
 --
 
+	--if devicechanged["Time Trigger 1min"] == 'On' and boilerCooldownFailsafeTest("Dummy") then
+	--	debugLog('Boiler Test...')
+	--end
+	
 	if devicechanged["Toilet_Motion"] == 'On'
 		and otherdevices["Toilet_Verlichting"] == 'Off'
 		and otherdevices["Personen"] == 'Aanwezig'

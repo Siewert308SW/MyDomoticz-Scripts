@@ -3,7 +3,7 @@
 -- Check trigger before load script, saves resources
 -- *********************************************************************
 --
-	if not isMyTrigger({"Time Trigger 5min"}) then return end
+	if not isMyTrigger({"Time Trigger 30min"}) then return end
 
 --
 -- *********************************************************************
@@ -13,9 +13,9 @@
 
 --[[ Cache Sunset/Sunrise ]]--
 	
-	if devicechanged["Time Trigger 5min"] == 'On'
+	if devicechanged["Time Trigger 30min"] == 'On'
 		and uservariables["suntime_override"] == 0
-		and timebetween("00:00:00","00:30:00")
+		and timebetween("00:00:00","01:30:00")
 	then
 		switchDevice("Variable:suntime_override", "1")
 		sunTimeCache("sunsetEarly")
@@ -26,9 +26,9 @@
 		sunTimeCache("sunrise")
 	end
 
-	if devicechanged["Time Trigger 5min"] == 'Off'
+	if devicechanged["Time Trigger 30min"] == 'Off'
 		and uservariables["suntime_override"] == 1
-		and timebetween("00:30:00","01:00:00")
+		and timebetween("01:30:00","02:30:00")
 	then
 		switchDevice("Variable:suntime_override", "0")
 	end

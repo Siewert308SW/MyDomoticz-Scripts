@@ -7,26 +7,26 @@
 
 --
 -- **********************************************************
--- Garage lights ON
+-- Garage lights ON 
 -- **********************************************************
 --
-	if (devicechanged["Garage_Motion"] == 'On' or devicechanged["Bijkeuken_Deur"] == 'Open' or devicechanged["Garage_Deur"] == 'Open' or devicechanged["BijkeukenContr_Garage_AAN"] == 'On')
+	if (devicechanged["Bijkeuken_Deur"] == 'Open' or devicechanged["Garage_Deur"] == 'Open')
 		and otherdevices["Garage_Verlichting"] == 'Off'
-		and otherdevices["Personen"] == 'Aanwezig'
+		--and otherdevices["Personen"] == 'Aanwezig'
 		and powerFailsave('false')		
 	then
 		switchDevice("Garage_Verlichting", "On")
 		debugLog('Iemand in de garage')
 	end
-
-	if (devicechanged["Garage_Deur"] == 'Open')
+	
+	if devicechanged["Garage_Motion"] == 'On'
 		and otherdevices["Garage_Verlichting"] == 'Off'
-		and otherdevices["Personen"] ~= 'Aanwezig'
-		and lastSeen('Garage_Motion', '>', '10')
+		and otherdevices["Personen"] == 'Aanwezig'
+		and (uservariables["garage_activity"] == 1 or otherdevices["Bijkeuken_Deur"] == 'Open')
 		and powerFailsave('false')		
 	then
 		switchDevice("Garage_Verlichting", "On")
-		debugLog('Iemand thuis gekomen via de garage')
+		debugLog('Iemand in de garage')
 	end
 	
 --
@@ -39,6 +39,7 @@
 		and otherdevices["Garage_Motion"] == 'Off'
 		and lastSeen('Garage_Verlichting', '>=', '300')
 		and lastSeen('Garage_Motion', '>=', '300')
+		and uservariables["garage_activity"] == 0
 		and powerFailsave('false')
 	then
 	
@@ -47,11 +48,26 @@
 		debugLog('Garage verlichting UIT na 300s #Failsave')
 		end
 
-		if otherdevices["Garage_Deur"] == 'Open' and lastSeen('Garage_Motion', '>=', '1800') then
+		if otherdevices["Garage_Deur"] == 'Open' and lastSeen('Garage_Motion', '>=', '600') then
 		switchDevice("Garage_Verlichting", "Off")
-		debugLog('Garage verlichting UIT na 1800s #Failsave')
+		debugLog('Garage verlichting UIT na 600s #Failsave')
 		end		
 		
+	end
+	
+--
+-- **********************************************************
+-- Garage lights Manual ON/OFF
+-- **********************************************************
+--
+
+	if devicechanged["BijkeukenContr_Garage_AAN"] == 'On'
+		and otherdevices["Garage_Verlichting"] == 'Off'
+		and powerFailsave('false')		
+	then
+		switchDevice("Garage_Verlichting", "On")
+		switchDevice("Variable:garage_activity", "1")
+		debugLog('Garage verlichting manueel AAN')
 	end
 	
 	if devicechanged["BijkeukenContr_Garage_UIT"] == 'On'
@@ -59,5 +75,6 @@
 		and powerFailsave('false')
 	then
 		switchDevice("Garage_Verlichting", "Off")
+		switchDevice("Variable:garage_activity", "0")
 		debugLog('Garage verlichting manueel UIT')
 	end

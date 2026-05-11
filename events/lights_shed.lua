@@ -13,7 +13,7 @@
 
 	if devicechanged["Fietsenschuur_Deur"] == 'Open'
 		and otherdevices["Fietsenschuur_Verlichting"] == 'Off'
-		and lastSeen("Fietsenschuur_Verlichting", ">", 2)
+		and lastSeen("Fietsenschuur_Verlichting", ">", 10)
 		and lastSeen("Fietsenschuur_Motion", ">", 60)
 		and powerFailsave('false')		
 	then

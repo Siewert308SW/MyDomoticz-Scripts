@@ -64,16 +64,16 @@
 	heating_allowed = true
 
 -- Fase te zwaar of deur te lang open → niet verwarmen
-		if (fasePowerAvailable < 1100 or oven >= 1) and otherdevices[switch] == 'Off' then
+		if (fasePowerAvailable < 1100 or oven >= 50) and otherdevices[switch] == 'Off' then
 			heating_allowed = false
 
-		elseif (fasePowerAvailable <= 0 or oven >= 1) and otherdevices[switch] == 'On' then
+		elseif (fasePowerAvailable <= 0 or oven >= 50) and otherdevices[switch] == 'On' then
 			heating_allowed = false
 			
 		elseif otherdevices["Fietsenschuur_Deur"] == 'Open' and lastSeen("Fietsenschuur_Deur", ">", 120) then
 			heating_allowed = false
 			
-		elseif outside_temp_average >= 14 then
+		elseif outside_temp_average >= 10 then
 			heating_allowed = false
 
 		end
@@ -103,23 +103,23 @@
 --
 		if heating_allowed == false and otherdevices[switch] == 'On' then
 			switchDevice(switch, "Off")
-			debugLog('Kachel UIT #heating_Allowed = false')
+			--debugLog('Kachel UIT #heating_Allowed = false')
 		--print("Kachel UIT #heating_Allowed = false")
 		
 		elseif heating_allowed == true and lastSeen(switch, ">", 600) and inside_temp <= (heater_setpoint - hysteresis) and otherdevices[switch] == 'Off' and otherdevices["Fietsenschuur_Deur"] == 'Closed' and powerFailsave('false') then
-			switchDevice(switch, "On")
-			debugLog('Kachel AAN #heating_Allowed = true')
+			--switchDevice(switch, "On")
+			--debugLog('Kachel AAN #heating_Allowed = true')
 		--print("Kachel AAN #heating_Allowed = true")
 		
 		elseif heating_allowed == true and lastSeen(switch, ">", 600) and inside_temp >= (heater_setpoint + hysteresis) and otherdevices[switch] == 'On' then
 			switchDevice(switch, "Off")
-			debugLog('Kachel UIT #Setpoint behaald')
+			--debugLog('Kachel UIT #Setpoint behaald')
 		--print("Kachel UIT #Setpoint behaald")
 
-		elseif heating_allowed == true and lastSeen(switch, ">", 600) and lastSeen(motion, ">", 3600)  and lastSeen(door, ">", 3600) and heater_setpoint ~= setpoint then
+		--elseif heating_allowed == true and lastSeen(switch, ">", 600) and lastSeen(motion, ">", 3600)  and lastSeen(door, ">", 3600) and heater_setpoint ~= setpoint then
 			--switchDevice(switch, "Off")
-			switchDevice("SetSetPoint:6141", setpoint)
-			debugLog('Kachel setpoint naar vorstbeveiliging')
+		--	switchDevice("SetSetPoint:6141", setpoint)
+		--	debugLog('Kachel setpoint naar vorstbeveiliging')
 		--print("Kachel UIT #Setpoint vorstbeveiliging")
 		
 		end

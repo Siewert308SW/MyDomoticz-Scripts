@@ -13,10 +13,11 @@
 	
 	if (devicechanged["Voor_Deur"] == 'Open' or devicechanged["Voordeur_Motion"] == 'On' or devicechanged["Achter_Deur"] == 'Open' or devicechanged["Garage_Deur"] == 'Open' or devicechanged["Achterdeur_Motion"] == 'On' or devicechanged["Fietsenschuur_Deur"] == 'Open')
 		and otherdevices["Voordeur_Verlichting"] == 'Off'
-		and (timebetween(sunTime("sunset"),"23:59:59") or timebetween("00:00:00","12:00:00"))
+		and (timebetween(sunTime("sunset"),"23:59:59") or timebetween("00:00:00",sunTime("sunrise")))
 		and uservariables["tuin_activity"] == 0
 		and uservariables["tuin_verlichting_auto"] == 0
-		and dark('true', 'garden', 5)
+		and sensorValue('Tuin_Gem_Lux') < 1
+		--and dark('true', 'garden', 5)
 		and powerFailsave('false')
 	then
 		switchDevice("Scene:Tuinverlichting AAN", "On")

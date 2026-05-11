@@ -3,15 +3,17 @@
 -- Check trigger before load script, saves resources
 -- *********************************************************************
 --
+	--if not isMyTrigger({"Jerina_GSM", "Jerina_Lapt0p", "Time Trigger 5min"}) then return end
 	if not isMyTrigger({"Jerina_GSM", "Time Trigger 5min"}) then return end
-
 --
 -- **********************************************************
 -- Jerina Phone ON
 -- **********************************************************
 --
-	if (devicechanged["Time Trigger 5min"] == 'Off' or devicechanged["Jerina_GSM"] == 'On')
-		and otherdevices["Jerina_GSM"] == 'On'
+	--if (devicechanged["Time Trigger 5min"] == 'Off' or devicechanged["Jerina_GSM"] == 'On' or devicechanged["Jerina_Lapt0p"] == 'On')
+	if devicechanged["Time Trigger 5min"] == 'Off'
+		and (otherdevices["Jerina_GSM"] == 'On' or otherdevices["Jerina_Lapt0p"] == 'On')
+		--and otherdevices["Jerina_GSM"] == 'On'
 		and otherdevices["Personen"] == 'Aanwezig'
 		and otherdevices["Jerina_Laptop_WCD"] == 'Off'
 	then
@@ -27,6 +29,7 @@
 	if devicechanged["Time Trigger 5min"] == 'Off'
 		and (otherdevices["Jerina_GSM"] == 'Off' or otherdevices["Personen"] ~= 'Aanwezig')
 		and otherdevices["Jerina_Laptop_WCD"] == 'On'
+		and otherdevices["Jerina_Lapt0p"] == 'Off'
 		and lastSeen('Jerina_GSM', '>=', '300')
 		and lastSeen('Jerina_Laptop_WCD', '>=', '300')
 	then

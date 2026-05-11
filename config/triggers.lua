@@ -13,6 +13,10 @@
 		'Jerina_GSM',
 		'Siewert_GSM',
 		'Natalya_GSM',
+
+	-- Laptops
+		'Siewert_Lapt0p',
+		'Jerina_Lapt0p',
 		
 	-- Door/Window/Motion Sensors
 		'Voor_Deur',
@@ -30,34 +34,34 @@
 		'Voordeur_Motion',
 		'Achterdeur_Motion',
 		'Badkamer_Motion',
-		--'Slaapkamer_Deur_Master',
+		'Slaapkamer_Deur_Master',
 		
 	-- Light Switches
 		'WoonkamerContr_Verlichting_AAN',
-		'WoonkamerContr_Verlichting_UIT',	
-
+		'WoonkamerContr_Verlichting_UIT',
 		'WoonkamerContr_Hal_AAN',
 		'WoonkamerContr_Hal_UIT',
-		
 		'WoonkamerContr_Manco1_AAN',
 		'WoonkamerContr_Manco1_UIT',
-
 		'WoonkamerContr_Manco2_AAN',
 		'WoonkamerContr_Manco2_UIT',
 
 		'BijkeukenContr_Garage_AAN',
 		'BijkeukenContr_Garage_UIT',
-
 		'BijkeukenContr_Manco1_AAN',
 		'BijkeukenContr_Manco2_UIT',
-
 		'BijkeukenContr_Manco2_AAN',
-		'BijkeukenContr_Manco2_UIT',
-		
+		'BijkeukenContr_Manco2_UIT',	
 		'BijkeukenContr_Verlichting_AAN',
 		'BijkeukenContr_Verlichting_UIT',
 	
+		'FietsenschuurContr_Makita_AAN',
+		'FietsenschuurContr_Makita_UIT',
+		'FietsenschuurContr_Comp_AAN',
+		'FietsenschuurContr_Comp_UIT',
+		
 	-- Various
+		'EB_Chargers_WCD',
 		--'Woonkamer_Airco_Power',
 		--'Slaapkamer_Airco_Power',
 		--'Natalya_Airco_Power',
@@ -77,6 +81,4 @@
 		'Time Trigger 5min',
 		'Time Trigger 10min',
 		'Time Trigger 30min',
-		--'Time Trigger 60min',
-		'Dummy',
 }

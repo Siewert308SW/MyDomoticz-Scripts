@@ -3,7 +3,7 @@
 -- Check trigger before load script, saves resources
 -- *********************************************************************
 --
-	if not isMyTrigger({"Time Trigger 10min"}) then return end
+	if not isMyTrigger({"Time Trigger 5min", "Time Trigger 10min"}) then return end
 	
 --
 -- **********************************************************
@@ -11,13 +11,14 @@
 -- **********************************************************
 --
 	
-	if devicechanged["Time Trigger 10min"] == 'Off'
+	if devicechanged["Time Trigger 5min"] == 'Off'
 		and otherdevices["Voordeur_Verlichting"] == 'Off'
 		and otherdevices["Achterdeur_Verlichting"] == 'Off'
 		and otherdevices["Brandgang_Verlichting"] == 'Off'
 		and otherdevices["Fietsenschuur_Buiten_Verlichting"] == 'Off'
 		and uservariables["tuin_activity"] == 0
-		and dark('true', 'garden', 15)
+		and sensorValue('Tuin_Gem_Lux') < 15
+		--and dark('true', 'garden', 5)
 		and timebetween(sunTime("sunset"),"23:29:59")
 		and powerFailsave('false')
 	then
@@ -38,8 +39,8 @@
 		or otherdevices["Brandgang_Verlichting"] ~= 'Off'
 		or otherdevices["Fietsenschuur_Buiten_Verlichting"] ~= 'Off')
 		and uservariables["tuin_activity"] == 0
-		and dark('false', 'garden', 15)
-		and xmasseason('false')
+		and sensorValue('Tuin_Gem_Lux') > 15
+		--and dark('false', 'garden', 10)
 		and lastSeen('Voordeur_Verlichting', '>', '300')
 		and powerFailsave('false')
 	then
@@ -55,18 +56,36 @@
 --
 
 	if devicechanged["Time Trigger 10min"] == 'Off'
+		and otherdevices["Personen"] ~= 'Aanwezig'
+		and (otherdevices["Voordeur_Verlichting"] ~= 'Off'
+		or otherdevices["Achterdeur_Verlichting"] ~= 'Off'
+		or otherdevices["Brandgang_Verlichting"] ~= 'Off'
+		or otherdevices["Fietsenschuur_Buiten_Verlichting"] ~= 'Off')
+		and uservariables["tuin_activity"] == 0
+		and motionGarden('false', 300)
+		and timebetween("00:00:00",sunTime("sunrise"))
+		and powerFailsave('false')
+	then
+		switchDevice("Scene:Tuinverlichting UIT", "On")
+		switchDevice("Variable:tuin_verlichting_auto", "0")
+		debugLog('Tuinverlichting uitgeschakeld')
+	end
+	
+--[[
+	if devicechanged["Time Trigger 10min"] == 'Off'
 		and (otherdevices["Voordeur_Verlichting"] ~= 'Off'
 		or otherdevices["Achterdeur_Verlichting"] ~= 'Off'
 		or otherdevices["Brandgang_Verlichting"] ~= 'Off'
 		or otherdevices["Fietsenschuur_Buiten_Verlichting"] ~= 'Off')
 		and uservariables["tuin_activity"] == 0
 		and motionGarden('false', 1800)
-		and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00",sunTime("sunset")))
+		and timebetween("00:00:00",sunTime("sunrise"))
 		and powerFailsave('false')
+		and newYear('false')
 	then
 	
 		if weekend('false') and bankHoliday('false')
-			and (timebetween("23:30:00","23:59:59") or timebetween("00:00:00",sunTime("sunset")))
+			and timebetween("00:00:00",sunTime("sunrise"))
 		then
 			switchDevice("Scene:Tuinverlichting UIT", "On")
 			switchDevice("Variable:tuin_verlichting_auto", "0")
@@ -74,7 +93,7 @@
 		
 		elseif weekend('true') and bankHoliday('false')
 			and otherdevices["Personen"] ~= 'Aanwezig'
-			and timebetween("00:00:00",sunTime("sunrise"))
+			and timebetween("00:30:00",sunTime("sunrise"))
 		then
 			switchDevice("Scene:Tuinverlichting UIT", "On")
 			switchDevice("Variable:tuin_verlichting_auto", "0")
@@ -82,7 +101,7 @@
 
 		elseif bankHoliday('true')
 			and otherdevices["Personen"] ~= 'Aanwezig'
-			and timebetween("02:00:00",sunTime("sunrise"))			
+			and timebetween("00:30:00",sunTime("sunrise"))			
 		then
 			switchDevice("Scene:Tuinverlichting UIT", "On")
 			switchDevice("Variable:tuin_verlichting_auto", "0")
@@ -91,3 +110,4 @@
 		end
 		
 	end
+	--]]

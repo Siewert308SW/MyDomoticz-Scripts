@@ -5,5 +5,5 @@
 --
 
 	lua = {
-		debugLogging	= 'yes';	
+		debugLoggging	= 'yes';	
 	}	

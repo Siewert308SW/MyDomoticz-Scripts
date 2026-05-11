@@ -19,7 +19,7 @@
 		or devicechanged["Overloop_Deur"] == 'Open')
 		and (otherdevices["Personen"] ~= 'Aanwezig' or uservariables["manual_light"] == 1)
 		and lastSeen("Personen", ">", 60)
-		and lastSeen("WoonkamerContr_Verlichting_UIT", ">", 120)
+		and lastSeen("WoonkamerContr_Verlichting_UIT", ">", 60)
 		and lastSeen("BijkeukenContr_Verlichting_UIT", ">", 120)
 		and powerFailsave('false')
 	then
@@ -36,7 +36,7 @@
 	if devicechanged["Personen"] == 'Start'
 		and powerFailsave('false')
 	then
-		switchDevice("Personen", "Set Level 10", 9)
+		switchDevice("Personen", "Set Level 10", 10)
 		--commandArray[#commandArray+1]={["Personen"] = "Set Level 10 AFTER 9"}
 		debugLog('Iemand thuis, huis wordt opgestart')
 	end
@@ -86,12 +86,12 @@
 	then
 
 		if phonesOnline('true') then
-		switchDevice("Personen", "Set Level 20", 9)
+		switchDevice("Personen", "Set Level 20", 10)
 		--commandArray[#commandArray+1]={["Personen"] = "Set Level 20 AFTER 9"}
 		debugLog('Iedereen slaapt, huis wordt afgesloten')
 		
 		elseif phonesOnline('false') then
-		switchDevice("Personen", "Set Level 0", 9)
+		switchDevice("Personen", "Set Level 0", 10)
 		--commandArray[#commandArray+1]={["Personen"] = "Set Level 0 AFTER 9"}
 		debugLog('Niemand thuis, huis wordt afgesloten')		
 		end

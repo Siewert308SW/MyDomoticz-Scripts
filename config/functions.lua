@@ -140,11 +140,11 @@
 		-- Detecteer input + bepaal offset in minuten
 		if input == "sunsetEarly" then
 			mode = "sunset"
-			offset = -30
+			offset = -120
 			
 		elseif input == "sunsetLate" then
 			mode = "sunset"
-			offset = 30
+			offset = 60
 			
 		elseif input == "sunset" then
 			mode = "sunset"
@@ -152,11 +152,11 @@
 			
 		elseif input == "sunriseEarly" then
 			mode = "sunrise"
-			offset = -30
+			offset = -60
 			
 		elseif input == "sunriseLate" then
 			mode = "sunrise"
-			offset = 30
+			offset = 120
 
 		elseif input == "sunrise" then
 			mode = "sunrise"
@@ -257,7 +257,7 @@
 		local tNow = os.date("*t")
 		local summertime = tNow.yday
 			
-			if input == 'true' and (summertime >= 60) and (summertime <= 274) then
+			if input == 'true' and (summertime >= 90) and (summertime <= 274) then
 				result = true
 			end
  
@@ -300,9 +300,10 @@
 -- **********************************************************
 --
 
-	function laptopsOnline(input)
+	function laptopsOnline(input,purpose)
 		input = input
 		result = false
+		purpose = purpose
 		laptopsonline = false
 
 		local excludedDevices = {
@@ -310,12 +311,23 @@
 			["Natalya_School_Lapt0p"] = true
 		}
 		
+		if purpose == "all" then
+		
 			for i, v in pairs(otherdevices) do
-				if not excludedDevices[name] and string.match(i, "_Lapt0p$") and otherdevices[i] == 'On' then
+				if string.match(i, "_Lapt0p$") and otherdevices[i] == 'On' then
 					laptopsonline = true
 				end
 			end
 			
+		else
+		
+			for i, v in pairs(otherdevices) do
+				if not excludedDevices[i] and string.match(i, "_Lapt0p$") and otherdevices[i] == 'On' then
+					laptopsonline = true
+				end
+			end
+			
+		end
 			if input == 'true' and laptopsonline == true then
 				result = true
 			end
@@ -367,6 +379,38 @@
 		local anyRecent = false
 		local allQuiet = true
 
+		local excludedDevices = {
+			["Slaapkamer_Deur_Natalya"] = true,
+			["Slaapkamer_Deur_Master"] = true,
+			["Overloop_Motion"] = true,
+			["Badkamer_Motion"] = true
+		}
+		
+		for name, lastupdate in pairs(otherdevices_lastupdate) do
+			if not excludedDevices[name] and (string.match(name, "_Motion$") or string.match(name, "_Deur$")) then
+				local diff = timedifference(lastupdate)
+
+				if diff < seconds then
+					anyRecent = true
+					allQuiet = false
+				end
+			end
+		end
+
+		if input == 'true' then
+			return anyRecent
+		elseif input == 'false' then
+			return allQuiet
+		else
+			return false
+		end
+	end
+
+--[[
+	function motionHome(input, seconds)
+		local anyRecent = false
+		local allQuiet = true
+
 		for name, lastupdate in pairs(otherdevices_lastupdate) do
 			if string.match(name, "_Motion$") or string.match(name, "_Deur$") then
 				local diff = timedifference(lastupdate)
@@ -386,7 +430,7 @@
 			return false
 		end
 	end
-	
+--]]	
 --
 -- **********************************************************
 -- Check overall garden motion
@@ -576,19 +620,45 @@
 --[[ HomeWizard virtual P1 power available  ]]--			
 			if device == "p1Available" then
 			  reading_p1       = os.capture("curl -s 'http://192.168.178.77/api/v1/data' | gron | grep 'active_power_w' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
+
+			  readingSolar = os.capture("curl -s 'http://192.168.178.83/api/v1/data' | gron | grep 'active_power_w' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
 			  
 			  reading_charger1 = os.capture("curl -s 'http://192.168.178.90/api/v1/data' | gron | grep 'active_power_w' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
 			  reading_charger2 = os.capture("curl -s 'http://192.168.178.89/api/v1/data' | gron | grep 'active_power_w' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
 			  reading_charger3 = os.capture("curl -s 'http://192.168.178.91/api/v1/data' | gron | grep 'active_power_w' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
 			  reading_charger4 = os.capture("curl -s 'http://192.168.178.103/api/v1/data' | gron | grep 'active_power_w' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
+			  reading_charger5 = os.capture("curl -s 'http://192.168.178.100/api/v1/data' | gron | grep 'active_power_w' | awk '{print $3}' | sed 's/\"//g' | sed 's/;//g'", false)
 
-			  chargerUsage = reading_charger1 + reading_charger2 + reading_charger3 + reading_charger4
-			  reading = reading_p1 - chargerUsage
+			  if tonumber(reading_charger5) < 0 then
+			  reading_marstek = 0
+			  else
+			  reading_marstek = reading_charger5
+			  end
+			  
+			  
+			  chargerUsage = reading_charger1 + reading_charger2 + reading_charger3 + reading_charger4 + reading_marstek
+			  readingp1Available = reading_p1 - chargerUsage
+				
+			  if readingp1Available > 0 then
+			  reading = 0
+			  else
+			  reading = readingp1Available
+			  end
+
+			  print("-----------------------")
+			  print(" ")
+			  print("P1 Meter:"..reading_p1)
+			  print("PV Opwek:"..readingSolar)
+			  print("Lader verbruik:"..chargerUsage)
+			  print("p1Available:"..reading)
+			  print(" ")
+			  print("-----------------------")
+			  
 			end	
 
 --[[ HomeWizard Battery Percentage ]]--
 			if device == "battery" then
-			  reading = os.capture("curl 'http://192.168.178.3:8080/json.htm?type=command&param=getdevices&rid=64' | grep 'Data' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g' | sed 's/%//g'", false)
+			  reading = os.capture("curl 'http://192.168.178.7:8080/json.htm?type=command&param=getdevices&rid=64' | grep 'Data' | awk '{print $3}' | sed 's/\"//g' | sed 's/,//g' | sed 's/%//g'", false)
 			end
 
 --[[ HomeWizard Inverters ON/OFF ]]--
@@ -636,6 +706,34 @@
 			result = true
 		end
 		if input == 'false' and not isHoliday then
+			result = true
+		end
+
+		return result
+	end
+
+--
+-- **********************************************************
+-- New Year checker
+-- **********************************************************
+--
+	function newYear(input)
+		input = input
+		local result = false
+
+		-- (MM-DD)
+		local newyear = {
+			["01-01"] = true,
+		}
+
+		local today = os.date("%m-%d")
+
+		local isNewYear = newyear[today] == true
+
+		if input == 'true' and isNewYear then
+			result = true
+		end
+		if input == 'false' and not isNewYear then
 			result = true
 		end
 
@@ -720,6 +818,173 @@
 		end
 	end
 
+--
+-- **********************************************************
+-- Boiler cooldown failsafe
+-- **********************************************************
+--
+
+	function boilerCooldownFailsafeTest(device)
+		local result             = false
+		local boilerStartTemp    = 75
+		local boilerCooldownHour = 0.7
+		local boilerMinTemp      = 60
+		local hoursOff           = 0
+		local estimatedTemp      = boilerStartTemp
+		local waterTrigger 		 = tonumber(uservariables["Water_Usage_Trigger"])
+		
+		if waterTrigger == 1 then
+		boilerCooldownHour = 1.0
+		end
+		
+		if otherdevices[device] ~= 'Off' then
+			return result, estimatedTemp, hoursOff
+		end
+
+		hoursOff      = timedifference(otherdevices_lastupdate[device]) / 3600
+		estimatedTemp = boilerStartTemp - (hoursOff * boilerCooldownHour)
+
+		if estimatedTemp <= boilerMinTemp then
+			result = true
+		end
+
+			  print("-----------------------")
+			  print(" ")
+			  print("Boiler Est Temp:"..estimatedTemp)
+			  print("Boiler Uit Sinds:"..hoursOff)			  
+			  print(" ")
+			  print("-----------------------")
+			  
+		return result, estimatedTemp, hoursOff
+	end
+
+	function boilerCooldownFailsafe(device)
+		local result             = false
+		local boilerStartTemp    = 72.5
+		local boilerCooldownHour = 0.7
+		local boilerMinTemp      = 60
+		local hoursOff           = 0
+		local hoursToGo          = 0
+		local estimatedTemp      = boilerStartTemp
+		local waterTrigger       = tonumber(uservariables["Water_Usage_Trigger"]) or 0
+		
+		if waterTrigger == 1 then
+			boilerStartTemp = 55
+		end
+		
+		if otherdevices[device] ~= 'Off' then
+			return result, estimatedTemp, hoursOff, hoursToGo
+		end
+
+		hoursOff      = timedifference(otherdevices_lastupdate[device]) / 3600
+		estimatedTemp = boilerStartTemp - (hoursOff * boilerCooldownHour)
+		hoursToGo     = math.max(0, (estimatedTemp - boilerMinTemp) / boilerCooldownHour)
+
+		if estimatedTemp <= boilerMinTemp then
+			result = true
+		end
+
+		print("-----------------------")
+		print(" ")
+		print("Boiler Est Temp:" .. estimatedTemp)
+		print("Boiler Uit Sinds:" .. hoursOff)
+		print("Boiler Est Time:" .. hoursToGo)
+		print("WaterTrigger:" .. waterTrigger)
+		print(" ")
+		print("-----------------------")
+		  
+		return result, estimatedTemp, hoursOff, hoursToGo
+	end
+	
+--	
+-- **********************************************************
+-- Boiler Smart Start
+-- **********************************************************
+--
+	function boilerSmartStart(input)
+	
+		input = input
+		local result             = false
+		local baseThreshold      = -2800
+		local dischargeAvailable = tonumber(uservariables["PiBattery_DischargeAvailable"])
+		local waterTrigger 		 = tonumber(uservariables["Water_Usage_Trigger"])
+		local PiBattery_Pct 	 = tonumber(uservariables["PiBattery_BatteryPct"])
+		local Marstek_Pct 		 = tonumber(uservariables["Marstek_BatteryPct"])
+		local charged			 = (PiBattery_Pct == 100 and Marstek_Pct == 100)
+		
+	-- **********************************************************
+
+		if dischargeAvailable == 1960 and (waterTrigger == 1 or charged) then
+			baseThreshold = -1000
+		elseif dischargeAvailable == 1160 and (waterTrigger == 1 or charged) then
+			baseThreshold = -1800
+		elseif dischargeAvailable == 800 and (waterTrigger == 1 or charged) then
+			baseThreshold = -2200
+		end
+
+	-- **********************************************************
+	
+		if boilerCooldownFailsafe("E-Boiler_WCD") then
+			baseThreshold = 0	
+		end
+	
+	-- **********************************************************
+
+	if input == 'true'
+		and homewizard("Solar") <= baseThreshold
+		and homewizard("p1Available") <= baseThreshold
+		and sensorValue('Vaatwasser_Huidige_Verbruik') <= 1
+		and sensorValue('Wasmachine_Huidige_Verbruik') <= 2
+		and sensorValue('Droger_Huidige_Verbruik') <= 2		
+	then
+		result = true
+	end
+
+		return result
+	end
+
+--
+-- **********************************************************
+-- Boiler Smart Stop
+-- **********************************************************
+
+	function boilerSmartStop(input)
+	
+		input = input
+		local result             = false
+		local baseThreshold      = -2500
+		local dischargeAvailable = tonumber(uservariables["PiBattery_DischargeAvailable"])
+		local waterTrigger 		 = tonumber(uservariables["Water_Usage_Trigger"])
+		local PiBattery_Pct 	 = tonumber(uservariables["PiBattery_BatteryPct"])
+		local Marstek_Pct 		 = tonumber(uservariables["Marstek_BatteryPct"])
+		
+	-- **********************************************************
+
+		if dischargeAvailable == 1960 then
+			baseThreshold = -2000
+		elseif dischargeAvailable == 1160 then
+			baseThreshold = -2300
+		elseif dischargeAvailable == 800 then
+			baseThreshold = -2500
+		end
+		
+	-- **********************************************************
+
+		if input == 'true'
+			and homewizard("Solar") > baseThreshold
+			and homewizard("p1Available") > baseThreshold
+			and PiBattery_Pct >= 65
+			and Marstek_Pct >= 65
+			and uservariables["SunScoreTomorrow"] >= 35	
+			and sensorValue('E-Boiler_Huidige_Verbruik') <= 2		
+		then
+			result = true
+		end
+
+		return result
+	end
+	
+--	
 -- **********************************************************
 -- Toggle device/variable/Scene
 -- **********************************************************
@@ -804,23 +1069,35 @@
 
 		if lux_sensor == 'living' then
 		
-			if xmasseason('false') then
+			if otherdevices["Feestdagen"] == 'Off' then
 				local s1 = sensorValue("Woonkamer_LUX") or 0
 				local s2 = sensorValue("Keuken_LUX") or 0
 				local s3 = sensorValue("Voordeur_LUX") or 0
 				local s4 = sensorValue("Achterdeur_LUX") or 0
-				sensorValueTotal = round((s1 + s2 + s3 + s4) / 4, 0)
+				
+				if uservariables["woonkamer_verlichting_auto"] == 2 then
+				sensorValueTotal = round((s1 + s2 + s3 + s4) / 4, 0)				
+				else
+				sensorValueTotal = round((s1 + s2 + s3 + s4) / 5, 0)				
+				end
+				
 			else
 				local s1 = sensorValue("Woonkamer_LUX") or 0
 				local s2 = sensorValue("Keuken_LUX") or 0
 				local s3 = sensorValue("Achterdeur_LUX") or 0
 				local s4 = sensorValue("Achterdeur_LUX") or 0
-				sensorValueTotal = round((s1 + s2 + s3 + s4) / 4, 0)
+				
+				if uservariables["woonkamer_verlichting_auto"] == 2 then
+				sensorValueTotal = round((s1 + s2 + s3 + s4) / 4, 0)				
+				else
+				sensorValueTotal = round((s1 + s2 + s3 + s4) / 5, 0)				
+				end
+		
 			end
 			
 		elseif lux_sensor == 'garden' then
 		
-			if xmasseason('false') then
+			if otherdevices["Feestdagen"] == 'Off' then
 				local s1 = sensorValue("Voordeur_LUX") or 0
 				local s2 = sensorValue("Achterdeur_LUX") or 0
 				sensorValueTotal = round((s1 + s2) / 2, 0)
@@ -834,13 +1111,13 @@
 		end
 
 		-- Dark?
-		if darkMode == 'true' and sensorValueTotal <= threshold then
+		if darkMode == 'true' and sensorValueTotal < threshold then
 			result = true
 			--print("Woonkamer LUX = "..sensorValueTotal.."")
 		end
 
 		-- Not Dark?
-		if darkMode == 'false' and sensorValueTotal > threshold then
+		if darkMode == 'false' and sensorValueTotal >= threshold then
 			result = true
 			--print("Woonkamer LUX = "..sensorValueTotal.."")
 		end
